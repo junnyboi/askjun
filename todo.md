@@ -1,0 +1,30 @@
+# askJun Portfolio TODO
+
+- [x] Initialize project scaffold (React + TypeScript + Tailwind)
+- [x] Design Glass Atelier theme (dark navy + orange/violet accents)
+- [x] Generate visual assets (hero gradient, skyline, avatar ring, tech pattern)
+- [x] Build bento grid layout with glass cards
+- [x] Implement HeroCard with profile info
+- [x] Implement ChatCard (CTA tile)
+- [x] Implement ExperienceCard with expandable timeline
+- [x] Implement SkillsCard with marquee + categories
+- [x] Implement HighlightsCard with key metrics
+- [x] Implement ContactCard with links
+- [x] Implement SkylineFooter
+- [x] Build ChatPanel with streaming text simulation
+- [x] Implement client-side keyword-matching chat engine
+- [x] Add Framer Motion animations (spring physics, staggered entrance)
+- [x] Add ambient gradient orbs with float animations
+- [x] Responsive design with mobile FAB for chat
+- [x] SEO metadata and Open Graph tags
+- [x] Generate profile photo (GPT Image 2)
+- [x] Integrate profile photo into HeroCard
+- [x] Upgrade to full-stack (web-db-user)
+- [x] Build knowledge base and system prompt
+- [x] Implement /api/chat route with DeepSeek via Forge API
+- [x] Add rate limiting (30 msgs/IP/hour)
+- [x] Update ChatPanel to use real AI API with fallback
+- [x] Write vitest tests for chat route
+- [ ] Add custom domain (askjun.com or junboh.dev)
+- [ ] Add conversation persistence (DB-backed chat history)
+- [ ] Add Open Graph image generation

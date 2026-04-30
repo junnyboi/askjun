@@ -8,6 +8,7 @@ import { PROFILE } from "@/data/portfolio";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/hero-gradient-bg-5LZjwXJwUMjzCQyZt9RHtg.webp";
 const AVATAR_RING = "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/profile-avatar-bg-WFZVHJYsQ2aAxEPUDXqKSf.webp";
+const PROFILE_PHOTO = "/manus-storage/jun-profile-gpt2_30e7dd55.png";
 
 export default function HeroCard() {
   return (
@@ -33,11 +34,11 @@ export default function HeroCard() {
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-2 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center">
-                <span className="text-2xl sm:text-3xl font-bold gradient-text">
-                  J
-                </span>
-              </div>
+              <img
+                src={PROFILE_PHOTO}
+                alt="Boh Ze Jun"
+                className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] rounded-full object-cover"
+              />
             </div>
             {/* Online indicator */}
             <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-emerald-500 border-2 border-background" />
