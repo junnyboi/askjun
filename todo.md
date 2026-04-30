@@ -25,6 +25,10 @@
 - [x] Add rate limiting (30 msgs/IP/hour)
 - [x] Update ChatPanel to use real AI API with fallback
 - [x] Write vitest tests for chat route
-- [ ] Add custom domain (askjun.com or junboh.dev)
+## Future Enhancements (Optional)
+- [ ] Add custom domain (askjun.com or junboh.dev) — requires domain purchase via Settings > Domains
 - [ ] Add conversation persistence (DB-backed chat history)
 - [ ] Add Open Graph image generation
+- [x] Scrape LinkedIn profile for additional info
+- [x] Replace AI-generated profile photo with real Meta photo
+- [x] Update knowledge base with LinkedIn data

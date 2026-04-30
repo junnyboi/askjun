@@ -92,9 +92,37 @@ Software Engineer who built AI agent conversation interfaces and collaboration t
 ## Why Looking for New Opportunities
 Jun is exploring new opportunities because he's ready for his next challenge. He's particularly interested in roles where he can build AI-native products, work at scale with millions of users, and drive technical innovation. He's looking for Senior Frontend or Full Stack roles at companies pushing the boundaries of what software can do. Singapore-based preferred, but open to compelling opportunities.
 
+## Personal Background & Personality
+- Motivated technologist with a keen interest in developing digital ecosystems and harnessing new technologies to transform businesses
+- Enthusiastic about innovation, solving problems, and creating amazing user experiences
+- Spent a large part of childhood living abroad in the USA and UK before returning to Singapore — highly articulate, confident in working with diverse cultures
+- Good food and music keep him going!
+- Multicultural perspective: comfortable navigating international teams and cross-cultural communication
+- 5,392 LinkedIn followers, active thought leader in the Singapore tech community
+
+## Certifications
+- Professional Scrum Product Owner I (PSPO I) — Scrum.org, Oct 2019
+- Professional Scrum Master I (PSM I) — Scrum.org, Oct 2019
+- 15 total professional certifications
+
+## Additional Early Career
+- Backend Software Engineer (Intern) at Advent Access, A*STAR (Apr 2018 - Sep 2018) — Singapore's Agency for Science, Technology and Research
+- Business Analyst / Data Scientist (Intern) at DBS Bank (May 2017 - Aug 2017, Dec 2017 - Jan 2018)
+
+## Awards (Detailed)
+- ByteDance Rockstar Employee Awards 2021: "Dedicated Pioneer Team Award" — presented to Global Payment FE SG Team "in recognition for exemplary contributions", dated 9 December 2021
+- Bank of Singapore CEO Recognition Award 2020: Innovation Category — "In recognition of your outstanding contribution as a member of the PitchPerfect Team – an Innovation Challenge idea", signed by CEO Bahren Shaari, dated 11 November 2020
+- Bank of Singapore 2020 Innovation Challenge #1 (Springboard): Just Do It Award for "SuperSolver" (genetic algorithm portfolio optimizer) + Silver Award for "Pitchbook 4.0" (RM pitch tool), both signed by COO Sanjay Phukan and CEO Bahren Shaari
+
+## Extracurricular & Interests
+- NUS Bash Committee – Publicity Director
+- NUS Ballroom (Dancesport)
+- Passionate about food, music, and dance
+- Active LinkedIn presence with 5,392 followers
+
 ## Contact
 - Email: boh.ze.jun@gmail.com
-- LinkedIn: linkedin.com/in/junboh
+- LinkedIn: linkedin.com/in/junboh (5,392 followers)
 - GitHub: github.com/junnyboi
 - Location: Singapore
 `;
