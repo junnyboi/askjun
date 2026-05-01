@@ -132,30 +132,30 @@ export default function Home() {
         <div ref={scrollRef} className="flex-1 overflow-y-auto">
           {!hasMessages ? (
             /* ============ EMPTY STATE — ChatGPT-style hero ============ */
-            <div className="h-full flex flex-col items-center justify-center px-4 py-12">
-              {/* Profile identity */}
-              <div className="mb-8 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 overflow-hidden border border-border">
+            <div className="h-full flex flex-col items-center justify-center px-4 py-6 sm:py-12">
+              {/* Profile identity — compact on mobile */}
+              <div className="mb-4 sm:mb-8 text-center">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 overflow-hidden border border-border">
                   <img
                     src="/manus-storage/jun-profile-meta_7e9e3d09.jpg"
                     alt="Boh Ze Jun"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-1">
+                <h1 className="text-xl sm:text-3xl font-bold text-foreground tracking-tight mb-0.5">
                   {PROFILE.name}
                 </h1>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   {PROFILE.title}
                 </p>
-                <div className="flex items-center justify-center gap-2 mt-2">
+                <div className="flex items-center justify-center gap-1.5 mt-1.5">
                   <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                  <span className="text-xs font-mono text-muted-foreground">Available for hire</span>
+                  <span className="text-[10px] font-mono text-muted-foreground">Available for hire</span>
                 </div>
               </div>
 
-              {/* Key metrics — compact */}
-              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mb-10 text-center">
+              {/* Key metrics — hidden on mobile to reduce clutter */}
+              <div className="hidden sm:flex flex-wrap items-center justify-center gap-6 mb-8 text-center">
                 {HIGHLIGHTS.slice(0, 4).map((h, i) => (
                   <div key={i} className="flex flex-col items-center">
                     <span className="font-mono text-sm font-bold text-foreground">{h.metric}</span>
@@ -165,20 +165,20 @@ export default function Home() {
               </div>
 
               {/* Main prompt text */}
-              <p className="text-lg sm:text-xl text-muted-foreground text-center max-w-md mb-8">
+              <p className="text-base sm:text-xl text-muted-foreground text-center max-w-md mb-5 sm:mb-8">
                 Ask me anything about Jun's experience, skills, or career.
               </p>
 
               {/* Centered input — ChatGPT style hero CTA */}
-              <div className="w-full max-w-xl">
-                <div className="flex items-end gap-3">
-                  <div className="flex-1 border border-border focus-within:border-accent transition-colors px-4 py-3">
+              <div className="w-full max-w-xl px-2 sm:px-0">
+                <div className="flex items-end gap-2 sm:gap-3">
+                  <div className="flex-1 border border-border focus-within:border-accent transition-colors px-3 sm:px-4 py-2.5 sm:py-3">
                     <textarea
                       ref={inputRef}
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
                       onKeyDown={handleKeyDown}
-                      placeholder="Ask about Jun's experience, skills, projects..."
+                      placeholder="Ask about Jun..."
                       rows={1}
                       className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 resize-none outline-none max-h-32 font-mono"
                       style={{ minHeight: "20px" }}
@@ -188,22 +188,32 @@ export default function Home() {
                     onClick={() => handleSend()}
                     disabled={!input.trim() || isTyping}
                     aria-label="Send message"
-                    className="shrink-0 w-10 h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-opacity active:scale-95"
+                    className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-opacity active:scale-95"
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="m5 12 7-7 7 7" />
                       <path d="M12 19V5" />
                     </svg>
                   </button>
                 </div>
 
-                {/* Suggestion chips */}
-                <div className="flex flex-wrap gap-2 mt-4 justify-center">
-                  {CHAT_SUGGESTIONS.map((s, i) => (
+                {/* Suggestion chips — show 3 on mobile, all on desktop */}
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3 sm:mt-4 justify-center">
+                  {CHAT_SUGGESTIONS.slice(0, 3).map((s, i) => (
                     <button
                       key={i}
                       onClick={() => handleSend(s)}
-                      className="text-xs font-mono px-3 py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-colors"
+                      className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-colors"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                  {/* Show remaining only on desktop */}
+                  {CHAT_SUGGESTIONS.slice(3).map((s, i) => (
+                    <button
+                      key={i + 3}
+                      onClick={() => handleSend(s)}
+                      className="hidden sm:inline-block text-xs font-mono px-3 py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-colors"
                     >
                       {s}
                     </button>
