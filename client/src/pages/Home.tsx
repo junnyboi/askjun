@@ -340,6 +340,77 @@ export default function Home() {
                       </div>
                     </div>
 
+                    {/* Projects Grid */}
+                    <div className="border-t border-border pt-6 mb-8">
+                      <h2 className="text-sm font-bold text-foreground mb-4">Projects</h2>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {[
+                          {
+                            title: "Manus AI Agent Interface",
+                            company: "Meta",
+                            description: "Real-time streaming conversation UI for advanced AI agent platform",
+                            metrics: ["React + TypeScript", "Real-time streaming", "Multi-turn context"],
+                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-manus-ai-fsVjG3hG8GimaNaRMXfsTz.webp",
+                            link: "https://manus.im",
+                          },
+                          {
+                            title: "Global Payment System",
+                            company: "HoYoverse",
+                            description: "Payment infrastructure for 5 flagship titles processing $57M on launch week",
+                            metrics: ["50+ payment methods", "100+ countries", "8M DAU"],
+                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-hoyoverse-payments-KrqdTmaGUksF9NJRrj7wNG.webp",
+                            link: "https://www.hoyoverse.com",
+                          },
+                          {
+                            title: "GDPR Compliance Portal",
+                            company: "TikTok",
+                            description: "Rebuilt payment portals under regulatory deadline, averting multi-million-euro fines",
+                            metrics: ["React + Node + Golang", "Data residency", "EU compliance"],
+                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-tiktok-gdpr-iNo5znoAKiyFn2SbAfKRCv.webp",
+                            link: "https://www.tiktok.com",
+                          },
+                          {
+                            title: "Innovation & Roboadvisory",
+                            company: "Bank of Singapore",
+                            description: "Led winning innovation products delivering $1.5M/annum in savings",
+                            metrics: ["Genetic algorithm", "3,680 hrs saved", "CEO Award"],
+                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-bos-innovation-5GTCjJsGFiEku3YGngpV35.webp",
+                            link: "https://www.bankofsingapore.com",
+                          },
+                        ].map((project, i) => (
+                          <a
+                            key={i}
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group border border-border rounded-lg overflow-hidden hover:border-accent/50 transition-all"
+                          >
+                            <div className="aspect-video overflow-hidden bg-muted">
+                              <img
+                                src={project.image}
+                                alt={project.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            </div>
+                            <div className="p-3">
+                              <div className="flex items-center justify-between mb-1">
+                                <h3 className="text-xs font-semibold text-foreground">{project.title}</h3>
+                                <span className="text-[10px] font-mono text-accent">{project.company}</span>
+                              </div>
+                              <p className="text-[11px] text-muted-foreground mb-2 leading-relaxed">{project.description}</p>
+                              <div className="flex flex-wrap gap-1">
+                                {project.metrics.map((m, j) => (
+                                  <span key={j} className="text-[9px] font-mono px-1.5 py-0.5 border border-border text-muted-foreground rounded">
+                                    {m}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+
                     {/* Contact */}
                     <div className="border-t border-border pt-6">
                       <h2 className="text-sm font-bold text-foreground mb-4">Contact</h2>

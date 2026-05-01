@@ -86,9 +86,14 @@
 ## UX Improvements — Phase C: Chat Enhancements
 - [x] Typing speed variation (±20%, pause at punctuation)
 - [x] Share conversation button (copy transcript)
-- [ ] Intent-based greeting — deferred (adds complexity without clear ROI)
+
 
 ## UX Improvements — Phase D: Micro-interactions
 - [x] Subtle background grain/noise texture
 - [x] Enhanced button press feedback (active:scale-90)
 - [x] Hover scale on suggestion chips
+
+## Projects Grid
+- [x] Generate project thumbnail images (4 Nothing-styled abstract thumbnails)
+- [x] Build projects portfolio grid with thumbnails and demo links
+- [x] Add to Browse traditionally section
