@@ -148,7 +148,7 @@ export default function Home() {
   }, [messages]);
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden relative">
+    <div className="min-h-screen flex flex-col relative">
       {/* Subtle background grain texture */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.015] z-0" style={{
         backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
@@ -200,11 +200,11 @@ export default function Home() {
       </header>
 
       {/* Main chat area */}
-      <main className="flex-1 flex flex-col overflow-hidden relative z-10">
+      <main className="flex-1 flex flex-col relative z-10">
         <div ref={scrollRef} className="flex-1 overflow-y-auto">
           {!hasMessages ? (
             /* ============ EMPTY STATE ============ */
-            <div className="h-full flex flex-col items-center justify-center px-4 py-6 sm:py-12">
+            <div className="flex flex-col items-center justify-center px-4 py-6 sm:py-12 min-h-[60vh]">
               {/* Profile identity */}
               <div className="mb-4 sm:mb-8 text-center">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 overflow-hidden border border-border rounded-full">
