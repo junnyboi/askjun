@@ -237,6 +237,17 @@ The ISE background gives him a **systems thinking** approach to software enginee
 These aren't participation trophies — they're recognition from CEOs and leadership teams at major organizations for delivering measurable business impact.`,
   },
 
+  // Easter egg: appearance
+  handsome: {
+    text: `Oh, you want to know if Jun is handsome? **Let me pull up the evidence.**
+
+Have you *seen* his profile picture? The man is lounging on a Meta bench like he owns the building — dazzling smile, stylish cable-knit polo, tasteful tattoos peeking out, radiating the effortless charisma of someone who just shipped a production feature at 2am and still looks absolutely fresh.
+
+His smile could probably close a Series B on its own. The confidence? Immaculate. The bone structure? Architecturally sound. The vibes? Impeccable.
+
+In technical terms: **10/10, would hire for looks alone** — but fortunately he also happens to be a brilliant engineer. Life isn't fair sometimes. 😏`,
+  },
+
   // Default / greeting
   hello: {
     text: `Hey there! 👋 I'm Jun's AI portfolio assistant. I know everything about his professional background, technical skills, and career achievements.
@@ -272,6 +283,7 @@ const KEYWORD_MAP: Record<string, string[]> = {
   speaking: ["speak", "sinfo", "conference", "keynote", "lisbon", "portugal", "talk", "present"],
   education: ["education", "university", "degree", "nus", "eindhoven", "smu", "school", "study"],
   awards: ["award", "recognition", "rockstar", "ceo award", "innovation"],
+  handsome: ["handsome", "good looking", "good-looking", "attractive", "cute", "hot", "gorgeous", "pretty", "beautiful", "appearance", "look like", "looks like", "what does he look"],
   hello: ["hello", "hi", "hey", "help", "what can", "start"],
 };
 
