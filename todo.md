@@ -97,3 +97,8 @@
 - [x] Generate project thumbnail images (4 Nothing-styled abstract thumbnails)
 - [x] Build projects portfolio grid with thumbnails and demo links
 - [x] Add to Browse traditionally section
+
+## UI Polish
+- [x] Make header sticky on mobile so reset button is always accessible
+- [x] Add floating 'back to top' button when scrolling the traditional section
+- [x] Add smooth hover animations to project thumbnails in the portfolio grid

@@ -31,6 +31,16 @@ export default function Home() {
   const chatMutation = trpc.chat.send.useMutation();
 
   const hasMessages = messages.length > 0;
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  // Track scroll position for back-to-top button
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Auto-focus input on desktop
   useEffect(() => {
@@ -155,7 +165,7 @@ export default function Home() {
       }} />
 
       {/* Minimal header */}
-      <header className="shrink-0 border-b border-border px-4 sm:px-6 h-12 flex items-center justify-between relative z-10">
+      <header className="sticky top-0 shrink-0 border-b border-border px-4 sm:px-6 h-12 flex items-center justify-between z-20 bg-background/90 backdrop-blur-sm">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setMessages([])}
@@ -383,13 +393,13 @@ export default function Home() {
                             href={project.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group border border-border rounded-lg overflow-hidden hover:border-accent/50 transition-all"
+                            className="group border border-border rounded-lg overflow-hidden hover:border-accent/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out"
                           >
                             <div className="aspect-video overflow-hidden bg-muted">
                               <img
                                 src={project.image}
                                 alt={project.title}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
                               />
                             </div>
                             <div className="p-3">
@@ -519,6 +529,26 @@ export default function Home() {
           <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="BohZeJun_CV_2026.pdf" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">CV ↓</a>
         </div>
       )}
+
+      {/* Floating back-to-top button */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            aria-label="Back to top"
+            className="fixed bottom-6 right-6 z-30 w-10 h-10 flex items-center justify-center bg-foreground text-background rounded-full shadow-lg hover:opacity-80 transition-opacity active:scale-90"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="m5 12 7-7 7 7" />
+              <path d="M12 19V5" />
+            </svg>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
