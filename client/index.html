@@ -11,9 +11,20 @@
     <meta property="og:title" content="askJun — AI Portfolio" />
     <meta property="og:description" content="Chat with an AI agent trained on Jun's career. Senior Frontend Engineer with experience at Meta, HoYoverse, TikTok, and Bank of Singapore." />
     <meta property="og:type" content="website" />
+    <!-- Anti-flash: set theme class before render -->
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme');
+        if (!theme) {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.classList.add(theme);
+      })();
+    </script>
+    <!-- Nothing Typography: Space Grotesk (display), Inter (body), Space Mono (technical) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   </head>
 
   <body>

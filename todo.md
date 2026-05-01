@@ -1,34 +1,61 @@
 # askJun Portfolio TODO
 
+## Completed (v1 — Glass Atelier)
 - [x] Initialize project scaffold (React + TypeScript + Tailwind)
-- [x] Design Glass Atelier theme (dark navy + orange/violet accents)
-- [x] Generate visual assets (hero gradient, skyline, avatar ring, tech pattern)
+- [x] Design Glass Atelier theme
+- [x] Generate visual assets
 - [x] Build bento grid layout with glass cards
-- [x] Implement HeroCard with profile info
-- [x] Implement ChatCard (CTA tile)
-- [x] Implement ExperienceCard with expandable timeline
-- [x] Implement SkillsCard with marquee + categories
-- [x] Implement HighlightsCard with key metrics
-- [x] Implement ContactCard with links
-- [x] Implement SkylineFooter
+- [x] Implement all card components (Hero, Chat, Experience, Skills, Highlights, Contact)
 - [x] Build ChatPanel with streaming text simulation
 - [x] Implement client-side keyword-matching chat engine
-- [x] Add Framer Motion animations (spring physics, staggered entrance)
-- [x] Add ambient gradient orbs with float animations
-- [x] Responsive design with mobile FAB for chat
+- [x] Add Framer Motion animations
+- [x] Responsive design with mobile FAB
 - [x] SEO metadata and Open Graph tags
-- [x] Generate profile photo (GPT Image 2)
-- [x] Integrate profile photo into HeroCard
+- [x] Integrate real profile photo (Meta bench)
 - [x] Upgrade to full-stack (web-db-user)
 - [x] Build knowledge base and system prompt
 - [x] Implement /api/chat route with DeepSeek via Forge API
 - [x] Add rate limiting (30 msgs/IP/hour)
 - [x] Update ChatPanel to use real AI API with fallback
 - [x] Write vitest tests for chat route
-## Future Enhancements (Optional)
-- [ ] Add custom domain (askjun.com or junboh.dev) — requires domain purchase via Settings > Domains
-- [ ] Add conversation persistence (DB-backed chat history)
-- [ ] Add Open Graph image generation
-- [x] Scrape LinkedIn profile for additional info
-- [x] Replace AI-generated profile photo with real Meta photo
-- [x] Update knowledge base with LinkedIn data
+- [x] Enrich knowledge base with LinkedIn data
+
+## Nothing UI Overhaul — Phase 1: Design System Foundation
+- [x] Update index.html with Google Fonts (Space Grotesk, Inter, Space Mono)
+- [x] Rewrite index.css with Nothing color tokens (light + dark mode)
+- [x] Remove all glassmorphism, gradients, backdrop-blur styles
+- [x] Enable switchable ThemeProvider in App.tsx (dark default)
+- [x] Create ThemeToggle component (●/○ minimal toggle)
+- [x] Add theme persistence (localStorage + prefers-color-scheme detection)
+- [x] Add anti-flash inline script in index.html <head>
+
+## Nothing UI Overhaul — Phase 2: Component Rebuild
+- [x] Rebuild Header (minimal sticky, logo in Space Mono, nav links, theme toggle)
+- [x] Rebuild HeroSection (large Space Grotesk name, profile photo, CTAs)
+- [x] Build MetricsBar (horizontal strip, Space Mono numbers, pipe separators)
+- [x] Rebuild ExperienceSection (clean left-aligned timeline, expand/collapse)
+- [x] Rebuild SkillsSection (flat tag grid, categorized, no marquee)
+- [x] Build CaseStudies section (3-4 expandable project cards with metrics)
+- [x] Rebuild ContactSection (minimal, centered)
+- [x] Build Footer (sticky bottom, Space Mono metadata)
+- [x] Rewrite Home.tsx to compose all new sections
+
+## Nothing UI Overhaul — Phase 3: Chat Redesign
+- [x] Restyle ChatPanel with Nothing aesthetic (flat, bordered, no bubbles)
+- [x] Redesign chat input (borderless, bottom-line only, accent cursor)
+- [x] Restyle messages (left-border for assistant, right-aligned user, no backgrounds)
+- [x] Update typing indicator (mechanical step animation, not bounce)
+- [x] Update suggestion chips (flat, bordered, monospace)
+
+## Nothing UI Overhaul — Phase 4: New Features
+- [x] Implement loading overlay (Space Mono "askJun" + blinking cursor)
+- [x] Add resume download button (hero section, S3-hosted PDF)
+- [x] Add scroll-triggered section reveal animations (Framer Motion stagger)
+- [x] Add mobile responsive FAB for chat (Nothing-styled)
+
+## Nothing UI Overhaul — Phase 5: Polish & Testing
+- [x] Responsive testing (375px, 768px, 1024px, 1440px)
+- [x] Accessibility audit (focus rings, contrast, ARIA labels, keyboard nav)
+- [x] Update vitest tests for new components
+- [x] Update README.md with new architecture
+- [ ] Performance check (Lighthouse > 90) — verify after deployment

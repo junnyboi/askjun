@@ -4,10 +4,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -40,45 +40,88 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-sans: 'Outfit', system-ui, sans-serif;
-  --font-mono: 'Fira Code', monospace;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Space Mono', 'Fira Code', monospace;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
 }
 
+/* ============================================================================
+   NOTHING DESIGN SYSTEM — Light Mode (Default)
+   Stark monochrome + Nothing Red accent
+   ============================================================================ */
 :root {
-  --radius: 0.75rem;
-  /* Glass Atelier Dark Theme — Deep Navy + Warm Orange + Soft Violet */
-  --background: oklch(0.15 0.02 260);
-  --foreground: oklch(0.93 0.005 80);
-  --card: oklch(0.18 0.015 260);
-  --card-foreground: oklch(0.93 0.005 80);
-  --popover: oklch(0.18 0.015 260);
-  --popover-foreground: oklch(0.93 0.005 80);
-  --primary: oklch(0.72 0.17 45);
-  --primary-foreground: oklch(0.15 0.02 260);
-  --secondary: oklch(0.22 0.015 260);
-  --secondary-foreground: oklch(0.80 0.01 80);
-  --muted: oklch(0.25 0.012 260);
-  --muted-foreground: oklch(0.60 0.015 260);
-  --accent: oklch(0.65 0.15 300);
-  --accent-foreground: oklch(0.95 0.005 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.72 0.17 45);
-  --chart-1: oklch(0.72 0.17 45);
-  --chart-2: oklch(0.65 0.15 300);
-  --chart-3: oklch(0.60 0.12 200);
-  --chart-4: oklch(0.55 0.10 150);
-  --chart-5: oklch(0.50 0.08 100);
-  --sidebar: oklch(0.16 0.02 260);
-  --sidebar-foreground: oklch(0.93 0.005 80);
-  --sidebar-primary: oklch(0.72 0.17 45);
-  --sidebar-primary-foreground: oklch(0.15 0.02 260);
-  --sidebar-accent: oklch(0.22 0.015 260);
-  --sidebar-accent-foreground: oklch(0.95 0.005 0);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.72 0.17 45);
+  --radius: 2px;
+  --background: #FFFFFF;
+  --foreground: #000000;
+  --card: #F7F7F5;
+  --card-foreground: #000000;
+  --popover: #FFFFFF;
+  --popover-foreground: #000000;
+  --primary: #000000;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F7F7F5;
+  --secondary-foreground: #000000;
+  --muted: #EFEFED;
+  --muted-foreground: #595A5A;
+  --accent: #E60000;
+  --accent-foreground: #FFFFFF;
+  --destructive: #E60000;
+  --destructive-foreground: #FFFFFF;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
+  --ring: #E60000;
+  --chart-1: #000000;
+  --chart-2: #595A5A;
+  --chart-3: #9CA3AF;
+  --chart-4: #E60000;
+  --chart-5: #B1B3B3;
+  --sidebar: #F7F7F5;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #000000;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #EFEFED;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #E5E7EB;
+  --sidebar-ring: #E60000;
+}
+
+/* ============================================================================
+   NOTHING DESIGN SYSTEM — Dark Mode
+   Deep blacks + crisp whites + Nothing Red
+   ============================================================================ */
+.dark {
+  --background: #0A0A0A;
+  --foreground: #F4F4F4;
+  --card: #141414;
+  --card-foreground: #F4F4F4;
+  --popover: #141414;
+  --popover-foreground: #F4F4F4;
+  --primary: #F4F4F4;
+  --primary-foreground: #0A0A0A;
+  --secondary: #1E1E1E;
+  --secondary-foreground: #F4F4F4;
+  --muted: #1E1E1E;
+  --muted-foreground: #B1B3B3;
+  --accent: #E60000;
+  --accent-foreground: #FFFFFF;
+  --destructive: #E60000;
+  --destructive-foreground: #FFFFFF;
+  --border: #2A2A2A;
+  --input: #2A2A2A;
+  --ring: #E60000;
+  --chart-1: #F4F4F4;
+  --chart-2: #B1B3B3;
+  --chart-3: #6B7280;
+  --chart-4: #E60000;
+  --chart-5: #595A5A;
+  --sidebar: #141414;
+  --sidebar-foreground: #F4F4F4;
+  --sidebar-primary: #F4F4F4;
+  --sidebar-primary-foreground: #0A0A0A;
+  --sidebar-accent: #1E1E1E;
+  --sidebar-accent-foreground: #F4F4F4;
+  --sidebar-border: #2A2A2A;
+  --sidebar-ring: #E60000;
 }
 
 @layer base {
@@ -87,7 +130,21 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Outfit', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .dark body {
+    font-weight: 350;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  code, pre, .font-mono {
+    font-family: 'Space Mono', monospace;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -127,98 +184,51 @@
     .container {
       padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px;
+      max-width: 1120px;
     }
   }
 
-  /* Glass card utility */
-  .glass-card {
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 1rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .glass-card:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    transform: translateY(-2px);
-  }
-
-  /* Gradient text utility */
-  .gradient-text {
-    background: linear-gradient(135deg, #f97316 0%, #a78bfa 50%, #06b6d4 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* Ambient orb animation */
-  @keyframes float-slow {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -20px) scale(1.05); }
-    66% { transform: translate(-20px, 15px) scale(0.95); }
-  }
-
-  @keyframes float-slow-reverse {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(-25px, 20px) scale(0.95); }
-    66% { transform: translate(15px, -25px) scale(1.05); }
-  }
-
-  .animate-float-slow {
-    animation: float-slow 20s ease-in-out infinite;
-  }
-
-  .animate-float-slow-reverse {
-    animation: float-slow-reverse 25s ease-in-out infinite;
-  }
-
-  /* Typing cursor blink */
+  /* Nothing-style cursor blink */
   @keyframes blink {
     0%, 50% { opacity: 1; }
     51%, 100% { opacity: 0; }
   }
-
   .animate-blink {
-    animation: blink 1s step-end infinite;
+    animation: blink 530ms step-end infinite;
   }
 
-  /* Pulse glow for chat CTA */
-  @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.15); }
-    50% { box-shadow: 0 0 40px rgba(249, 115, 22, 0.3); }
+  /* Section reveal animation */
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-up {
+    animation: fade-up 400ms cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   }
 
-  .animate-pulse-glow {
-    animation: pulse-glow 3s ease-in-out infinite;
-  }
-
-  /* Skill marquee */
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .animate-marquee {
-    animation: marquee 30s linear infinite;
-  }
-
-  /* Scrollbar styling */
+  /* Scrollbar — minimal */
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
+    background: var(--border);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--muted-foreground);
+  }
+
+  /* Focus ring — Nothing Red */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 }

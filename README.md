@@ -1,76 +1,68 @@
 # askJun — AI-Native Portfolio
 
-A conversation-first AI portfolio website for Boh Ze Jun, Senior Frontend / Full Stack Software Engineer.
+A conversation-first AI portfolio website for Boh Ze Jun, Senior Frontend / Full Stack Software Engineer. Built with the Nothing design philosophy — raw industrial minimalism, stark monochrome, and deliberate precision.
 
 ## Architecture
 
-- **Framework:** React 19 + TypeScript + Vite
-- **Styling:** Tailwind CSS v4 + custom Glass Atelier design system
-- **Animation:** Framer Motion (spring physics, staggered cascades)
-- **Chat Engine:** Client-side keyword-matching AI simulation with streaming text
-- **Deployment:** Manus hosting (static)
+The site is a full-stack React application with a DeepSeek-powered AI chat backend.
 
-## Design Philosophy: Glass Atelier
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 19 + TypeScript + Vite |
+| Styling | Tailwind CSS v4 + Nothing Design System |
+| Animation | Framer Motion (viewport-triggered reveals) |
+| Chat Backend | tRPC + DeepSeek via Forge API |
+| Database | MySQL (TiDB) via Drizzle ORM |
+| Deployment | Manus hosting |
 
-- Deep navy background with warm orange + soft violet accent colors
-- Glassmorphism cards with `backdrop-blur` and translucent borders
-- Ambient gradient orbs with CSS keyframe animations
-- Bento grid layout (asymmetric, responsive)
-- Typography: Outfit (display/body) + Fira Code (monospace/technical)
+## Design Philosophy: Nothing
+
+The site follows Nothing's design language — the consumer electronics brand known for raw industrial minimalism. Key principles applied:
+
+| Principle | Implementation |
+|-----------|---------------|
+| Monochrome palette | Black/white with Nothing Red (#E60000) accent |
+| Typography hierarchy | Space Grotesk (display) + Inter (body) + Space Mono (technical) |
+| Sharp geometry | 0-2px border radius, no rounded corners |
+| No shadows | Thin 1px borders define hierarchy |
+| Mechanical animation | Precise ease-out, never bouncy |
+| Generous negative space | 8px grid, large section padding |
+| Light/Dark mode | Full theme system with system preference detection |
 
 ## Features
 
-- [x] Bento grid homepage with glass cards
-- [x] AI chat panel with streaming text simulation
-- [x] Tool-use simulation (document retrieval animation)
-- [x] Experience timeline with expandable sections
-- [x] Skills marquee + categorized tags
-- [x] Impact metrics dashboard
-- [x] Contact links (Email, LinkedIn, GitHub)
-- [x] Singapore skyline footer
-- [x] Responsive design (mobile FAB for chat)
-- [x] Smooth entrance animations (staggered spring physics)
-- [x] Dark theme optimized for recruiter viewing
+The portfolio includes a real AI chat powered by DeepSeek, a comprehensive knowledge base covering all professional experience, project case studies with expandable details, a downloadable CV, and smooth viewport-triggered scroll animations. The theme toggle supports both light and dark modes with anti-flash initialization.
 
 ## File Structure
 
 ```
 client/src/
 ├── components/
-│   ├── ChatCard.tsx       — Chat CTA bento tile
-│   ├── ChatPanel.tsx      — Full chat overlay with streaming
-│   ├── ContactCard.tsx    — Contact links tile
-│   ├── ExperienceCard.tsx — Timeline with expandable entries
-│   ├── HeroCard.tsx       — Main hero tile with profile
-│   ├── HighlightsCard.tsx — Key metrics grid
-│   ├── SkillsCard.tsx     — Skills marquee + categories
-│   └── SkylineFooter.tsx  — Singapore skyline footer
+│   ├── nothing/           — Nothing-styled page sections
+│   │   ├── Header.tsx
+│   │   ├── HeroSection.tsx
+│   │   ├── MetricsBar.tsx
+│   │   ├── ExperienceSection.tsx
+│   │   ├── SkillsSection.tsx
+│   │   ├── CaseStudies.tsx
+│   │   ├── ContactSection.tsx
+│   │   ├── Footer.tsx
+│   │   └── LoadingOverlay.tsx
+│   ├── ChatPanel.tsx      — AI chat with Nothing aesthetic
+│   └── ThemeToggle.tsx    — ●/○ theme switcher
 ├── data/
-│   ├── chatEngine.ts      — AI response simulation engine
-│   └── portfolio.ts       — All professional content/data
+│   ├── chatEngine.ts      — Fallback keyword engine
+│   └── portfolio.ts       — Professional content
 ├── pages/
-│   └── Home.tsx           — Main bento grid page
-└── index.css              — Glass Atelier design tokens
+│   └── Home.tsx           — Main page composing all sections
+└── index.css              — Nothing design tokens (light + dark)
+
+server/
+├── knowledge.ts           — AI system prompt + knowledge base
+├── routers.ts             — tRPC routes including chat.send
+└── _core/                 — Framework plumbing (auth, LLM, storage)
 ```
 
 ## Content Source
 
-All professional content is sourced from the latest CV (2026-04-28) and covers:
-- Meta (Manus AI) — AI agent conversation interfaces
-- Instawork — Cross-platform features, AI booking bot
-- HoYoverse — Payment systems at massive scale ($57M, 8M DAU)
-- TikTok/ByteDance — GDPR compliance, payments infrastructure
-- Bank of Singapore — Innovation, RM tools, roboadvisory
-- DBS Bank — Data science, graph theory
-
-## Chat Knowledge Base
-
-The AI chat covers topics including:
-- AI/ML experience and agent interfaces
-- Payment systems and fintech
-- Technical stack and frameworks
-- Career motivations and availability
-- Specific company experiences
-- Awards and recognition
-- Education background
-- Speaking engagements (SINFO 2024)
+All content sourced from the latest CV (2026-04-28) and LinkedIn profile, covering Meta (Manus AI), Instawork, HoYoverse, TikTok/ByteDance, Bank of Singapore, and DBS Bank.
