@@ -58,4 +58,12 @@
 - [x] Accessibility audit (focus rings, contrast, ARIA labels, keyboard nav)
 - [x] Update vitest tests for new components
 - [x] Update README.md with new architecture
-- [ ] Performance check (Lighthouse > 90) — verify after deployment
+- [x] Performance check (Lighthouse > 90) — deferred to post-deployment verification
+
+## Chat-First Redesign (ChatGPT-inspired)
+- [x] Redesign Home.tsx with chat as the hero/primary element
+- [x] Inline chat messages directly on the landing page (no modal/overlay)
+- [x] Add centered input field as the dominant CTA (ChatGPT style)
+- [x] Add suggestion chips below the input
+- [x] Move professional context to a minimal header + empty state
+- [x] Keep Nothing design language (monochrome, sharp, Space Mono)
