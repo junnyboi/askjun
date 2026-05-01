@@ -1,8 +1,8 @@
 /*
  * ============================================================================
- * askJun Home — Chat-First Layout (ChatGPT-inspired)
- * The AI conversation IS the landing page. Professional context is secondary.
- * Nothing Design Language maintained throughout.
+ * askJun Home — Chat-First + Hybrid Navigation
+ * UX-optimized: auto-focus, keyboard shortcuts, persistent contact,
+ * browse-traditionally section, typing variation, share button, micro-interactions.
  * ============================================================================
  */
 
@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Streamdown } from "streamdown";
 import { trpc } from "@/lib/trpc";
 import { getResponse, shouldSimulateToolUse, getToolUseResponse } from "@/data/chatEngine";
-import { CHAT_SUGGESTIONS, PROFILE, HIGHLIGHTS } from "@/data/portfolio";
+import { CHAT_SUGGESTIONS, PROFILE, HIGHLIGHTS, EXPERIENCES, SKILLS } from "@/data/portfolio";
 import ThemeToggle from "@/components/ThemeToggle";
 
 interface Message {
@@ -25,11 +25,41 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [showTraditional, setShowTraditional] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const chatMutation = trpc.chat.send.useMutation();
 
   const hasMessages = messages.length > 0;
+
+  // Auto-focus input on desktop
+  useEffect(() => {
+    if (window.innerWidth >= 768 && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      // Cmd/Ctrl+K → focus input
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+      // Escape → reset conversation
+      if (e.key === "Escape" && messages.length > 0) {
+        setMessages([]);
+      }
+      // "/" → focus input (only if not already in an input)
+      if (e.key === "/" && document.activeElement?.tagName !== "TEXTAREA" && document.activeElement?.tagName !== "INPUT") {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [messages]);
 
   const scrollToBottom = useCallback(() => {
     if (scrollRef.current) {
@@ -39,20 +69,33 @@ export default function Home() {
 
   useEffect(() => { scrollToBottom(); }, [messages, scrollToBottom]);
 
+  // Typing variation: variable speed with pauses at punctuation
   const simulateStreaming = useCallback(
     (fullText: string, msgId: string, toolUse?: { action: string; status: string }) => {
       let charIndex = 0;
-      const interval = setInterval(() => {
-        charIndex += Math.floor(Math.random() * 4) + 2;
+      const baseSpeed = 8;
+
+      const tick = () => {
+        const char = fullText[charIndex] || "";
+        const isPunctuation = ".!?,;:".includes(char);
+        const variation = Math.floor(Math.random() * 4) + 2;
+        charIndex += variation;
+
         if (charIndex >= fullText.length) {
           charIndex = fullText.length;
-          clearInterval(interval);
           setMessages((prev) => prev.map((m) => m.id === msgId ? { ...m, content: fullText, toolUse } : m));
           setIsTyping(false);
-        } else {
-          setMessages((prev) => prev.map((m) => m.id === msgId ? { ...m, content: fullText.slice(0, charIndex) } : m));
+          return;
         }
-      }, 8);
+
+        setMessages((prev) => prev.map((m) => m.id === msgId ? { ...m, content: fullText.slice(0, charIndex) } : m));
+
+        // Pause longer at punctuation
+        const delay = isPunctuation ? baseSpeed * 6 : baseSpeed + Math.random() * 6 - 3;
+        setTimeout(tick, delay);
+      };
+
+      setTimeout(tick, baseSpeed);
     },
     []
   );
@@ -94,14 +137,29 @@ export default function Home() {
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); }
   };
 
+  // Share conversation
+  const handleShare = useCallback(() => {
+    const transcript = messages
+      .map((m) => `${m.role === "user" ? "You" : "askJun"}: ${m.content}`)
+      .join("\n\n");
+    navigator.clipboard.writeText(transcript);
+    // Could use toast here, but keeping it simple
+    alert("Conversation copied to clipboard!");
+  }, [messages]);
+
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="h-screen flex flex-col overflow-hidden relative">
+      {/* Subtle background grain texture */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.015] z-0" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+      }} />
+
       {/* Minimal header */}
-      <header className="shrink-0 border-b border-border px-4 sm:px-6 h-12 flex items-center justify-between">
+      <header className="shrink-0 border-b border-border px-4 sm:px-6 h-12 flex items-center justify-between relative z-10">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setMessages([])}
-            className="font-mono text-sm text-foreground hover:opacity-70 transition-opacity"
+            className="font-mono text-sm text-foreground hover:opacity-70 transition-opacity active:scale-95"
             aria-label="Reset conversation"
           >
             ask<span className="text-accent">Jun</span>
@@ -111,6 +169,17 @@ export default function Home() {
           </span>
         </div>
         <div className="flex items-center gap-3">
+          {/* Share button — only visible when there are messages */}
+          {hasMessages && (
+            <button
+              onClick={handleShare}
+              className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors hidden sm:inline-flex items-center gap-1"
+              aria-label="Share conversation"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+              Share
+            </button>
+          )}
           <a
             href="/manus-storage/JunBoh-CV-2026_adffff38.pdf"
             download="BohZeJun_CV_2026.pdf"
@@ -131,13 +200,12 @@ export default function Home() {
       </header>
 
       {/* Main chat area */}
-      <main className="flex-1 flex flex-col overflow-hidden">
-        {/* Messages area OR empty state */}
+      <main className="flex-1 flex flex-col overflow-hidden relative z-10">
         <div ref={scrollRef} className="flex-1 overflow-y-auto">
           {!hasMessages ? (
-            /* ============ EMPTY STATE — ChatGPT-style hero ============ */
+            /* ============ EMPTY STATE ============ */
             <div className="h-full flex flex-col items-center justify-center px-4 py-6 sm:py-12">
-              {/* Profile identity — compact on mobile */}
+              {/* Profile identity */}
               <div className="mb-4 sm:mb-8 text-center">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 overflow-hidden border border-border rounded-full">
                   <img
@@ -158,7 +226,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Key metrics — hidden on mobile to reduce clutter */}
+              {/* Key metrics — hidden on mobile */}
               <div className="hidden sm:flex flex-wrap items-center justify-center gap-6 mb-8 text-center">
                 {HIGHLIGHTS.slice(0, 4).map((h, i) => (
                   <div key={i} className="flex flex-col items-center">
@@ -168,12 +236,12 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Main prompt text */}
+              {/* Prompt text */}
               <p className="text-base sm:text-xl text-muted-foreground text-center max-w-md mb-5 sm:mb-8">
                 Ask me anything about Jun's experience, skills, or career.
               </p>
 
-              {/* Centered input — ChatGPT style hero CTA */}
+              {/* Centered input */}
               <div className="w-full max-w-xl px-2 sm:px-0">
                 <div className="flex items-end gap-2 sm:gap-3">
                   <div className="flex-1 border border-border focus-within:border-accent transition-colors px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl">
@@ -192,7 +260,7 @@ export default function Home() {
                     onClick={() => handleSend()}
                     disabled={!input.trim() || isTyping}
                     aria-label="Send message"
-                    className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-opacity active:scale-95 rounded-lg"
+                    className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-all active:scale-90 rounded-lg"
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="m5 12 7-7 7 7" />
@@ -201,29 +269,89 @@ export default function Home() {
                   </button>
                 </div>
 
-                {/* Suggestion chips — show 3 on mobile, all on desktop */}
+                {/* Suggestion chips */}
                 <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3 sm:mt-4 justify-center">
                   {CHAT_SUGGESTIONS.slice(0, 3).map((s, i) => (
                     <button
                       key={i}
                       onClick={() => handleSend(s)}
-                      className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-colors rounded-lg"
+                      className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-all hover:scale-[1.02] rounded-lg"
                     >
                       {s}
                     </button>
                   ))}
-                  {/* Show remaining only on desktop */}
                   {CHAT_SUGGESTIONS.slice(3).map((s, i) => (
                     <button
                       key={i + 3}
                       onClick={() => handleSend(s)}
-                      className="hidden sm:inline-block text-xs font-mono px-3 py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-colors rounded-lg"
+                      className="hidden sm:inline-block text-xs font-mono px-3 py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-all hover:scale-[1.02] rounded-lg"
                     >
                       {s}
                     </button>
                   ))}
                 </div>
+
+                {/* Browse traditionally toggle */}
+                <div className="mt-8 text-center">
+                  <button
+                    onClick={() => setShowTraditional(!showTraditional)}
+                    className="text-[11px] font-mono text-muted-foreground/60 hover:text-muted-foreground transition-colors underline underline-offset-4 decoration-border"
+                  >
+                    {showTraditional ? "Hide details" : "Or browse traditionally ↓"}
+                  </button>
+                </div>
               </div>
+
+              {/* ============ TRADITIONAL BROWSE SECTION ============ */}
+              <AnimatePresence>
+                {showTraditional && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="w-full max-w-2xl mt-8 overflow-hidden"
+                  >
+                    {/* Experience */}
+                    <div className="border-t border-border pt-6 mb-8">
+                      <h2 className="text-sm font-bold text-foreground mb-4">Experience</h2>
+                      <div className="space-y-3">
+                        {EXPERIENCES.map((exp, i) => (
+                          <div key={i} className="flex items-start justify-between gap-2 py-2 border-b border-border/50 last:border-0">
+                            <div>
+                              <span className="text-sm font-medium text-foreground">{exp.company}</span>
+                              <span className="text-xs text-muted-foreground ml-2">{exp.role}</span>
+                            </div>
+                            <span className="text-[10px] font-mono text-muted-foreground whitespace-nowrap">{exp.period}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Skills */}
+                    <div className="border-t border-border pt-6 mb-8">
+                      <h2 className="text-sm font-bold text-foreground mb-4">Skills</h2>
+                      <div className="flex flex-wrap gap-1.5">
+                        {SKILLS.map((s) => (
+                          <span key={s.name} className="text-[11px] font-mono px-2 py-0.5 border border-border text-muted-foreground rounded-md">
+                            {s.name}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Contact */}
+                    <div className="border-t border-border pt-6">
+                      <h2 className="text-sm font-bold text-foreground mb-4">Contact</h2>
+                      <div className="flex flex-wrap gap-4 text-xs font-mono">
+                        <a href={`mailto:${PROFILE.email}`} className="text-muted-foreground hover:text-accent transition-colors">{PROFILE.email}</a>
+                        <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors">LinkedIn</a>
+                        <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors">GitHub</a>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ) : (
             /* ============ MESSAGES ============ */
@@ -231,12 +359,10 @@ export default function Home() {
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div className={`max-w-[85%] ${msg.role === "assistant" ? "border-l-2 border-accent pl-4" : ""}`}>
-                    {/* Role label */}
                     <span className="text-[10px] font-mono text-muted-foreground mb-1 block">
                       {msg.role === "user" ? "you" : "askJun"}
                     </span>
 
-                    {/* Tool use */}
                     {msg.toolUse && msg.toolUse.status && (
                       <div className="text-xs font-mono text-accent mb-2">✓ {msg.toolUse.status}</div>
                     )}
@@ -247,8 +373,7 @@ export default function Home() {
                       </div>
                     )}
 
-                    {/* Content */}
-                    <div className="text-sm leading-relaxed text-foreground [&_strong]:text-accent [&_strong]:font-semibold [&_li]:ml-4 [&_li]:list-disc">
+                    <div className="text-sm leading-relaxed text-foreground [&_strong]:text-accent [&_strong]:font-semibold [&_li]:ml-4 [&_li]:list-disc [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-xs [&_code]:font-mono">
                       {msg.content ? (
                         <>
                           <Streamdown>{msg.content}</Streamdown>
@@ -273,12 +398,12 @@ export default function Home() {
           )}
         </div>
 
-        {/* ============ INPUT AREA — Bottom-docked only when conversation is active ============ */}
+        {/* Bottom-docked input when in conversation */}
         {hasMessages && (
           <div className="shrink-0 border-t border-border bg-background">
-            <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 py-4">
+            <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 py-3">
               <div className="flex items-end gap-3">
-                <div className="flex-1 border border-border focus-within:border-accent transition-colors px-4 py-3 rounded-xl">
+                <div className="flex-1 border border-border focus-within:border-accent transition-colors px-4 py-2.5 rounded-xl">
                   <textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
@@ -293,7 +418,7 @@ export default function Home() {
                   onClick={() => handleSend()}
                   disabled={!input.trim() || isTyping}
                   aria-label="Send message"
-                  className="shrink-0 w-10 h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-opacity active:scale-95 rounded-lg"
+                  className="shrink-0 w-10 h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-all active:scale-90 rounded-lg"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="m5 12 7-7 7 7" />
@@ -301,14 +426,28 @@ export default function Home() {
                   </svg>
                 </button>
               </div>
-              <div className="flex items-center justify-between mt-3">
+              <div className="flex items-center justify-between mt-2">
                 <span className="text-[10px] font-mono text-muted-foreground/40">powered by deepseek</span>
-                <span className="text-[10px] font-mono text-muted-foreground/40">{PROFILE.location} · 2026</span>
+                <button
+                  onClick={handleShare}
+                  className="text-[10px] font-mono text-muted-foreground/40 hover:text-muted-foreground transition-colors sm:hidden"
+                >
+                  share ↑
+                </button>
               </div>
             </div>
           </div>
         )}
       </main>
+
+      {/* Mobile persistent contact bar */}
+      {!hasMessages && (
+        <div className="sm:hidden shrink-0 border-t border-border bg-background px-4 py-2.5 flex items-center justify-between relative z-10">
+          <a href={`mailto:${PROFILE.email}`} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Email</a>
+          <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">LinkedIn</a>
+          <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="BohZeJun_CV_2026.pdf" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">CV ↓</a>
+        </div>
+      )}
     </div>
   );
 }

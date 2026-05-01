@@ -71,3 +71,24 @@
 ## UI Tweaks
 - [x] Header logo click resets conversation and returns to landing page
 - [x] Apply rounded borders to all buttons and containers
+
+## UX Improvements — Phase A: Quick Wins
+- [x] Auto-focus input on desktop page load
+- [x] Add keyboard shortcuts (Cmd+K focus, Esc reset, / focus)
+- [x] Make email/LinkedIn always visible on mobile (bottom bar)
+
+## UX Improvements — Phase B: Hybrid Navigation
+- [x] Add "Browse traditionally" expandable section below chat
+- [x] Include minimal Experience timeline in traditional section
+- [x] Include Skills in traditional section
+- [x] Include Contact info in traditional section
+
+## UX Improvements — Phase C: Chat Enhancements
+- [x] Typing speed variation (±20%, pause at punctuation)
+- [x] Share conversation button (copy transcript)
+- [ ] Intent-based greeting — deferred (adds complexity without clear ROI)
+
+## UX Improvements — Phase D: Micro-interactions
+- [x] Subtle background grain/noise texture
+- [x] Enhanced button press feedback (active:scale-90)
+- [x] Hover scale on suggestion chips
