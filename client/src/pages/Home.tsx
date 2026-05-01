@@ -99,9 +99,13 @@ export default function Home() {
       {/* Minimal header */}
       <header className="shrink-0 border-b border-border px-4 sm:px-6 h-12 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="font-mono text-sm text-foreground">
+          <button
+            onClick={() => setMessages([])}
+            className="font-mono text-sm text-foreground hover:opacity-70 transition-opacity"
+            aria-label="Reset conversation"
+          >
             ask<span className="text-accent">Jun</span>
-          </span>
+          </button>
           <span className="hidden sm:inline text-xs font-mono text-muted-foreground">
             · {PROFILE.title}
           </span>
@@ -135,7 +139,7 @@ export default function Home() {
             <div className="h-full flex flex-col items-center justify-center px-4 py-6 sm:py-12">
               {/* Profile identity — compact on mobile */}
               <div className="mb-4 sm:mb-8 text-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 overflow-hidden border border-border">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 overflow-hidden border border-border rounded-full">
                   <img
                     src="/manus-storage/jun-profile-meta_7e9e3d09.jpg"
                     alt="Boh Ze Jun"
@@ -172,7 +176,7 @@ export default function Home() {
               {/* Centered input — ChatGPT style hero CTA */}
               <div className="w-full max-w-xl px-2 sm:px-0">
                 <div className="flex items-end gap-2 sm:gap-3">
-                  <div className="flex-1 border border-border focus-within:border-accent transition-colors px-3 sm:px-4 py-2.5 sm:py-3">
+                  <div className="flex-1 border border-border focus-within:border-accent transition-colors px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl">
                     <textarea
                       ref={inputRef}
                       value={input}
@@ -188,7 +192,7 @@ export default function Home() {
                     onClick={() => handleSend()}
                     disabled={!input.trim() || isTyping}
                     aria-label="Send message"
-                    className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-opacity active:scale-95"
+                    className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-opacity active:scale-95 rounded-lg"
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="m5 12 7-7 7 7" />
@@ -203,7 +207,7 @@ export default function Home() {
                     <button
                       key={i}
                       onClick={() => handleSend(s)}
-                      className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-colors"
+                      className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-colors rounded-lg"
                     >
                       {s}
                     </button>
@@ -213,7 +217,7 @@ export default function Home() {
                     <button
                       key={i + 3}
                       onClick={() => handleSend(s)}
-                      className="hidden sm:inline-block text-xs font-mono px-3 py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-colors"
+                      className="hidden sm:inline-block text-xs font-mono px-3 py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-colors rounded-lg"
                     >
                       {s}
                     </button>
@@ -274,7 +278,7 @@ export default function Home() {
           <div className="shrink-0 border-t border-border bg-background">
             <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 py-4">
               <div className="flex items-end gap-3">
-                <div className="flex-1 border border-border focus-within:border-accent transition-colors px-4 py-3">
+                <div className="flex-1 border border-border focus-within:border-accent transition-colors px-4 py-3 rounded-xl">
                   <textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
@@ -289,7 +293,7 @@ export default function Home() {
                   onClick={() => handleSend()}
                   disabled={!input.trim() || isTyping}
                   aria-label="Send message"
-                  className="shrink-0 w-10 h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-opacity active:scale-95"
+                  className="shrink-0 w-10 h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-opacity active:scale-95 rounded-lg"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="m5 12 7-7 7 7" />

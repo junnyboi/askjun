@@ -67,3 +67,7 @@
 - [x] Add suggestion chips below the input
 - [x] Move professional context to a minimal header + empty state
 - [x] Keep Nothing design language (monochrome, sharp, Space Mono)
+
+## UI Tweaks
+- [x] Header logo click resets conversation and returns to landing page
+- [x] Apply rounded borders to all buttons and containers
