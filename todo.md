@@ -143,3 +143,11 @@
 - [x] Remove inline "Browse traditionally" section from Home.tsx
 - [x] Add route in App.tsx for /portfolio
 - [x] Add Education section to portfolio page
+
+## Favicon & Portfolio Nav
+- [x] Generate and integrate askJun favicon (aJ monogram, black+red)
+- [x] Add sticky sidebar navigation to portfolio page (desktop)
+- [x] Add breadcrumbs at top of portfolio page (askJun / Portfolio)
+- [x] Make all portfolio sections collapsible with caret icon
+- [x] Smooth page transitions between chat and portfolio (AnimatePresence fade)
+- [x] Open Graph image for social sharing (branded preview with chat mockup)

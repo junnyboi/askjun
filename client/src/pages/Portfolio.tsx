@@ -1,26 +1,75 @@
 /*
  * ============================================================================
- * Portfolio Page — Dedicated showcase for Experience, Projects, Skills, Education
- * Nothing Design Language. Accessible via header CTA from the chat landing.
+ * Portfolio Page — Dedicated showcase with sidebar nav + collapsible sections
+ * Nothing Design Language. Sticky sidebar on desktop, breadcrumbs at top.
  * ============================================================================
  */
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { EXPERIENCES, SKILLS, EDUCATION, PROFILE, HIGHLIGHTS } from "@/data/portfolio";
 import ThemeToggle from "@/components/ThemeToggle";
 import { analytics } from "@/lib/analytics";
 
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.06 } },
-};
-const fadeUp = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
-};
+const SECTIONS = [
+  { id: "experience", label: "Experience" },
+  { id: "skills", label: "Skills" },
+  { id: "projects", label: "Projects" },
+  { id: "side-projects", label: "Side Projects" },
+  { id: "education", label: "Education" },
+  { id: "contact", label: "Contact" },
+];
+
+function CollapsibleSection({ id, title, defaultOpen = true, children }: { id: string; title: string; defaultOpen?: boolean; children: React.ReactNode }) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  return (
+    <section id={id} className="mb-10 scroll-mt-16">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between mb-4 group"
+      >
+        <h2 className="text-sm font-bold text-foreground flex items-center gap-2">
+          <span className="w-2 h-2 bg-accent rounded-full" />
+          {title}
+        </h2>
+        <svg
+          width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+          className={`text-muted-foreground group-hover:text-foreground transition-all duration-200 ${isOpen ? "" : "-rotate-90"}`}
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
+      {isOpen && <div>{children}</div>}
+    </section>
+  );
+}
 
 export default function Portfolio() {
+  const [activeSection, setActiveSection] = useState("experience");
+
+  // Track active section on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-20% 0px -60% 0px" }
+    );
+
+    SECTIONS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col relative">
       {/* Background grain */}
@@ -34,8 +83,9 @@ export default function Portfolio() {
           <Link href="/" className="font-mono text-sm text-foreground hover:opacity-70 transition-opacity">
             ask<span className="text-accent">Jun</span>
           </Link>
-          <span className="hidden sm:inline text-xs font-mono text-muted-foreground">
-            · Portfolio
+          {/* Breadcrumbs */}
+          <span className="text-xs font-mono text-muted-foreground hidden sm:inline">
+            / <span className="text-foreground">Portfolio</span>
           </span>
         </div>
         <div className="flex items-center gap-3">
@@ -55,40 +105,56 @@ export default function Portfolio() {
         </div>
       </header>
 
-      {/* Main content */}
-      <main className="flex-1 relative z-10">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
+      {/* Main layout: sidebar + content */}
+      <div className="flex-1 flex relative z-10">
+        {/* Sticky sidebar nav — desktop only */}
+        <aside className="hidden lg:block w-48 shrink-0 sticky top-12 h-[calc(100vh-3rem)] overflow-y-auto border-r border-border/50 py-8 px-4">
+          <nav className="space-y-1">
+            {SECTIONS.map(({ id, label }) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={`block text-xs font-mono py-1.5 px-2 rounded transition-colors ${
+                  activeSection === id
+                    ? "text-accent bg-accent/5"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+        </aside>
 
-          {/* Page title */}
-          <motion.div initial="hidden" animate="show" variants={stagger} className="mb-12">
-            <motion.div variants={fadeUp} className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 overflow-hidden border border-border rounded-full">
-                <img src="/manus-storage/jun-profile-meta_7e9e3d09.jpg" alt="Jun" className="w-full h-full object-cover" />
+        {/* Main content */}
+        <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+
+          {/* Profile header */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 overflow-hidden border border-border rounded-full">
+              <img src="/manus-storage/jun-profile-meta_7e9e3d09.jpg" alt="Jun" className="w-full h-full object-cover" />
+            </div>
+            <div>
+              <h1 className="text-lg font-bold text-foreground">{PROFILE.name}</h1>
+              <p className="text-xs text-muted-foreground">{PROFILE.title}</p>
+            </div>
+          </div>
+
+          {/* Key metrics */}
+          <div className="flex flex-wrap gap-4 mb-10">
+            {HIGHLIGHTS.slice(0, 4).map((h, i) => (
+              <div key={i} className="flex flex-col">
+                <span className="font-mono text-sm font-bold text-foreground">{h.metric}</span>
+                <span className="text-[10px] text-muted-foreground font-mono">{h.label}</span>
               </div>
-              <div>
-                <h1 className="text-lg sm:text-xl font-bold text-foreground">{PROFILE.name}</h1>
-                <p className="text-xs text-muted-foreground">{PROFILE.title}</p>
-              </div>
-            </motion.div>
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mt-4">
-              {HIGHLIGHTS.slice(0, 4).map((h, i) => (
-                <div key={i} className="flex flex-col">
-                  <span className="font-mono text-sm font-bold text-foreground">{h.metric}</span>
-                  <span className="text-[10px] text-muted-foreground font-mono">{h.label}</span>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
+            ))}
+          </div>
 
           {/* Experience */}
-          <motion.section initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mb-12">
-            <motion.h2 variants={fadeUp} className="text-sm font-bold text-foreground mb-6 flex items-center gap-2">
-              <span className="w-2 h-2 bg-accent rounded-full" />
-              Experience
-            </motion.h2>
+          <CollapsibleSection id="experience" title="Experience">
             <div className="space-y-0">
               {EXPERIENCES.map((exp, i) => (
-                <motion.div key={i} variants={fadeUp} className="py-4 border-b border-border/50 last:border-0">
+                <div key={i} className="py-4 border-b border-border/50 last:border-0">
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div>
                       <h3 className="text-sm font-semibold text-foreground">{exp.company}</h3>
@@ -103,33 +169,25 @@ export default function Portfolio() {
                       </li>
                     ))}
                   </ul>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.section>
+          </CollapsibleSection>
 
           {/* Skills */}
-          <motion.section initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mb-12">
-            <motion.h2 variants={fadeUp} className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
-              <span className="w-2 h-2 bg-accent rounded-full" />
-              Skills
-            </motion.h2>
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-1.5">
+          <CollapsibleSection id="skills" title="Skills">
+            <div className="flex flex-wrap gap-1.5">
               {SKILLS.map((s) => (
                 <span key={s.name} className="text-[11px] font-mono px-2 py-0.5 border border-border text-muted-foreground rounded-md hover:border-accent/50 hover:text-accent transition-colors">
                   {s.name}
                 </span>
               ))}
-            </motion.div>
-          </motion.section>
+            </div>
+          </CollapsibleSection>
 
           {/* Featured Projects */}
-          <motion.section initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mb-12">
-            <motion.h2 variants={fadeUp} className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
-              <span className="w-2 h-2 bg-accent rounded-full" />
-              Featured Projects
-            </motion.h2>
-            <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <CollapsibleSection id="projects" title="Featured Projects">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 {
                   title: "Trident",
@@ -164,7 +222,7 @@ export default function Portfolio() {
                   tags: ["AI", "Web"],
                   tech: ["React", "TypeScript", "DeepSeek"],
                   image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-askjun-meta-cCqB22TaRGXLmgfGqmaa7h.webp",
-                  link: "https://askjun.manus.space",
+                  link: "https://askjun.org",
                   visibility: "public" as const,
                 },
               ].map((project, i) => (
@@ -193,16 +251,12 @@ export default function Portfolio() {
                   </div>
                 </a>
               ))}
-            </motion.div>
-          </motion.section>
+            </div>
+          </CollapsibleSection>
 
           {/* Side Projects */}
-          <motion.section initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mb-12">
-            <motion.h2 variants={fadeUp} className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
-              <span className="w-2 h-2 bg-accent rounded-full" />
-              Side Projects
-            </motion.h2>
-            <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <CollapsibleSection id="side-projects" title="Side Projects">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { title: "TeaPets 3D", description: "Browser-based roguelike with cute slime character", tags: ["Game Dev"], link: "https://github.com/junnyboi/teapets-3d", visibility: "private" as const },
                 { title: "Housewarmer", description: "Scroll-animated housewarming invitation", tags: ["Creative", "Web"], link: "https://github.com/junnyboi/housewarmer", visibility: "private" as const },
@@ -226,18 +280,14 @@ export default function Portfolio() {
                   </div>
                 </a>
               ))}
-            </motion.div>
-          </motion.section>
+            </div>
+          </CollapsibleSection>
 
           {/* Education */}
-          <motion.section initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger} className="mb-12">
-            <motion.h2 variants={fadeUp} className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
-              <span className="w-2 h-2 bg-accent rounded-full" />
-              Education
-            </motion.h2>
+          <CollapsibleSection id="education" title="Education">
             <div className="space-y-0">
               {EDUCATION.map((edu, i) => (
-                <motion.div key={i} variants={fadeUp} className="py-3 border-b border-border/50 last:border-0">
+                <div key={i} className="py-3 border-b border-border/50 last:border-0">
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <h3 className="text-sm font-semibold text-foreground">{edu.school}</h3>
@@ -245,26 +295,22 @@ export default function Portfolio() {
                     </div>
                     <span className="text-[10px] font-mono text-muted-foreground whitespace-nowrap">{edu.year}</span>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.section>
+          </CollapsibleSection>
 
           {/* Contact */}
-          <motion.section initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger}>
-            <motion.h2 variants={fadeUp} className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
-              <span className="w-2 h-2 bg-accent rounded-full" />
-              Contact
-            </motion.h2>
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-4 text-xs font-mono">
+          <CollapsibleSection id="contact" title="Contact">
+            <div className="flex flex-wrap gap-4 text-xs font-mono">
               <a href={`mailto:${PROFILE.email}`} className="text-muted-foreground hover:text-accent transition-colors">{PROFILE.email}</a>
               <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors">LinkedIn</a>
               <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors">GitHub</a>
-            </motion.div>
-          </motion.section>
+            </div>
+          </CollapsibleSection>
 
-        </div>
-      </main>
+        </main>
+      </div>
 
       {/* Mobile footer */}
       <div className="sm:hidden shrink-0 border-t border-border bg-card px-4 py-2.5 flex items-center justify-between relative z-10">
