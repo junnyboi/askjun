@@ -4,6 +4,7 @@
  */
 
 import { useTheme } from "@/contexts/ThemeContext";
+import { analytics } from "@/lib/analytics";
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -11,7 +12,7 @@ export default function ThemeToggle() {
 
   return (
     <button
-      onClick={toggleTheme}
+      onClick={() => { toggleTheme?.(); analytics.themeToggle(isDark ? 'light' : 'dark'); }}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
       className="relative w-12 h-6 rounded-full border border-border bg-muted transition-colors hover:border-muted-foreground"
     >

@@ -14,6 +14,7 @@ import { getResponse, shouldSimulateToolUse, getToolUseResponse } from "@/data/c
 import { CHAT_SUGGESTIONS, PROFILE, HIGHLIGHTS, EXPERIENCES, SKILLS } from "@/data/portfolio";
 import ThemeToggle from "@/components/ThemeToggle";
 import { getFollowUps } from "@/data/followUps";
+import { analytics } from "@/lib/analytics";
 
 interface Message {
   id: string;
@@ -115,6 +116,7 @@ export default function Home() {
     async (text?: string) => {
       const query = text || input.trim();
       if (!query || isTyping) return;
+      analytics.chatMessage(query);
 
       const userMsg: Message = { id: `user-${Date.now()}`, role: "user", content: query };
       const updatedMessages = [...messages, userMsg];
@@ -154,7 +156,7 @@ export default function Home() {
       .map((m) => `${m.role === "user" ? "You" : "askJun"}: ${m.content}`)
       .join("\n\n");
     navigator.clipboard.writeText(transcript);
-    // Could use toast here, but keeping it simple
+    analytics.shareConversation();
     alert("Conversation copied to clipboard!");
   }, [messages]);
 
@@ -194,6 +196,7 @@ export default function Home() {
           <a
             href="/manus-storage/JunBoh-CV-2026_adffff38.pdf"
             download="BohZeJun_CV_2026.pdf"
+            onClick={() => analytics.cvDownload()}
             className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-all active:scale-95"
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -294,7 +297,7 @@ export default function Home() {
                   {CHAT_SUGGESTIONS.slice(0, 3).map((s, i) => (
                     <button
                       key={i}
-                      onClick={() => handleSend(s)}
+                      onClick={() => { analytics.chipClick(s); handleSend(s); }}
                       className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-all hover:scale-[1.02] rounded-lg"
                     >
                       {s}
@@ -303,7 +306,7 @@ export default function Home() {
                   {CHAT_SUGGESTIONS.slice(3).map((s, i) => (
                     <button
                       key={i + 3}
-                      onClick={() => handleSend(s)}
+                      onClick={() => { analytics.chipClick(s); handleSend(s); }}
                       className="hidden sm:inline-block text-xs font-mono px-3 py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-all hover:scale-[1.02] rounded-lg"
                     >
                       {s}
@@ -314,7 +317,7 @@ export default function Home() {
                 {/* Browse traditionally toggle */}
                 <div className="mt-8 text-center">
                   <button
-                    onClick={() => setShowTraditional(!showTraditional)}
+                    onClick={() => { setShowTraditional(!showTraditional); if (!showTraditional) analytics.browseTraditional(); }}
                     className="text-[11px] font-mono text-muted-foreground/60 hover:text-muted-foreground transition-colors underline underline-offset-4 decoration-border"
                   >
                     {showTraditional ? "Hide details" : "Or browse traditionally ↓"}
@@ -557,7 +560,19 @@ export default function Home() {
                     </span>
 
                     {msg.toolUse && msg.toolUse.status && (
-                      <div className="text-xs font-mono text-accent mb-2">✓ {msg.toolUse.status}</div>
+                      <>
+                        <div className="text-xs font-mono text-accent mb-2">✓ {msg.toolUse.status}</div>
+                        {/* Inline Download CV button for resume requests */}
+                        <a
+                          href="/manus-storage/JunBoh-CV-2026_adffff38.pdf"
+                          download="BohZeJun_CV_2026.pdf"
+                          onClick={() => analytics.cvDownload()}
+                          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-all active:scale-95 mb-3"
+                        >
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                          Download CV
+                        </a>
+                      </>
                     )}
                     {msg.toolUse && !msg.toolUse.status && (
                       <div className="text-xs font-mono text-muted-foreground mb-2 flex items-center gap-2">
@@ -598,7 +613,7 @@ export default function Home() {
                     ).map((s, i) => (
                       <button
                         key={i}
-                        onClick={() => handleSend(s)}
+                        onClick={() => { analytics.chipClick(s); handleSend(s); }}
                         className="text-[11px] font-mono px-2.5 py-1 border border-border text-muted-foreground hover:border-accent hover:text-accent hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200 rounded-lg"
                       >
                         {s}
@@ -658,7 +673,7 @@ export default function Home() {
         <div className="sm:hidden shrink-0 border-t border-border bg-background px-4 py-2.5 flex items-center justify-between relative z-10">
           <a href={`mailto:${PROFILE.email}`} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Email</a>
           <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">LinkedIn</a>
-          <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="BohZeJun_CV_2026.pdf" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>
+          <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="BohZeJun_CV_2026.pdf" onClick={() => analytics.cvDownload()} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>
         </div>
       )}
 

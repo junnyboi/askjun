@@ -16,9 +16,11 @@
       (function() {
         var theme = localStorage.getItem('theme');
         if (!theme) {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          theme = 'light'; // Default to light mode, ignore system preference
         }
-        document.documentElement.classList.add(theme);
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
       })();
     </script>
     <!-- Nothing Typography: Space Grotesk (display), Inter (body), Space Mono (technical) -->

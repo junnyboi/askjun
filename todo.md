@@ -111,3 +111,13 @@
 - [x] Fix LinkedIn URL to be clickable hyperlink in chat responses
 - [x] Ensure all URLs in AI responses render as clickable links (accent color + underline styling)
 - [x] Push askJun to GitHub as public repo (github.com/junnyboi/askjun)
+
+## Analytics
+- [x] Test salary question to verify clickable LinkedIn link
+- [x] Add Umami analytics tracking for CV downloads
+- [x] Add Umami analytics tracking for chat interactions (messages sent)
+- [x] Add Umami analytics tracking for suggestion chip clicks
+- [x] Force light mode default (ignore system preference)
+
+## Inline CV Button
+- [x] Show Download CV button inline in conversation when user asks for resume/CV

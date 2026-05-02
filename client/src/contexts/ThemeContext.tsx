@@ -25,10 +25,7 @@ export function ThemeProvider({
     if (switchable) {
       const stored = localStorage.getItem("theme");
       if (stored === "light" || stored === "dark") return stored;
-      // Detect system preference
-      if (typeof window !== "undefined" && window.matchMedia) {
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      }
+      // First visit: always use defaultTheme, ignore system preference
     }
     return defaultTheme;
   });
