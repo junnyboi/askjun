@@ -233,7 +233,7 @@ export default function Portfolio() {
                   description: "Browser-based 3D roguelike featuring a cute slime character",
                   tags: ["Game Dev", "3D"],
                   tech: ["TypeScript", "Three.js"],
-                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-askjun-meta-cCqB22TaRGXLmgfGqmaa7h.webp",
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-teapets3d-TdRuMWBq6Fy9XTVQKNiMCV.webp",
                   link: "https://teapets-3d.mircovm.com/",
                   visibility: "public" as const,
                 },
