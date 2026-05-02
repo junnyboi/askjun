@@ -106,3 +106,8 @@
 ## Chat UX Improvements
 - [x] Update AI unknown-answer response to warm redirect (email + LinkedIn)
 - [x] Add suggested follow-up chips after each AI response in conversation
+
+## Link Fixes & GitHub
+- [ ] Fix LinkedIn URL to be clickable hyperlink in chat responses
+- [ ] Ensure all URLs in AI responses render as clickable links
+- [ ] Push askJun to GitHub as public repo

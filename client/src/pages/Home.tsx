@@ -368,7 +368,7 @@ export default function Home() {
                           {
                             title: "Trident",
                             description: "Swiss Army Knife for macOS productivity — menu bar app with floating panels",
-                            tags: ["Productivity", "Native App"],
+                            tags: ["Productivity", "Swift"],
                             tech: ["Swift", "macOS", "AppKit"],
                             image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-trident-4UQUxwxKKTV6TYCvCfcF7S.webp",
                             link: "https://github.com/junnyboi/trident",
@@ -566,7 +566,7 @@ export default function Home() {
                       </div>
                     )}
 
-                    <div className="text-sm leading-relaxed text-foreground [&_strong]:text-accent [&_strong]:font-semibold [&_li]:ml-4 [&_li]:list-disc [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-xs [&_code]:font-mono">
+                    <div className="text-sm leading-relaxed text-foreground [&_strong]:text-accent [&_strong]:font-semibold [&_li]:ml-4 [&_li]:list-disc [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-xs [&_code]:font-mono [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a]:hover:opacity-70 [&_a]:transition-opacity">
                       {msg.content ? (
                         <>
                           <Streamdown>{msg.content}</Streamdown>

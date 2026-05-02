@@ -184,7 +184,7 @@ He's looking for **Senior Frontend** or **Full Stack** roles at companies that a
   },
 
   salary: {
-    text: `That's a great question! You should reach Jun directly at **boh.ze.jun@gmail.com** or connect with him on **[LinkedIn](https://linkedin.com/in/junboh)** to discuss compensation expectations.
+    text: `That's a great question! You should reach Jun directly at **[boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com)** or connect with him on **[LinkedIn](https://linkedin.com/in/junboh)** to discuss compensation expectations.
 
 What I *can* tell you is that Jun is currently at a senior IC level at a FAANG company, so his expectations are calibrated accordingly. He values the total package — base, equity, bonus, and the opportunity to work on meaningful problems.`,
   },
@@ -304,7 +304,7 @@ function findBestMatch(query: string): string {
 }
 
 const UNKNOWN_RESPONSE: ChatResponse = {
-  text: `That's a great question! You should reach Jun directly at **boh.ze.jun@gmail.com** or connect with him on **[LinkedIn](https://linkedin.com/in/junboh)** to discuss that topic.
+  text: `That's a great question! You should reach Jun directly at **[boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com)** or connect with him on **[LinkedIn](https://linkedin.com/in/junboh)** to discuss that topic.
 
 In the meantime, here are some things I *can* help with:
 - His experience at **Meta/Manus**, **HoYoverse**, **TikTok**, or **Bank of Singapore**
@@ -337,7 +337,7 @@ export function getToolUseResponse(): ChatResponse {
 
 The resume covers his experience at Meta (Manus AI), Instawork, HoYoverse, TikTok/ByteDance, Bank of Singapore, and DBS Bank — along with his full technical skill set and education.
 
-For the most up-to-date version or to discuss opportunities, reach out at **boh.ze.jun@gmail.com**.`,
+For the most up-to-date version or to discuss opportunities, reach out at **[boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com)**.`,
     toolUse: {
       action: "Retrieving document...",
       status: "Resume loaded successfully",
