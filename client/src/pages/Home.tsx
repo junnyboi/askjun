@@ -194,9 +194,10 @@ export default function Home() {
           <a
             href="/manus-storage/JunBoh-CV-2026_adffff38.pdf"
             download="BohZeJun_CV_2026.pdf"
-            className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors hidden sm:inline"
+            className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-all active:scale-95"
           >
-            CV ↓
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download CV
           </a>
           <a
             href={PROFILE.linkedin}
@@ -359,42 +360,46 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Projects Grid */}
+                    {/* Featured Projects */}
                     <div className="border-t border-border pt-6 mb-8">
-                      <h2 className="text-sm font-bold text-foreground mb-4">Projects</h2>
+                      <h2 className="text-sm font-bold text-foreground mb-4">Featured Projects</h2>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {[
                           {
-                            title: "Manus AI Agent Interface",
-                            company: "Meta",
-                            description: "Real-time streaming conversation UI for advanced AI agent platform",
-                            metrics: ["React + TypeScript", "Real-time streaming", "Multi-turn context"],
-                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-manus-ai-fsVjG3hG8GimaNaRMXfsTz.webp",
-                            link: "https://manus.im",
+                            title: "Trident",
+                            description: "Swiss Army Knife for macOS productivity — menu bar app with floating panels",
+                            tags: ["Productivity", "Native App"],
+                            tech: ["Swift", "macOS", "AppKit"],
+                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-trident-4UQUxwxKKTV6TYCvCfcF7S.webp",
+                            link: "https://github.com/junnyboi/trident",
+                            visibility: "private" as const,
                           },
                           {
-                            title: "Global Payment System",
-                            company: "HoYoverse",
-                            description: "Payment infrastructure for 5 flagship titles processing $57M on launch week",
-                            metrics: ["50+ payment methods", "100+ countries", "8M DAU"],
-                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-hoyoverse-payments-KrqdTmaGUksF9NJRrj7wNG.webp",
-                            link: "https://www.hoyoverse.com",
+                            title: "Mandai Smoke Co.",
+                            description: "Idle tycoon game — build your BBQ empire with PixiJS",
+                            tags: ["Game Dev"],
+                            tech: ["TypeScript", "PixiJS"],
+                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-mandaismoker-Z7mrLsNuAELTcHTqfKCJvi.webp",
+                            link: "https://github.com/junnyboi/mandaismoker",
+                            visibility: "private" as const,
                           },
                           {
-                            title: "GDPR Compliance Portal",
-                            company: "TikTok",
-                            description: "Rebuilt payment portals under regulatory deadline, averting multi-million-euro fines",
-                            metrics: ["React + Node + Golang", "Data residency", "EU compliance"],
-                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-tiktok-gdpr-iNo5znoAKiyFn2SbAfKRCv.webp",
-                            link: "https://www.tiktok.com",
+                            title: "Mijun",
+                            description: "Cinematic tea & preserved flower e-commerce platform",
+                            tags: ["E-commerce", "Creative"],
+                            tech: ["TypeScript", "React"],
+                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-mijun-FgEyiENgotiCCaN8nCrMFX.webp",
+                            link: "https://github.com/junnyboi/mijun",
+                            visibility: "private" as const,
                           },
                           {
-                            title: "Innovation & Roboadvisory",
-                            company: "Bank of Singapore",
-                            description: "Led winning innovation products delivering $1.5M/annum in savings",
-                            metrics: ["Genetic algorithm", "3,680 hrs saved", "CEO Award"],
-                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-bos-innovation-5GTCjJsGFiEku3YGngpV35.webp",
-                            link: "https://www.bankofsingapore.com",
+                            title: "askJun AI Portfolio",
+                            description: "This site — chat-first AI portfolio powered by DeepSeek",
+                            tags: ["AI", "Web"],
+                            tech: ["React", "TypeScript", "DeepSeek"],
+                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-askjun-meta-cCqB22TaRGXLmgfGqmaa7h.webp",
+                            link: "https://askjun.manus.space",
+                            visibility: "public" as const,
                           },
                         ].map((project, i) => (
                           <a
@@ -414,13 +419,30 @@ export default function Home() {
                             <div className="p-3">
                               <div className="flex items-center justify-between mb-1">
                                 <h3 className="text-xs font-semibold text-foreground">{project.title}</h3>
-                                <span className="text-[10px] font-mono text-accent">{project.company}</span>
+                                <span className="text-[9px] font-mono text-muted-foreground">
+                                  {project.visibility === "private" ? "🔒" : "↗"}
+                                </span>
+                              </div>
+                              {/* Genre tags */}
+                              <div className="flex flex-wrap gap-1 mb-1.5">
+                                {project.tags.map((tag, j) => (
+                                  <span
+                                    key={j}
+                                    className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${
+                                      tag === "AI"
+                                        ? "border border-accent/50 text-accent"
+                                        : "border border-border text-muted-foreground"
+                                    }`}
+                                  >
+                                    {tag}
+                                  </span>
+                                ))}
                               </div>
                               <p className="text-[11px] text-muted-foreground mb-2 leading-relaxed">{project.description}</p>
                               <div className="flex flex-wrap gap-1">
-                                {project.metrics.map((m, j) => (
-                                  <span key={j} className="text-[9px] font-mono px-1.5 py-0.5 border border-border text-muted-foreground rounded">
-                                    {m}
+                                {project.tech.map((t, j) => (
+                                  <span key={j} className="text-[9px] font-mono px-1.5 py-0.5 bg-muted text-muted-foreground rounded">
+                                    {t}
                                   </span>
                                 ))}
                               </div>
@@ -430,38 +452,52 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Side Projects & Open Source */}
+                    {/* Side Projects */}
                     <div className="border-t border-border pt-6 mb-8">
-                      <h2 className="text-sm font-bold text-foreground mb-4">Side Projects & Open Source</h2>
+                      <h2 className="text-sm font-bold text-foreground mb-4">Side Projects</h2>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {[
                           {
-                            title: "askJun",
-                            description: "This portfolio — chat-first AI site powered by DeepSeek",
-                            tech: "React · TypeScript · DeepSeek",
-                            link: "https://askjun.manus.space",
-                            icon: "✨",
+                            title: "TeaPets 3D",
+                            description: "Browser-based roguelike with cute slime character",
+                            tags: ["Game Dev"],
+                            link: "https://github.com/junnyboi/teapets-3d",
+                            visibility: "private" as const,
                           },
                           {
-                            title: "Finance Tracker",
-                            description: "Ionic + React mobile app for personal stock tracking",
-                            tech: "Ionic · React · Firebase",
-                            link: "https://github.com/junnyboi/tony-stocks",
-                            icon: "📈",
+                            title: "Housewarmer",
+                            description: "Scroll-animated housewarming invitation",
+                            tags: ["Creative", "Web"],
+                            link: "https://github.com/junnyboi/housewarmer",
+                            visibility: "private" as const,
+                          },
+                          {
+                            title: "Booking Bot",
+                            description: "Automated booking system",
+                            tags: ["Automation"],
+                            link: "https://github.com/junnyboi/booking-bot",
+                            visibility: "private" as const,
+                          },
+                          {
+                            title: "Polygen",
+                            description: "Procedurally generated low poly asset collection",
+                            tags: ["Creative", "Game Dev"],
+                            link: "https://github.com/junnyboi/polygen",
+                            visibility: "private" as const,
                           },
                           {
                             title: "Gobbo 2D",
                             description: "Unity 2D game — a couple's passion project",
-                            tech: "C# · Unity · Cinemachine",
+                            tags: ["Game Dev"],
                             link: "https://github.com/junnyboi/Gobbo-2D",
-                            icon: "🎮",
+                            visibility: "public" as const,
                           },
                           {
-                            title: "Home Assistant",
-                            description: "Smart home OS fork for personal IoT automation",
-                            tech: "Python · IoT",
-                            link: "https://github.com/junnyboi/operating-system",
-                            icon: "🏠",
+                            title: "Finance Tracker",
+                            description: "Ionic + React mobile finance app",
+                            tags: ["Mobile"],
+                            link: "https://github.com/junnyboi/tony-stocks",
+                            visibility: "public" as const,
                           },
                         ].map((project, i) => (
                           <a
@@ -469,13 +505,28 @@ export default function Home() {
                             href={project.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group flex items-start gap-3 p-3 border border-border rounded-lg hover:border-accent/50 transition-all"
+                            className="group flex items-start gap-3 p-3 border border-border rounded-lg hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-200"
                           >
-                            <span className="text-lg mt-0.5">{project.icon}</span>
+                            <span className="text-[10px] font-mono text-muted-foreground mt-0.5">
+                              {project.visibility === "private" ? "🔒" : "↗"}
+                            </span>
                             <div className="min-w-0">
                               <h3 className="text-xs font-semibold text-foreground group-hover:text-accent transition-colors">{project.title}</h3>
                               <p className="text-[10px] text-muted-foreground mt-0.5">{project.description}</p>
-                              <span className="text-[9px] font-mono text-muted-foreground/60 mt-1 block">{project.tech}</span>
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {project.tags.map((tag, j) => (
+                                  <span
+                                    key={j}
+                                    className={`text-[8px] font-mono px-1 py-0.5 rounded ${
+                                      tag === "AI"
+                                        ? "border border-accent/50 text-accent"
+                                        : "border border-border text-muted-foreground/60"
+                                    }`}
+                                  >
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
                             </div>
                           </a>
                         ))}
@@ -548,7 +599,7 @@ export default function Home() {
                       <button
                         key={i}
                         onClick={() => handleSend(s)}
-                        className="text-[11px] font-mono px-2.5 py-1 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-all rounded-lg"
+                        className="text-[11px] font-mono px-2.5 py-1 border border-border text-muted-foreground hover:border-accent hover:text-accent hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200 rounded-lg"
                       >
                         {s}
                       </button>
@@ -607,7 +658,7 @@ export default function Home() {
         <div className="sm:hidden shrink-0 border-t border-border bg-background px-4 py-2.5 flex items-center justify-between relative z-10">
           <a href={`mailto:${PROFILE.email}`} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Email</a>
           <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">LinkedIn</a>
-          <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="BohZeJun_CV_2026.pdf" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">CV ↓</a>
+          <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="BohZeJun_CV_2026.pdf" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>
         </div>
       )}
 
