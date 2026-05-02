@@ -38,6 +38,23 @@ export default function Home() {
   const [usedChips, setUsedChips] = useState<Set<string>>(new Set());
   const chatStats = trpc.chat.stats.useQuery(undefined, { refetchInterval: 30000 });
 
+  // Rotating placeholder text
+  const PLACEHOLDERS = [
+    "Ask about Jun...",
+    "What's his experience with AI?",
+    "Tell me about his tech stack",
+    "What payment systems did he build?",
+    "Why is he looking for new roles?",
+  ];
+  const [placeholderIdx, setPlaceholderIdx] = useState(0);
+  useEffect(() => {
+    if (hasMessages) return; // Only rotate on landing
+    const timer = setInterval(() => {
+      setPlaceholderIdx((prev) => (prev + 1) % PLACEHOLDERS.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [hasMessages]);
+
   // Track scroll position for back-to-top button
   useEffect(() => {
     const handleScroll = () => {
@@ -275,8 +292,17 @@ export default function Home() {
               </div>
 
               {/* Prompt text */}
-              <p className="text-base sm:text-xl text-muted-foreground text-center max-w-md mb-5 sm:mb-8">
+              <p className="text-base sm:text-xl text-muted-foreground text-center max-w-md mb-2 sm:mb-3">
                 Ask me anything about Jun's experience, skills, or career.
+              </p>
+              <p className="text-xs text-muted-foreground/60 text-center mb-5 sm:mb-8">
+                or view his{" "}
+                <a
+                  href="/portfolio"
+                  className="inline-flex items-center px-2.5 py-0.5 rounded-full border border-border text-muted-foreground hover:text-accent hover:border-accent transition-all"
+                >
+                  Portfolio
+                </a>
               </p>
 
               {/* Centered input — Manus-style: send button inside, taller box */}
@@ -287,9 +313,9 @@ export default function Home() {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder="Ask about Jun..."
+                    placeholder={PLACEHOLDERS[placeholderIdx]}
                     rows={2}
-                    className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 resize-none outline-none font-mono px-4 pt-3 pb-10 sm:pt-4 sm:pb-12"
+                    className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 resize-none outline-none font-mono px-4 pt-3 pb-10 sm:pt-4 sm:pb-12 placeholder:transition-opacity"
                     style={{ minHeight: "70px" }}
                   />
                   {/* Send button inside input — bottom right */}
