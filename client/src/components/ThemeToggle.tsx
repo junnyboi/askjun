@@ -14,7 +14,7 @@ export default function ThemeToggle() {
     <button
       onClick={() => { toggleTheme?.(); analytics.themeToggle(isDark ? 'light' : 'dark'); }}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-      className="relative w-12 h-6 rounded-full border border-border bg-muted transition-colors hover:border-muted-foreground"
+      className="relative w-12 h-6 rounded-full border border-foreground/20 bg-muted transition-colors hover:border-foreground/40"
     >
       {/* Track indicator */}
       <span

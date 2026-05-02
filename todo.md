@@ -130,3 +130,9 @@
 - [x] Add visitor counter ("X conversations" shown in footer)
 - [x] Remove already-clicked chips from the suggestion pool
 - [x] Perform codebase audit (all tests pass, zero TS errors, photo verified)
+
+## User Feedback Redesign
+- [x] Add subtle bg-card background to header and footer
+- [x] Adjust theme toggle border for better contrast on card bg
+- [x] Redesign "Browse traditionally" as bordered pill "View Experience & Projects" with chevron
+- [x] Rewrite handsome Easter egg response (more humble, no tattoos, professional humor)

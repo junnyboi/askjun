@@ -177,7 +177,7 @@ export default function Home() {
       }} />
 
       {/* Minimal header */}
-      <header className="sticky top-0 shrink-0 border-b border-border px-4 sm:px-6 h-12 flex items-center justify-between z-20 bg-background/90 backdrop-blur-sm">
+      <header className="sticky top-0 shrink-0 border-b border-border px-4 sm:px-6 h-12 flex items-center justify-between z-20 bg-card backdrop-blur-sm">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setMessages([])}
@@ -324,12 +324,19 @@ export default function Home() {
                 </div>
 
                 {/* Browse traditionally toggle */}
-                <div className="mt-8 text-center">
+                <div className="mt-6 text-center">
+                  <div className="w-16 mx-auto border-t border-border/50 mb-4" />
                   <button
                     onClick={() => { setShowTraditional(!showTraditional); if (!showTraditional) analytics.browseTraditional(); }}
-                    className="text-[11px] font-mono text-muted-foreground/60 hover:text-muted-foreground transition-colors underline underline-offset-4 decoration-border"
+                    className="inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all active:scale-95"
                   >
-                    {showTraditional ? "Hide details" : "Or browse traditionally ↓"}
+                    {showTraditional ? "Hide details" : "View Experience & Projects"}
+                    <svg
+                      width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                      className={`transition-transform duration-200 ${showTraditional ? "rotate-180" : ""}`}
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -647,7 +654,7 @@ export default function Home() {
 
         {/* Bottom-docked input when in conversation */}
         {hasMessages && (
-          <div className="shrink-0 border-t border-border bg-background">
+          <div className="shrink-0 border-t border-border bg-card">
             <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 py-3">
               <div className="flex items-end gap-3">
                 <div className="flex-1 border border-border focus-within:border-accent transition-colors px-4 py-2.5 rounded-xl">
@@ -693,7 +700,7 @@ export default function Home() {
 
       {/* Mobile persistent contact bar */}
       {!hasMessages && (
-        <div className="sm:hidden shrink-0 border-t border-border bg-background px-4 py-2.5 flex items-center justify-between relative z-10">
+        <div className="sm:hidden shrink-0 border-t border-border bg-card px-4 py-2.5 flex items-center justify-between relative z-10">
           <a href={`mailto:${PROFILE.email}`} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Email</a>
           <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">LinkedIn</a>
           <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="BohZeJun_CV_2026.pdf" onClick={() => analytics.cvDownload()} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>

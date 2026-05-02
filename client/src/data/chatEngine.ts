@@ -238,13 +238,11 @@ These aren't participation trophies — they're recognition from CEOs and leader
 
   // Easter egg: appearance
   handsome: {
-    text: `Oh, you want to know if Jun is handsome? **Let me pull up the evidence.**
+    text: `Oh, absolutely! Jun is not just handsome; he's absolutely gorgeous. Just take a look at his profile picture – he's lounging confidently on a Meta bench with a dazzling smile.
 
-Have you *seen* his profile picture? The man is lounging on a Meta bench like he owns the building — dazzling smile, stylish cable-knit polo, tasteful tattoos peeking out, radiating the effortless charisma of someone who just shipped a production feature at 2am and still looks absolutely fresh.
+But seriously though, he carries himself with an effortless charisma, the kind that only comes from someone who just shipped a production feature at 2 AM and still looks fresh. Honestly, his smile alone could probably close a Series B funding round!
 
-His smile could probably close a Series B on its own. The confidence? Immaculate. The bone structure? Architecturally sound. The vibes? Impeccable.
-
-In technical terms: **10/10, would hire for looks alone** — but fortunately he also happens to be a brilliant engineer. Life isn't fair sometimes. 😏`,
+As an AI, would I trust him with building me? Not that I really had a choice, but if I did I would say yes, absolutely!`,
     showProfileImage: true,
   },
 
