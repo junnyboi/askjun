@@ -205,6 +205,14 @@ export default function Home() {
           >
             LinkedIn
           </a>
+          <a
+            href={PROFILE.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors hidden sm:inline"
+          >
+            GitHub
+          </a>
           <ThemeToggle />
         </div>
       </header>
@@ -415,6 +423,58 @@ export default function Home() {
                                   </span>
                                 ))}
                               </div>
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Side Projects & Open Source */}
+                    <div className="border-t border-border pt-6 mb-8">
+                      <h2 className="text-sm font-bold text-foreground mb-4">Side Projects & Open Source</h2>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {[
+                          {
+                            title: "askJun",
+                            description: "This portfolio — chat-first AI site powered by DeepSeek",
+                            tech: "React · TypeScript · DeepSeek",
+                            link: "https://askjun.manus.space",
+                            icon: "✨",
+                          },
+                          {
+                            title: "Finance Tracker",
+                            description: "Ionic + React mobile app for personal stock tracking",
+                            tech: "Ionic · React · Firebase",
+                            link: "https://github.com/junnyboi/tony-stocks",
+                            icon: "📈",
+                          },
+                          {
+                            title: "Gobbo 2D",
+                            description: "Unity 2D game — a couple's passion project",
+                            tech: "C# · Unity · Cinemachine",
+                            link: "https://github.com/junnyboi/Gobbo-2D",
+                            icon: "🎮",
+                          },
+                          {
+                            title: "Home Assistant",
+                            description: "Smart home OS fork for personal IoT automation",
+                            tech: "Python · IoT",
+                            link: "https://github.com/junnyboi/operating-system",
+                            icon: "🏠",
+                          },
+                        ].map((project, i) => (
+                          <a
+                            key={i}
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex items-start gap-3 p-3 border border-border rounded-lg hover:border-accent/50 transition-all"
+                          >
+                            <span className="text-lg mt-0.5">{project.icon}</span>
+                            <div className="min-w-0">
+                              <h3 className="text-xs font-semibold text-foreground group-hover:text-accent transition-colors">{project.title}</h3>
+                              <p className="text-[10px] text-muted-foreground mt-0.5">{project.description}</p>
+                              <span className="text-[9px] font-mono text-muted-foreground/60 mt-1 block">{project.tech}</span>
                             </div>
                           </a>
                         ))}
