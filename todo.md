@@ -102,3 +102,7 @@
 - [x] Make header sticky on mobile so reset button is always accessible
 - [x] Add floating 'back to top' button when scrolling the traditional section
 - [x] Add smooth hover animations to project thumbnails in the portfolio grid
+
+## Chat UX Improvements
+- [x] Update AI unknown-answer response to warm redirect (email + LinkedIn)
+- [x] Add suggested follow-up chips after each AI response in conversation

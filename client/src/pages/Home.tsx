@@ -13,6 +13,7 @@ import { trpc } from "@/lib/trpc";
 import { getResponse, shouldSimulateToolUse, getToolUseResponse } from "@/data/chatEngine";
 import { CHAT_SUGGESTIONS, PROFILE, HIGHLIGHTS, EXPERIENCES, SKILLS } from "@/data/portfolio";
 import ThemeToggle from "@/components/ThemeToggle";
+import { getFollowUps } from "@/data/followUps";
 
 interface Message {
   id: string;
@@ -535,6 +536,26 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+
+              {/* Suggested follow-ups — shown after last assistant message when not typing */}
+              {!isTyping && messages.length >= 2 && messages[messages.length - 1]?.role === "assistant" && messages[messages.length - 1]?.content && (
+                <div className="mt-4 pt-4 border-t border-border/50">
+                  <span className="text-[10px] font-mono text-muted-foreground/50 block mb-2">Suggested follow-ups</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {getFollowUps(
+                      messages.filter(m => m.role === "user").slice(-1)[0]?.content || ""
+                    ).map((s, i) => (
+                      <button
+                        key={i}
+                        onClick={() => handleSend(s)}
+                        className="text-[11px] font-mono px-2.5 py-1 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-all rounded-lg"
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>

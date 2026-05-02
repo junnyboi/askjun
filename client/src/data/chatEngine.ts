@@ -184,11 +184,7 @@ He's looking for **Senior Frontend** or **Full Stack** roles at companies that a
   },
 
   salary: {
-    text: `I appreciate the direct question! However, compensation details are best discussed directly with Jun.
-
-You can reach him at:
-- **Email:** boh.ze.jun@gmail.com
-- **LinkedIn:** linkedin.com/in/junboh
+    text: `That's a great question! You should reach Jun directly at **boh.ze.jun@gmail.com** or connect with him on **[LinkedIn](https://linkedin.com/in/junboh)** to discuss compensation expectations.
 
 What I *can* tell you is that Jun is currently at a senior IC level at a FAANG company, so his expectations are calibrated accordingly. He values the total package — base, equity, bonus, and the opportunity to work on meaningful problems.`,
   },
@@ -289,7 +285,7 @@ const KEYWORD_MAP: Record<string, string[]> = {
 
 function findBestMatch(query: string): string {
   const lower = query.toLowerCase();
-  let bestKey = "hello";
+  let bestKey = "";
   let bestScore = 0;
 
   for (const [key, keywords] of Object.entries(KEYWORD_MAP)) {
@@ -307,9 +303,20 @@ function findBestMatch(query: string): string {
   return bestKey;
 }
 
+const UNKNOWN_RESPONSE: ChatResponse = {
+  text: `That's a great question! You should reach Jun directly at **boh.ze.jun@gmail.com** or connect with him on **[LinkedIn](https://linkedin.com/in/junboh)** to discuss that topic.
+
+In the meantime, here are some things I *can* help with:
+- His experience at **Meta/Manus**, **HoYoverse**, **TikTok**, or **Bank of Singapore**
+- His **technical skills** and **tech stack**
+- His **awards** and **achievements**
+- Why he's **looking for new opportunities**`,
+};
+
 export function getResponse(query: string): ChatResponse {
   const key = findBestMatch(query);
-  return KNOWLEDGE_BASE[key] || KNOWLEDGE_BASE.hello;
+  if (!key) return UNKNOWN_RESPONSE;
+  return KNOWLEDGE_BASE[key] || UNKNOWN_RESPONSE;
 }
 
 // Simulate tool use for resume requests
