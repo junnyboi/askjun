@@ -36,7 +36,7 @@ export const PROFILE = {
   location: "Singapore",
   email: "boh.ze.jun@gmail.com",
   linkedin: "https://linkedin.com/in/junboh",
-  github: "https://github.com/junnyboi",
+  github: "https://github.com/junnyboi/askjun",
 };
 
 export const EXPERIENCES: Experience[] = [

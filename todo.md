@@ -108,6 +108,6 @@
 - [x] Add suggested follow-up chips after each AI response in conversation
 
 ## Link Fixes & GitHub
-- [ ] Fix LinkedIn URL to be clickable hyperlink in chat responses
-- [ ] Ensure all URLs in AI responses render as clickable links
-- [ ] Push askJun to GitHub as public repo
+- [x] Fix LinkedIn URL to be clickable hyperlink in chat responses
+- [x] Ensure all URLs in AI responses render as clickable links (accent color + underline styling)
+- [x] Push askJun to GitHub as public repo (github.com/junnyboi/askjun)
