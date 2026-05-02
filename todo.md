@@ -151,3 +151,11 @@
 - [x] Make all portfolio sections collapsible with caret icon
 - [x] Smooth page transitions between chat and portfolio (AnimatePresence fade)
 - [x] Open Graph image for social sharing (branded preview with chat mockup)
+
+## Admin Dashboard
+- [x] Create DB schema for analytics_events and visitors tables
+- [x] Build server-side event collection endpoint (POST /api/trpc track.event)
+- [x] Build admin API endpoints (stats, visitors, events, questions)
+- [x] Build /admin page with password gate (password: mijun)
+- [x] Dashboard UI: metrics cards, visitor table, top questions, event heatmap
+- [x] Wire frontend analytics to server-side tracking (dual: Umami + DB)

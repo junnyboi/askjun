@@ -5,6 +5,9 @@ import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { ENV } from "./_core/env";
 import { SYSTEM_PROMPT } from "./knowledge";
+import { getDb } from "./db";
+import { analyticsEvents, visitors } from "../drizzle/schema";
+import { eq, desc, sql, count } from "drizzle-orm";
 
 // In-memory rate limiter
 const rateLimits = new Map<string, { count: number; resetAt: number }>();
@@ -121,6 +124,98 @@ export const appRouter = router({
           };
         }
       }),
+  }),
+
+  // Analytics tracking — called from frontend
+  track: router({
+    event: publicProcedure
+      .input(z.object({
+        event: z.string(),
+        data: z.string().optional(),
+        sessionId: z.string().optional(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const db = await getDb();
+        if (!db) return { success: false };
+        const ip = ctx.req.ip || ctx.req.socket?.remoteAddress || "unknown";
+        const userAgent = ctx.req.headers["user-agent"] || "";
+        // Upsert visitor
+        try {
+          const existing = await db.select().from(visitors).where(eq(visitors.ip, ip)).limit(1);
+          if (existing.length > 0) {
+            await db.update(visitors).set({ visitCount: sql`${visitors.visitCount} + 1`, lastVisit: new Date() }).where(eq(visitors.ip, ip));
+          } else {
+            await db.insert(visitors).values({ ip, userAgent });
+          }
+          // Insert event
+          await db.insert(analyticsEvents).values({
+            event: input.event,
+            data: input.data || null,
+            ip,
+            userAgent,
+            sessionId: input.sessionId || null,
+          });
+        } catch (e) {
+          console.error("[Track] Error:", e);
+        }
+        return { success: true };
+      }),
+  }),
+
+  // Admin dashboard — password-gated on the frontend
+  admin: router({
+    verify: publicProcedure
+      .input(z.object({ password: z.string() }))
+      .mutation(({ input }) => {
+        return { valid: input.password === "mijun" };
+      }),
+    stats: publicProcedure.query(async () => {
+      const db = await getDb();
+      if (!db) return { totalEvents: 0, totalVisitors: 0, cvDownloads: 0, chatMessages: 0, chipClicks: 0 };
+      try {
+        const [totalEvents] = await db.select({ count: count() }).from(analyticsEvents);
+        const [totalVisitors] = await db.select({ count: count() }).from(visitors);
+        const [cvDownloads] = await db.select({ count: count() }).from(analyticsEvents).where(eq(analyticsEvents.event, "cv_download"));
+        const [chatMessages] = await db.select({ count: count() }).from(analyticsEvents).where(eq(analyticsEvents.event, "chat_message"));
+        const [chipClicks] = await db.select({ count: count() }).from(analyticsEvents).where(eq(analyticsEvents.event, "chip_click"));
+        return {
+          totalEvents: totalEvents?.count || 0,
+          totalVisitors: totalVisitors?.count || 0,
+          cvDownloads: cvDownloads?.count || 0,
+          chatMessages: chatMessages?.count || 0,
+          chipClicks: chipClicks?.count || 0,
+        };
+      } catch { return { totalEvents: 0, totalVisitors: 0, cvDownloads: 0, chatMessages: 0, chipClicks: 0 }; }
+    }),
+    visitors: publicProcedure.query(async () => {
+      const db = await getDb();
+      if (!db) return [];
+      try {
+        return await db.select().from(visitors).orderBy(desc(visitors.lastVisit)).limit(50);
+      } catch { return []; }
+    }),
+    topQuestions: publicProcedure.query(async () => {
+      const db = await getDb();
+      if (!db) return [];
+      try {
+        const results = await db.select({
+          data: analyticsEvents.data,
+          count: count(),
+        }).from(analyticsEvents)
+          .where(eq(analyticsEvents.event, "chat_message"))
+          .groupBy(analyticsEvents.data)
+          .orderBy(desc(count()))
+          .limit(20);
+        return results;
+      } catch { return []; }
+    }),
+    recentEvents: publicProcedure.query(async () => {
+      const db = await getDb();
+      if (!db) return [];
+      try {
+        return await db.select().from(analyticsEvents).orderBy(desc(analyticsEvents.createdAt)).limit(100);
+      } catch { return []; }
+    }),
   }),
 });
 
