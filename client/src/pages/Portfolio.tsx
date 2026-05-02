@@ -106,7 +106,7 @@ export default function Portfolio() {
           </Link>
           <a
             href="/manus-storage/JunBoh-CV-2026_adffff38.pdf"
-            download="BohZeJun_CV_2026.pdf"
+            download="JunBoh_CV_2026.pdf"
             onClick={() => analytics.cvDownload()}
             className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-all active:scale-95"
           >
@@ -206,7 +206,7 @@ export default function Portfolio() {
                   description: "Swiss Army Knife for macOS productivity — menu bar app with floating panels",
                   tags: ["Productivity", "Swift"],
                   tech: ["Swift", "macOS", "AppKit"],
-                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-trident-4UQUxwxKKTV6TYCvCfcF7S.webp",
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-trident-new-VcbheBopyotEZnESEdvBQv.webp",
                   link: "https://github.com/junnyboi/trident",
                   visibility: "private" as const,
                 },
@@ -224,7 +224,7 @@ export default function Portfolio() {
                   description: "Cinematic tea & preserved flower e-commerce platform",
                   tags: ["E-commerce", "Creative"],
                   tech: ["TypeScript", "React"],
-                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-mijun-FgEyiENgotiCCaN8nCrMFX.webp",
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-mijun-new-cWCak5PxY9rwufnEepXhVv.webp",
                   link: "https://github.com/junnyboi/mijun",
                   visibility: "private" as const,
                 },
@@ -236,6 +236,7 @@ export default function Portfolio() {
                   image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-teapets3d-TdRuMWBq6Fy9XTVQKNiMCV.webp",
                   link: "https://teapets-3d.mircovm.com/",
                   visibility: "public" as const,
+                  liveDemo: true,
                 },
                 {
                   title: "askJun AI Portfolio",
@@ -245,13 +246,19 @@ export default function Portfolio() {
                   image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-askjun-meta-cCqB22TaRGXLmgfGqmaa7h.webp",
                   link: "https://askjun.org",
                   visibility: "public" as const,
+                  liveDemo: true,
                 },
               ].map((project, i) => (
                 <a key={i} href={project.link} target="_blank" rel="noopener noreferrer"
                   className="group border border-border rounded-lg overflow-hidden hover:border-accent/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out"
                 >
-                  <div className="aspect-video overflow-hidden bg-muted">
+                  <div className="aspect-video overflow-hidden bg-muted relative">
                     <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out" />
+                    {(project as any).liveDemo && (
+                      <span className="absolute top-2 right-2 text-[9px] font-mono px-1.5 py-0.5 bg-green-500 text-white rounded">
+                        Live Demo
+                      </span>
+                    )}
                   </div>
                   <div className="p-3">
                     <div className="flex items-center justify-between mb-1">
@@ -355,7 +362,7 @@ export default function Portfolio() {
       <div className="sm:hidden shrink-0 border-t border-border bg-card px-4 py-2.5 flex items-center justify-between relative z-10">
         <Link href="/" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Chat with AI</Link>
         <a href={`mailto:${PROFILE.email}`} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Email</a>
-        <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="BohZeJun_CV_2026.pdf" onClick={() => analytics.cvDownload()} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>
+        <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="JunBoh_CV_2026.pdf" onClick={() => analytics.cvDownload()} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>
       </div>
     </div>
   );

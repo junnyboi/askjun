@@ -16,7 +16,7 @@ export default function HeroSection({ onOpenChat }: HeroSectionProps) {
             <div className="w-28 h-28 sm:w-36 sm:h-36 overflow-hidden border border-border">
               <img
                 src={PROFILE_PHOTO}
-                alt="Boh Ze Jun"
+                alt="Jun Boh"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -53,7 +53,7 @@ export default function HeroSection({ onOpenChat }: HeroSectionProps) {
               </button>
               <a
                 href="/manus-storage/JunBoh-CV-2026_adffff38.pdf"
-                download="BohZeJun_CV_2026.pdf"
+                download="JunBoh_CV_2026.pdf"
                 className="px-5 py-2.5 text-sm font-mono border border-border text-foreground hover:border-foreground transition-colors active:scale-[0.97]"
               >
                 Download CV

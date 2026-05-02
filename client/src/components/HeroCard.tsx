@@ -36,7 +36,7 @@ export default function HeroCard() {
               />
               <img
                 src={PROFILE_PHOTO}
-                alt="Boh Ze Jun"
+                alt="Jun Boh"
                 className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] rounded-full object-cover"
               />
             </div>

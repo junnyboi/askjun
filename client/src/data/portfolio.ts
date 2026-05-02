@@ -27,7 +27,7 @@ export interface Education {
 }
 
 export const PROFILE = {
-  name: "Boh Ze Jun",
+  name: "Jun Boh",
   nickname: "Jun",
   title: "Senior Frontend / Full Stack Software Engineer",
   tagline: "Building AI-native interfaces & high-scale payment systems",
