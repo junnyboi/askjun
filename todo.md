@@ -159,3 +159,6 @@
 - [x] Build /admin page with password gate (password: mijun)
 - [x] Dashboard UI: metrics cards, visitor table, top questions, event heatmap
 - [x] Wire frontend analytics to server-side tracking (dual: Umami + DB)
+
+## Admin Enhancements
+- [ ] Add date range filter to admin dashboard (all metrics, visitors, events)

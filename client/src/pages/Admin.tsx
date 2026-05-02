@@ -12,12 +12,16 @@ export default function Admin() {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [error, setError] = useState("");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+
+  const dateFilter = (dateFrom || dateTo) ? { from: dateFrom || undefined, to: dateTo || undefined } : undefined;
 
   const verifyMutation = trpc.admin.verify.useMutation();
-  const stats = trpc.admin.stats.useQuery(undefined, { enabled: authenticated });
-  const visitorsQuery = trpc.admin.visitors.useQuery(undefined, { enabled: authenticated });
-  const topQuestions = trpc.admin.topQuestions.useQuery(undefined, { enabled: authenticated });
-  const recentEvents = trpc.admin.recentEvents.useQuery(undefined, { enabled: authenticated });
+  const stats = trpc.admin.stats.useQuery(dateFilter, { enabled: authenticated });
+  const visitorsQuery = trpc.admin.visitors.useQuery(dateFilter, { enabled: authenticated });
+  const topQuestions = trpc.admin.topQuestions.useQuery(dateFilter, { enabled: authenticated });
+  const recentEvents = trpc.admin.recentEvents.useQuery(dateFilter, { enabled: authenticated });
 
   const handleLogin = async () => {
     const result = await verifyMutation.mutateAsync({ password });
@@ -70,6 +74,35 @@ export default function Admin() {
       </header>
 
       <main className="max-w-6xl mx-auto px-6 py-8">
+        {/* Date Range Filter */}
+        <div className="flex flex-wrap items-center gap-3 mb-6 p-3 border border-border rounded-lg bg-card">
+          <span className="text-[11px] font-mono text-muted-foreground">Filter:</span>
+          <input
+            type="date"
+            value={dateFrom}
+            onChange={(e) => setDateFrom(e.target.value)}
+            className="text-[11px] font-mono px-2 py-1 border border-border rounded bg-transparent text-foreground"
+          />
+          <span className="text-[11px] text-muted-foreground">—</span>
+          <input
+            type="date"
+            value={dateTo}
+            onChange={(e) => setDateTo(e.target.value)}
+            className="text-[11px] font-mono px-2 py-1 border border-border rounded bg-transparent text-foreground"
+          />
+          {(dateFrom || dateTo) && (
+            <button
+              onClick={() => { setDateFrom(""); setDateTo(""); }}
+              className="text-[10px] font-mono px-2 py-1 border border-border rounded text-muted-foreground hover:text-accent hover:border-accent transition-colors"
+            >
+              Clear
+            </button>
+          )}
+          <span className="text-[10px] font-mono text-muted-foreground/50 ml-auto">
+            {dateFrom || dateTo ? `Showing: ${dateFrom || "start"} → ${dateTo || "now"}` : "All time"}
+          </span>
+        </div>
+
         {/* Metrics Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
           {[

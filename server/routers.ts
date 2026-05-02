@@ -7,7 +7,7 @@ import { ENV } from "./_core/env";
 import { SYSTEM_PROMPT } from "./knowledge";
 import { getDb } from "./db";
 import { analyticsEvents, visitors } from "../drizzle/schema";
-import { eq, desc, sql, count } from "drizzle-orm";
+import { eq, desc, sql, count, and, gte, lte } from "drizzle-orm";
 
 // In-memory rate limiter
 const rateLimits = new Map<string, { count: number; resetAt: number }>();
@@ -139,13 +139,23 @@ export const appRouter = router({
         if (!db) return { success: false };
         const ip = ctx.req.ip || ctx.req.socket?.remoteAddress || "unknown";
         const userAgent = ctx.req.headers["user-agent"] || "";
-        // Upsert visitor
+          // Geo-IP lookup (non-blocking, best-effort)
+          let country: string | null = null;
+          try {
+            const geoRes = await fetch(`http://ip-api.com/json/${ip}?fields=country`, { signal: AbortSignal.timeout(2000) });
+            if (geoRes.ok) {
+              const geo = await geoRes.json() as { country?: string };
+              country = geo.country || null;
+            }
+          } catch { /* silent fail on geo lookup */ }
+
+          // Upsert visitor
         try {
           const existing = await db.select().from(visitors).where(eq(visitors.ip, ip)).limit(1);
           if (existing.length > 0) {
-            await db.update(visitors).set({ visitCount: sql`${visitors.visitCount} + 1`, lastVisit: new Date() }).where(eq(visitors.ip, ip));
+            await db.update(visitors).set({ visitCount: sql`${visitors.visitCount} + 1`, lastVisit: new Date(), ...(country ? { country } : {}) }).where(eq(visitors.ip, ip));
           } else {
-            await db.insert(visitors).values({ ip, userAgent });
+            await db.insert(visitors).values({ ip, userAgent, ...(country ? { country } : {}) });
           }
           // Insert event
           await db.insert(analyticsEvents).values({
@@ -169,53 +179,77 @@ export const appRouter = router({
       .mutation(({ input }) => {
         return { valid: input.password === "mijun" };
       }),
-    stats: publicProcedure.query(async () => {
-      const db = await getDb();
-      if (!db) return { totalEvents: 0, totalVisitors: 0, cvDownloads: 0, chatMessages: 0, chipClicks: 0 };
-      try {
-        const [totalEvents] = await db.select({ count: count() }).from(analyticsEvents);
-        const [totalVisitors] = await db.select({ count: count() }).from(visitors);
-        const [cvDownloads] = await db.select({ count: count() }).from(analyticsEvents).where(eq(analyticsEvents.event, "cv_download"));
-        const [chatMessages] = await db.select({ count: count() }).from(analyticsEvents).where(eq(analyticsEvents.event, "chat_message"));
-        const [chipClicks] = await db.select({ count: count() }).from(analyticsEvents).where(eq(analyticsEvents.event, "chip_click"));
-        return {
-          totalEvents: totalEvents?.count || 0,
-          totalVisitors: totalVisitors?.count || 0,
-          cvDownloads: cvDownloads?.count || 0,
-          chatMessages: chatMessages?.count || 0,
-          chipClicks: chipClicks?.count || 0,
-        };
-      } catch { return { totalEvents: 0, totalVisitors: 0, cvDownloads: 0, chatMessages: 0, chipClicks: 0 }; }
-    }),
-    visitors: publicProcedure.query(async () => {
-      const db = await getDb();
-      if (!db) return [];
-      try {
-        return await db.select().from(visitors).orderBy(desc(visitors.lastVisit)).limit(50);
-      } catch { return []; }
-    }),
-    topQuestions: publicProcedure.query(async () => {
-      const db = await getDb();
-      if (!db) return [];
-      try {
-        const results = await db.select({
-          data: analyticsEvents.data,
-          count: count(),
-        }).from(analyticsEvents)
-          .where(eq(analyticsEvents.event, "chat_message"))
-          .groupBy(analyticsEvents.data)
-          .orderBy(desc(count()))
-          .limit(20);
-        return results;
-      } catch { return []; }
-    }),
-    recentEvents: publicProcedure.query(async () => {
-      const db = await getDb();
-      if (!db) return [];
-      try {
-        return await db.select().from(analyticsEvents).orderBy(desc(analyticsEvents.createdAt)).limit(100);
-      } catch { return []; }
-    }),
+    stats: publicProcedure
+      .input(z.object({ from: z.string().optional(), to: z.string().optional() }).optional())
+      .query(async ({ input }) => {
+        const db = await getDb();
+        if (!db) return { totalEvents: 0, totalVisitors: 0, cvDownloads: 0, chatMessages: 0, chipClicks: 0 };
+        try {
+          const dateFilters = [];
+          if (input?.from) dateFilters.push(gte(analyticsEvents.createdAt, new Date(input.from)));
+          if (input?.to) dateFilters.push(lte(analyticsEvents.createdAt, new Date(input.to + "T23:59:59")));
+          const whereClause = dateFilters.length > 0 ? and(...dateFilters) : undefined;
+
+          const [totalEvents] = await db.select({ count: count() }).from(analyticsEvents).where(whereClause);
+          const [totalVisitors] = await db.select({ count: count() }).from(visitors);
+          const [cvDownloads] = await db.select({ count: count() }).from(analyticsEvents).where(whereClause ? and(eq(analyticsEvents.event, "cv_download"), ...dateFilters) : eq(analyticsEvents.event, "cv_download"));
+          const [chatMessages] = await db.select({ count: count() }).from(analyticsEvents).where(whereClause ? and(eq(analyticsEvents.event, "chat_message"), ...dateFilters) : eq(analyticsEvents.event, "chat_message"));
+          const [chipClicks] = await db.select({ count: count() }).from(analyticsEvents).where(whereClause ? and(eq(analyticsEvents.event, "chip_click"), ...dateFilters) : eq(analyticsEvents.event, "chip_click"));
+          return {
+            totalEvents: totalEvents?.count || 0,
+            totalVisitors: totalVisitors?.count || 0,
+            cvDownloads: cvDownloads?.count || 0,
+            chatMessages: chatMessages?.count || 0,
+            chipClicks: chipClicks?.count || 0,
+          };
+        } catch { return { totalEvents: 0, totalVisitors: 0, cvDownloads: 0, chatMessages: 0, chipClicks: 0 }; }
+      }),
+    visitors: publicProcedure
+      .input(z.object({ from: z.string().optional(), to: z.string().optional() }).optional())
+      .query(async ({ input }) => {
+        const db = await getDb();
+        if (!db) return [];
+        try {
+          const filters = [];
+          if (input?.from) filters.push(gte(visitors.lastVisit, new Date(input.from)));
+          if (input?.to) filters.push(lte(visitors.lastVisit, new Date(input.to + "T23:59:59")));
+          const whereClause = filters.length > 0 ? and(...filters) : undefined;
+          return await db.select().from(visitors).where(whereClause).orderBy(desc(visitors.lastVisit)).limit(50);
+        } catch { return []; }
+      }),
+    topQuestions: publicProcedure
+      .input(z.object({ from: z.string().optional(), to: z.string().optional() }).optional())
+      .query(async ({ input }) => {
+        const db = await getDb();
+        if (!db) return [];
+        try {
+          const filters = [eq(analyticsEvents.event, "chat_message")];
+          if (input?.from) filters.push(gte(analyticsEvents.createdAt, new Date(input.from)));
+          if (input?.to) filters.push(lte(analyticsEvents.createdAt, new Date(input.to + "T23:59:59")));
+          const results = await db.select({
+            data: analyticsEvents.data,
+            count: count(),
+          }).from(analyticsEvents)
+            .where(and(...filters))
+            .groupBy(analyticsEvents.data)
+            .orderBy(desc(count()))
+            .limit(20);
+          return results;
+        } catch { return []; }
+      }),
+    recentEvents: publicProcedure
+      .input(z.object({ from: z.string().optional(), to: z.string().optional() }).optional())
+      .query(async ({ input }) => {
+        const db = await getDb();
+        if (!db) return [];
+        try {
+          const filters = [];
+          if (input?.from) filters.push(gte(analyticsEvents.createdAt, new Date(input.from)));
+          if (input?.to) filters.push(lte(analyticsEvents.createdAt, new Date(input.to + "T23:59:59")));
+          const whereClause = filters.length > 0 ? and(...filters) : undefined;
+          return await db.select().from(analyticsEvents).where(whereClause).orderBy(desc(analyticsEvents.createdAt)).limit(100);
+        } catch { return []; }
+      }),
   }),
 });
 
