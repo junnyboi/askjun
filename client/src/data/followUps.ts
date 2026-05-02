@@ -62,17 +62,17 @@ const FOLLOW_UP_MAP: Record<string, string[]> = {
   challenge: [
     "Tell me about his GDPR work at TikTok",
     "How did he handle 15M sign-ups?",
-    "What awards has he won?",
+    "What does he look like?",
   ],
   education: [
     "What certifications does he have?",
     "Tell me about his work experience",
-    "What's his tech stack?",
+    "What does he look like?",
   ],
   awards: [
     "Tell me about his innovation projects",
     "What's his experience at Meta?",
-    "Why is he looking for new opportunities?",
+    "What does he look like?",
   ],
   handsome: [
     "Okay but what's his tech stack?",
