@@ -52,7 +52,9 @@ The irony of building an AI agent conversation interface and then showcasing it 
 - Integrated an AI booking bot to automate user shift booking flows
 - Extended messaging systems with AI-assisted features
 
-His unique value proposition is **bridging complex AI/ML backend systems with intuitive, responsive frontend experiences**. He doesn't just make things look pretty — he makes AI feel natural to interact with.`,
+His unique value proposition is **bridging complex AI/ML backend systems with intuitive, responsive frontend experiences**. He doesn't just make things look pretty — he makes AI feel natural to interact with.
+
+In fact, this very site — **askJun** — is a working example of Jun's ability to design and ship a production-ready AI agent from scratch. You're chatting with the proof.`,
   },
 
   // Payments / HoYoverse

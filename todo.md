@@ -121,3 +121,6 @@
 
 ## Inline CV Button
 - [x] Show Download CV button inline in conversation when user asks for resume/CV
+
+## Meta Reference
+- [x] Add self-referential askJun joke to AI experience responses
