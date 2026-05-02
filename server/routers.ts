@@ -250,6 +250,26 @@ export const appRouter = router({
           return await db.select().from(analyticsEvents).where(whereClause).orderBy(desc(analyticsEvents.createdAt)).limit(100);
         } catch { return []; }
       }),
+    dailyTraffic: publicProcedure
+      .input(z.object({ from: z.string().optional(), to: z.string().optional() }).optional())
+      .query(async ({ input }) => {
+        const db = await getDb();
+        if (!db) return [];
+        try {
+          const filters = [];
+          if (input?.from) filters.push(gte(analyticsEvents.createdAt, new Date(input.from)));
+          if (input?.to) filters.push(lte(analyticsEvents.createdAt, new Date(input.to + "T23:59:59")));
+          const whereClause = filters.length > 0 ? and(...filters) : undefined;
+          const results = await db.select({
+            date: sql<string>`DATE(${analyticsEvents.createdAt})`,
+            events: count(),
+          }).from(analyticsEvents)
+            .where(whereClause)
+            .groupBy(sql`DATE(${analyticsEvents.createdAt})`)
+            .orderBy(sql`DATE(${analyticsEvents.createdAt})`);
+          return results;
+        } catch { return []; }
+      }),
   }),
 });
 

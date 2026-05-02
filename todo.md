@@ -161,4 +161,5 @@
 - [x] Wire frontend analytics to server-side tracking (dual: Umami + DB)
 
 ## Admin Enhancements
-- [ ] Add date range filter to admin dashboard (all metrics, visitors, events)
+- [x] Add date range filter to admin dashboard (all metrics, visitors, events)
+- [x] Add geo-IP country lookup via ip-api.com (2s timeout, best-effort)

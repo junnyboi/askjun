@@ -7,6 +7,7 @@
 
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 export default function Admin() {
   const [password, setPassword] = useState("");
@@ -22,6 +23,7 @@ export default function Admin() {
   const visitorsQuery = trpc.admin.visitors.useQuery(dateFilter, { enabled: authenticated });
   const topQuestions = trpc.admin.topQuestions.useQuery(dateFilter, { enabled: authenticated });
   const recentEvents = trpc.admin.recentEvents.useQuery(dateFilter, { enabled: authenticated });
+  const dailyTraffic = trpc.admin.dailyTraffic.useQuery(dateFilter, { enabled: authenticated });
 
   const handleLogin = async () => {
     const result = await verifyMutation.mutateAsync({ password });
@@ -117,6 +119,41 @@ export default function Admin() {
               <p className="text-[10px] font-mono text-muted-foreground mt-1">{metric.label}</p>
             </div>
           ))}
+        </div>
+
+        {/* Traffic Trend Line Chart */}
+        <div className="border border-border rounded-lg p-4 bg-card mb-6">
+          <h2 className="text-sm font-bold text-foreground mb-4">Daily Traffic</h2>
+          {dailyTraffic.data && dailyTraffic.data.length > 0 ? (
+            <ResponsiveContainer width="100%" height={200}>
+              <LineChart data={dailyTraffic.data}>
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                <XAxis
+                  dataKey="date"
+                  tick={{ fontSize: 10, fontFamily: "Space Mono", fill: "var(--muted-foreground)" }}
+                  tickFormatter={(v: string) => v.slice(5)} // Show MM-DD
+                />
+                <YAxis
+                  tick={{ fontSize: 10, fontFamily: "Space Mono", fill: "var(--muted-foreground)" }}
+                  allowDecimals={false}
+                />
+                <Tooltip
+                  contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 8, fontSize: 11, fontFamily: "Space Mono" }}
+                  labelStyle={{ color: "var(--foreground)" }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="events"
+                  stroke="#E60000"
+                  strokeWidth={2}
+                  dot={{ r: 3, fill: "#E60000" }}
+                  activeDot={{ r: 5 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="text-xs text-muted-foreground text-center py-8">No traffic data yet. Events will appear here as visitors interact with the site.</p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
