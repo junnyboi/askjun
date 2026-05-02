@@ -279,26 +279,25 @@ export default function Home() {
                 Ask me anything about Jun's experience, skills, or career.
               </p>
 
-              {/* Centered input */}
+              {/* Centered input — Manus-style: send button inside, taller box */}
               <div className="w-full max-w-xl px-2 sm:px-0">
-                <div className="flex items-end gap-2 sm:gap-3">
-                  <div className="flex-1 border border-border focus-within:border-accent transition-colors px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl">
-                    <textarea
-                      ref={inputRef}
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      onKeyDown={handleKeyDown}
-                      placeholder="Ask about Jun..."
-                      rows={1}
-                      className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 resize-none outline-none max-h-32 font-mono"
-                      style={{ minHeight: "20px" }}
-                    />
-                  </div>
+                <div className="relative border border-border focus-within:border-accent transition-colors rounded-xl">
+                  <textarea
+                    ref={inputRef}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Ask about Jun..."
+                    rows={2}
+                    className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 resize-none outline-none font-mono px-4 pt-3 pb-10 sm:pt-4 sm:pb-12"
+                    style={{ minHeight: "70px" }}
+                  />
+                  {/* Send button inside input — bottom right */}
                   <button
                     onClick={() => handleSend()}
                     disabled={!input.trim() || isTyping}
                     aria-label="Send message"
-                    className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-all active:scale-90 rounded-lg"
+                    className="absolute bottom-2.5 right-2.5 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-all active:scale-90 rounded-lg"
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="m5 12 7-7 7 7" />
@@ -327,21 +326,6 @@ export default function Home() {
                       {s}
                     </button>
                   ))}
-                </div>
-
-                {/* Portfolio page link */}
-                <div className="mt-6 text-center">
-                  <div className="w-16 mx-auto border-t border-border/50 mb-4" />
-                  <a
-                    href="/portfolio"
-                    onClick={() => analytics.browseTraditional()}
-                    className="inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all active:scale-95"
-                  >
-                    View Experience & Projects
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="m9 18 6-6-6-6" />
-                    </svg>
-                  </a>
                 </div>
               </div>
             </div>
