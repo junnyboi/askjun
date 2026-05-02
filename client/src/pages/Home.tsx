@@ -410,24 +410,34 @@ export default function Home() {
               ))}
 
               {/* Suggested follow-ups — shown after last assistant message when not typing */}
-              {!isTyping && messages.length >= 2 && messages[messages.length - 1]?.role === "assistant" && messages[messages.length - 1]?.content && (
-                <div className="mt-4 pt-4 border-t border-border/50">
-                  <span className="text-[10px] font-mono text-muted-foreground/50 block mb-2">Suggested follow-ups</span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {getFollowUps(
-                      messages.filter(m => m.role === "user").slice(-1)[0]?.content || ""
-                    ).filter(s => !usedChips.has(s)).map((s, i) => (
-                      <button
-                        key={i}
-                        onClick={() => { analytics.chipClick(s); handleSend(s); }}
-                        className="text-[11px] font-mono px-2.5 py-1 border border-border text-muted-foreground hover:border-accent hover:text-accent hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200 rounded-lg"
-                      >
-                        {s}
-                      </button>
-                    ))}
+              {!isTyping && messages.length >= 2 && messages[messages.length - 1]?.role === "assistant" && messages[messages.length - 1]?.content && (() => {
+                const EASTER_EGG_CHIP = "What does he look like?";
+                const userMsgCount = messages.filter(m => m.role === "user").length;
+                const hasAskedAppearance = usedChips.has(EASTER_EGG_CHIP) || messages.some(m => m.role === "user" && ["handsome", "attractive", "look like", "looks like", "gorgeous", "appearance"].some(kw => m.content.toLowerCase().includes(kw)));
+                const baseChips = getFollowUps(
+                  messages.filter(m => m.role === "user").slice(-1)[0]?.content || ""
+                ).filter(s => !usedChips.has(s));
+                // Inject Easter egg chip at 3rd message if not already asked
+                const chips = (!hasAskedAppearance && userMsgCount >= 3 && !baseChips.includes(EASTER_EGG_CHIP))
+                  ? [...baseChips.slice(0, 2), EASTER_EGG_CHIP]
+                  : baseChips;
+                return chips.length > 0 ? (
+                  <div className="mt-4 pt-4 border-t border-border/50">
+                    <span className="text-[10px] font-mono text-muted-foreground/50 block mb-2">Suggested follow-ups</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {chips.map((s, i) => (
+                        <button
+                          key={i}
+                          onClick={() => { analytics.chipClick(s); handleSend(s); }}
+                          className="text-[11px] font-mono px-2.5 py-1 border border-border text-muted-foreground hover:border-accent hover:text-accent hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200 rounded-lg"
+                        >
+                          {s}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                ) : null;
+              })()}
             </div>
           )}
         </div>
