@@ -28,7 +28,7 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [showTraditional, setShowTraditional] = useState(false);
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const chatMutation = trpc.chat.send.useMutation();
@@ -212,6 +212,12 @@ export default function Home() {
             Download CV
           </a>
           <a
+            href="/portfolio"
+            className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all active:scale-95"
+          >
+            Experience & Projects
+          </a>
+          <a
             href={PROFILE.linkedin}
             target="_blank"
             rel="noopener noreferrer"
@@ -323,247 +329,21 @@ export default function Home() {
                   ))}
                 </div>
 
-                {/* Browse traditionally toggle */}
+                {/* Portfolio page link */}
                 <div className="mt-6 text-center">
                   <div className="w-16 mx-auto border-t border-border/50 mb-4" />
-                  <button
-                    onClick={() => { setShowTraditional(!showTraditional); if (!showTraditional) analytics.browseTraditional(); }}
+                  <a
+                    href="/portfolio"
+                    onClick={() => analytics.browseTraditional()}
                     className="inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all active:scale-95"
                   >
-                    {showTraditional ? "Hide details" : "View Experience & Projects"}
-                    <svg
-                      width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                      className={`transition-transform duration-200 ${showTraditional ? "rotate-180" : ""}`}
-                    >
-                      <path d="m6 9 6 6 6-6" />
+                    View Experience & Projects
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="m9 18 6-6-6-6" />
                     </svg>
-                  </button>
+                  </a>
                 </div>
               </div>
-
-              {/* ============ TRADITIONAL BROWSE SECTION ============ */}
-              <AnimatePresence>
-                {showTraditional && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="w-full max-w-2xl mt-8 overflow-hidden"
-                  >
-                    {/* Experience */}
-                    <div className="border-t border-border pt-6 mb-8">
-                      <h2 className="text-sm font-bold text-foreground mb-4">Experience</h2>
-                      <div className="space-y-3">
-                        {EXPERIENCES.map((exp, i) => (
-                          <div key={i} className="flex items-start justify-between gap-2 py-2 border-b border-border/50 last:border-0">
-                            <div>
-                              <span className="text-sm font-medium text-foreground">{exp.company}</span>
-                              <span className="text-xs text-muted-foreground ml-2">{exp.role}</span>
-                            </div>
-                            <span className="text-[10px] font-mono text-muted-foreground whitespace-nowrap">{exp.period}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Skills */}
-                    <div className="border-t border-border pt-6 mb-8">
-                      <h2 className="text-sm font-bold text-foreground mb-4">Skills</h2>
-                      <div className="flex flex-wrap gap-1.5">
-                        {SKILLS.map((s) => (
-                          <span key={s.name} className="text-[11px] font-mono px-2 py-0.5 border border-border text-muted-foreground rounded-md">
-                            {s.name}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Featured Projects */}
-                    <div className="border-t border-border pt-6 mb-8">
-                      <h2 className="text-sm font-bold text-foreground mb-4">Featured Projects</h2>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {[
-                          {
-                            title: "Trident",
-                            description: "Swiss Army Knife for macOS productivity — menu bar app with floating panels",
-                            tags: ["Productivity", "Swift"],
-                            tech: ["Swift", "macOS", "AppKit"],
-                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-trident-4UQUxwxKKTV6TYCvCfcF7S.webp",
-                            link: "https://github.com/junnyboi/trident",
-                            visibility: "private" as const,
-                          },
-                          {
-                            title: "Mandai Smoke Co.",
-                            description: "Idle tycoon game — build your BBQ empire with PixiJS",
-                            tags: ["Game Dev"],
-                            tech: ["TypeScript", "PixiJS"],
-                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-mandaismoker-Z7mrLsNuAELTcHTqfKCJvi.webp",
-                            link: "https://github.com/junnyboi/mandaismoker",
-                            visibility: "private" as const,
-                          },
-                          {
-                            title: "Mijun",
-                            description: "Cinematic tea & preserved flower e-commerce platform",
-                            tags: ["E-commerce", "Creative"],
-                            tech: ["TypeScript", "React"],
-                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-mijun-FgEyiENgotiCCaN8nCrMFX.webp",
-                            link: "https://github.com/junnyboi/mijun",
-                            visibility: "private" as const,
-                          },
-                          {
-                            title: "askJun AI Portfolio",
-                            description: "This site — chat-first AI portfolio powered by DeepSeek",
-                            tags: ["AI", "Web"],
-                            tech: ["React", "TypeScript", "DeepSeek"],
-                            image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-askjun-meta-cCqB22TaRGXLmgfGqmaa7h.webp",
-                            link: "https://askjun.manus.space",
-                            visibility: "public" as const,
-                          },
-                        ].map((project, i) => (
-                          <a
-                            key={i}
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group border border-border rounded-lg overflow-hidden hover:border-accent/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out"
-                          >
-                            <div className="aspect-video overflow-hidden bg-muted">
-                              <img
-                                src={project.image}
-                                alt={project.title}
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
-                              />
-                            </div>
-                            <div className="p-3">
-                              <div className="flex items-center justify-between mb-1">
-                                <h3 className="text-xs font-semibold text-foreground">{project.title}</h3>
-                                <span className="text-[9px] font-mono text-muted-foreground">
-                                  {project.visibility === "private" ? "🔒" : "↗"}
-                                </span>
-                              </div>
-                              {/* Genre tags */}
-                              <div className="flex flex-wrap gap-1 mb-1.5">
-                                {project.tags.map((tag, j) => (
-                                  <span
-                                    key={j}
-                                    className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${
-                                      tag === "AI"
-                                        ? "border border-accent/50 text-accent"
-                                        : "border border-border text-muted-foreground"
-                                    }`}
-                                  >
-                                    {tag}
-                                  </span>
-                                ))}
-                              </div>
-                              <p className="text-[11px] text-muted-foreground mb-2 leading-relaxed">{project.description}</p>
-                              <div className="flex flex-wrap gap-1">
-                                {project.tech.map((t, j) => (
-                                  <span key={j} className="text-[9px] font-mono px-1.5 py-0.5 bg-muted text-muted-foreground rounded">
-                                    {t}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Side Projects */}
-                    <div className="border-t border-border pt-6 mb-8">
-                      <h2 className="text-sm font-bold text-foreground mb-4">Side Projects</h2>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {[
-                          {
-                            title: "TeaPets 3D",
-                            description: "Browser-based roguelike with cute slime character",
-                            tags: ["Game Dev"],
-                            link: "https://github.com/junnyboi/teapets-3d",
-                            visibility: "private" as const,
-                          },
-                          {
-                            title: "Housewarmer",
-                            description: "Scroll-animated housewarming invitation",
-                            tags: ["Creative", "Web"],
-                            link: "https://github.com/junnyboi/housewarmer",
-                            visibility: "private" as const,
-                          },
-                          {
-                            title: "Booking Bot",
-                            description: "Automated booking system",
-                            tags: ["Automation"],
-                            link: "https://github.com/junnyboi/booking-bot",
-                            visibility: "private" as const,
-                          },
-                          {
-                            title: "Polygen",
-                            description: "Procedurally generated low poly asset collection",
-                            tags: ["Creative", "Game Dev"],
-                            link: "https://github.com/junnyboi/polygen",
-                            visibility: "private" as const,
-                          },
-                          {
-                            title: "Gobbo 2D",
-                            description: "Unity 2D game — a couple's passion project",
-                            tags: ["Game Dev"],
-                            link: "https://github.com/junnyboi/Gobbo-2D",
-                            visibility: "public" as const,
-                          },
-                          {
-                            title: "Finance Tracker",
-                            description: "Ionic + React mobile finance app",
-                            tags: ["Mobile"],
-                            link: "https://github.com/junnyboi/tony-stocks",
-                            visibility: "public" as const,
-                          },
-                        ].map((project, i) => (
-                          <a
-                            key={i}
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group flex items-start gap-3 p-3 border border-border rounded-lg hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-200"
-                          >
-                            <span className="text-[10px] font-mono text-muted-foreground mt-0.5">
-                              {project.visibility === "private" ? "🔒" : "↗"}
-                            </span>
-                            <div className="min-w-0">
-                              <h3 className="text-xs font-semibold text-foreground group-hover:text-accent transition-colors">{project.title}</h3>
-                              <p className="text-[10px] text-muted-foreground mt-0.5">{project.description}</p>
-                              <div className="flex flex-wrap gap-1 mt-1">
-                                {project.tags.map((tag, j) => (
-                                  <span
-                                    key={j}
-                                    className={`text-[8px] font-mono px-1 py-0.5 rounded ${
-                                      tag === "AI"
-                                        ? "border border-accent/50 text-accent"
-                                        : "border border-border text-muted-foreground/60"
-                                    }`}
-                                  >
-                                    {tag}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Contact */}
-                    <div className="border-t border-border pt-6">
-                      <h2 className="text-sm font-bold text-foreground mb-4">Contact</h2>
-                      <div className="flex flex-wrap gap-4 text-xs font-mono">
-                        <a href={`mailto:${PROFILE.email}`} className="text-muted-foreground hover:text-accent transition-colors">{PROFILE.email}</a>
-                        <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors">LinkedIn</a>
-                        <a href={PROFILE.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors">GitHub</a>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
           ) : (
             /* ============ MESSAGES ============ */
@@ -701,7 +481,7 @@ export default function Home() {
       {/* Mobile persistent contact bar */}
       {!hasMessages && (
         <div className="sm:hidden shrink-0 border-t border-border bg-card px-4 py-2.5 flex items-center justify-between relative z-10">
-          <a href={`mailto:${PROFILE.email}`} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Email</a>
+          <a href="/portfolio" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Portfolio</a>
           <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">LinkedIn</a>
           <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="BohZeJun_CV_2026.pdf" onClick={() => analytics.cvDownload()} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>
         </div>

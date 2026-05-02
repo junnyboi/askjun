@@ -136,3 +136,10 @@
 - [x] Adjust theme toggle border for better contrast on card bg
 - [x] Redesign "Browse traditionally" as bordered pill "View Experience & Projects" with chevron
 - [x] Rewrite handsome Easter egg response (more humble, no tattoos, professional humor)
+
+## Dedicated Portfolio Page
+- [x] Create /portfolio page with Experience, Skills, Projects, Side Projects, Education
+- [x] Move "View Experience & Projects" CTA to header (desktop) and mobile footer
+- [x] Remove inline "Browse traditionally" section from Home.tsx
+- [x] Add route in App.tsx for /portfolio
+- [x] Add Education section to portfolio page
