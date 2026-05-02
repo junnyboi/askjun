@@ -296,7 +296,7 @@ export default function Home() {
                 Ask me anything about Jun's experience, skills, or career.
               </p>
               <p className="text-xs text-muted-foreground/60 text-center mb-5 sm:mb-8">
-                or view his{" "}
+                or view{" "}
                 <a
                   href="/portfolio"
                   className="inline-flex items-center px-2.5 py-0.5 rounded-full border border-border text-muted-foreground hover:text-accent hover:border-accent transition-all"
