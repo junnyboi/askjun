@@ -10,6 +10,7 @@
 interface ChatResponse {
   text: string;
   toolUse?: { action: string; status: string };
+  showProfileImage?: boolean;
 }
 
 const KNOWLEDGE_BASE: Record<string, ChatResponse> = {
@@ -244,6 +245,7 @@ Have you *seen* his profile picture? The man is lounging on a Meta bench like he
 His smile could probably close a Series B on its own. The confidence? Immaculate. The bone structure? Architecturally sound. The vibes? Impeccable.
 
 In technical terms: **10/10, would hire for looks alone** — but fortunately he also happens to be a brilliant engineer. Life isn't fair sometimes. 😏`,
+    showProfileImage: true,
   },
 
   // Default / greeting

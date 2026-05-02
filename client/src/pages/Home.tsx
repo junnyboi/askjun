@@ -21,6 +21,7 @@ interface Message {
   role: "user" | "assistant";
   content: string;
   toolUse?: { action: string; status: string };
+  showProfileImage?: boolean;
 }
 
 export default function Home() {
@@ -83,7 +84,7 @@ export default function Home() {
 
   // Typing variation: variable speed with pauses at punctuation
   const simulateStreaming = useCallback(
-    (fullText: string, msgId: string, toolUse?: { action: string; status: string }) => {
+    (fullText: string, msgId: string, toolUse?: { action: string; status: string }, showProfileImage?: boolean) => {
       let charIndex = 0;
       const baseSpeed = 8;
 
@@ -95,7 +96,7 @@ export default function Home() {
 
         if (charIndex >= fullText.length) {
           charIndex = fullText.length;
-          setMessages((prev) => prev.map((m) => m.id === msgId ? { ...m, content: fullText, toolUse } : m));
+          setMessages((prev) => prev.map((m) => m.id === msgId ? { ...m, content: fullText, toolUse, showProfileImage } : m));
           setIsTyping(false);
           return;
         }
@@ -140,7 +141,7 @@ export default function Home() {
       } catch {
         const isToolUse = shouldSimulateToolUse(query);
         const response = isToolUse ? getToolUseResponse() : getResponse(query);
-        simulateStreaming(response.text, assistantMsgId, isToolUse ? response.toolUse : undefined);
+        simulateStreaming(response.text, assistantMsgId, isToolUse ? response.toolUse : undefined, response.showProfileImage);
       }
     },
     [input, isTyping, messages, chatMutation, simulateStreaming]
@@ -587,6 +588,16 @@ export default function Home() {
                           <Streamdown>{msg.content}</Streamdown>
                           {isTyping && msg === messages[messages.length - 1] && msg.role === "assistant" && msg.content.length > 0 && (
                             <span className="inline-block w-0.5 h-3.5 bg-accent ml-0.5 animate-blink align-middle" />
+                          )}
+                          {/* Profile image for handsome Easter egg */}
+                          {msg.showProfileImage && !isTyping && (
+                            <div className="mt-3 rounded-lg overflow-hidden border border-border max-w-[280px]">
+                              <img
+                                src="/manus-storage/jun-profile-meta_7e9e3d09.jpg"
+                                alt="Boh Ze Jun at Meta"
+                                className="w-full h-auto"
+                              />
+                            </div>
                           )}
                         </>
                       ) : (
