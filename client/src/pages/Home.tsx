@@ -37,6 +37,7 @@ export default function Home() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [usedChips, setUsedChips] = useState<Set<string>>(new Set());
   const chatStats = trpc.chat.stats.useQuery(undefined, { refetchInterval: 30000 });
+  const [showProfileZoom, setShowProfileZoom] = useState(false);
 
   // Rotating placeholder text
   const PLACEHOLDERS = [
@@ -262,13 +263,16 @@ export default function Home() {
             <div className="flex flex-col items-center justify-center px-4 py-6 sm:py-12 min-h-[60vh]">
               {/* Profile identity */}
               <div className="mb-4 sm:mb-8 text-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 overflow-hidden border border-border rounded-full">
+                <button
+                  onClick={() => setShowProfileZoom(true)}
+                  className="w-14 h-14 sm:w-18 sm:h-18 mx-auto mb-3 overflow-hidden border border-border rounded-full cursor-zoom-in hover:ring-2 hover:ring-accent/50 transition-all"
+                >
                   <img
                     src="/manus-storage/jun-profile-meta_7e9e3d09.jpg"
                     alt="Boh Ze Jun"
                     className="w-full h-full object-cover"
                   />
-                </div>
+                </button>
                 <h1 className="text-xl sm:text-3xl font-bold text-foreground tracking-tight mb-0.5">
                   {PROFILE.name}
                 </h1>
@@ -276,19 +280,9 @@ export default function Home() {
                   {PROFILE.title}
                 </p>
                 <div className="flex items-center justify-center gap-1.5 mt-1.5">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
                   <span className="text-[10px] font-mono text-muted-foreground">Available for hire</span>
                 </div>
-              </div>
-
-              {/* Key metrics — hidden on mobile */}
-              <div className="hidden sm:flex flex-wrap items-center justify-center gap-6 mb-8 text-center">
-                {HIGHLIGHTS.slice(0, 4).map((h, i) => (
-                  <div key={i} className="flex flex-col items-center">
-                    <span className="font-mono text-sm font-bold text-foreground">{h.metric}</span>
-                    <span className="text-[10px] text-muted-foreground font-mono">{h.label}</span>
-                  </div>
-                ))}
               </div>
 
               {/* Prompt text */}
@@ -299,7 +293,7 @@ export default function Home() {
                 or view{" "}
                 <a
                   href="/portfolio"
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-full border border-border text-muted-foreground hover:text-accent hover:border-accent transition-all"
+                  className="inline-flex items-center px-2.5 py-0.5 rounded-full border border-accent/50 text-accent hover:bg-accent hover:text-white transition-all"
                 >
                   Portfolio
                 </a>
@@ -339,15 +333,6 @@ export default function Home() {
                       key={i}
                       onClick={() => { analytics.chipClick(s); handleSend(s); }}
                       className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-all hover:scale-[1.02] rounded-lg"
-                    >
-                      {s}
-                    </button>
-                  ))}
-                  {CHAT_SUGGESTIONS.filter(s => !usedChips.has(s)).slice(3).map((s, i) => (
-                    <button
-                      key={i + 3}
-                      onClick={() => { analytics.chipClick(s); handleSend(s); }}
-                      className="hidden sm:inline-block text-xs font-mono px-3 py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-all hover:scale-[1.02] rounded-lg"
                     >
                       {s}
                     </button>
@@ -524,6 +509,31 @@ export default function Home() {
               <path d="M12 19V5" />
             </svg>
           </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Profile zoom dialog */}
+      <AnimatePresence>
+        {showProfileZoom && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setShowProfileZoom(false)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm cursor-zoom-out"
+          >
+            <motion.img
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" as const }}
+              src="/manus-storage/jun-profile-meta_7e9e3d09.jpg"
+              alt="Boh Ze Jun"
+              className="max-w-[80vw] max-h-[80vh] rounded-xl shadow-2xl object-cover"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
