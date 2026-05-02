@@ -8,6 +8,9 @@ import { SYSTEM_PROMPT } from "./knowledge";
 
 // In-memory rate limiter
 const rateLimits = new Map<string, { count: number; resetAt: number }>();
+
+// Simple chat counter (resets on server restart, but gives a live feel)
+let chatCounter = 0;
 const RATE_LIMIT_MAX = 30; // messages per window
 const RATE_LIMIT_WINDOW = 3600000; // 1 hour in ms
 
@@ -37,6 +40,9 @@ export const appRouter = router({
   }),
 
   chat: router({
+    stats: publicProcedure.query(() => {
+      return { conversations: chatCounter };
+    }),
     send: publicProcedure
       .input(
         z.object({
@@ -49,6 +55,7 @@ export const appRouter = router({
         })
       )
       .mutation(async ({ input, ctx }) => {
+        chatCounter++;
         // Rate limit by IP
         const ip = ctx.req.ip || ctx.req.socket?.remoteAddress || "unknown";
         if (!checkRateLimit(ip)) {

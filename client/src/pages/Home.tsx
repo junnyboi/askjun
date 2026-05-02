@@ -35,6 +35,8 @@ export default function Home() {
 
   const hasMessages = messages.length > 0;
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [usedChips, setUsedChips] = useState<Set<string>>(new Set());
+  const chatStats = trpc.chat.stats.useQuery(undefined, { refetchInterval: 30000 });
 
   // Track scroll position for back-to-top button
   useEffect(() => {
@@ -118,6 +120,8 @@ export default function Home() {
       const query = text || input.trim();
       if (!query || isTyping) return;
       analytics.chatMessage(query);
+      // Track this query so we don't show it as a chip again
+      setUsedChips((prev) => new Set(prev).add(query));
 
       const userMsg: Message = { id: `user-${Date.now()}`, role: "user", content: query };
       const updatedMessages = [...messages, userMsg];
@@ -128,6 +132,10 @@ export default function Home() {
       const assistantMsgId = `assistant-${Date.now()}`;
       setMessages((prev) => [...prev, { id: assistantMsgId, role: "assistant", content: "" }]);
 
+      // Detect appearance/handsome queries to show profile image regardless of API/fallback
+      const lowerQuery = query.toLowerCase();
+      const isAppearanceQuery = ["handsome", "good looking", "good-looking", "attractive", "cute", "hot", "gorgeous", "pretty", "beautiful", "appearance", "look like", "looks like", "what does he look"].some(kw => lowerQuery.includes(kw));
+
       try {
         const apiMessages = updatedMessages.map((m) => ({ role: m.role, content: m.content }));
         const result = await chatMutation.mutateAsync({ messages: apiMessages });
@@ -136,12 +144,12 @@ export default function Home() {
           setMessages((prev) => prev.map((m) => m.id === assistantMsgId ? { ...m, toolUse: { action: "Retrieving document...", status: "" } } : m));
           setTimeout(() => simulateStreaming(result.content, assistantMsgId, { action: "Retrieving document...", status: "Done" }), 1000);
         } else {
-          simulateStreaming(result.content, assistantMsgId);
+          simulateStreaming(result.content, assistantMsgId, undefined, isAppearanceQuery || undefined);
         }
       } catch {
         const isToolUse = shouldSimulateToolUse(query);
         const response = isToolUse ? getToolUseResponse() : getResponse(query);
-        simulateStreaming(response.text, assistantMsgId, isToolUse ? response.toolUse : undefined, response.showProfileImage);
+        simulateStreaming(response.text, assistantMsgId, isToolUse ? response.toolUse : undefined, isAppearanceQuery || response.showProfileImage);
       }
     },
     [input, isTyping, messages, chatMutation, simulateStreaming]
@@ -295,7 +303,7 @@ export default function Home() {
 
                 {/* Suggestion chips */}
                 <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3 sm:mt-4 justify-center">
-                  {CHAT_SUGGESTIONS.slice(0, 3).map((s, i) => (
+                  {CHAT_SUGGESTIONS.filter(s => !usedChips.has(s)).slice(0, 3).map((s, i) => (
                     <button
                       key={i}
                       onClick={() => { analytics.chipClick(s); handleSend(s); }}
@@ -304,7 +312,7 @@ export default function Home() {
                       {s}
                     </button>
                   ))}
-                  {CHAT_SUGGESTIONS.slice(3).map((s, i) => (
+                  {CHAT_SUGGESTIONS.filter(s => !usedChips.has(s)).slice(3).map((s, i) => (
                     <button
                       key={i + 3}
                       onClick={() => { analytics.chipClick(s); handleSend(s); }}
@@ -621,7 +629,7 @@ export default function Home() {
                   <div className="flex flex-wrap gap-1.5">
                     {getFollowUps(
                       messages.filter(m => m.role === "user").slice(-1)[0]?.content || ""
-                    ).map((s, i) => (
+                    ).filter(s => !usedChips.has(s)).map((s, i) => (
                       <button
                         key={i}
                         onClick={() => { analytics.chipClick(s); handleSend(s); }}
@@ -666,7 +674,11 @@ export default function Home() {
                 </button>
               </div>
               <div className="flex items-center justify-between mt-2">
-                <span className="text-[10px] font-mono text-muted-foreground/40">powered by deepseek</span>
+                <span className="text-[10px] font-mono text-muted-foreground/40">
+                  {chatStats.data && chatStats.data.conversations > 0
+                    ? `${chatStats.data.conversations} conversations · powered by deepseek`
+                    : "powered by deepseek"}
+                </span>
                 <button
                   onClick={handleShare}
                   className="text-[10px] font-mono text-muted-foreground/40 hover:text-muted-foreground transition-colors sm:hidden"

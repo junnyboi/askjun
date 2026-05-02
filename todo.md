@@ -124,3 +124,9 @@
 
 ## Meta Reference
 - [x] Add self-referential askJun joke to AI experience responses
+
+## Bug Fixes & Features Sprint
+- [x] Fix handsome photo not showing when DeepSeek responds (detect on frontend)
+- [x] Add visitor counter ("X conversations" shown in footer)
+- [x] Remove already-clicked chips from the suggestion pool
+- [x] Perform codebase audit (all tests pass, zero TS errors, photo verified)
