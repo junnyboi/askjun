@@ -173,6 +173,21 @@ He also has deep Vue.js experience from HoYoverse (3 years building payment UIs 
 His TypeScript usage isn't just "adding types to JavaScript" — it's leveraging discriminated unions, template literal types, and strict null checking to build **provably correct UI state machines** for complex interactive systems.`,
   },
 
+  // Why hire Jun — the money question
+  whyhire: {
+    text: `Here's the case for Jun in 30 seconds:
+
+**Scale:** He built payment UIs that processed **$57M in a single launch week** at HoYoverse — a $24.2B company with 225M+ downloads. His auth flows handled **15M sign-ups in 48 hours** without breaking a sweat.
+
+**AI:** He engineered the core conversation interface for **Manus AI** — the agent platform Meta acquired for **$2-3 billion**. He's not just using AI tools; he's building the tools.
+
+**Impact:** At TikTok (1B MAU, $58B revenue), his GDPR compliance work protected the company from multi-million-euro fines. At Bank of Singapore ($120B AUM), his innovation projects saved **$1.5M annually**.
+
+**Range:** React, TypeScript, Vue, Python, Golang, Java — he's shipped production code in all of them. Frontend specialist who can go full-stack when the mission demands it.
+
+**Proof:** You're chatting with it. This site — **askJun** — is a production AI agent he designed and shipped from scratch. The portfolio *is* the portfolio piece.`,
+  },
+
   // Why looking / availability
   looking: {
     text: `Jun is exploring new opportunities because he's ready for his next challenge. He's particularly interested in roles where he can:
@@ -275,7 +290,8 @@ const KEYWORD_MAP: Record<string, string[]> = {
   stack: ["stack", "tech", "technology", "tools", "framework", "language", "skill"],
   react: ["react", "frontend framework", "component"],
   typescript: ["typescript", "ts", "type"],
-  looking: ["looking", "opportunity", "new role", "why leave", "leaving", "available", "hire", "hiring", "job"],
+  whyhire: ["why should i hire", "why hire", "why should we hire", "convince me", "sell yourself", "pitch"],
+  looking: ["looking", "opportunity", "new role", "why leave", "leaving", "available", "hiring", "job"],
   salary: ["salary", "compensation", "comp", "pay", "tc", "total comp", "money", "offer", "package"],
   challenge: ["challenge", "difficult", "hardest", "biggest", "achievement", "proud", "accomplish"],
   speaking: ["speak", "sinfo", "conference", "keynote", "lisbon", "portugal", "talk", "present"],

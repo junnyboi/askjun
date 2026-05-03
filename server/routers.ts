@@ -43,8 +43,15 @@ export const appRouter = router({
   }),
 
   chat: router({
-    stats: publicProcedure.query(() => {
-      return { conversations: chatCounter };
+    stats: publicProcedure.query(async () => {
+      const db = await getDb();
+      if (!db) return { conversations: chatCounter };
+      try {
+        const [result] = await db.select({ count: count() }).from(analyticsEvents).where(eq(analyticsEvents.event, "chat_message"));
+        return { conversations: result?.count || chatCounter };
+      } catch {
+        return { conversations: chatCounter };
+      }
     }),
     send: publicProcedure
       .input(

@@ -163,3 +163,10 @@
 ## Admin Enhancements
 - [x] Add date range filter to admin dashboard (all metrics, visitors, events)
 - [x] Add geo-IP country lookup via ip-api.com (2s timeout, best-effort)
+
+## Quick Wins (Gap Analysis)
+- [x] Generate Mandai Smoke Co. proper thumbnail (BBQ idle tycoon game art)
+- [x] Add "Why hire Jun?" suggestion chip (first chip, with dedicated response)
+- [x] Add JSON-LD Person schema for SEO
+- [x] Add canonical URL tag (askjun.org)
+- [x] Fix chat counter to use DB instead of in-memory variable

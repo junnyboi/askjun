@@ -215,7 +215,7 @@ export default function Portfolio() {
                   description: "Idle tycoon game — build your BBQ empire with PixiJS",
                   tags: ["Game Dev"],
                   tech: ["TypeScript", "PixiJS"],
-                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-mandaismoker-Z7mrLsNuAELTcHTqfKCJvi.webp",
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-mandaismoker-new-XFS7BLweq4DXyCEto3pRfH.webp",
                   link: "https://github.com/junnyboi/mandaismoker",
                   visibility: "private" as const,
                 },
