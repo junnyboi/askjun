@@ -220,7 +220,7 @@ export default function Portfolio() {
                   description: "Image aggregation pinboard — save, organize, and discover visual inspiration",
                   tags: ["Web", "Creative"],
                   tech: ["TypeScript", "React", "Node.js"],
-                  image: "/thumbnails/askjun.webp",
+                  image: "/thumbnails/swipe.webp",
                   link: "https://swipe.manus.space",
                   github: "https://github.com/junnyboi/swipe",
                   visibility: "public" as const,
