@@ -64,6 +64,34 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("experience");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
+  // All project images for lightbox navigation
+  const projectImages = [
+    "/thumbnails/askjun.webp",
+    "/thumbnails/teapets3d.webp",
+    "/thumbnails/teapets2d.webp",
+    "/thumbnails/trident.webp",
+    "/thumbnails/mijun.webp",
+    "/thumbnails/housewarmer.webp",
+  ];
+
+  // Keyboard support for lightbox
+  useEffect(() => {
+    if (!lightboxImage) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setLightboxImage(null);
+      } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        const idx = projectImages.indexOf(lightboxImage);
+        if (idx < projectImages.length - 1) setLightboxImage(projectImages[idx + 1]);
+      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        const idx = projectImages.indexOf(lightboxImage);
+        if (idx > 0) setLightboxImage(projectImages[idx - 1]);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxImage]);
+
   // Track active section on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
