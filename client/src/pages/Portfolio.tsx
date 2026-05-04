@@ -5,7 +5,7 @@
  * ============================================================================
  */
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { EXPERIENCES, SKILLS, EDUCATION, PROFILE, HIGHLIGHTS } from "@/data/portfolio";
@@ -63,35 +63,6 @@ function CollapsibleSection({ id, title, defaultOpen = true, children }: { id: s
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("experience");
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
-
-  // All project images for lightbox navigation
-  const projectImages = [
-    "/thumbnails/askjun.webp",
-    "/thumbnails/teapets3d.webp",
-    "/thumbnails/teapets2d.webp",
-    "/thumbnails/trident.webp",
-    "/thumbnails/mijun.webp",
-    "/thumbnails/housewarmer.webp",
-  ];
-
-  // Keyboard support for lightbox
-  useEffect(() => {
-    if (!lightboxImage) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setLightboxImage(null);
-      } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-        const idx = projectImages.indexOf(lightboxImage);
-        if (idx < projectImages.length - 1) setLightboxImage(projectImages[idx + 1]);
-      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-        const idx = projectImages.indexOf(lightboxImage);
-        if (idx > 0) setLightboxImage(projectImages[idx - 1]);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxImage]);
 
   // Track active section on scroll
   useEffect(() => {
@@ -299,9 +270,11 @@ export default function Portfolio() {
                 },
               ].map((project, i) => (
                 <div key={i} className="group border border-border rounded-lg overflow-hidden hover:border-accent/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out">
-                  <div
-                    className="aspect-video overflow-hidden bg-muted relative cursor-zoom-in"
-                    onClick={() => setLightboxImage(project.image)}
+                  <a
+                    href={(project as any).liveDemo ? project.link : (project as any).github || project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="aspect-video overflow-hidden bg-muted relative cursor-pointer block"
                   >
                     {/* Blur-up skeleton placeholder */}
                     <div className="absolute inset-0 bg-muted animate-pulse" />
@@ -317,7 +290,7 @@ export default function Portfolio() {
                         Live Demo
                       </span>
                     )}
-                  </div>
+                  </a>
                   <div className="p-3">
                     <div className="flex items-center justify-between mb-1">
                       <a href={project.link} target="_blank" rel="noopener noreferrer">
@@ -517,37 +490,7 @@ export default function Portfolio() {
         <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="JunBoh_CV_2026.pdf" onClick={() => analytics.cvDownload()} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>
       </div>
 
-      {/* Lightbox modal */}
-      <AnimatePresence>
-        {lightboxImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setLightboxImage(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out p-4"
-          >
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={lightboxImage}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] as const }}
-                src={lightboxImage}
-                alt="Project preview"
-                className="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl object-contain"
-                onClick={(e) => e.stopPropagation()}
-              />
-            </AnimatePresence>
-            {/* Navigation hint */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono text-white/40">
-              ← → navigate · esc close
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
     </div>
   );
 }
