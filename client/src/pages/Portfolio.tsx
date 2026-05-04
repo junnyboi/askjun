@@ -223,6 +223,15 @@ export default function Portfolio() {
                   visibility: "private" as const,
                 },
                 {
+                  title: "Housewarmer",
+                  description: "Scroll-animated housewarming invitation with parallax effects and RSVP",
+                  tags: ["Creative", "Web"],
+                  tech: ["TypeScript", "React", "GSAP"],
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-housewarmer-iR5SeDrkrSwSNEsopyF3ac.webp",
+                  link: "https://github.com/junnyboi/housewarmer",
+                  visibility: "private" as const,
+                },
+                {
                   title: "TeaPets 3D",
                   description: "Browser-based 3D roguelike featuring a cute slime character",
                   tags: ["Game Dev", "3D"],
@@ -281,7 +290,7 @@ export default function Portfolio() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
 
-                { title: "Housewarmer", description: "Scroll-animated housewarming invitation", tags: ["Creative", "Web"], link: "https://github.com/junnyboi/housewarmer", visibility: "private" as const },
+
                 { title: "Booking Bot", description: "Automated booking system", tags: ["Automation"], link: "https://github.com/junnyboi/booking-bot", visibility: "private" as const },
                 { title: "Polygen", description: "Procedurally generated low poly asset collection", tags: ["Creative", "Game Dev"], link: "https://github.com/junnyboi/polygen", visibility: "private" as const },
                 { title: "Gobbo 2D", description: "Unity 2D game — a couple's passion project", tags: ["Game Dev"], link: "https://github.com/junnyboi/Gobbo-2D", visibility: "public" as const },
