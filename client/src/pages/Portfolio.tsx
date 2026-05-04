@@ -18,6 +18,8 @@ const SECTIONS = [
   { id: "projects", label: "Projects" },
   { id: "side-projects", label: "Side Projects" },
   { id: "education", label: "Education" },
+  { id: "awards", label: "Awards" },
+  { id: "speaking", label: "Speaking" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -325,6 +327,67 @@ export default function Portfolio() {
                   </div>
                 </div>
               ))}
+            </div>
+          </CollapsibleSection>
+
+          {/* Awards */}
+          <CollapsibleSection id="awards" title="Awards & Recognition">
+            <div className="space-y-0">
+              {[
+                {
+                  title: "ByteDance Rockstar Employee Award",
+                  org: "ByteDance / TikTok",
+                  year: "2021",
+                  description: "Dedicated Pioneer Team Award — presented to the Global Payment FE SG Team for exemplary contributions to the payments infrastructure.",
+                },
+                {
+                  title: "CEO Recognition Award — Innovation Category",
+                  org: "Bank of Singapore",
+                  year: "2020",
+                  description: "Recognized for outstanding contribution as a member of the PitchPerfect Team, an Innovation Challenge idea that saved 3,680 hours globally. Signed by CEO Bahren Shaari.",
+                },
+                {
+                  title: "Innovation Challenge — Just Do It Award",
+                  org: "Bank of Singapore",
+                  year: "2020",
+                  description: "Awarded for \"SuperSolver\" — a genetic-algorithm portfolio optimizer prototype that led to the formation of an in-house roboadvisory team.",
+                },
+                {
+                  title: "Innovation Challenge — Silver Award",
+                  org: "Bank of Singapore",
+                  year: "2020",
+                  description: "Awarded for \"Pitchbook 4.0\" — an RM pitch tool that streamlined client presentations, delivering $1.5M in annual savings.",
+                },
+              ].map((award, i) => (
+                <div key={i} className="py-3 border-b border-border/50 last:border-0">
+                  <div className="flex items-start justify-between gap-2 mb-1">
+                    <div>
+                      <h3 className="text-sm font-semibold text-foreground">{award.title}</h3>
+                      <p className="text-xs text-muted-foreground">{award.org}</p>
+                    </div>
+                    <span className="text-[10px] font-mono text-muted-foreground whitespace-nowrap">{award.year}</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">{award.description}</p>
+                </div>
+              ))}
+            </div>
+          </CollapsibleSection>
+
+          {/* Speaking */}
+          <CollapsibleSection id="speaking" title="Speaking">
+            <div className="space-y-0">
+              <div className="py-3">
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <div>
+                    <h3 className="text-sm font-semibold text-foreground">Keynote Speaker — SINFO 2024</h3>
+                    <p className="text-xs text-muted-foreground">Instituto Superior Técnico · Lisbon, Portugal</p>
+                  </div>
+                  <span className="text-[10px] font-mono text-muted-foreground whitespace-nowrap">2024</span>
+                </div>
+                <p className="text-[11px] text-muted-foreground leading-relaxed">
+                  Delivered a keynote at SINFO, one of Portugal's largest student-organized tech conferences. Shared insights on building high-scale frontend systems and payment architectures at HoYoverse, covering challenges of serving 8M daily active users across 100+ countries.
+                </p>
+              </div>
             </div>
           </CollapsibleSection>
 

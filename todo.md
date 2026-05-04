@@ -170,3 +170,8 @@
 - [x] Add JSON-LD Person schema for SEO
 - [x] Add canonical URL tag (askjun.org)
 - [x] Fix chat counter to use DB instead of in-memory variable
+
+## Portfolio Page Additions
+- [x] Add Awards section to portfolio page (ByteDance Rockstar, BOS CEO Award, Innovation Challenge)
+- [x] Add Speaking section to portfolio page (SINFO 2024 keynote, Lisbon)
+- [x] Add both to sidebar navigation
