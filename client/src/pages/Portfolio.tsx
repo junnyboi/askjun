@@ -241,7 +241,7 @@ export default function Portfolio() {
                   description: "Android companion app for Trident with cloud sync via Supabase",
                   tags: ["Mobile", "Kotlin"],
                   tech: ["Kotlin", "Android", "Supabase"],
-                  image: "/thumbnails/trident.webp",
+                  image: "/thumbnails/trident-mobile.webp",
                   link: "https://github.com/junnyboi/trident-mobile",
                   github: "https://github.com/junnyboi/trident-mobile",
                   visibility: "private" as const,
