@@ -500,16 +500,23 @@ export default function Portfolio() {
             onClick={() => setLightboxImage(null)}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out p-4"
           >
-            <motion.img
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.85, opacity: 0 }}
-              transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] as const }}
-              src={lightboxImage}
-              alt="Project preview"
-              className="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl object-contain"
-              onClick={(e) => e.stopPropagation()}
-            />
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={lightboxImage}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] as const }}
+                src={lightboxImage}
+                alt="Project preview"
+                className="max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl object-contain"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </AnimatePresence>
+            {/* Navigation hint */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono text-white/40">
+              ← → navigate · esc close
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
