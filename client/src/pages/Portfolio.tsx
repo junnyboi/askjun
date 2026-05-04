@@ -210,6 +210,7 @@ export default function Portfolio() {
                   tech: ["React", "TypeScript", "DeepSeek"],
                   image: "/manus-storage/proj-askjun-screenshot_8035e52f.png",
                   link: "https://askjun.org",
+                  github: "https://github.com/junnyboi/askjun",
                   visibility: "public" as const,
                   liveDemo: true,
                 },
@@ -220,6 +221,18 @@ export default function Portfolio() {
                   tech: ["TypeScript", "Three.js"],
                   image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-teapets3d-TdRuMWBq6Fy9XTVQKNiMCV.webp",
                   link: "https://teapets-3d.mircovm.com/",
+                  github: "https://github.com/junnyboi/teapets-3d",
+                  visibility: "public" as const,
+                  liveDemo: true,
+                },
+                {
+                  title: "TeaPets (2D)",
+                  description: "2D browser-based pet adventure game — the original TeaPets",
+                  tags: ["Game Dev", "2D"],
+                  tech: ["TypeScript", "PixiJS"],
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-teapets3d-TdRuMWBq6Fy9XTVQKNiMCV.webp",
+                  link: "https://teapets.mircovm.com/",
+                  github: "https://github.com/junnyboi/teapets",
                   visibility: "public" as const,
                   liveDemo: true,
                 },
@@ -230,6 +243,7 @@ export default function Portfolio() {
                   tech: ["Swift", "macOS", "AppKit"],
                   image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-trident-new-VcbheBopyotEZnESEdvBQv.webp",
                   link: "https://github.com/junnyboi/trident",
+                  github: "https://github.com/junnyboi/trident",
                   visibility: "private" as const,
                 },
                 {
@@ -238,8 +252,10 @@ export default function Portfolio() {
                   tags: ["E-commerce", "Creative"],
                   tech: ["TypeScript", "React"],
                   image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-mijun-new-cWCak5PxY9rwufnEepXhVv.webp",
-                  link: "https://github.com/junnyboi/mijun",
+                  link: "https://mijun.co",
+                  github: "https://github.com/junnyboi/mijun",
                   visibility: "private" as const,
+                  liveDemo: true,
                 },
                 {
                   title: "Housewarmer",
@@ -247,25 +263,31 @@ export default function Portfolio() {
                   tags: ["Creative", "Web"],
                   tech: ["TypeScript", "React", "GSAP"],
                   image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-housewarmer-iR5SeDrkrSwSNEsopyF3ac.webp",
-                  link: "https://github.com/junnyboi/housewarmer",
+                  link: "https://mijun-housewarming.manus.space/",
+                  github: "https://github.com/junnyboi/housewarmer",
                   visibility: "private" as const,
+                  liveDemo: true,
                 },
               ].map((project, i) => (
-                <a key={i} href={project.link} target="_blank" rel="noopener noreferrer"
-                  className="group border border-border rounded-lg overflow-hidden hover:border-accent/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out"
-                >
-                  <div className="aspect-video overflow-hidden bg-muted relative">
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out" />
-                    {(project as any).liveDemo && (
-                      <span className="absolute top-2 right-2 text-[9px] font-mono px-1.5 py-0.5 bg-green-500 text-white rounded">
-                        Live Demo
-                      </span>
-                    )}
-                  </div>
+                <div key={i} className="group border border-border rounded-lg overflow-hidden hover:border-accent/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out">
+                  <a href={project.link} target="_blank" rel="noopener noreferrer">
+                    <div className="aspect-video overflow-hidden bg-muted relative">
+                      <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out" />
+                      {(project as any).liveDemo && (
+                        <span className="absolute top-2 right-2 text-[9px] font-mono px-1.5 py-0.5 bg-green-500 text-white rounded">
+                          Live Demo
+                        </span>
+                      )}
+                    </div>
+                  </a>
                   <div className="p-3">
                     <div className="flex items-center justify-between mb-1">
-                      <h3 className="text-xs font-semibold text-foreground">{project.title}</h3>
-                      <span className="text-[9px] font-mono text-muted-foreground">{project.visibility === "private" ? "🔒" : "↗"}</span>
+                      <a href={project.link} target="_blank" rel="noopener noreferrer">
+                        <h3 className="text-xs font-semibold text-foreground hover:text-accent transition-colors">{project.title}</h3>
+                      </a>
+                      <a href={(project as any).github} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-muted-foreground hover:text-foreground transition-colors">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                      </a>
                     </div>
                     <div className="flex flex-wrap gap-1 mb-1.5">
                       {project.tags.map((tag, j) => (
@@ -279,7 +301,7 @@ export default function Portfolio() {
                       ))}
                     </div>
                   </div>
-                </a>
+                </div>
               ))}
             </div>
           </CollapsibleSection>
@@ -290,6 +312,7 @@ export default function Portfolio() {
               {[
 
 
+                { title: "IsleProject", description: "NFT island community project", tags: ["Web3", "Creative"], link: "https://github.com/junnyboi/IsleProjectNFT", visibility: "private" as const },
                 { title: "Booking Bot", description: "Automated booking system", tags: ["Automation"], link: "https://github.com/junnyboi/booking-bot", visibility: "private" as const },
                 { title: "Polygen", description: "Procedurally generated low poly asset collection", tags: ["Creative", "Game Dev"], link: "https://github.com/junnyboi/polygen", visibility: "private" as const },
                 { title: "Gobbo 2D", description: "Unity 2D game — a couple's passion project", tags: ["Game Dev"], link: "https://github.com/junnyboi/Gobbo-2D", visibility: "public" as const },
