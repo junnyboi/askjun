@@ -16,6 +16,7 @@ const SECTIONS = [
   { id: "experience", label: "Experience" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
+  { id: "gamedev", label: "Game Dev" },
   { id: "side-projects", label: "Side Projects" },
   { id: "education", label: "Education" },
   { id: "awards", label: "Awards" },
@@ -244,24 +245,13 @@ export default function Portfolio() {
                   liveDemo: true,
                 },
                 {
-                  title: "TeaPets 3D",
-                  description: "Browser-based 3D roguelike featuring a cute slime character",
-                  tags: ["Game Dev", "3D"],
-                  tech: ["TypeScript", "Three.js"],
-                  image: "/thumbnails/teapets3d.webp",
-                  link: "https://teapets-3d.mircovm.com/",
-                  github: "https://github.com/junnyboi/teapets-3d",
-                  visibility: "public" as const,
-                  liveDemo: true,
-                },
-                {
-                  title: "TeaPets (2D)",
-                  description: "2D pixel-art bullet hell roguelike — the original TeaPets",
-                  tags: ["Game Dev", "2D"],
-                  tech: ["TypeScript", "PixiJS"],
-                  image: "/thumbnails/teapets2d.webp",
-                  link: "https://teapets.mircovm.com/",
-                  github: "https://github.com/junnyboi/teapets",
+                  title: "Swipe",
+                  description: "Image aggregation pinboard — save, organize, and discover visual inspiration",
+                  tags: ["Web", "Creative"],
+                  tech: ["TypeScript", "React", "Node.js"],
+                  image: "/thumbnails/askjun.webp",
+                  link: "https://swipe.manus.space",
+                  github: "https://github.com/junnyboi/swipe",
                   visibility: "public" as const,
                   liveDemo: true,
                 },
@@ -273,6 +263,16 @@ export default function Portfolio() {
                   image: "/thumbnails/trident.webp",
                   link: "https://github.com/junnyboi/trident",
                   github: "https://github.com/junnyboi/trident",
+                  visibility: "private" as const,
+                },
+                {
+                  title: "Trident Mobile",
+                  description: "Android companion app for Trident with cloud sync via Supabase",
+                  tags: ["Mobile", "Kotlin"],
+                  tech: ["Kotlin", "Android", "Supabase"],
+                  image: "/thumbnails/trident.webp",
+                  link: "https://github.com/junnyboi/trident-mobile",
+                  github: "https://github.com/junnyboi/trident-mobile",
                   visibility: "private" as const,
                 },
                 {
@@ -344,16 +344,44 @@ export default function Portfolio() {
             </div>
           </CollapsibleSection>
 
+          {/* Game Dev */}
+          <CollapsibleSection id="gamedev" title="Game Dev">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { title: "TeaPets (2D)", description: "2D pixel-art bullet hell roguelike", tags: ["PixiJS", "TypeScript"], link: "https://teapets.mircovm.com/", visibility: "public" as const, liveDemo: true },
+                { title: "TeaPets 3D", description: "Browser-based 3D roguelike with a cute slime", tags: ["Three.js", "TypeScript"], link: "https://teapets-3d.mircovm.com/", visibility: "public" as const, liveDemo: true },
+                { title: "Deep in Abyss", description: "Dive deep into the abyss in this browser adventure", tags: ["Web", "Adventure"], link: "https://deep-in-abyss.manus.space/", visibility: "public" as const, liveDemo: true },
+                { title: "Deepforge", description: "Forge your destiny in this browser-based RPG", tags: ["Web", "RPG"], link: "https://deepforge.manus.space/", visibility: "public" as const, liveDemo: true },
+                { title: "Throne of Beasts", description: "Fantasy strategy game with beast companions", tags: ["Web", "Strategy"], link: "https://throne-of-beasts.manus.space/", visibility: "public" as const, liveDemo: true },
+                { title: "Aegis TD", description: "Tower defense game with elemental mechanics", tags: ["Web", "Tower Defense"], link: "https://aegis-td.manus.space/", visibility: "public" as const, liveDemo: true },
+                { title: "Pitmaster", description: "BBQ management idle tycoon game", tags: ["Web", "Idle"], link: "https://pitmaster.manus.space/", visibility: "public" as const, liveDemo: true },
+                { title: "Gobbo", description: "Unity 2D game — a couple's passion project", tags: ["Unity", "C#"], link: "https://github.com/junnyboi/Gobbo-2D", visibility: "public" as const },
+              ].map((project, i) => (
+                <a key={i} href={project.link} target="_blank" rel="noopener noreferrer"
+                  className="group flex items-start gap-3 p-3 border border-border rounded-lg hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-200"
+                >
+                  <span className="text-[10px] font-mono text-muted-foreground mt-0.5">{(project as any).liveDemo ? <span className="text-green-500">●</span> : "↗"}</span>
+                  <div className="min-w-0">
+                    <h3 className="text-xs font-semibold text-foreground group-hover:text-accent transition-colors">{project.title}</h3>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">{project.description}</p>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {project.tags.map((tag, j) => (
+                        <span key={j} className="text-[8px] font-mono px-1 py-0.5 rounded border border-border text-muted-foreground/60">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </CollapsibleSection>
+
           {/* Side Projects */}
           <CollapsibleSection id="side-projects" title="Side Projects">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-
-
                 { title: "IsleProject", description: "NFT island community project", tags: ["Web3", "Creative"], link: "https://github.com/junnyboi/IsleProjectNFT", visibility: "private" as const },
                 { title: "Booking Bot", description: "Automated booking system", tags: ["Automation"], link: "https://github.com/junnyboi/booking-bot", visibility: "private" as const },
-                { title: "Polygen", description: "Procedurally generated low poly asset collection", tags: ["Creative", "Game Dev"], link: "https://github.com/junnyboi/polygen", visibility: "private" as const },
-                { title: "Gobbo 2D", description: "Unity 2D game — a couple's passion project", tags: ["Game Dev"], link: "https://github.com/junnyboi/Gobbo-2D", visibility: "public" as const },
+                { title: "Polygen", description: "Procedurally generated low poly asset collection", tags: ["Creative", "3D"], link: "https://github.com/junnyboi/polygen", visibility: "private" as const },
                 { title: "Finance Tracker", description: "Ionic + React mobile finance app", tags: ["Mobile"], link: "https://github.com/junnyboi/tony-stocks", visibility: "public" as const },
               ].map((project, i) => (
                 <a key={i} href={project.link} target="_blank" rel="noopener noreferrer"
@@ -365,7 +393,7 @@ export default function Portfolio() {
                     <p className="text-[10px] text-muted-foreground mt-0.5">{project.description}</p>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {project.tags.map((tag, j) => (
-                        <span key={j} className={`text-[8px] font-mono px-1 py-0.5 rounded ${tag === "AI" ? "border border-accent/50 text-accent" : "border border-border text-muted-foreground/60"}`}>{tag}</span>
+                        <span key={j} className="text-[8px] font-mono px-1 py-0.5 rounded border border-border text-muted-foreground/60">{tag}</span>
                       ))}
                     </div>
                   </div>
