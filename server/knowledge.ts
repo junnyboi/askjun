@@ -35,13 +35,14 @@ RULES:
 KNOWLEDGE BASE:
 
 ## Professional Summary
-Software Engineer who built AI agent conversation interfaces and collaboration tools at Meta (Manus AI), rebuilt the payment and accounts systems at HoYoverse to process ~USD $57m with ~70m downloads globally on the launch week of 2 new games. Led development of time sensitive features which saved TikTok millions of dollars in EU GDPR fines and also spearheaded an innovation project at Bank of Singapore, delivering $1.5m/annum in savings.
+Software Engineer who spearheaded the core AI agent conversation interface and collaboration platform at Meta (Manus AI), rebuilt the payment and accounts systems at HoYoverse to process ~USD $57m with ~70m downloads globally on the launch week of 2 new games. Led development of time sensitive features which saved TikTok millions of dollars in EU GDPR fines and also spearheaded an innovation project at Bank of Singapore, delivering $1.5m/annum in savings. Championed a game development use case at Manus by vibe-coding two production-ready games that went viral internally.
 
 ## Current Role: Meta (Manus AI) — Senior Frontend Software Engineer (Feb 2026 - Present, Singapore)
-- Engineered the core frontend architecture for Manus's advanced AI agent platform, building complex, stateful user interfaces for real-time human-AI interaction using React and TypeScript
-- Developed the 'AI agent conversation' interface, implementing real-time streaming responses, context management, and interactive UI components enabling seamless multi-turn agent interactions
-- Architected and shipped critical product features including scheduled task management, dynamic navigation systems, settings dialogs, and document previewing capabilities
-- Built real-time collaboration and sharing features, enabling multi-user interaction with AI-generated artifacts and file actions across the platform
+- Spearheaded the core frontend architecture for Manus's advanced AI agent platform, building complex, stateful user interfaces for real-time human-AI interaction using React and TypeScript
+- Pioneered the 'AI agent conversation' interface, implementing real-time streaming responses, context management, and interactive UI components enabling seamless multi-turn agent interactions
+- Architected and drove critical product features including scheduled task management, dynamic navigation systems, settings dialogs, and document previewing capabilities
+- Championed real-time collaboration and sharing features, enabling multi-user interaction with AI-generated artifacts and file actions across the platform
+- Championed and advocated for a game development use case within Manus, pioneering this by vibe-coding two production-ready games (TeaPets and TeaPets 3D) that went viral internally across the workplace for weeks — directly influencing the team to explore game dev as a product vertical
 
 ## Instawork — Senior Full Stack Software Engineer (Jul 2025 - Jan 2026, Singapore)
 - Delivered cross-platform features for partner web and Pro mobile (Hyperview) — messaging, AI-assisted shift booking, two-sided ratings, notifications — using React/TypeScript + Python Django

@@ -47,10 +47,11 @@ export const EXPERIENCES: Experience[] = [
     period: "Feb 2026 — Present",
     color: "#1877F2",
     bullets: [
-      "Engineered the core frontend architecture for Manus's advanced AI agent platform, building complex, stateful user interfaces for real-time human-AI interaction using React and TypeScript",
-      "Developed the 'AI agent conversation' interface, implementing real-time streaming responses, context management, and interactive UI components enabling seamless multi-turn agent interactions",
-      "Architected and shipped critical product features including scheduled task management, dynamic navigation systems, settings dialogs, and document previewing capabilities",
-      "Built real-time collaboration and sharing features, enabling multi-user interaction with AI-generated artifacts and file actions across the platform",
+      "Spearheaded the core frontend architecture for Manus's advanced AI agent platform, building complex, stateful user interfaces for real-time human-AI interaction using React and TypeScript",
+      "Pioneered the 'AI agent conversation' interface, implementing real-time streaming responses, context management, and interactive UI components enabling seamless multi-turn agent interactions",
+      "Architected and drove critical product features including scheduled task management, dynamic navigation systems, settings dialogs, and document previewing capabilities",
+      "Championed real-time collaboration and sharing features, enabling multi-user interaction with AI-generated artifacts and file actions across the platform",
+      "Championed a game development use case within Manus by vibe-coding two production-ready games (TeaPets & TeaPets 3D) that went viral internally, directly influencing the team to explore game dev as a product vertical",
     ],
   },
   {

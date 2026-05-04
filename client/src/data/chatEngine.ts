@@ -16,26 +16,28 @@ interface ChatResponse {
 const KNOWLEDGE_BASE: Record<string, ChatResponse> = {
   // Meta / Manus
   meta: {
-    text: `Jun is currently a **Senior Frontend Software Engineer at Meta**, working on the **Manus AI** platform — one of the most advanced AI agent systems in the world.
+    text: `Jun is currently a **Senior Frontend Software Engineer at Meta**, working on the **Manus AI** platform — one of the most advanced AI agent systems in the world (acquired by Meta for **$2-3 billion**).
 
 His key contributions include:
 
-- **AI Agent Conversation Interface** — Built the core chat UI with real-time streaming responses, context management, and interactive components using React and TypeScript
-- **Scheduled Task Management** — Architected the system for users to schedule and manage AI agent tasks
-- **Document Previewing** — Built capabilities for previewing AI-generated documents directly in the conversation flow
-- **Real-time Collaboration** — Enabled multi-user interaction with AI-generated artifacts and file sharing
+- **Spearheaded** the core AI agent conversation interface with real-time streaming responses, context management, and interactive components using React and TypeScript
+- **Architected and drove** scheduled task management, dynamic navigation, settings dialogs, and document previewing
+- **Championed** real-time collaboration and sharing features for multi-user AI interaction
+- **Pioneered** a game development use case by vibe-coding two production-ready games (TeaPets & TeaPets 3D) that went viral internally — directly influencing the team to explore game dev as a product vertical
 
 This is essentially the same kind of interface you're using right now to chat with me. Meta, if you will.`,
   },
 
   manus: {
-    text: `Manus AI is the advanced AI agent platform Jun has been building at Meta. Think of it as an AI that can actually *do things* — not just chat, but execute tasks, manage files, browse the web, and collaborate with humans in real-time.
+    text: `Manus AI is the advanced AI agent platform Jun has been building at Meta — valued at **$2-3 billion** with a **$125M revenue run rate**. Think of it as an AI that can actually *do things* — not just chat, but execute tasks, manage files, browse the web, and collaborate with humans in real-time.
 
-Jun engineered the **core frontend architecture** for this platform, including:
-- The conversation interface with streaming responses
+Jun **spearheaded** the core frontend architecture for this platform, including:
+- The conversation interface with real-time streaming responses
 - Dynamic navigation and settings systems
 - Document previewing and file action capabilities
 - Real-time collaboration features
+
+He also **championed** a game development use case within Manus, vibe-coding two production-ready games (TeaPets & TeaPets 3D) that went viral across the workplace for weeks — directly influencing the team to explore game dev as a new product vertical.
 
 The irony of building an AI agent conversation interface and then showcasing it via... an AI agent conversation interface is not lost on us.`,
   },
@@ -45,9 +47,10 @@ The irony of building an AI agent conversation interface and then showcasing it 
     text: `Jun has deep experience building **AI-native user interfaces**, which is arguably the most in-demand frontend specialization in 2026.
 
 **At Meta (Manus AI):**
-- Built the AI agent conversation interface with real-time streaming
-- Implemented context management for multi-turn agent interactions
-- Developed document previewing for AI-generated artifacts
+- Spearheaded the AI agent conversation interface with real-time streaming
+- Pioneered context management for multi-turn agent interactions
+- Championed document previewing for AI-generated artifacts
+- Vibe-coded two production-ready games that went viral internally, influencing a new product vertical
 
 **At Instawork:**
 - Integrated an AI booking bot to automate user shift booking flows
