@@ -208,7 +208,7 @@ export default function Portfolio() {
                   description: "This site — chat-first AI portfolio powered by DeepSeek",
                   tags: ["AI", "Web"],
                   tech: ["React", "TypeScript", "DeepSeek"],
-                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-askjun-meta-cCqB22TaRGXLmgfGqmaa7h.webp",
+                  image: "/manus-storage/proj-askjun-screenshot_8035e52f.png",
                   link: "https://askjun.org",
                   visibility: "public" as const,
                   liveDemo: true,

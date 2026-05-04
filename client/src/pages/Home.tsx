@@ -469,8 +469,8 @@ export default function Home() {
               <div className="flex items-center justify-between mt-2">
                 <span className="text-[10px] font-mono text-muted-foreground/40">
                   {chatStats.data && chatStats.data.conversations > 0
-                    ? `${chatStats.data.conversations} conversations · powered by deepseek`
-                    : "powered by deepseek"}
+                    ? `${chatStats.data.conversations} conversations · built with react, typescript, deepseek & framer motion`
+                    : "built with react, typescript, deepseek & framer motion"}
                 </span>
                 <button
                   onClick={handleShare}
