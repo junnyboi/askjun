@@ -146,7 +146,7 @@ export default function Portfolio() {
           {/* Profile header */}
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 overflow-hidden border border-border rounded-full">
-              <img src="/manus-storage/jun-profile-meta_7e9e3d09.jpg" alt="Jun" className="w-full h-full object-cover" />
+              <img src="/profile-thumb.webp" alt="Jun" className="w-full h-full object-cover" />
             </div>
             <div>
               <h1 className="text-lg font-bold text-foreground">{PROFILE.name}</h1>

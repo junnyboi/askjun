@@ -268,9 +268,10 @@ export default function Home() {
                   className="w-14 h-14 sm:w-18 sm:h-18 mx-auto mb-3 overflow-hidden border border-border rounded-full cursor-zoom-in hover:ring-2 hover:ring-accent/50 transition-all"
                 >
                   <img
-                    src="/manus-storage/jun-profile-meta_7e9e3d09.jpg"
+                    src="/profile-thumb.webp"
                     alt="Jun Boh"
                     className="w-full h-full object-cover"
+                    loading="eager"
                   />
                 </button>
                 <h1 className="text-xl sm:text-3xl font-bold text-foreground tracking-tight mb-0.5">
@@ -383,7 +384,7 @@ export default function Home() {
                           {msg.showProfileImage && !isTyping && (
                             <div className="mt-3 rounded-lg overflow-hidden border border-border max-w-[280px]">
                               <img
-                                src="/manus-storage/jun-profile-meta_7e9e3d09.jpg"
+                                src="/profile-medium.webp"
                                 alt="Jun Boh at Meta"
                                 className="w-full h-auto"
                               />
@@ -528,7 +529,7 @@ export default function Home() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.2, ease: "easeOut" as const }}
-              src="/manus-storage/jun-profile-meta_7e9e3d09.jpg"
+              src="/profile-full.webp"
               alt="Jun Boh"
               className="max-w-[80vw] max-h-[80vh] rounded-xl shadow-2xl object-cover"
               onClick={(e) => e.stopPropagation()}
