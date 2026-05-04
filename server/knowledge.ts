@@ -128,6 +128,41 @@ Jun is exploring new opportunities because he's ready for his next challenge. He
 - Passionate about food, music, and dance
 - Active LinkedIn presence with 5,392 followers
 
+## Personal Projects & Side Ventures
+
+### Swipe (Live: swipe.manus.space)
+- An image aggregation pinboard web app — save, organize, and discover visual inspiration
+- Built with TypeScript, React, and Node.js
+- Full-stack application with user accounts, image uploads, and board organization
+- Demonstrates Jun's ability to ship complete consumer-facing products independently
+
+### Trident (macOS) + Trident Mobile (Android)
+- Trident is a Swiss Army Knife macOS menu bar productivity app built with Swift 6, SwiftUI, and AppKit
+- Features floating panels for clipboard management, translation, quick notes, and productivity tools
+- Trident Mobile is the Kotlin-based Android companion app with cloud sync via a personal Supabase database
+- Demonstrates cross-platform native development skills (Swift + Kotlin) and cloud architecture (Supabase real-time sync)
+- Both apps are private/personal tools Jun built for his own workflow
+
+### Game Development Portfolio (8 games, 7 with live demos)
+Jun is a prolific game developer in his spare time, having built 8 browser-based games:
+
+- **TeaPets (2D)** (Live: teapets.mircovm.com) — 2D pixel-art bullet hell roguelike built with TypeScript + PixiJS. Features elemental shrine blessings, wave-based combat, and multiple enemy types.
+- **TeaPets 3D** (Live: teapets-3d.mircovm.com) — 3D roguelike featuring a cute blue slime character, built with TypeScript + Three.js. Full 3D combat with abilities, waves, and enemy AI.
+- **Deep in Abyss** (Live: deep-in-abyss.manus.space) — Browser-based adventure game exploring the depths of an abyss
+- **Deepforge** (Live: deepforge.manus.space) — Browser-based RPG where you forge your destiny
+- **Throne of Beasts** (Live: throne-of-beasts.manus.space) — Fantasy strategy game with beast companions
+- **Aegis TD** (Live: aegis-td.manus.space) — Tower defense game with elemental mechanics
+- **Pitmaster** (Live: pitmaster.manus.space) — BBQ management idle tycoon game
+- **Gobbo** — Unity 2D game built with C#, a couple's passion project
+
+These games were built using "vibe coding" — rapid prototyping with AI assistance. TeaPets and TeaPets 3D went viral internally at Manus, directly influencing the team to explore game dev as a product vertical. This demonstrates Jun's ability to ship complete, polished products quickly and his passion for creative engineering beyond his day job.
+
+### Other Side Projects
+- **Mijun** (Live: mijun.co) — Cinematic tea & preserved flower e-commerce platform (TypeScript + React)
+- **Housewarmer** (Live: mijun-housewarming.manus.space) — Scroll-animated housewarming invitation with parallax effects and RSVP (TypeScript + React + GSAP)
+- **IsleProject** — NFT island community project (Web3)
+- **Polygen** — Procedurally generated low-poly asset collection
+
 ## Why Hire Jun (The Pitch)
 When asked "Why should I hire Jun?" or similar questions about his value proposition, deliver a compelling 30-second pitch that weaves together his best metrics with the companies that produced them:
 - **Scale:** Payment UIs processing $57M in a single launch week at HoYoverse ($24.2B company, 225M+ downloads). Auth flows handling 15M sign-ups in 48 hours.
