@@ -204,6 +204,26 @@ export default function Portfolio() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 {
+                  title: "askJun AI Portfolio",
+                  description: "This site — chat-first AI portfolio powered by DeepSeek",
+                  tags: ["AI", "Web"],
+                  tech: ["React", "TypeScript", "DeepSeek"],
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-askjun-meta-cCqB22TaRGXLmgfGqmaa7h.webp",
+                  link: "https://askjun.org",
+                  visibility: "public" as const,
+                  liveDemo: true,
+                },
+                {
+                  title: "TeaPets 3D",
+                  description: "Browser-based 3D roguelike featuring a cute slime character",
+                  tags: ["Game Dev", "3D"],
+                  tech: ["TypeScript", "Three.js"],
+                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-teapets3d-TdRuMWBq6Fy9XTVQKNiMCV.webp",
+                  link: "https://teapets-3d.mircovm.com/",
+                  visibility: "public" as const,
+                  liveDemo: true,
+                },
+                {
                   title: "Trident",
                   description: "Swiss Army Knife for macOS productivity — menu bar app with floating panels",
                   tags: ["Productivity", "Swift"],
@@ -212,7 +232,6 @@ export default function Portfolio() {
                   link: "https://github.com/junnyboi/trident",
                   visibility: "private" as const,
                 },
-
                 {
                   title: "Mijun",
                   description: "Cinematic tea & preserved flower e-commerce platform",
@@ -230,26 +249,6 @@ export default function Portfolio() {
                   image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-housewarmer-iR5SeDrkrSwSNEsopyF3ac.webp",
                   link: "https://github.com/junnyboi/housewarmer",
                   visibility: "private" as const,
-                },
-                {
-                  title: "TeaPets 3D",
-                  description: "Browser-based 3D roguelike featuring a cute slime character",
-                  tags: ["Game Dev", "3D"],
-                  tech: ["TypeScript", "Three.js"],
-                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-teapets3d-TdRuMWBq6Fy9XTVQKNiMCV.webp",
-                  link: "https://teapets-3d.mircovm.com/",
-                  visibility: "public" as const,
-                  liveDemo: true,
-                },
-                {
-                  title: "askJun AI Portfolio",
-                  description: "This site — chat-first AI portfolio powered by DeepSeek",
-                  tags: ["AI", "Web"],
-                  tech: ["React", "TypeScript", "DeepSeek"],
-                  image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/proj-askjun-meta-cCqB22TaRGXLmgfGqmaa7h.webp",
-                  link: "https://askjun.org",
-                  visibility: "public" as const,
-                  liveDemo: true,
                 },
               ].map((project, i) => (
                 <a key={i} href={project.link} target="_blank" rel="noopener noreferrer"
