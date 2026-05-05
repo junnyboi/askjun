@@ -5,7 +5,7 @@
  * ============================================================================
  */
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { EXPERIENCES, SKILLS, EDUCATION, PROFILE, HIGHLIGHTS } from "@/data/portfolio";
@@ -63,6 +63,24 @@ function CollapsibleSection({ id, title, defaultOpen = true, children }: { id: s
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("experience");
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const tabBarRef = useRef<HTMLDivElement>(null);
+
+  // Track scroll position for back-to-top button
+  useEffect(() => {
+    const handleScroll = () => setShowBackToTop(window.scrollY > 400);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Auto-scroll the mobile tab bar to keep active tab visible
+  useEffect(() => {
+    if (!tabBarRef.current) return;
+    const activeTab = tabBarRef.current.querySelector(`[data-section="${activeSection}"]`) as HTMLElement;
+    if (activeTab) {
+      activeTab.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+  }, [activeSection]);
 
   // Track active section on scroll
   useEffect(() => {
@@ -99,7 +117,7 @@ export default function Portfolio() {
             ask<span className="text-accent">Jun</span>
           </Link>
           {/* Breadcrumbs */}
-          <span className="text-xs font-mono text-muted-foreground hidden sm:inline">
+          <span className="text-xs font-mono text-muted-foreground">
             / <span className="text-foreground">Portfolio</span>
           </span>
         </div>
@@ -119,6 +137,28 @@ export default function Portfolio() {
           <ThemeToggle />
         </div>
       </header>
+
+      {/* Mobile horizontal tab bar — visible only on < lg */}
+      <div
+        ref={tabBarRef}
+        className="lg:hidden sticky top-12 z-20 border-b border-border bg-card/95 backdrop-blur-sm overflow-x-auto flex gap-0.5 px-3 py-1.5"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        {SECTIONS.map(({ id, label }) => (
+          <a
+            key={id}
+            href={`#${id}`}
+            data-section={id}
+            className={`whitespace-nowrap text-[10px] font-mono px-2.5 py-1.5 rounded-full transition-all shrink-0 ${
+              activeSection === id
+                ? "text-accent bg-accent/10 border border-accent/30"
+                : "text-muted-foreground hover:text-foreground border border-transparent"
+            }`}
+          >
+            {label}
+          </a>
+        ))}
+      </div>
 
       {/* Main layout: sidebar + content */}
       <div className="flex-1 flex relative z-10">
@@ -156,7 +196,7 @@ export default function Portfolio() {
           </div>
 
           {/* Key metrics */}
-          <div className="flex flex-wrap gap-4 mb-10">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 mb-10">
             {HIGHLIGHTS.slice(0, 4).map((h, i) => (
               <div key={i} className="flex flex-col">
                 <span className="font-mono text-sm font-bold text-foreground">{h.metric}</span>
@@ -489,6 +529,23 @@ export default function Portfolio() {
         <a href={`mailto:${PROFILE.email}`} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Email</a>
         <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="JunBoh_CV_2026.pdf" onClick={() => analytics.cvDownload()} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>
       </div>
+
+      {/* Back to top FAB */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.15 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="fixed bottom-20 sm:bottom-8 right-4 sm:right-8 z-30 w-10 h-10 rounded-full bg-foreground text-background flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-transform"
+            aria-label="Back to top"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="18 15 12 9 6 15"/></svg>
+          </motion.button>
+        )}
+      </AnimatePresence>
 
 
     </div>
