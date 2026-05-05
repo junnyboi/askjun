@@ -145,10 +145,17 @@ export default function Portfolio() {
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {SECTIONS.map(({ id, label }) => (
-          <a
+          <button
             key={id}
-            href={`#${id}`}
             data-section={id}
+            onClick={() => {
+              const el = document.getElementById(id);
+              if (el) {
+                const offset = 100; // header (48px) + tab bar (~40px) + padding
+                const top = el.getBoundingClientRect().top + window.scrollY - offset;
+                window.scrollTo({ top, behavior: "smooth" });
+              }
+            }}
             className={`whitespace-nowrap text-[10px] font-mono px-2.5 py-1.5 rounded-full transition-all shrink-0 ${
               activeSection === id
                 ? "text-accent bg-accent/10 border border-accent/30"
@@ -156,7 +163,7 @@ export default function Portfolio() {
             }`}
           >
             {label}
-          </a>
+          </button>
         ))}
       </div>
 
