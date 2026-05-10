@@ -1,68 +1,111 @@
 # askJun — AI-Native Portfolio
 
-A conversation-first AI portfolio website for Boh Ze Jun, Senior Frontend / Full Stack Software Engineer. Built with the Nothing design philosophy — raw industrial minimalism, stark monochrome, and deliberate precision.
+> **Chat with an AI agent trained on Jun's entire career.** Ask it anything — it doesn't bite.
+
+**Live:** [askjun.org](https://askjun.org) | **Source:** [github.com/junnyboi/askjun](https://github.com/junnyboi/askjun)
+
+---
+
+## What is askJun?
+
+askJun is a chat-first AI portfolio where recruiters and hiring managers converse with an AI agent trained on Jun Boh's 7+ years of software engineering experience at Meta, HoYoverse, TikTok, Instawork, and Bank of Singapore. Instead of reading a static resume, visitors ask questions and receive context-aware responses grounded in real career data.
+
+The site also features a dedicated portfolio page showcasing 19 projects across productivity apps, game development, e-commerce, and creative web experiences.
+
+---
 
 ## Architecture
 
-The site is a full-stack React application with a DeepSeek-powered AI chat backend.
+![System Architecture](/manus-storage/system-architecture_6a590550.png)
+
+A single Node.js process (Express 4 + tRPC 11) serves both the React 19 SPA and the API. No microservices, no separate frontend server — one deployment unit.
 
 | Layer | Technology |
 |-------|-----------|
-| Frontend | React 19 + TypeScript + Vite |
-| Styling | Tailwind CSS v4 + Nothing Design System |
-| Animation | Framer Motion (viewport-triggered reveals) |
-| Chat Backend | tRPC + DeepSeek via Forge API |
-| Database | MySQL (TiDB) via Drizzle ORM |
-| Deployment | Manus hosting |
+| Frontend | React 19, TypeScript, Tailwind CSS 4, Framer Motion, Wouter |
+| Backend | Express 4, tRPC 11, Drizzle ORM |
+| AI | DeepSeek (OpenAI-compatible API) |
+| Database | MySQL/TiDB |
+| Build | Vite 7 + esbuild |
 
-## Design Philosophy: Nothing
-
-The site follows Nothing's design language — the consumer electronics brand known for raw industrial minimalism. Key principles applied:
-
-| Principle | Implementation |
-|-----------|---------------|
-| Monochrome palette | Black/white with Nothing Red (#E60000) accent |
-| Typography hierarchy | Space Grotesk (display) + Inter (body) + Space Mono (technical) |
-| Sharp geometry | 0-2px border radius, no rounded corners |
-| No shadows | Thin 1px borders define hierarchy |
-| Mechanical animation | Precise ease-out, never bouncy |
-| Generous negative space | 8px grid, large section padding |
-| Light/Dark mode | Full theme system with system preference detection |
+---
 
 ## Features
 
-The portfolio includes a real AI chat powered by DeepSeek, a comprehensive knowledge base covering all professional experience, project case studies with expandable details, a downloadable CV, and smooth viewport-triggered scroll animations. The theme toggle supports both light and dark modes with anti-flash initialization.
+- **AI Chat Interface** — Chat-first landing page powered by DeepSeek with streaming simulation, follow-up chips, and contextual responses
+- **Portfolio Page** — 7 featured projects, 8 game dev projects, 4 side projects with thumbnails, GitHub links, and live demo badges
+- **Admin Dashboard** — Password-protected analytics with visitor tracking, top questions, event log, date range filters, and traffic chart
+- **Nothing Design** — Industrial minimalism with monochrome palette, Space Grotesk/Inter/Space Mono typography, and light/dark mode
+- **Mobile Optimized** — Horizontal scrollable tab bar, responsive grid, back-to-top FAB
+- **SEO** — JSON-LD Person schema, canonical URL, Open Graph social card
 
-## File Structure
+---
+
+## Quick Start
+
+```bash
+git clone https://github.com/junnyboi/askjun.git
+cd askjun && pnpm install
+
+# Create .env with DATABASE_URL + BUILT_IN_FORGE_API_KEY + JWT_SECRET
+pnpm db:push    # Run database migrations
+pnpm build      # Build frontend + backend
+pnpm start      # Start production server
+```
+
+See [docs/DEPLOYMENT_GUIDE.md](./docs/DEPLOYMENT_GUIDE.md) for full self-hosting instructions.
+
+---
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [docs/DEPLOYMENT_GUIDE.md](./docs/DEPLOYMENT_GUIDE.md) | Complete self-hosting guide with architecture diagrams |
+| [docs/INTERVIEW_SCRIPT.md](./docs/INTERVIEW_SCRIPT.md) | 10-15 minute presentation script for system design interviews |
+| [docs/ARCHITECTURE_AND_SELF_HOSTING.md](./docs/ARCHITECTURE_AND_SELF_HOSTING.md) | Detailed architecture reference |
+| [docs/diagrams/](./docs/diagrams/) | GPT Image 2 architecture diagrams |
+
+---
+
+## Project Structure
 
 ```
 client/src/
-├── components/
-│   ├── nothing/           — Nothing-styled page sections
-│   │   ├── Header.tsx
-│   │   ├── HeroSection.tsx
-│   │   ├── MetricsBar.tsx
-│   │   ├── ExperienceSection.tsx
-│   │   ├── SkillsSection.tsx
-│   │   ├── CaseStudies.tsx
-│   │   ├── ContactSection.tsx
-│   │   ├── Footer.tsx
-│   │   └── LoadingOverlay.tsx
-│   ├── ChatPanel.tsx      — AI chat with Nothing aesthetic
-│   └── ThemeToggle.tsx    — ●/○ theme switcher
-├── data/
-│   ├── chatEngine.ts      — Fallback keyword engine
-│   └── portfolio.ts       — Professional content
-├── pages/
-│   └── Home.tsx           — Main page composing all sections
-└── index.css              — Nothing design tokens (light + dark)
+  pages/Home.tsx        → Chat-first landing page
+  pages/Portfolio.tsx   → Project showcase with sidebar nav
+  pages/Admin.tsx       → Password-protected analytics dashboard
+  data/portfolio.ts     → All CV/project data
+  data/chatEngine.ts    → Client-side fallback chat engine
+  lib/analytics.ts      → Dual analytics (Umami + DB)
 
 server/
-├── knowledge.ts           — AI system prompt + knowledge base
-├── routers.ts             — tRPC routes including chat.send
-└── _core/                 — Framework plumbing (auth, LLM, storage)
+  routers.ts            → tRPC procedures (chat, track, admin)
+  knowledge.ts          → AI system prompt + knowledge base (~8K tokens)
+  db.ts                 → Database helpers (Drizzle ORM)
+  _core/                → Framework plumbing (Express, OAuth, LLM, storage)
+
+docs/
+  DEPLOYMENT_GUIDE.md   → Self-hosting instructions
+  INTERVIEW_SCRIPT.md   → System design interview walkthrough
+  diagrams/             → Architecture diagrams (GPT Image 2)
 ```
 
-## Content Source
+---
 
-All content sourced from the latest CV (2026-04-28) and LinkedIn profile, covering Meta (Manus AI), Instawork, HoYoverse, TikTok/ByteDance, Bank of Singapore, and DBS Bank.
+## Cost
+
+- **VPS:** ~$5-10/month
+- **Database:** ~$0-5/month (free tier available)
+- **DeepSeek API:** ~$0.01/chat message
+- **Total:** ~$5-15/month
+
+---
+
+## License
+
+MIT
+
+---
+
+**Built by Jun Boh · 2026**

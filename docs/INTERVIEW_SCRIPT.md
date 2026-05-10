@@ -2,6 +2,11 @@
 
 **Purpose:** A structured script for explaining how you built askJun from scratch during a system design or portfolio walkthrough in a technical interview. Designed for a 10-15 minute presentation with natural pauses for questions.
 
+**Supporting diagrams (share-screen these during the walkthrough):**
+- `docs/diagrams/system-architecture.png` — Three-layer architecture overview
+- `docs/diagrams/chat-message-flow.png` — 10-step chat data flow with rate limiting
+- `docs/diagrams/deployment-options.png` — VPS vs Container platform comparison
+
 ---
 
 ## Opening (30 seconds)

@@ -1,0 +1,1 @@
+# Architecture Diagrams\n\nDiagrams are hosted on CDN:\n- System Architecture: /manus-storage/system-architecture_6a590550.png\n- Chat Message Flow: /manus-storage/chat-message-flow_e5066f90.png\n- Deployment Options: /manus-storage/deployment-options_258f2ad4.png
