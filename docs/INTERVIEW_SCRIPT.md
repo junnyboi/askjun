@@ -29,7 +29,7 @@
 
 > "For the API layer, I chose tRPC 11 over REST or GraphQL. The tradeoff here is that tRPC gives me end-to-end type safety between the frontend and backend without any code generation step. Since this is a monorepo where I control both sides, the DX advantage is significant — I change a server procedure's return type and the frontend immediately gets type errors if it's consuming it wrong."
 
-> "The AI chat is powered by DeepSeek via an OpenAI-compatible API. I inject a comprehensive system prompt with my full CV, company context, and behavioral rules. The knowledge base is about 8,000 tokens — large enough to be comprehensive but small enough to fit in the context window with room for multi-turn conversation."
+> "The AI chat is powered by GPT-4.1-mini via an OpenAI-compatible API. I inject a comprehensive system prompt with my full CV, company context, and behavioral rules. The knowledge base is about 8,000 tokens — large enough to be comprehensive but small enough to fit in the context window with room for multi-turn conversation."
 
 **If they ask about the database:**
 
@@ -47,13 +47,13 @@
 
 > "REST would work fine here, but tRPC eliminates an entire class of bugs — the 'I changed the API response shape but forgot to update the frontend' class. With tRPC, if I add a field to the chat response, TypeScript immediately tells me everywhere in the frontend that needs updating. The tradeoff is that tRPC is less portable — you can't easily call it from a mobile app or a third-party client. But for a monorepo SPA, that's not a concern."
 
-### Why DeepSeek over OpenAI?
+### Why GPT-4.1-mini?
 
-> "Cost and quality per token. DeepSeek's chat model gives me GPT-4-level responses for about 1/10th the cost. For a portfolio site where I'm paying out of pocket, that matters. The API is OpenAI-compatible, so switching to GPT-4 or Claude is literally changing one URL and one model string — maybe 30 seconds of work."
+> "I chose GPT-4.1-mini because it's the sweet spot of cost and quality for a portfolio chatbot. It's fast, cheap (~$0.005/chat), and more than capable of answering nuanced career questions with personality. The architecture is provider-agnostic — switching to Claude, Llama, or any OpenAI-compatible model is literally changing two environment variables. I designed it this way deliberately so I'm never locked into a single provider."
 
 ### Why client-side fallback?
 
-> "I built a keyword-matching fallback engine that works without any API call. If DeepSeek is down, or if the user hits the rate limit, the site still responds intelligently. It's not as good as the real AI, but it covers the top 15 questions recruiters ask. The tradeoff is maintaining two response systems, but it means the site never shows a blank error state — which matters when a recruiter is evaluating you."
+> "I built a keyword-matching fallback engine that works without any API call. If GPT-4.1-mini is down, or if the user hits the rate limit, the site still responds intelligently. It's not as good as the real AI, but it covers the top 15 questions recruiters ask. The tradeoff is maintaining two response systems, but it means the site never shows a blank error state — which matters when a recruiter is evaluating you."
 
 ### Why Nothing's design language?
 
@@ -65,7 +65,7 @@
 
 ### Challenge 1: Streaming vs. Simulated Streaming
 
-> "DeepSeek supports streaming responses, but tRPC's mutation model doesn't natively support Server-Sent Events. I had two options: implement a raw Express SSE endpoint outside tRPC, or simulate streaming on the frontend. I chose simulated streaming — the server returns the full response, and the frontend types it out character by character with variable speed and pauses at punctuation. The tradeoff is slightly higher latency (you wait for the full response before seeing anything), but the UX *feels* like streaming because the typing animation starts immediately after the response arrives. And I keep the entire API within tRPC's type-safe boundary."
+> "GPT-4.1-mini supports streaming responses, but tRPC's mutation model doesn't natively support Server-Sent Events. I had two options: implement a raw Express SSE endpoint outside tRPC, or simulate streaming on the frontend. I chose simulated streaming — the server returns the full response, and the frontend types it out character by character with variable speed and pauses at punctuation. The tradeoff is slightly higher latency (you wait for the full response before seeing anything), but the UX *feels* like streaming because the typing animation starts immediately after the response arrives. And I keep the entire API within tRPC's type-safe boundary."
 
 ### Challenge 2: Knowledge Base Design
 

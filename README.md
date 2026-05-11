@@ -47,7 +47,7 @@ A single Node.js process (Express 4 + tRPC 11) serves both the React 19 SPA and 
 git clone https://github.com/junnyboi/askjun.git
 cd askjun && pnpm install
 
-# Create .env with DATABASE_URL + BUILT_IN_FORGE_API_KEY + JWT_SECRET
+# Create .env with SUPABASE_DATABASE_URL (or DATABASE_URL) + LLM_API_KEY + JWT_SECRET
 pnpm db:push    # Run database migrations
 pnpm build      # Build frontend + backend
 pnpm start      # Start production server

@@ -13,7 +13,7 @@ askJun is a **single-process full-stack application** that serves both the React
 
 ![System Architecture](/manus-storage/system-architecture_6a590550.png)
 
-The architecture consists of three layers. The **client layer** is a React 19 SPA with three pages (Chat Interface, Portfolio, Admin Dashboard) that communicates with the server exclusively through tRPC over HTTP. The **server layer** is a single Express 4 process that handles tRPC API routes, OAuth callbacks, S3 storage proxying, and static SPA serving. The **external services layer** includes MySQL/TiDB for persistence, DeepSeek for LLM inference, S3/CloudFront for static assets, and ip-api.com for geo-IP resolution.
+The architecture consists of three layers. The **client layer** is a React 19 SPA with three pages (Chat Interface, Portfolio, Admin Dashboard) that communicates with the server exclusively through tRPC over HTTP. The **server layer** is a single Express 4 process that handles tRPC API routes, OAuth callbacks, S3 storage proxying, and static SPA serving. The **external services layer** includes MySQL/TiDB for persistence, GPT-4.1-mini for LLM inference, S3/CloudFront for static assets, and ip-api.com for geo-IP resolution.
 
 ---
 
@@ -28,8 +28,8 @@ The architecture consists of three layers. The **client layer** is a React 19 SP
 | Build | Vite 7 + esbuild | Dev server + production bundler |
 | Backend | Express 4 + tRPC 11 | API server + static file serving |
 | Database | MySQL/TiDB via Drizzle ORM | Users, analytics events, visitors |
-| LLM | DeepSeek (OpenAI-compatible API) | AI chat responses |
-| Analytics | Umami (client) + custom DB (server) | Dual tracking |
+| LLM | GPT-4.1-mini (OpenAI-compatible API) | AI chat responses |
+| Analytics | Custom DB (server-side) | Event tracking via tRPC |
 
 ---
 
@@ -37,7 +37,7 @@ The architecture consists of three layers. The **client layer** is a React 19 SP
 
 ![Chat Message Flow](/manus-storage/chat-message-flow_e5066f90.png)
 
-When a user sends a message, the flow is as follows. The frontend sends a tRPC mutation (`chat.send`) containing the message array. The server checks the rate limit (30 messages per IP per hour). If within limits, the server injects the system prompt (~8,000 tokens of career knowledge), the conversation history, and sends an HTTP POST to the DeepSeek API. The response is returned to the frontend, which renders it with Streamdown (markdown) and displays contextual follow-up suggestion chips. Asynchronously, the server stores an analytics event in MySQL and upserts the visitor record with geo-IP country data from ip-api.com.
+When a user sends a message, the flow is as follows. The frontend sends a tRPC mutation (`chat.send`) containing the message array. The server checks the rate limit (30 messages per IP per hour). If within limits, the server injects the system prompt (~8,000 tokens of career knowledge), the conversation history, and sends an HTTP POST to the GPT-4.1-mini API. The response is returned to the frontend, which renders it with Streamdown (markdown) and displays contextual follow-up suggestion chips. Asynchronously, the server stores an analytics event in MySQL and upserts the visitor record with geo-IP country data from ip-api.com.
 
 ---
 
@@ -47,7 +47,7 @@ Only three Manus-specific integrations require replacement for self-hosting:
 
 | Manus Dependency | What It Does | Self-Hosting Replacement |
 |-----------------|-------------|--------------------------|
-| Forge LLM API | Proxies to DeepSeek/GPT | Call DeepSeek API directly (same OpenAI format) |
+| Forge LLM API | Proxies to OpenAI | Call OpenAI API directly (GPT-4.1-mini) |
 | Forge Storage | S3 presigned URL proxy | Use AWS S3 SDK directly or keep existing CDN URLs |
 | Manus OAuth | User authentication | Remove entirely (site works without auth) |
 
@@ -72,9 +72,9 @@ cd askjun && pnpm install
 
 # 2. Create .env file
 cat > .env << 'EOF'
-DATABASE_URL=mysql://user:password@host:3306/askjun
-BUILT_IN_FORGE_API_URL=https://api.deepseek.com
-BUILT_IN_FORGE_API_KEY=sk-your-deepseek-api-key
+SUPABASE_DATABASE_URL=postgresql://postgres.[ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres
+LLM_API_URL=https://api.openai.com
+LLM_API_KEY=sk-proj-your-openai-key
 JWT_SECRET=$(openssl rand -hex 32)
 PORT=3000
 NODE_ENV=production
@@ -96,7 +96,7 @@ pm2 start dist/index.js --name askjun
 # }
 ```
 
-**Total cost:** ~$5/month (VPS) + ~$0-5/month (managed MySQL) + ~$0.01/chat (DeepSeek API).
+**Total cost:** ~$5/month (VPS) + $0 (Supabase free tier) + ~$0.005/chat (OpenAI GPT-4.1-mini).
 
 ### Option B: Container Platform ($5-15/month, Zero Ops)
 
@@ -133,25 +133,30 @@ CMD ["node", "dist/index.js"]
 ## Environment Variables Reference
 
 | Variable | Required | Purpose | Example |
-|----------|----------|---------|---------|
-| `DATABASE_URL` | Yes | MySQL connection string | `mysql://user:pass@host:3306/askjun` |
-| `BUILT_IN_FORGE_API_KEY` | Yes | DeepSeek API key | `sk-abc123...` |
+|----------|----------|---------|--------|
+| `LLM_API_KEY` | Yes* | OpenAI API key | `sk-proj-abc123...` |
+| `LLM_API_URL` | No | LLM API base URL (default: `https://api.openai.com`) | `https://api.openai.com` |
+| `SUPABASE_DATABASE_URL` | Yes* | Supabase Postgres connection | `postgresql://postgres.[ref]:...` |
+| `DATABASE_URL` | Fallback | MySQL connection (Manus fallback) | `mysql://user:pass@host:3306/askjun` |
 | `JWT_SECRET` | Yes | Session cookie signing | `openssl rand -hex 32` |
 | `PORT` | No | Server port (default: 3000) | `3000` |
-| `BUILT_IN_FORGE_API_URL` | No | LLM API base URL | `https://api.deepseek.com` |
 | `NODE_ENV` | No | Environment mode | `production` |
+
+\* Either `LLM_API_KEY` or `BUILT_IN_FORGE_API_KEY` must be set. Either `SUPABASE_DATABASE_URL` or `DATABASE_URL` must be set.
+
+**Fallback chain:** `LLM_API_KEY` → `BUILT_IN_FORGE_API_KEY`. `SUPABASE_DATABASE_URL` → `DATABASE_URL`.
 
 ---
 
 ## LLM Configuration
 
-The LLM helper in `server/_core/llm.ts` uses an OpenAI-compatible API format. The endpoint is constructed as:
+The LLM uses an OpenAI-compatible API format. The endpoint is constructed as:
 
 ```
-${BUILT_IN_FORGE_API_URL}/v1/chat/completions
+${LLM_API_URL}/v1/chat/completions
 ```
 
-For **DeepSeek** directly, set `BUILT_IN_FORGE_API_URL=https://api.deepseek.com`. The model is configured in `server/routers.ts` within the `chat.send` procedure. To switch models, change the model string in the `invokeLLM` call.
+The model is `gpt-4.1-mini` (configured in `server/routers.ts`). The architecture is provider-agnostic — switching to Claude, Llama, or any OpenAI-compatible model requires only changing `LLM_API_URL` and the model string.
 
 ---
 

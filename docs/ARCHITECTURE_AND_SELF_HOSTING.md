@@ -26,7 +26,7 @@
                     │                                              │
                     │  ┌────────────┐  ┌──────────────────────┐   │
                     │  │ MySQL/TiDB │  │ Manus Forge API      │   │
-                    │  │ (Drizzle)  │  │ - LLM (DeepSeek)     │   │
+                    │  │ (Drizzle)  │  │ - LLM (GPT-4.1-mini)     │   │
                     │  │            │  │ - S3 Storage          │   │
                     │  │ Tables:    │  │ - OAuth               │   │
                     │  │ - users    │  └──────────────────────┘   │
@@ -48,7 +48,7 @@
 | **Build** | Vite 7 | Dev server + production bundler |
 | **Backend** | Express 4 + tRPC 11 | API server + static file serving |
 | **Database** | MySQL/TiDB via Drizzle ORM | Users, analytics events, visitors |
-| **LLM** | DeepSeek (via OpenAI-compatible API) | AI chat responses |
+| **LLM** | GPT-4.1-mini (via OpenAI-compatible API) | AI chat responses |
 | **Auth** | Manus OAuth (JWT session cookies) | User authentication |
 | **Storage** | S3 (via Manus Forge presigned URLs) | Profile photo, CV PDF, project thumbnails |
 | **Analytics** | Umami (client) + custom DB tracking (server) | Dual analytics |
@@ -78,8 +78,8 @@ client/src/pages/Admin.tsx → Password-protected admin dashboard
 |----------|---------|--------------------------|
 | `DATABASE_URL` | MySQL connection string | Any MySQL 8+ or TiDB instance |
 | `JWT_SECRET` | Session cookie signing | Generate a random 64-char string |
-| `BUILT_IN_FORGE_API_URL` | LLM + Storage API base URL | Replace with OpenAI/DeepSeek API URL |
-| `BUILT_IN_FORGE_API_KEY` | Bearer token for Forge | Your OpenAI/DeepSeek API key |
+| `BUILT_IN_FORGE_API_URL` | LLM + Storage API base URL | Replace with OpenAI/GPT-4.1-mini API URL |
+| `BUILT_IN_FORGE_API_KEY` | Bearer token for Forge | Your OpenAI/GPT-4.1-mini API key |
 | `OAUTH_SERVER_URL` | Manus OAuth backend | Remove or replace with your own auth |
 | `VITE_APP_ID` | Manus OAuth app ID | Remove if removing auth |
 | `VITE_OAUTH_PORTAL_URL` | Manus login portal | Remove if removing auth |
@@ -92,7 +92,7 @@ client/src/pages/Admin.tsx → Password-protected admin dashboard
 - Node.js 22+
 - pnpm 10+
 - MySQL 8+ database (or PlanetScale/TiDB)
-- An OpenAI-compatible LLM API key (DeepSeek, OpenAI, etc.)
+- An OpenAI-compatible LLM API key (GPT-4.1-mini, OpenAI, etc.)
 - A VPS or cloud instance (Railway, Render, Fly.io, or any Docker host)
 
 ### Step 1: Clone & Install
@@ -119,9 +119,9 @@ DATABASE_URL=mysql://user:password@host:3306/askjun
 # Auth (can be removed if you strip OAuth)
 JWT_SECRET=your-random-64-char-secret-here
 
-# LLM — Replace Forge with direct DeepSeek/OpenAI
-BUILT_IN_FORGE_API_URL=https://api.deepseek.com
-BUILT_IN_FORGE_API_KEY=sk-your-deepseek-api-key
+# LLM — Replace Forge with direct GPT-4.1-mini/OpenAI
+BUILT_IN_FORGE_API_URL=https://api.openai.com
+BUILT_IN_FORGE_API_KEY=sk-your-openai-api-key
 
 # Optional: remove OAuth entirely for a public portfolio
 # OAUTH_SERVER_URL=
@@ -144,14 +144,14 @@ const resolveApiUrl = () =>
     : "https://forge.manus.im/v1/chat/completions";
 ```
 
-For **DeepSeek** directly:
-- Set `BUILT_IN_FORGE_API_URL=https://api.deepseek.com`
+For **GPT-4.1-mini** directly:
+- Set `BUILT_IN_FORGE_API_URL=https://api.openai.com`
 - Set `BUILT_IN_FORGE_API_KEY=sk-your-key`
-- The model is set in `invokeLLM` as `gemini-2.5-flash` — change to `deepseek-chat`
+- The model is set in `invokeLLM` as `gemini-2.5-flash` — change to `gpt-4.1-mini`
 
 In `server/routers.ts`, find the chat.send procedure and change the model:
 ```ts
-model: "deepseek-chat"  // was "deepseek-chat" in the invokeLLM call
+model: "gpt-4.1-mini"  // was "gpt-4.1-mini" in the invokeLLM call
 ```
 
 ### Step 5: Handle Storage (Replace Manus S3 Proxy)
@@ -228,7 +228,7 @@ fly deploy
 
 | Dependency | What It Does | Self-Hosting Alternative |
 |-----------|-------------|--------------------------|
-| Forge LLM API | Proxies to DeepSeek/GPT | Call DeepSeek API directly |
+| Forge LLM API | Proxies to GPT-4.1-mini/GPT | Call GPT-4.1-mini API directly |
 | Forge Storage | S3 presigned URLs | Use AWS S3 SDK or Cloudflare R2 |
 | Manus OAuth | User authentication | Remove entirely (public site) or use Auth.js |
 | Manus Analytics (Umami) | Client-side pageviews | Self-host Umami or remove the script tag |
@@ -240,7 +240,7 @@ fly deploy
 User types message → Frontend sends tRPC mutation (chat.send)
   → Server checks rate limit (30 msgs/IP/hour)
   → Server calls invokeLLM() with system prompt + user messages
-    → HTTP POST to DeepSeek API (OpenAI-compatible)
+    → HTTP POST to GPT-4.1-mini API (OpenAI-compatible)
     → Returns AI response
   → Server also fires analytics tracking (DB insert)
   → Response returned to frontend
