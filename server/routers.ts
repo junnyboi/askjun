@@ -77,9 +77,9 @@ export const appRouter = router({
         }
 
         try {
-          const forgeUrl = ENV.forgeApiUrl
-            ? `${ENV.forgeApiUrl.replace(/\/$/, "")}/v1/chat/completions`
-            : "https://forge.manus.im/v1/chat/completions";
+          const llmUrl = ENV.llmApiUrl
+            ? `${ENV.llmApiUrl.replace(/\/$/, "")}/v1/chat/completions`
+            : "https://api.deepseek.com/v1/chat/completions";
 
           // Build messages with system prompt + last 10 user messages
           const chatMessages = [
@@ -87,14 +87,14 @@ export const appRouter = router({
             ...input.messages.slice(-10),
           ];
 
-          const response = await fetch(forgeUrl, {
+          const response = await fetch(llmUrl, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${ENV.forgeApiKey}`,
+              Authorization: `Bearer ${ENV.llmApiKey}`,
             },
             body: JSON.stringify({
-              model: "deepseek-chat",
+              model: "gpt-4.1-mini",
               messages: chatMessages,
               max_tokens: 1024,
               temperature: 0.7,

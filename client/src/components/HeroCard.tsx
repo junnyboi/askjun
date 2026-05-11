@@ -8,7 +8,7 @@ import { PROFILE } from "@/data/portfolio";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/hero-gradient-bg-5LZjwXJwUMjzCQyZt9RHtg.webp";
 const AVATAR_RING = "https://d2xsxph8kpxj0f.cloudfront.net/310519663370222890/cA3toqknd22cLAL6g9pNa6/profile-avatar-bg-WFZVHJYsQ2aAxEPUDXqKSf.webp";
-const PROFILE_PHOTO = "/manus-storage/jun-profile-meta_7e9e3d09.jpg";
+const PROFILE_PHOTO = "/assets/jun-profile-meta.jpg";
 
 export default function HeroCard() {
   return (

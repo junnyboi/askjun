@@ -175,3 +175,12 @@
 - [x] Add Awards section to portfolio page (ByteDance Rockstar, BOS CEO Award, Innovation Challenge)
 - [x] Add Speaking section to portfolio page (SINFO 2024 keynote, Lisbon)
 - [x] Add both to sidebar navigation
+
+## Manus Independence (Phases 1-6, 8)
+- [x] Phase 1: LLM API — renamed to LLM_API_*, fallback to BUILT_IN_FORGE for Manus deploy, model: gpt-4.1-mini
+- [x] Phase 2: Storage — CV PDF + profile photo moved to client/public/assets/, all /manus-storage/ refs replaced
+- [x] Phase 3: OAuth removed — deleted oauth.ts, sdk.ts, manusTypes.ts, useAuth, getLoginUrl, main.tsx redirect
+- [x] Phase 4: CDN — OG image moved to client/public/og-image.png, meta tags updated to askjun.org
+- [x] Phase 5: Analytics — Umami script removed, analytics.ts cleaned to DB-only tracking
+- [x] Phase 6: Vite plugins — removed vite-plugin-manus-runtime, debug collector, __manus__ dir, Manus domains
+- [x] Phase 8: Cleanup — deleted 15 unused modules (dataApi, imageGeneration, map, notification, voiceTranscription, ManusDialog, Map, DashboardLayout, AIChatBox, ComponentShowcase, etc.)

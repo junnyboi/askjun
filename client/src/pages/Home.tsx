@@ -221,7 +221,7 @@ export default function Home() {
             </button>
           )}
           <a
-            href="/manus-storage/JunBoh-CV-2026_adffff38.pdf"
+            href="/assets/JunBoh-CV-2026.pdf"
             download="JunBoh_CV_2026.pdf"
             onClick={() => analytics.cvDownload()}
             className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-all active:scale-95"
@@ -356,7 +356,7 @@ export default function Home() {
                         <div className="text-xs font-mono text-accent mb-2">✓ {msg.toolUse.status}</div>
                         {/* Inline Download CV button for resume requests */}
                         <a
-                          href="/manus-storage/JunBoh-CV-2026_adffff38.pdf"
+                          href="/assets/JunBoh-CV-2026.pdf"
                           download="JunBoh_CV_2026.pdf"
                           onClick={() => analytics.cvDownload()}
                           className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-all active:scale-95 mb-3"
@@ -489,7 +489,7 @@ export default function Home() {
         <div className="sm:hidden shrink-0 border-t border-border bg-card px-4 py-2.5 flex items-center justify-between relative z-10">
           <a href="/portfolio" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Portfolio</a>
           <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">LinkedIn</a>
-          <a href="/manus-storage/JunBoh-CV-2026_adffff38.pdf" download="JunBoh_CV_2026.pdf" onClick={() => analytics.cvDownload()} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>
+          <a href="/assets/JunBoh-CV-2026.pdf" download="JunBoh_CV_2026.pdf" onClick={() => analytics.cvDownload()} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>
         </div>
       )}
 

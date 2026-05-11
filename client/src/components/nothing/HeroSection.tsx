@@ -1,6 +1,6 @@
 import { PROFILE } from "@/data/portfolio";
 
-const PROFILE_PHOTO = "/manus-storage/jun-profile-meta_7e9e3d09.jpg";
+const PROFILE_PHOTO = "/assets/jun-profile-meta.jpg";
 
 interface HeroSectionProps {
   onOpenChat: () => void;
@@ -52,7 +52,7 @@ export default function HeroSection({ onOpenChat }: HeroSectionProps) {
                 Ask AI about me
               </button>
               <a
-                href="/manus-storage/JunBoh-CV-2026_adffff38.pdf"
+                href="/assets/JunBoh-CV-2026.pdf"
                 download="JunBoh_CV_2026.pdf"
                 className="px-5 py-2.5 text-sm font-mono border border-border text-foreground hover:border-foreground transition-colors active:scale-[0.97]"
               >

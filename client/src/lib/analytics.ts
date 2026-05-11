@@ -1,16 +1,7 @@
 /*
- * Analytics utility — dual tracking:
- * 1. Umami (client-side, production only)
- * 2. Server-side tRPC endpoint (stores in DB for admin dashboard)
+ * Analytics utility — server-side DB tracking via tRPC endpoint
+ * Events are stored in the analytics_events table and visible in /admin
  */
-
-declare global {
-  interface Window {
-    umami?: {
-      track: (event: string, data?: Record<string, string | number>) => void;
-    };
-  }
-}
 
 // Generate a session ID for this browser session
 const SESSION_ID = (() => {
@@ -33,12 +24,6 @@ function trackServer(event: string, data?: string) {
 }
 
 export function trackEvent(event: string, data?: string | Record<string, string | number>) {
-  // Umami (client-side)
-  if (typeof window !== "undefined" && window.umami) {
-    const umamiData = typeof data === "string" ? { value: data } : data;
-    window.umami.track(event, umamiData);
-  }
-  // Server-side DB tracking
   const dataStr = typeof data === "string" ? data : data ? JSON.stringify(data) : undefined;
   trackServer(event, dataStr);
 }
