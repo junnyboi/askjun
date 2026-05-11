@@ -164,7 +164,7 @@ export default function Admin() {
               {topQuestions.data?.length === 0 && (
                 <p className="text-xs text-muted-foreground">No data yet</p>
               )}
-              {topQuestions.data?.map((q, i) => (
+              {topQuestions.data?.map((q: any, i: number) => (
                 <div key={i} className="flex items-center justify-between py-1.5 border-b border-border/50 last:border-0">
                   <span className="text-[11px] text-foreground truncate max-w-[80%]">{q.data || "(empty)"}</span>
                   <span className="text-[10px] font-mono text-accent">{q.count}</span>
@@ -218,7 +218,7 @@ export default function Admin() {
                 {visitorsQuery.data?.length === 0 && (
                   <tr><td colSpan={5} className="py-4 text-muted-foreground text-center">No visitors yet</td></tr>
                 )}
-                {visitorsQuery.data?.map((v, i) => (
+                {visitorsQuery.data?.map((v: any, i: number) => (
                   <tr key={i} className="border-b border-border/30 last:border-0">
                     <td className="py-2 pr-4 text-foreground">{v.ip}</td>
                     <td className="py-2 pr-4 text-muted-foreground">{v.country || "—"}</td>
@@ -249,7 +249,7 @@ export default function Admin() {
                 {recentEvents.data?.length === 0 && (
                   <tr><td colSpan={4} className="py-4 text-muted-foreground text-center">No events yet</td></tr>
                 )}
-                {recentEvents.data?.map((e, i) => (
+                {recentEvents.data?.map((e: any, i: number) => (
                   <tr key={i} className="border-b border-border/30 last:border-0">
                     <td className="py-1.5 pr-4">
                       <span className={`px-1.5 py-0.5 rounded text-[9px] ${

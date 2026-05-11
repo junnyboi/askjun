@@ -79,7 +79,7 @@ export const appRouter = router({
         try {
           const llmUrl = ENV.llmApiUrl
             ? `${ENV.llmApiUrl.replace(/\/$/, "")}/v1/chat/completions`
-            : "https://api.deepseek.com/v1/chat/completions";
+            : "https://api.openai.com/v1/chat/completions";
 
           // Build messages with system prompt + last 10 user messages
           const chatMessages = [

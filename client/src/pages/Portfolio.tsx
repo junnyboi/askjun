@@ -253,9 +253,9 @@ export default function Portfolio() {
               {[
                 {
                   title: "askJun AI Portfolio",
-                  description: "This site — chat-first AI portfolio powered by DeepSeek",
+                  description: "This site — chat-first AI portfolio powered by GPT-4",
                   tags: ["AI", "Web"],
-                  tech: ["React", "TypeScript", "DeepSeek"],
+                  tech: ["React", "TypeScript", "GPT-4"],
                   image: "/thumbnails/askjun.webp",
                   link: "https://askjun.org",
                   github: "https://github.com/junnyboi/askjun",

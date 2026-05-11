@@ -24,7 +24,7 @@ A single Node.js process (Express 4 + tRPC 11) serves both the React 19 SPA and 
 |-------|-----------|
 | Frontend | React 19, TypeScript, Tailwind CSS 4, Framer Motion, Wouter |
 | Backend | Express 4, tRPC 11, Drizzle ORM |
-| AI | DeepSeek (OpenAI-compatible API) |
+| AI | GPT-4.1-mini (OpenAI) |
 | Database | MySQL/TiDB |
 | Build | Vite 7 + esbuild |
 
@@ -32,7 +32,7 @@ A single Node.js process (Express 4 + tRPC 11) serves both the React 19 SPA and 
 
 ## Features
 
-- **AI Chat Interface** — Chat-first landing page powered by DeepSeek with streaming simulation, follow-up chips, and contextual responses
+- **AI Chat Interface** — Chat-first landing page powered by GPT-4 with streaming simulation, follow-up chips, and contextual responses
 - **Portfolio Page** — 7 featured projects, 8 game dev projects, 4 side projects with thumbnails, GitHub links, and live demo badges
 - **Admin Dashboard** — Password-protected analytics with visitor tracking, top questions, event log, date range filters, and traffic chart
 - **Nothing Design** — Industrial minimalism with monochrome palette, Space Grotesk/Inter/Space Mono typography, and light/dark mode
@@ -97,7 +97,7 @@ docs/
 
 - **VPS:** ~$5-10/month
 - **Database:** ~$0-5/month (free tier available)
-- **DeepSeek API:** ~$0.01/chat message
+- **OpenAI API:** ~$0.005/chat message
 - **Total:** ~$5-15/month
 
 ---

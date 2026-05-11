@@ -1,21 +1,52 @@
+/**
+ * Dual-driver database connection:
+ *   Priority 1: SUPABASE_DATABASE_URL (Postgres) — your own infrastructure
+ *   Priority 2: DATABASE_URL (MySQL/TiDB) — Manus fallback
+ *   Neither: DB disabled, site runs with client-side fallback only
+ */
 import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
+import { drizzle as drizzlePg } from "drizzle-orm/postgres-js";
+import { drizzle as drizzleMysql } from "drizzle-orm/mysql2";
+import postgres from "postgres";
 import { InsertUser, users } from "../drizzle/schema";
-import { ENV } from './_core/env';
 
-let _db: ReturnType<typeof drizzle> | null = null;
+let _db: any = null;
+let _dbDialect: "postgres" | "mysql" | null = null;
 
-// Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
+  if (_db) return _db;
+
+  // Priority 1: Supabase (Postgres)
+  if (process.env.SUPABASE_DATABASE_URL) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      const client = postgres(process.env.SUPABASE_DATABASE_URL);
+      _db = drizzlePg(client);
+      _dbDialect = "postgres";
+      console.log("[Database] Connected to Supabase (Postgres)");
+      return _db;
     } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
-      _db = null;
+      console.warn("[Database] Supabase connection failed, trying fallback:", error);
     }
   }
-  return _db;
+
+  // Priority 2: Manus TiDB / any MySQL (fallback)
+  if (process.env.DATABASE_URL) {
+    try {
+      _db = drizzleMysql(process.env.DATABASE_URL);
+      _dbDialect = "mysql";
+      console.log("[Database] Connected to MySQL/TiDB (fallback)");
+      return _db;
+    } catch (error) {
+      console.warn("[Database] MySQL connection failed:", error);
+    }
+  }
+
+  console.warn("[Database] No database configured — analytics disabled");
+  return null;
+}
+
+export function getDbDialect() {
+  return _dbDialect;
 }
 
 export async function upsertUser(user: InsertUser): Promise<void> {
@@ -65,6 +96,9 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       updateSet.lastSignedIn = new Date();
     }
 
+    // MySQL uses onDuplicateKeyUpdate, Postgres would use onConflictDoUpdate
+    // For now, MySQL path is active (Manus fallback). When Supabase is connected,
+    // this upsert function is not called (no OAuth = no user creation).
     await db.insert(users).values(values).onDuplicateKeyUpdate({
       set: updateSet,
     });
@@ -85,5 +119,3 @@ export async function getUserByOpenId(openId: string) {
 
   return result.length > 0 ? result[0] : undefined;
 }
-
-// TODO: add feature queries here as your schema grows.

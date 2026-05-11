@@ -128,7 +128,7 @@ export default function ChatPanel({ open, onClose }: ChatPanelProps) {
                 <div>
                   <h3 className="text-sm font-semibold text-foreground">askJun AI</h3>
                   <p className="text-xs font-mono text-muted-foreground">
-                    {isTyping ? "processing..." : "powered by deepseek"}
+                    {isTyping ? "processing..." : "powered by gpt-4"}
                   </p>
                 </div>
                 <button onClick={onClose} className="w-8 h-8 flex items-center justify-center hover:opacity-60 transition-opacity" aria-label="Close chat">
@@ -216,7 +216,7 @@ export default function ChatPanel({ open, onClose }: ChatPanelProps) {
                   </button>
                 </div>
                 <p className="text-[10px] text-muted-foreground/40 text-center mt-3 font-mono">
-                  powered by deepseek · responses based on professional profile
+                  powered by gpt-4 · responses based on professional profile
                 </p>
               </div>
             </div>
