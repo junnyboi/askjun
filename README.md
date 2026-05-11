@@ -16,7 +16,7 @@ The site also features a dedicated portfolio page showcasing 19 projects across 
 
 ## Architecture
 
-![System Architecture](/manus-storage/system-architecture_6a590550.png)
+![System Architecture](/manus-storage/system-architecture_d9ea7119.png)
 
 A single Node.js process (Express 4 + tRPC 11) serves both the React 19 SPA and the API. No microservices, no separate frontend server — one deployment unit.
 

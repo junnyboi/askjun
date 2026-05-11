@@ -11,7 +11,7 @@ This document provides a complete guide for deploying askJun from source code wi
 
 askJun is a **single-process full-stack application** that serves both the React SPA frontend and the Express API backend from one Node.js process on one port. There are no microservices, no separate frontend server, and no API gateway — just one deployment unit.
 
-![System Architecture](/manus-storage/system-architecture_6a590550.png)
+![System Architecture](/manus-storage/system-architecture_d9ea7119.png)
 
 The architecture consists of three layers. The **client layer** is a React 19 SPA with three pages (Chat Interface, Portfolio, Admin Dashboard) that communicates with the server exclusively through tRPC over HTTP. The **server layer** is a single Express 4 process that handles tRPC API routes, OAuth callbacks, S3 storage proxying, and static SPA serving. The **external services layer** includes MySQL/TiDB for persistence, GPT-4.1-mini for LLM inference, S3/CloudFront for static assets, and ip-api.com for geo-IP resolution.
 
@@ -35,7 +35,7 @@ The architecture consists of three layers. The **client layer** is a React 19 SP
 
 ## Chat Message Data Flow
 
-![Chat Message Flow](/manus-storage/chat-message-flow_e5066f90.png)
+![Chat Message Flow](/manus-storage/chat-message-flow_cd70a837.png)
 
 When a user sends a message, the flow is as follows. The frontend sends a tRPC mutation (`chat.send`) containing the message array. The server checks the rate limit (30 messages per IP per hour). If within limits, the server injects the system prompt (~8,000 tokens of career knowledge), the conversation history, and sends an HTTP POST to the GPT-4.1-mini API. The response is returned to the frontend, which renders it with Streamdown (markdown) and displays contextual follow-up suggestion chips. Asynchronously, the server stores an analytics event in MySQL and upserts the visitor record with geo-IP country data from ip-api.com.
 
@@ -57,7 +57,7 @@ The existing CloudFront CDN URLs for images will continue working indefinitely. 
 
 ## Deployment Options
 
-![Deployment Options](/manus-storage/deployment-options_258f2ad4.png)
+![Deployment Options](/manus-storage/deployment-options_fcdde6f8.png)
 
 ### Option A: Single VPS ($5-10/month)
 
