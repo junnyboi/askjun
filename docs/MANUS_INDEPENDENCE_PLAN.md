@@ -168,19 +168,26 @@ server: {
 
 ---
 
-## Phase 7: Database Migration to Supabase (Critical, ~1.5 hours)
+## Phase 7: Database — Supabase Primary with Manus TiDB Fallback (~2 hours)
 
-**Current state:** The app connects to a Manus-hosted TiDB (MySQL-compatible) instance via `DATABASE_URL`. The schema uses `drizzle-orm/mysql-core` with MySQL-specific types (`mysqlTable`, `mysqlEnum`, `int().autoincrement()`, `onUpdateNow()`). The `server/db.ts` uses `drizzle-orm/mysql2` driver.
+**Current state:** The app connects to a Manus-hosted TiDB (MySQL-compatible) instance via `DATABASE_URL`. The schema uses `drizzle-orm/mysql-core` with MySQL-specific types.
 
-**Target state:** Supabase (PostgreSQL) with `drizzle-orm/postgres-js` driver.
+**Target state:** Dual-database support — prefer Supabase (PostgreSQL) via `SUPABASE_DATABASE_URL`, fall back to Manus TiDB via `DATABASE_URL` when deployed on Manus.
 
-**This requires a dialect migration — MySQL → PostgreSQL.**
+**Architecture:**
+```
+SUPABASE_DATABASE_URL set? → Use Postgres (drizzle-orm/postgres-js)
+DATABASE_URL set?          → Use MySQL/TiDB (drizzle-orm/mysql2) [Manus fallback]
+Neither set?               → DB disabled, site runs with client-side fallback only
+```
 
-### 7.1 Install Postgres dependencies
+This is the same pattern as the LLM fallback: own infrastructure first, Manus as backup.
+
+### 7.1 Install Postgres dependencies (keep mysql2 for fallback)
 
 ```bash
 pnpm add postgres
-pnpm remove mysql2
+# DO NOT remove mysql2 — it's the Manus fallback
 ```
 
 ### 7.2 Rewrite `drizzle/schema.ts` (MySQL → Postgres)
@@ -234,35 +241,63 @@ export const visitors = pgTable("visitors", {
 });
 ```
 
-### 7.3 Rewrite `server/db.ts` (mysql2 → postgres)
+### 7.3 Rewrite `server/db.ts` (dual-driver: Postgres primary, MySQL fallback)
 
 ```ts
-import { drizzle } from "drizzle-orm/postgres-js";
+import { drizzle as drizzlePg } from "drizzle-orm/postgres-js";
+import { drizzle as drizzleMysql } from "drizzle-orm/mysql2";
 import postgres from "postgres";
 
-let _db: ReturnType<typeof drizzle> | null = null;
+let _db: any = null;
+let _dbDialect: "postgres" | "mysql" | null = null;
 
 export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
+  if (_db) return _db;
+
+  // Priority 1: Supabase (Postgres)
+  if (process.env.SUPABASE_DATABASE_URL) {
     try {
-      const client = postgres(process.env.DATABASE_URL);
-      _db = drizzle(client);
+      const client = postgres(process.env.SUPABASE_DATABASE_URL);
+      _db = drizzlePg(client);
+      _dbDialect = "postgres";
+      console.log("[Database] Connected to Supabase (Postgres)");
+      return _db;
     } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
-      _db = null;
+      console.warn("[Database] Supabase connection failed, trying fallback:", error);
     }
   }
-  return _db;
+
+  // Priority 2: Manus TiDB / any MySQL (fallback)
+  if (process.env.DATABASE_URL) {
+    try {
+      _db = drizzleMysql(process.env.DATABASE_URL);
+      _dbDialect = "mysql";
+      console.log("[Database] Connected to MySQL/TiDB (fallback)");
+      return _db;
+    } catch (error) {
+      console.warn("[Database] MySQL connection failed:", error);
+    }
+  }
+
+  console.warn("[Database] No database configured — analytics disabled");
+  return null;
 }
+
+export function getDbDialect() { return _dbDialect; }
 ```
 
-### 7.4 Update `drizzle.config.ts`
+**Note:** The Drizzle query API is dialect-agnostic for basic operations (select, insert, update, where, orderBy). The only MySQL-specific syntax is `onDuplicateKeyUpdate` which becomes `onConflictDoUpdate` in Postgres. The `server/routers.ts` uses manual SELECT+UPDATE patterns for visitors, which work identically in both dialects.
+
+### 7.4 Update `drizzle.config.ts` (use Supabase when available)
 
 ```ts
+const connectionString = process.env.SUPABASE_DATABASE_URL || process.env.DATABASE_URL;
+const dialect = process.env.SUPABASE_DATABASE_URL ? "postgresql" : "mysql";
+
 export default defineConfig({
   schema: "./drizzle/schema.ts",
   out: "./drizzle",
-  dialect: "postgresql",
+  dialect,
   dbCredentials: {
     url: connectionString,
   },
@@ -340,24 +375,29 @@ Several `server/_core/` files are Manus utilities that askJun doesn't actually u
 After full independence with Supabase, the `.env` file becomes:
 
 ```env
-# === REQUIRED ===
-DATABASE_URL=postgresql://postgres.[ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres
-LLM_API_URL=https://api.deepseek.com
-LLM_API_KEY=sk-your-deepseek-key
+# === OWN INFRASTRUCTURE (preferred) ===
+SUPABASE_DATABASE_URL=postgresql://postgres.[ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres
+LLM_API_URL=https://api.openai.com
+LLM_API_KEY=sk-proj-your-openai-key
 JWT_SECRET=random-64-char-string
+
+# === MANUS FALLBACKS (auto-populated when deployed on Manus) ===
+# DATABASE_URL=mysql://...  (Manus TiDB — used if SUPABASE_DATABASE_URL is not set)
+# BUILT_IN_FORGE_API_URL=... (Manus Forge — used if LLM_API_URL is not set)
+# BUILT_IN_FORGE_API_KEY=... (Manus Forge — used if LLM_API_KEY is not set)
 
 # === OPTIONAL ===
 PORT=3000
 NODE_ENV=production
-
-# === ONLY IF USING SUPABASE STORAGE ===
-# SUPABASE_URL=https://[ref].supabase.co
-# SUPABASE_ANON_KEY=eyJ...
 ```
 
-**Removed variables (no longer needed):**
-- `BUILT_IN_FORGE_API_URL`
-- `BUILT_IN_FORGE_API_KEY`
+**Fallback priority chain:**
+| Service | Primary (own) | Fallback (Manus) |
+|---------|--------------|------------------|
+| LLM | `LLM_API_URL` + `LLM_API_KEY` (OpenAI) | `BUILT_IN_FORGE_API_URL` + `BUILT_IN_FORGE_API_KEY` |
+| Database | `SUPABASE_DATABASE_URL` (Postgres) | `DATABASE_URL` (MySQL/TiDB) |
+
+**Removed variables (no longer needed regardless of environment):**
 - `OAUTH_SERVER_URL`
 - `VITE_APP_ID`
 - `VITE_OAUTH_PORTAL_URL`
@@ -381,11 +421,11 @@ NODE_ENV=production
 | Phase 3: OAuth | Low | 30 min | Low — site already works without it |
 | Phase 4: CDN | Low | 15 min | Zero — just moving one image |
 | Phase 5: Analytics | Low | 10 min | Zero — custom analytics still works |
-| **Phase 7: Supabase Migration** | **Final** | **1.5 hours** | **Medium — dialect change (MySQL → Postgres)** |
+| **Phase 7: Supabase + DB Fallback** | **Final** | **2 hours** | **Medium — dual-driver (Postgres primary, MySQL fallback)** |
 
 **Total estimated effort: ~4 hours**
 
-> **Note:** Phase 7 (Supabase) is intentionally last because it's the most invasive change (schema dialect swap). All other phases can be done independently and tested against the existing MySQL database. Once everything else is clean, the Supabase migration is the final cut.
+> **Note:** Phase 7 (Supabase) is intentionally last because it's the most invasive change (dual-driver schema support). All other phases can be done independently and tested against the existing MySQL database. The dual-driver approach means the site **never breaks** — it always has a working database connection regardless of which environment it's deployed in. When you're ready to cut over fully to Supabase, simply stop setting `DATABASE_URL` and the MySQL fallback becomes dead code you can remove.
 
 ---
 
