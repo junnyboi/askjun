@@ -4,6 +4,7 @@ import { httpBatchLink } from "@trpc/client";
 import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
+import { getAdminPassword } from "./pages/Admin";
 import "./index.css";
 
 const queryClient = new QueryClient();
@@ -13,6 +14,10 @@ const trpcClient = trpc.createClient({
     httpBatchLink({
       url: "/api/trpc",
       transformer: superjson,
+      headers() {
+        const adminPw = getAdminPassword();
+        return adminPw ? { "x-admin-password": adminPw } : {};
+      },
       fetch(input, init) {
         return globalThis.fetch(input, {
           ...(init ?? {}),

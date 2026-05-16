@@ -15,6 +15,7 @@ import { CHAT_SUGGESTIONS, PROFILE, HIGHLIGHTS, EXPERIENCES, SKILLS } from "@/da
 import ThemeToggle from "@/components/ThemeToggle";
 import { getFollowUps } from "@/data/followUps";
 import { analytics } from "@/lib/analytics";
+import { toast } from "sonner";
 
 interface Message {
   id: string;
@@ -24,6 +25,15 @@ interface Message {
   showProfileImage?: boolean;
 }
 
+// Module-level constant — no re-creation on render
+const PLACEHOLDERS = [
+  "Ask about Jun...",
+  "What's his experience with AI?",
+  "Tell me about his tech stack",
+  "What payment systems did he build?",
+  "Why is he looking for new roles?",
+];
+
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -31,6 +41,9 @@ export default function Home() {
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const streamingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const messagesRef = useRef(messages);
+  messagesRef.current = messages;
   const chatMutation = trpc.chat.send.useMutation();
 
   const hasMessages = messages.length > 0;
@@ -40,21 +53,21 @@ export default function Home() {
   const [showProfileZoom, setShowProfileZoom] = useState(false);
 
   // Rotating placeholder text
-  const PLACEHOLDERS = [
-    "Ask about Jun...",
-    "What's his experience with AI?",
-    "Tell me about his tech stack",
-    "What payment systems did he build?",
-    "Why is he looking for new roles?",
-  ];
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
   useEffect(() => {
-    if (hasMessages) return; // Only rotate on landing
+    if (hasMessages) return;
     const timer = setInterval(() => {
       setPlaceholderIdx((prev) => (prev + 1) % PLACEHOLDERS.length);
     }, 3000);
     return () => clearInterval(timer);
   }, [hasMessages]);
+
+  // Cleanup streaming timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (streamingTimeoutRef.current) clearTimeout(streamingTimeoutRef.current);
+    };
+  }, []);
 
   // Track scroll position for back-to-top button
   useEffect(() => {
@@ -125,10 +138,10 @@ export default function Home() {
 
         // Pause longer at punctuation
         const delay = isPunctuation ? baseSpeed * 6 : baseSpeed + Math.random() * 6 - 3;
-        setTimeout(tick, delay);
+        streamingTimeoutRef.current = setTimeout(tick, delay);
       };
 
-      setTimeout(tick, baseSpeed);
+      streamingTimeoutRef.current = setTimeout(tick, baseSpeed);
     },
     []
   );
@@ -142,7 +155,7 @@ export default function Home() {
       setUsedChips((prev) => new Set(prev).add(query));
 
       const userMsg: Message = { id: `user-${Date.now()}`, role: "user", content: query };
-      const updatedMessages = [...messages, userMsg];
+      const updatedMessages = [...messagesRef.current, userMsg];
       setMessages(updatedMessages);
       setInput("");
       setIsTyping(true);
@@ -170,7 +183,7 @@ export default function Home() {
         simulateStreaming(response.text, assistantMsgId, isToolUse ? response.toolUse : undefined, isAppearanceQuery || response.showProfileImage);
       }
     },
-    [input, isTyping, messages, chatMutation, simulateStreaming]
+    [input, isTyping, chatMutation, simulateStreaming]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -184,7 +197,7 @@ export default function Home() {
       .join("\n\n");
     navigator.clipboard.writeText(transcript);
     analytics.shareConversation();
-    alert("Conversation copied to clipboard!");
+    toast.success("Conversation copied to clipboard!");
   }, [messages]);
 
   return (

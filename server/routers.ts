@@ -1,5 +1,4 @@
-import { COOKIE_NAME } from "@shared/const";
-import { getSessionCookieOptions } from "./_core/cookies";
+import { TRPCError } from "@trpc/server";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
@@ -31,16 +30,17 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
+// Server-side admin gate middleware
+const adminGatedProcedure = publicProcedure.use(({ ctx, next }) => {
+  const password = ctx.req.headers["x-admin-password"] as string | undefined;
+  if (password !== ENV.adminPassword) {
+    throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid admin password" });
+  }
+  return next({ ctx });
+});
+
 export const appRouter = router({
   system: systemRouter,
-  auth: router({
-    me: publicProcedure.query(opts => opts.ctx.user),
-    logout: publicProcedure.mutation(({ ctx }) => {
-      const cookieOptions = getSessionCookieOptions(ctx.req);
-      ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
-      return { success: true } as const;
-    }),
-  }),
 
   chat: router({
     stats: publicProcedure.query(async () => {
@@ -179,14 +179,14 @@ export const appRouter = router({
       }),
   }),
 
-  // Admin dashboard — password-gated on the frontend
+  // Admin dashboard — server-side password gated
   admin: router({
     verify: publicProcedure
       .input(z.object({ password: z.string() }))
       .mutation(({ input }) => {
-        return { valid: input.password === "mijun" };
+        return { valid: input.password === ENV.adminPassword };
       }),
-    stats: publicProcedure
+    stats: adminGatedProcedure
       .input(z.object({ from: z.string().optional(), to: z.string().optional() }).optional())
       .query(async ({ input }) => {
         const db = await getDb();
@@ -211,7 +211,7 @@ export const appRouter = router({
           };
         } catch { return { totalEvents: 0, totalVisitors: 0, cvDownloads: 0, chatMessages: 0, chipClicks: 0 }; }
       }),
-    visitors: publicProcedure
+    visitors: adminGatedProcedure
       .input(z.object({ from: z.string().optional(), to: z.string().optional() }).optional())
       .query(async ({ input }) => {
         const db = await getDb();
@@ -224,7 +224,7 @@ export const appRouter = router({
           return await db.select().from(visitors).where(whereClause).orderBy(desc(visitors.lastVisit)).limit(50);
         } catch { return []; }
       }),
-    topQuestions: publicProcedure
+    topQuestions: adminGatedProcedure
       .input(z.object({ from: z.string().optional(), to: z.string().optional() }).optional())
       .query(async ({ input }) => {
         const db = await getDb();
@@ -244,7 +244,7 @@ export const appRouter = router({
           return results;
         } catch { return []; }
       }),
-    recentEvents: publicProcedure
+    recentEvents: adminGatedProcedure
       .input(z.object({ from: z.string().optional(), to: z.string().optional() }).optional())
       .query(async ({ input }) => {
         const db = await getDb();
@@ -257,7 +257,7 @@ export const appRouter = router({
           return await db.select().from(analyticsEvents).where(whereClause).orderBy(desc(analyticsEvents.createdAt)).limit(100);
         } catch { return []; }
       }),
-    dailyTraffic: publicProcedure
+    dailyTraffic: adminGatedProcedure
       .input(z.object({ from: z.string().optional(), to: z.string().optional() }).optional())
       .query(async ({ input }) => {
         const db = await getDb();

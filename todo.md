@@ -184,3 +184,9 @@
 - [x] Phase 5: Analytics — Umami script removed, analytics.ts cleaned to DB-only tracking
 - [x] Phase 6: Vite plugins — removed vite-plugin-manus-runtime, debug collector, __manus__ dir, Manus domains
 - [x] Phase 8: Cleanup — deleted 15 unused modules (dataApi, imageGeneration, map, notification, voiceTranscription, ManusDialog, Map, DashboardLayout, AIChatBox, ComponentShowcase, etc.)
+
+## Audit Fix Sprint
+- [x] Phase 1: Delete dead auth router, add server-side admin gate (adminGatedProcedure), move password to env
+- [x] Phase 2: Fix ErrorBoundary stack trace leak (dev-only), replace alert() with Sonner toast
+- [x] Phase 3: Delete 15 unused components, stale auth files (cookies.ts, trpc procedures), dead test
+- [x] Phase 4: Fix streaming setTimeout leak (ref cleanup), useCallback deps (messagesRef), PLACEHOLDERS module scope

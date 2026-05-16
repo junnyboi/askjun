@@ -5,9 +5,13 @@
  * ============================================================================
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+
+// Store the admin password globally so the tRPC fetch wrapper can access it
+let _adminPassword = "";
+export function getAdminPassword() { return _adminPassword; }
 
 export default function Admin() {
   const [password, setPassword] = useState("");
@@ -28,6 +32,7 @@ export default function Admin() {
   const handleLogin = async () => {
     const result = await verifyMutation.mutateAsync({ password });
     if (result.valid) {
+      _adminPassword = password; // Store for tRPC header injection
       setAuthenticated(true);
       setError("");
     } else {
