@@ -6,24 +6,14 @@
  * ============================================================================
  */
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Streamdown } from "streamdown";
-import { trpc } from "@/lib/trpc";
-import { getResponse, shouldSimulateToolUse, getToolUseResponse } from "@/data/chatEngine";
-import { CHAT_SUGGESTIONS, PROFILE, HIGHLIGHTS, EXPERIENCES, SKILLS } from "@/data/portfolio";
+import { CHAT_SUGGESTIONS, PROFILE } from "@/data/portfolio";
 import ThemeToggle from "@/components/ThemeToggle";
 import { getFollowUps } from "@/data/followUps";
 import { analytics } from "@/lib/analytics";
-import { toast } from "sonner";
-
-interface Message {
-  id: string;
-  role: "user" | "assistant";
-  content: string;
-  toolUse?: { action: string; status: string };
-  showProfileImage?: boolean;
-}
+import { useChatEngine } from "@/hooks/useChatEngine";
 
 // Module-level constant — no re-creation on render
 const PLACEHOLDERS = [
@@ -35,21 +25,14 @@ const PLACEHOLDERS = [
 ];
 
 export default function Home() {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
+  const {
+    messages, input, setInput, isTyping, usedChips, chatStats,
+    hasMessages, handleSend, handleShare, resetConversation,
+  } = useChatEngine();
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const streamingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const messagesRef = useRef(messages);
-  messagesRef.current = messages;
-  const chatMutation = trpc.chat.send.useMutation();
-
-  const hasMessages = messages.length > 0;
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [usedChips, setUsedChips] = useState<Set<string>>(new Set());
-  const chatStats = trpc.chat.stats.useQuery(undefined, { refetchInterval: 30000 });
   const [showProfileZoom, setShowProfileZoom] = useState(false);
 
   // Rotating placeholder text
@@ -61,13 +44,6 @@ export default function Home() {
     }, 3000);
     return () => clearInterval(timer);
   }, [hasMessages]);
-
-  // Cleanup streaming timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (streamingTimeoutRef.current) clearTimeout(streamingTimeoutRef.current);
-    };
-  }, []);
 
   // Track scroll position for back-to-top button
   useEffect(() => {
@@ -95,7 +71,7 @@ export default function Home() {
       }
       // Escape → reset conversation
       if (e.key === "Escape" && messages.length > 0) {
-        setMessages([]);
+        resetConversation();
       }
       // "/" → focus input (only if not already in an input)
       if (e.key === "/" && document.activeElement?.tagName !== "TEXTAREA" && document.activeElement?.tagName !== "INPUT") {
@@ -107,98 +83,16 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handler);
   }, [messages]);
 
-  const scrollToBottom = useCallback(() => {
+  // Scroll to bottom when messages change
+  useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, []);
-
-  useEffect(() => { scrollToBottom(); }, [messages, scrollToBottom]);
-
-  // Typing variation: variable speed with pauses at punctuation
-  const simulateStreaming = useCallback(
-    (fullText: string, msgId: string, toolUse?: { action: string; status: string }, showProfileImage?: boolean) => {
-      let charIndex = 0;
-      const baseSpeed = 8;
-
-      const tick = () => {
-        const char = fullText[charIndex] || "";
-        const isPunctuation = ".!?,;:".includes(char);
-        const variation = Math.floor(Math.random() * 4) + 2;
-        charIndex += variation;
-
-        if (charIndex >= fullText.length) {
-          charIndex = fullText.length;
-          setMessages((prev) => prev.map((m) => m.id === msgId ? { ...m, content: fullText, toolUse, showProfileImage } : m));
-          setIsTyping(false);
-          return;
-        }
-
-        setMessages((prev) => prev.map((m) => m.id === msgId ? { ...m, content: fullText.slice(0, charIndex) } : m));
-
-        // Pause longer at punctuation
-        const delay = isPunctuation ? baseSpeed * 6 : baseSpeed + Math.random() * 6 - 3;
-        streamingTimeoutRef.current = setTimeout(tick, delay);
-      };
-
-      streamingTimeoutRef.current = setTimeout(tick, baseSpeed);
-    },
-    []
-  );
-
-  const handleSend = useCallback(
-    async (text?: string) => {
-      const query = text || input.trim();
-      if (!query || isTyping) return;
-      analytics.chatMessage(query);
-      // Track this query so we don't show it as a chip again
-      setUsedChips((prev) => new Set(prev).add(query));
-
-      const userMsg: Message = { id: `user-${Date.now()}`, role: "user", content: query };
-      const updatedMessages = [...messagesRef.current, userMsg];
-      setMessages(updatedMessages);
-      setInput("");
-      setIsTyping(true);
-
-      const assistantMsgId = `assistant-${Date.now()}`;
-      setMessages((prev) => [...prev, { id: assistantMsgId, role: "assistant", content: "" }]);
-
-      // Detect appearance/handsome queries to show profile image regardless of API/fallback
-      const lowerQuery = query.toLowerCase();
-      const isAppearanceQuery = ["handsome", "good looking", "good-looking", "attractive", "cute", "hot", "gorgeous", "pretty", "beautiful", "appearance", "look like", "looks like", "what does he look"].some(kw => lowerQuery.includes(kw));
-
-      try {
-        const apiMessages = updatedMessages.map((m) => ({ role: m.role, content: m.content }));
-        const result = await chatMutation.mutateAsync({ messages: apiMessages });
-        const isToolUse = shouldSimulateToolUse(query);
-        if (isToolUse) {
-          setMessages((prev) => prev.map((m) => m.id === assistantMsgId ? { ...m, toolUse: { action: "Retrieving document...", status: "" } } : m));
-          setTimeout(() => simulateStreaming(result.content, assistantMsgId, { action: "Retrieving document...", status: "Done" }), 1000);
-        } else {
-          simulateStreaming(result.content, assistantMsgId, undefined, isAppearanceQuery || undefined);
-        }
-      } catch {
-        const isToolUse = shouldSimulateToolUse(query);
-        const response = isToolUse ? getToolUseResponse() : getResponse(query);
-        simulateStreaming(response.text, assistantMsgId, isToolUse ? response.toolUse : undefined, isAppearanceQuery || response.showProfileImage);
-      }
-    },
-    [input, isTyping, chatMutation, simulateStreaming]
-  );
+  }, [messages]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); }
   };
-
-  // Share conversation
-  const handleShare = useCallback(() => {
-    const transcript = messages
-      .map((m) => `${m.role === "user" ? "You" : "askJun"}: ${m.content}`)
-      .join("\n\n");
-    navigator.clipboard.writeText(transcript);
-    analytics.shareConversation();
-    toast.success("Conversation copied to clipboard!");
-  }, [messages]);
 
   return (
     <div className="min-h-screen flex flex-col relative">
@@ -211,7 +105,7 @@ export default function Home() {
       <header className="sticky top-0 shrink-0 border-b border-border px-4 sm:px-6 h-12 flex items-center justify-between z-20 bg-card backdrop-blur-sm">
         <div className="flex items-center gap-3">
           <button
-            onClick={() => setMessages([])}
+            onClick={() => resetConversation()}
             className="font-mono text-sm text-foreground hover:opacity-70 transition-opacity active:scale-95"
             aria-label="Reset conversation"
           >
