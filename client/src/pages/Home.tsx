@@ -14,6 +14,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import { getFollowUps } from "@/data/followUps";
 import { analytics } from "@/lib/analytics";
 import { useChatEngine } from "@/hooks/useChatEngine";
+import { useSpeechToText } from "@/hooks/useSpeechToText";
 
 // Module-level constant — no re-creation on render
 const PLACEHOLDERS = [
@@ -89,6 +90,13 @@ export default function Home() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
+
+  // Speech-to-text
+  const { isListening, isSupported: isSpeechSupported, toggleListening } = useSpeechToText({
+    onResult: (transcript) => {
+      setInput((prev) => prev ? `${prev} ${transcript}` : transcript);
+    },
+  });
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); }
@@ -220,18 +228,37 @@ export default function Home() {
                     className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 resize-none outline-none font-mono px-4 pt-3 pb-10 sm:pt-4 sm:pb-12 placeholder:transition-opacity"
                     style={{ minHeight: "70px" }}
                   />
-                  {/* Send button inside input — bottom right */}
-                  <button
-                    onClick={() => handleSend()}
-                    disabled={!input.trim() || isTyping}
-                    aria-label="Send message"
-                    className="absolute bottom-2.5 right-2.5 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-all active:scale-90 rounded-lg"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="m5 12 7-7 7 7" />
-                      <path d="M12 19V5" />
-                    </svg>
-                  </button>
+                  {/* Mic + Send buttons inside input — bottom right */}
+                  <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1.5">
+                    {isSpeechSupported && (
+                      <button
+                        onClick={toggleListening}
+                        aria-label={isListening ? "Stop recording" : "Start voice input"}
+                        className={`w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg transition-all active:scale-90 ${
+                          isListening
+                            ? "bg-accent text-white animate-pulse"
+                            : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                        }`}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                          <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                          <line x1="12" x2="12" y1="19" y2="22" />
+                        </svg>
+                      </button>
+                    )}
+                    <button
+                      onClick={() => handleSend()}
+                      disabled={!input.trim() || isTyping}
+                      aria-label="Send message"
+                      className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-all active:scale-90 rounded-lg"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="m5 12 7-7 7 7" />
+                        <path d="M12 19V5" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Suggestion chips */}
@@ -361,17 +388,36 @@ export default function Home() {
                     style={{ minHeight: "20px" }}
                   />
                 </div>
-                <button
-                  onClick={() => handleSend()}
-                  disabled={!input.trim() || isTyping}
-                  aria-label="Send message"
-                  className="shrink-0 w-10 h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-all active:scale-90 rounded-lg"
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="m5 12 7-7 7 7" />
-                    <path d="M12 19V5" />
-                  </svg>
-                </button>
+                <div className="flex items-center gap-1.5">
+                  {isSpeechSupported && (
+                    <button
+                      onClick={toggleListening}
+                      aria-label={isListening ? "Stop recording" : "Start voice input"}
+                      className={`shrink-0 w-10 h-10 flex items-center justify-center rounded-lg transition-all active:scale-90 ${
+                        isListening
+                          ? "bg-accent text-white animate-pulse"
+                          : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                      }`}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                        <line x1="12" x2="12" y1="19" y2="22" />
+                      </svg>
+                    </button>
+                  )}
+                  <button
+                    onClick={() => handleSend()}
+                    disabled={!input.trim() || isTyping}
+                    aria-label="Send message"
+                    className="shrink-0 w-10 h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-all active:scale-90 rounded-lg"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="m5 12 7-7 7 7" />
+                      <path d="M12 19V5" />
+                    </svg>
+                  </button>
+                </div>
               </div>
               <div className="flex items-center justify-between mt-2">
                 <span className="text-[10px] font-mono text-muted-foreground/40">
