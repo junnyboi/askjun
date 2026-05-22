@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Streamdown } from "streamdown";
 import { CHAT_SUGGESTIONS, PROFILE } from "@/data/portfolio";
 import ThemeToggle from "@/components/ThemeToggle";
+import FontScaleToggle from "@/components/FontScaleToggle";
 import { getFollowUps } from "@/data/followUps";
 import { analytics } from "@/lib/analytics";
 import { useChatEngine } from "@/hooks/useChatEngine";
@@ -166,6 +167,7 @@ export default function Home() {
           >
             GitHub
           </a>
+          <FontScaleToggle />
           <ThemeToggle />
         </div>
       </header>

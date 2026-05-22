@@ -45,16 +45,15 @@
       "nationality": "Singaporean"
     }
     </script>
-    <!-- Anti-flash: set theme class before render -->
+    <!-- Anti-flash: set theme + font scale class before render -->
     <script>
       (function() {
         var theme = localStorage.getItem('theme');
-        if (!theme) {
-          theme = 'light'; // Default to light mode, ignore system preference
-        }
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
-        }
+        if (!theme) theme = 'light';
+        if (theme === 'dark') document.documentElement.classList.add('dark');
+        var fs = localStorage.getItem('askjun_font_scale');
+        if (fs === 'large') document.documentElement.classList.add('font-large');
+        else if (fs === 'xlarge') document.documentElement.classList.add('font-xlarge');
       })();
     </script>
     <!-- Nothing Typography: Space Grotesk (display), Inter (body), Space Mono (technical) -->
