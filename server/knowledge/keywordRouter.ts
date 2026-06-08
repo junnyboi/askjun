@@ -85,7 +85,7 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
     },
   },
   {
-    keywords: ["salary", "compensation", "pay", "expected salary", "how much", "package", "offer"],
+    keywords: ["salary", "compensation", "expected salary", "how much does he cost", "pay him", "pay range", "package", "remuneration"],
     match: {
       category: "salary",
       response: "That's a great question! Compensation is best discussed directly. You should reach Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh) to discuss compensation expectations for the specific role.",
