@@ -86,10 +86,13 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handler);
   }, [messages]);
 
-  // Scroll to bottom when messages change
+  // Smooth scroll to bottom when messages change (during streaming)
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollTo({
+        top: scrollRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     }
   }, [messages]);
 
@@ -335,7 +338,10 @@ export default function Home() {
                     <div className="chat-text text-foreground [&_strong]:text-accent [&_strong]:font-semibold [&_li]:ml-4 [&_li]:list-disc [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-xs [&_code]:font-mono [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a]:hover:opacity-70 [&_a]:transition-opacity">
                       {msg.content ? (
                         <>
-                          <Streamdown>{msg.content}</Streamdown>
+                          {/* Fade-in animation on streamed content */}
+                          <div className="animate-in fade-in duration-150">
+                            <Streamdown>{msg.content}</Streamdown>
+                          </div>
                           {isTyping && msg === messages[messages.length - 1] && msg.role === "assistant" && msg.content.length > 0 && (
                             <span className="inline-block w-0.5 h-3.5 bg-accent ml-0.5 animate-blink align-middle" />
                           )}
@@ -352,10 +358,13 @@ export default function Home() {
                         </>
                       ) : (
                         isTyping && msg.role === "assistant" && !msg.toolUse && (
-                          <div className="flex gap-1.5 py-1">
-                            <span className="w-1 h-1 bg-muted-foreground animate-pulse" />
-                            <span className="w-1 h-1 bg-muted-foreground animate-pulse" style={{ animationDelay: "0.2s" }} />
-                            <span className="w-1 h-1 bg-muted-foreground animate-pulse" style={{ animationDelay: "0.4s" }} />
+                          <div className="flex items-center gap-2 py-2">
+                            <div className="flex gap-1">
+                              <span className="w-1.5 h-1.5 rounded-full bg-accent/60 animate-pulse" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-accent/60 animate-pulse" style={{ animationDelay: "0.2s" }} />
+                              <span className="w-1.5 h-1.5 rounded-full bg-accent/60 animate-pulse" style={{ animationDelay: "0.4s" }} />
+                            </div>
+                            <span className="text-[10px] font-mono text-muted-foreground/50">thinking...</span>
                           </div>
                         )
                       )}

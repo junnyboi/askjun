@@ -231,10 +231,10 @@
 - [ ] Use structured JSON responses from LLM to drive component selection
 
 ## Real-Time Token Streaming (SSE)
-- [ ] Replace simulated streaming (setTimeout) with real Server-Sent Events from the LLM
-- [ ] Implement SSE endpoint or tRPC subscription for real-time token delivery
-- [ ] Show actual generation progress instead of simulated typing animation
-- [ ] Add a "thinking" indicator before first token arrives
+- [x] Replace simulated streaming (setTimeout) with real SSE from the LLM (/api/chat/stream endpoint)
+- [x] Implement SSE endpoint with full security hardening (injection, length, budget, output validation)
+- [x] Show actual generation progress — tokens appear as GPT-4.1-mini generates them
+- [x] Thinking indicator — empty message with cursor blink shows while waiting for first token
 
 ## Data Synchronization
 - [ ] Add a file watcher in dev mode that auto-reloads knowledge chunks on .md file change
