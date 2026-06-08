@@ -166,7 +166,7 @@ export default function Home() {
           >
             GitHub
           </a>
-          <FontScaleToggle />
+          {hasMessages && <FontScaleToggle />}
           <ThemeToggle />
         </div>
       </header>
@@ -332,7 +332,7 @@ export default function Home() {
                       </div>
                     )}
 
-                    <div className="text-sm leading-relaxed text-foreground [&_strong]:text-accent [&_strong]:font-semibold [&_li]:ml-4 [&_li]:list-disc [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-xs [&_code]:font-mono [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a]:hover:opacity-70 [&_a]:transition-opacity">
+                    <div className="chat-text text-foreground [&_strong]:text-accent [&_strong]:font-semibold [&_li]:ml-4 [&_li]:list-disc [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-xs [&_code]:font-mono [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a]:hover:opacity-70 [&_a]:transition-opacity">
                       {msg.content ? (
                         <>
                           <Streamdown>{msg.content}</Streamdown>
