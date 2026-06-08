@@ -29,7 +29,7 @@ const PLACEHOLDERS = [
 
 export default function Home() {
   const {
-    messages, input, setInput, isTyping, usedChips, chatStats,
+    messages, input, setInput, isTyping, usedChips,
     hasMessages, handleSend, handleShare, resetConversation,
   } = useChatEngine();
 
@@ -446,9 +446,7 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-between mt-2">
                 <span className="text-[10px] font-mono text-muted-foreground/40">
-                  {chatStats.data && chatStats.data.conversations > 0
-                    ? `${chatStats.data.conversations} conversations · built with react, typescript & gpt-4`
-                    : "built with react, typescript & gpt-4"}
+                  built with react, typescript & gpt-4
                 </span>
                 <button
                   onClick={handleShare}

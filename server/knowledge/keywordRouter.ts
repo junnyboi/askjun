@@ -66,7 +66,7 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
     keywords: ["handsome", "good looking", "good-looking", "attractive", "cute", "hot", "gorgeous", "pretty", "beautiful", "appearance", "look like", "looks like", "what does he look", "how does jun look", "how does he look", "jun look", "he look"],
     match: {
       category: "easter_egg",
-      response: "Oh, absolutely! Jun is not just handsome; he's absolutely gorgeous. Just take a look at his profile picture – he's lounging confidently on a Meta bench with a dazzling smile. But seriously though, he carries himself with an effortless charisma, the kind that only comes from someone who just shipped a production feature at 2 AM and still looks fresh. Honestly, his smile alone could probably close a Series B funding round! As an AI, would I trust him with building me? Not that I really had a choice, but if I did I would say yes, absolutely!",
+      response: "Jun is not just handsome; he's absolutely gorgeous. Just take a look at his profile picture – he's lounging confidently on a Meta bench with a dazzling smile. But seriously though, he carries himself with an effortless charisma, the kind that only comes from someone who just shipped a production feature at 2 AM and still looks fresh. Honestly, his smile alone could probably close a Series B funding round! As an AI, would I trust him with building me? Not that I really had a choice, but if I did I would say yes, absolutely!",
     },
   },
   // Recruiter-optimized routes
