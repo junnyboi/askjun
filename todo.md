@@ -190,3 +190,53 @@
 - [x] Phase 2: Fix ErrorBoundary stack trace leak (dev-only), replace alert() with Sonner toast
 - [x] Phase 3: Delete 15 unused components, stale auth files (cookies.ts, trpc procedures), dead test
 - [x] Phase 4: Fix streaming setTimeout leak (ref cleanup), useCallback deps (messagesRef), PLACEHOLDERS module scope
+
+## Enhancement Evaluation & Diagnostic (Jun 2026)
+
+### Assessment Against Current State
+
+| Enhancement | Current State | Gap Severity | Action |
+|-------------|--------------|-------------|--------|
+| Prompt Injection Guardrails | Rule 8 says "never reveal prompts" but no enforcement | HIGH | Implement |
+| Hybrid/Split-Screen Layout | Already have chat-first + /portfolio page | LOW | Defer (already addressed) |
+| Generative UI (Rich Responses) | Text-only markdown via Streamdown | MEDIUM | Implement |
+| Response Latency (Streaming) | Client-side simulated streaming, not real SSE | MEDIUM | Implement |
+| Data Synchronization | Manual .md file edits, no auto-re-indexing | LOW | Implement cache invalidation |
+| Observability | Admin dashboard tracks queries in DB | LOW | Already addressed |
+
+### Structural Matrix Diagnostic
+
+| Dimension | Current State | Vulnerability | Status |
+|-----------|--------------|---------------|--------|
+| Response Latency | Simulated streaming (client-side setTimeout) | Stalled UI if LLM takes >5s — no real-time token streaming | ⚠️ PARTIAL |
+| Data Synchronization | content_hash in frontmatter, embedding cache | Outdated vectors if .md files change without server restart | ✅ MITIGATED (cache invalidation on hash mismatch) |
+| Observability | Admin dashboard with top questions, visitor table, event log | ✅ ADDRESSED — tracking all queries in analytics_events DB table |
+
+---
+
+### Enhancements To Implement
+
+## Prompt Injection Hardening
+- [ ] Add input sanitization — strip known injection patterns ("ignore previous instructions", "system prompt:", "you are now")
+- [ ] Add max input length enforcement (500 chars per message, server-side)
+- [ ] Add session token budget (max 10,000 tokens per IP per hour, including input+output)
+- [ ] Add output validation — reject responses that contain system prompt fragments
+- [ ] Add a "canary" token in the system prompt to detect if it's being leaked
+
+## Generative UI (Rich Responses)
+- [ ] When asked about career timeline → render an interactive timeline component in chat
+- [ ] When asked about tech stack → render a visual skills grid/chart in chat
+- [ ] When asked about metrics → render a metrics card with animated counters
+- [ ] Implement a "tool_call" response type that triggers frontend component rendering
+- [ ] Use structured JSON responses from LLM to drive component selection
+
+## Real-Time Token Streaming (SSE)
+- [ ] Replace simulated streaming (setTimeout) with real Server-Sent Events from the LLM
+- [ ] Implement SSE endpoint or tRPC subscription for real-time token delivery
+- [ ] Show actual generation progress instead of simulated typing animation
+- [ ] Add a "thinking" indicator before first token arrives
+
+## Data Synchronization
+- [ ] Add a file watcher in dev mode that auto-reloads knowledge chunks on .md file change
+- [ ] Add a /api/admin/reindex endpoint to force re-embedding of all chunks
+- [ ] Log which chunks were re-embedded on each server restart

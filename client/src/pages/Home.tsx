@@ -121,9 +121,7 @@ export default function Home() {
           >
             ask<span className="text-accent">Jun</span>
           </button>
-          <span className="hidden sm:inline text-xs font-mono text-muted-foreground">
-            · {PROFILE.title}
-          </span>
+
         </div>
         <div className="flex items-center gap-3">
           {/* Share button — only visible when there are messages */}
