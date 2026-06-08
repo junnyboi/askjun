@@ -109,7 +109,7 @@ export function useChatEngine() {
           setTimeout(() => simulateStreaming(result.content, assistantMsgId, { action: "Retrieving document...", status: "Done" }), 1000);
         } else {
           // Set retrievalType on the message immediately, then stream content
-          setMessages((prev) => prev.map((m) => m.id === assistantMsgId ? { ...m, retrievalType: retrievalType || "semantic" } : m));
+          setMessages((prev) => prev.map((m) => m.id === assistantMsgId ? { ...m, retrievalType: retrievalType || "semantic", showProfileImage: isAppearanceQuery || undefined } : m));
           simulateStreaming(result.content, assistantMsgId, undefined, isAppearanceQuery || undefined);
         }
       } catch {

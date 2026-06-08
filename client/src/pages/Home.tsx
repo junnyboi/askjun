@@ -343,7 +343,7 @@ export default function Home() {
                           {msg.showProfileImage && !isTyping && (
                             <div className="mt-3 rounded-lg overflow-hidden border border-border max-w-[280px]">
                               <img
-                                src="/profile-medium.webp"
+                                src="/profile-full.webp"
                                 alt="Jun Boh at Meta"
                                 className="w-full h-auto"
                               />
