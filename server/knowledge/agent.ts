@@ -36,13 +36,15 @@ function routeNode(state: typeof AgentState.State) {
 }
 
 // Node 2: Retrieve — vector similarity search for semantic queries
+// Falls back to returning empty string if vector store has no embeddings,
+// which signals router.ts to use the keyword-based fallback instead.
 async function retrieveNode(state: typeof AgentState.State) {
   const results = await similaritySearch(state.query, 3);
   const systemPrompt = getSystemPrompt();
 
   if (results.length === 0) {
-    // Fallback: return system prompt only (keyword router in router.ts will handle)
-    return { retrievedContext: systemPrompt };
+    // Return empty to signal that vector store failed — router.ts will use keywordFallback
+    return { retrievedContext: "" };
   }
 
   const chunks = results.map(r => r.content).join("\n\n---\n\n");
