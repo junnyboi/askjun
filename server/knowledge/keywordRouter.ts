@@ -30,7 +30,7 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
     keywords: ["resume", "cv", "download cv", "pdf", "download his"],
     match: {
       category: "resume",
-      response: "You can download Jun's CV directly from the **Download CV** button in the header, or [click here](/assets/JunBoh-CV-2026.pdf) to download the PDF.",
+      response: "You can download Jun's CV directly from the **Download CV** button in the header or the one above. It's a comprehensive 2-page PDF covering his 7+ years of experience across Meta, HoYoverse, TikTok, and Bank of Singapore.",
     },
   },
   {
