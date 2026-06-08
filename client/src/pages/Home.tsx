@@ -283,9 +283,22 @@ export default function Home() {
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div className={`max-w-[85%] ${msg.role === "assistant" ? "border-l-2 border-accent pl-4" : ""}`}>
-                    <span className="text-[10px] font-mono text-muted-foreground mb-1 block">
-                      {msg.role === "user" ? "you" : "askJun"}
-                    </span>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-mono text-muted-foreground">
+                        {msg.role === "user" ? "you" : "askJun"}
+                      </span>
+                      {msg.role === "assistant" && msg.retrievalType && msg.content && !isTyping && (
+                        <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded-full border ${
+                          msg.retrievalType === "keyword"
+                            ? "border-green-500/30 text-green-600 bg-green-50 dark:bg-green-950/30 dark:text-green-400"
+                            : msg.retrievalType === "semantic"
+                            ? "border-blue-500/30 text-blue-600 bg-blue-50 dark:bg-blue-950/30 dark:text-blue-400"
+                            : "border-orange-500/30 text-orange-600 bg-orange-50 dark:bg-orange-950/30 dark:text-orange-400"
+                        }`}>
+                          {msg.retrievalType === "keyword" ? "⚡ instant" : msg.retrievalType === "semantic" ? "🧠 AI" : "💾 cached"}
+                        </span>
+                      )}
+                    </div>
 
                     {msg.toolUse && msg.toolUse.status && (
                       <>

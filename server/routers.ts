@@ -87,7 +87,7 @@ export const appRouter = router({
 
           // If keyword router returned a structured response, return it directly
           if (retrieval.type === "structured") {
-            return { content: retrieval.content, rateLimited: false };
+            return { content: retrieval.content, rateLimited: false, retrievalType: "keyword" as const };
           }
 
           // Semantic path: use retrieved context as system prompt for LLM
@@ -113,11 +113,12 @@ export const appRouter = router({
           if (!response.ok) {
             const errText = await response.text().catch(() => "");
             console.error(`[Chat] LLM error: ${response.status} ${errText}`);
-            return {
-              content:
-                "I'm having trouble connecting right now. Please try again in a moment, or reach Jun directly at **boh.ze.jun@gmail.com**.",
-              rateLimited: false,
-            };
+          return {
+            content:
+              "I'm having trouble connecting right now. Please try again in a moment, or reach Jun directly at **boh.ze.jun@gmail.com**.",
+            rateLimited: false,
+            retrievalType: "semantic" as const,
+          };
           }
 
           const data = (await response.json()) as {
@@ -130,13 +131,14 @@ export const appRouter = router({
             data.choices?.[0]?.message?.content ||
             "I couldn't generate a response. Please try asking something else.";
 
-          return { content, rateLimited: false };
+          return { content, rateLimited: false, retrievalType: "semantic" as const };
         } catch (error) {
           console.error("[Chat] Error:", error);
           return {
             content:
               "Something went wrong. Please try again, or reach Jun directly at **boh.ze.jun@gmail.com**.",
             rateLimited: false,
+            retrievalType: "semantic" as const,
           };
         }
       }),

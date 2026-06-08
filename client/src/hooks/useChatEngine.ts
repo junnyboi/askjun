@@ -20,6 +20,7 @@ export interface Message {
   content: string;
   toolUse?: { action: string; status: string };
   showProfileImage?: boolean;
+  retrievalType?: "keyword" | "semantic" | "fallback";
 }
 
 const APPEARANCE_KEYWORDS = [
@@ -101,16 +102,20 @@ export function useChatEngine() {
       try {
         const apiMessages = updatedMessages.map((m) => ({ role: m.role, content: m.content }));
         const result = await chatMutation.mutateAsync({ messages: apiMessages });
+        const retrievalType = (result as any).retrievalType as "keyword" | "semantic" | undefined;
         const isToolUse = shouldSimulateToolUse(query);
         if (isToolUse) {
-          setMessages((prev) => prev.map((m) => m.id === assistantMsgId ? { ...m, toolUse: { action: "Retrieving document...", status: "" } } : m));
+          setMessages((prev) => prev.map((m) => m.id === assistantMsgId ? { ...m, toolUse: { action: "Retrieving document...", status: "" }, retrievalType: retrievalType || "semantic" } : m));
           setTimeout(() => simulateStreaming(result.content, assistantMsgId, { action: "Retrieving document...", status: "Done" }), 1000);
         } else {
+          // Set retrievalType on the message immediately, then stream content
+          setMessages((prev) => prev.map((m) => m.id === assistantMsgId ? { ...m, retrievalType: retrievalType || "semantic" } : m));
           simulateStreaming(result.content, assistantMsgId, undefined, isAppearanceQuery || undefined);
         }
       } catch {
         const isToolUse = shouldSimulateToolUse(query);
         const response = isToolUse ? getToolUseResponse() : getResponse(query);
+        setMessages((prev) => prev.map((m) => m.id === assistantMsgId ? { ...m, retrievalType: "fallback" } : m));
         simulateStreaming(response.text, assistantMsgId, isToolUse ? response.toolUse : undefined, isAppearanceQuery || response.showProfileImage);
       }
     },
