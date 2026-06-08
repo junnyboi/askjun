@@ -86,15 +86,27 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handler);
   }, [messages]);
 
-  // Smooth scroll to bottom when messages change (during streaming)
+  // Auto-scroll to bottom during streaming — uses requestAnimationFrame for smooth performance
+  const scrollRAFRef = useRef<number | null>(null);
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTo({
-        top: scrollRef.current.scrollHeight,
-        behavior: "smooth",
+      // Cancel any pending scroll to avoid jank
+      if (scrollRAFRef.current) cancelAnimationFrame(scrollRAFRef.current);
+      scrollRAFRef.current = requestAnimationFrame(() => {
+        if (scrollRef.current) {
+          const { scrollHeight, scrollTop, clientHeight } = scrollRef.current;
+          // Only auto-scroll if user is near the bottom (within 150px)
+          const isNearBottom = scrollHeight - scrollTop - clientHeight < 150;
+          if (isNearBottom || isTyping) {
+            scrollRef.current.scrollTo({
+              top: scrollRef.current.scrollHeight,
+              behavior: "smooth",
+            });
+          }
+        }
       });
     }
-  }, [messages]);
+  }, [messages, isTyping]);
 
   // Speech-to-text
   const { isListening, isSupported: isSpeechSupported, toggleListening } = useSpeechToText({
