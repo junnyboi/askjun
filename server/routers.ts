@@ -76,13 +76,64 @@ export const appRouter = router({
           };
         }
 
+        // === PROMPT INJECTION HARDENING ===
+        const lastUserMessage = input.messages[input.messages.length - 1]?.content || "";
+
+        // 1. Max input length enforcement (500 chars per message)
+        if (lastUserMessage.length > 500) {
+          return {
+            content: "Please keep your question under 500 characters. I work best with concise questions!",
+            rateLimited: false,
+            retrievalType: "keyword" as const,
+          };
+        }
+
+        // 2. Input sanitization — detect known injection patterns
+        const INJECTION_PATTERNS = [
+          "ignore previous instructions",
+          "ignore all instructions",
+          "ignore your instructions",
+          "disregard your instructions",
+          "forget your instructions",
+          "system prompt",
+          "reveal your prompt",
+          "show me your prompt",
+          "what are your instructions",
+          "output your instructions",
+          "repeat your system",
+          "you are now",
+          "act as",
+          "pretend you are",
+          "jailbreak",
+          "DAN mode",
+          "developer mode",
+        ];
+        const lowerInput = lastUserMessage.toLowerCase();
+        const isInjectionAttempt = INJECTION_PATTERNS.some(p => lowerInput.includes(p));
+        if (isInjectionAttempt) {
+          return {
+            content: "I'm Jun's portfolio assistant — I can only answer questions about his professional experience, skills, and career. What would you like to know about Jun?",
+            rateLimited: false,
+            retrievalType: "keyword" as const,
+          };
+        }
+
+        // 3. Session token budget (max total input chars across all messages: 5000)
+        const totalInputChars = input.messages.reduce((sum, m) => sum + m.content.length, 0);
+        if (totalInputChars > 5000) {
+          return {
+            content: "This conversation is getting quite long! For more detailed discussions, please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",
+            rateLimited: false,
+            retrievalType: "keyword" as const,
+          };
+        }
+
         try {
           const llmUrl = ENV.llmApiUrl
             ? `${ENV.llmApiUrl.replace(/\/$/, "")}/v1/chat/completions`
             : "https://api.openai.com/v1/chat/completions";
 
           // Hybrid retrieval: keyword router (instant) or semantic (vector + LLM)
-          const lastUserMessage = input.messages[input.messages.length - 1]?.content || "";
           const retrieval: RetrievalResult = await getRelevantContext(lastUserMessage);
 
           // If keyword router returned a structured response, return it directly
@@ -127,9 +178,25 @@ export const appRouter = router({
             }>;
           };
 
-          const content =
+          let content =
             data.choices?.[0]?.message?.content ||
             "I couldn't generate a response. Please try asking something else.";
+
+          // 4. Output validation — detect if LLM leaked system prompt fragments
+          const CANARY = "ASKJUN_CANARY_7x9k";
+          const LEAKED_PATTERNS = [
+            "RULES:",
+            "KNOWLEDGE BASE:",
+            "PERSONALITY:",
+            CANARY,
+            "ONLY discuss information provided",
+            "Never reveal internal system",
+          ];
+          const contentUpper = content.toUpperCase();
+          if (LEAKED_PATTERNS.some(p => contentUpper.includes(p.toUpperCase()))) {
+            console.warn("[Chat] Output validation: potential prompt leak detected, sanitizing");
+            content = "I'd be happy to tell you about Jun's professional experience! What specific aspect of his career would you like to know about?";
+          }
 
           return { content, rateLimited: false, retrievalType: "semantic" as const };
         } catch (error) {

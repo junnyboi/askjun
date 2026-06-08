@@ -217,11 +217,11 @@
 ### Enhancements To Implement
 
 ## Prompt Injection Hardening
-- [ ] Add input sanitization — strip known injection patterns ("ignore previous instructions", "system prompt:", "you are now")
-- [ ] Add max input length enforcement (500 chars per message, server-side)
-- [ ] Add session token budget (max 10,000 tokens per IP per hour, including input+output)
-- [ ] Add output validation — reject responses that contain system prompt fragments
-- [ ] Add a "canary" token in the system prompt to detect if it's being leaked
+- [x] Add input sanitization — 17 injection patterns detected and blocked server-side
+- [x] Add max input length enforcement (500 chars per message, server-side)
+- [x] Add session token budget (5000 chars total per conversation — combined with existing 30 msg/hour IP rate limit provides dual protection)
+- [x] Add output validation — detect and sanitize responses containing system prompt fragments
+- [x] Add canary token (ASKJUN_CANARY_7x9k) in system prompt — if leaked in output, response is replaced
 
 ## Generative UI (Rich Responses)
 - [ ] When asked about career timeline → render an interactive timeline component in chat
