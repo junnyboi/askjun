@@ -5,7 +5,7 @@
  * ============================================================================
  */
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { EXPERIENCES, SKILLS, EDUCATION, PROFILE, HIGHLIGHTS } from "@/data/portfolio";
@@ -65,23 +65,12 @@ function CollapsibleSection({ id, title, defaultOpen = true, children }: { id: s
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("experience");
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const tabBarRef = useRef<HTMLDivElement>(null);
-
   // Track scroll position for back-to-top button
   useEffect(() => {
     const handleScroll = () => setShowBackToTop(window.scrollY > 400);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Auto-scroll the mobile tab bar to keep active tab visible
-  useEffect(() => {
-    if (!tabBarRef.current) return;
-    const activeTab = tabBarRef.current.querySelector(`[data-section="${activeSection}"]`) as HTMLElement;
-    if (activeTab) {
-      activeTab.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-    }
-  }, [activeSection]);
 
   // Track active section on scroll
   useEffect(() => {
@@ -140,52 +129,31 @@ export default function Portfolio() {
         </div>
       </header>
 
-      {/* Mobile horizontal tab bar — visible only on < lg */}
-      <div
-        ref={tabBarRef}
-        className="lg:hidden sticky top-12 z-20 border-b border-border bg-card/95 backdrop-blur-sm overflow-x-auto flex gap-0.5 px-3 py-1.5"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        {SECTIONS.map(({ id, label }) => (
-          <button
-            key={id}
-            data-section={id}
-            onClick={() => {
-              const el = document.getElementById(id);
-              if (el) {
-                const offset = 100; // header (48px) + tab bar (~40px) + padding
-                const top = el.getBoundingClientRect().top + window.scrollY - offset;
-                window.scrollTo({ top, behavior: "smooth" });
-              }
-            }}
-            className={`whitespace-nowrap text-[10px] font-mono px-2.5 py-1.5 rounded-full transition-all shrink-0 ${
-              activeSection === id
-                ? "text-accent bg-accent/10 border border-accent/30"
-                : "text-muted-foreground hover:text-foreground border border-transparent"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-
       {/* Main layout: sidebar + content */}
       <div className="flex-1 flex relative z-10">
-        {/* Sticky sidebar nav — desktop only */}
-        <aside className="hidden lg:block w-48 shrink-0 sticky top-12 h-[calc(100vh-3rem)] overflow-y-auto border-r border-border/50 py-8 px-4">
-          <nav className="space-y-1">
+        {/* Left-side TOC navigation — always visible on md+, hidden on mobile */}
+        <aside className="hidden md:block w-44 lg:w-48 shrink-0 sticky top-12 h-[calc(100vh-3rem)] overflow-y-auto border-r border-border/50 py-8 px-3">
+          <p className="text-[9px] font-mono text-muted-foreground/60 uppercase tracking-wider mb-3 px-2">Contents</p>
+          <nav className="space-y-0.5">
             {SECTIONS.map(({ id, label }) => (
-              <a
+              <button
                 key={id}
-                href={`#${id}`}
-                className={`block text-xs font-mono py-1.5 px-2 rounded transition-colors ${
+                onClick={() => {
+                  const el = document.getElementById(id);
+                  if (el) {
+                    const offset = 70; // header (48px) + padding
+                    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: "smooth" });
+                  }
+                }}
+                className={`block w-full text-left text-xs font-mono py-1.5 px-2 rounded transition-colors ${
                   activeSection === id
-                    ? "text-accent bg-accent/5"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "text-accent bg-accent/5 border-l-2 border-accent"
+                    : "text-muted-foreground hover:text-foreground border-l-2 border-transparent"
                 }`}
               >
                 {label}
-              </a>
+              </button>
             ))}
           </nav>
         </aside>
