@@ -447,8 +447,8 @@ export default function Home() {
               <div className="flex items-center justify-between mt-2">
                 <span className="text-[10px] font-mono text-muted-foreground/40">
                   {chatStats.data && chatStats.data.conversations > 0
-                    ? `${chatStats.data.conversations} conversations · built with react, typescript, gpt-4 & framer motion`
-                    : "built with react, typescript, gpt-4 & framer motion"}
+                    ? `${chatStats.data.conversations} conversations · built with react, typescript & gpt-4`
+                    : "built with react, typescript & gpt-4"}
                 </span>
                 <button
                   onClick={handleShare}
