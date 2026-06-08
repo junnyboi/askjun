@@ -86,26 +86,25 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handler);
   }, [messages]);
 
-  // Auto-scroll to bottom during streaming — uses requestAnimationFrame for smooth performance
+  // Auto-scroll to bottom during streaming — always scroll when typing, smooth when near bottom
   const scrollRAFRef = useRef<number | null>(null);
   useEffect(() => {
-    if (scrollRef.current) {
-      // Cancel any pending scroll to avoid jank
-      if (scrollRAFRef.current) cancelAnimationFrame(scrollRAFRef.current);
-      scrollRAFRef.current = requestAnimationFrame(() => {
-        if (scrollRef.current) {
-          const { scrollHeight, scrollTop, clientHeight } = scrollRef.current;
-          // Only auto-scroll if user is near the bottom (within 150px)
-          const isNearBottom = scrollHeight - scrollTop - clientHeight < 150;
-          if (isNearBottom || isTyping) {
-            scrollRef.current.scrollTo({
-              top: scrollRef.current.scrollHeight,
-              behavior: "smooth",
-            });
-          }
+    if (!scrollRef.current) return;
+    if (scrollRAFRef.current) cancelAnimationFrame(scrollRAFRef.current);
+    scrollRAFRef.current = requestAnimationFrame(() => {
+      if (!scrollRef.current) return;
+      if (isTyping) {
+        // Always scroll to bottom during active generation (SSE or simulated)
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      } else {
+        // After generation completes, smooth scroll to show the final content
+        const { scrollHeight, scrollTop, clientHeight } = scrollRef.current;
+        const isNearBottom = scrollHeight - scrollTop - clientHeight < 200;
+        if (isNearBottom) {
+          scrollRef.current.scrollTo({ top: scrollHeight, behavior: "smooth" });
         }
-      });
-    }
+      }
+    });
   }, [messages, isTyping]);
 
   // Speech-to-text
