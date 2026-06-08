@@ -27,6 +27,7 @@ const APPEARANCE_KEYWORDS = [
   "handsome", "good looking", "good-looking", "attractive", "cute",
   "hot", "gorgeous", "pretty", "beautiful", "appearance",
   "look like", "looks like", "what does he look",
+  "how does jun look", "how does he look", "jun look", "he look",
 ];
 
 export function useChatEngine() {

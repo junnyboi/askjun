@@ -65,6 +65,7 @@ function CollapsibleSection({ id, title, defaultOpen = true, children }: { id: s
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("experience");
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [showMobileNav, setShowMobileNav] = useState(false);
   // Track scroll position for back-to-top button
   useEffect(() => {
     const handleScroll = () => setShowBackToTop(window.scrollY > 400);
@@ -505,6 +506,50 @@ export default function Portfolio() {
         <Link href="/" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Chat with AI</Link>
         <a href={`mailto:${PROFILE.email}`} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Email</a>
         <a href="/assets/JunBoh-CV-2026.pdf" download="JunBoh_CV_2026.pdf" onClick={() => analytics.cvDownload()} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>
+      </div>
+
+      {/* Mobile section nav FAB — visible only on < md */}
+      <div className="md:hidden fixed bottom-20 left-4 z-30">
+        <button
+          onClick={() => setShowMobileNav(!showMobileNav)}
+          className="w-10 h-10 rounded-full bg-foreground text-background flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-transform"
+          aria-label="Jump to section"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <AnimatePresence>
+          {showMobileNav && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              transition={{ duration: 0.15 }}
+              className="absolute bottom-12 left-0 bg-card border border-border rounded-lg shadow-xl py-2 px-1 min-w-[140px]"
+            >
+              {SECTIONS.map(({ id, label }) => (
+                <button
+                  key={id}
+                  onClick={() => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                      const offset = 60;
+                      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+                      window.scrollTo({ top, behavior: "smooth" });
+                    }
+                    setShowMobileNav(false);
+                  }}
+                  className={`block w-full text-left text-xs font-mono py-1.5 px-3 rounded transition-colors ${
+                    activeSection === id
+                      ? "text-accent bg-accent/10"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Back to top FAB */}
