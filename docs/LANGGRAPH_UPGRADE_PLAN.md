@@ -1,303 +1,315 @@
-# LangGraph Agent Upgrade — Implementation Plan
+# LangGraph Hybrid Agent Upgrade — Implementation Plan (v2)
 
 ---
 
 ## Understanding
 
-Upgrade askJun from a keyword-based retrieval router (Option A) to a full LangGraph agent with vector embeddings and semantic retrieval (Option C). The agent will use a state graph to: classify intent → retrieve relevant knowledge chunks via cosine similarity → generate a response. This enables semantic understanding (synonyms, paraphrases) and opens the door to multi-tool agent behavior in the future.
+Upgrade askJun from a pure keyword-based retrieval router to a **hybrid routing agent** powered by LangGraph. The agent uses a two-tier retrieval strategy:
+
+1. **Keyword Router (Deterministic)** — Captures explicit, unambiguous queries ("email", "resume", "GitHub", "phone") and returns structured data from a JSON lookup table instantly. Zero LLM calls, zero vector search, 100% accuracy.
+
+2. **Semantic Retrieval Engine (Vector)** — Handles ambiguous, conversational queries ("How does he approach scaling microservices?", "Tell me about his experience with real-time systems") by embedding the query and finding the most conceptually similar knowledge chunks.
+
+This mirrors production RAG pipelines at companies like Anthropic, Perplexity, and Notion — never rely on a single retrieval mechanism.
 
 **Non-goals:**
 - No changes to the frontend UI or chat UX (same tRPC endpoint, same response format)
-- No external vector database (use in-memory vector store for 20 chunks — fast, zero infrastructure)
-- No conversation memory persistence in this phase (future enhancement)
-- No additional tools beyond retrieval (web search, calendar, etc. are future work)
+- No external vector database (in-memory for 20 chunks)
+- No conversation memory persistence (future enhancement)
+- No additional agent tools beyond retrieval (future enhancement)
 
 ---
 
-## Relevant Code
+## Why Hybrid > Pure Vector
 
-| File | Why It Matters |
-|------|---------------|
-| `server/knowledge/router.ts` | Current keyword router — will be replaced with LangGraph agent |
-| `server/knowledge/*.md` | 20 frontmatter files — unchanged, loaded by the new agent |
-| `server/routers.ts` (line 86) | Consumer — calls `getRelevantContext(query)` — interface stays the same |
-| `server/_core/env.ts` | LLM API keys — reused by LangGraph's ChatOpenAI |
-| `package.json` | New dependencies: `@langchain/langgraph`, `@langchain/openai`, `@langchain/core` |
+| Query | Pure Vector Result | Hybrid Result |
+|-------|-------------------|---------------|
+| "What's his email?" | Might return a blog post mentioning email | **Instant JSON lookup** → `boh.ze.jun@gmail.com` |
+| "Show me his resume" | Might return a chunk about career summary | **Keyword match** → CV download link |
+| "GitHub link" | Might return a project description | **Keyword match** → `github.com/junnyboi` |
+| "How did he handle money at the game company?" | ✓ Correct (semantic match) | ✓ Correct (semantic match) |
+| "What's his approach to building AI agents?" | ✓ Correct (semantic match) | ✓ Correct (semantic match) |
+
+**Rule of thumb:** If the answer is a fact (URL, email, phone, name), use deterministic lookup. If the answer requires synthesis from multiple data points, use semantic retrieval.
 
 ---
 
-## Architecture: LangGraph State Graph
+## Architecture: Hybrid Routing Agent
 
 ```
-                    ┌─────────────────────┐
-                    │   START             │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   classifyIntent    │
-                    │   (LLM decides what │
-                    │    info is needed)  │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   retrieveContext   │
-                    │   (Vector similarity│
-                    │    search on chunks)│
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   generateResponse  │
-                    │   (LLM with system  │
-                    │    prompt + context)│
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   END              │
-                    └─────────────────────┘
-```
-
-**State schema:**
-```typescript
-interface AgentState {
-  query: string;                    // The user's latest message
-  conversationHistory: Message[];   // Last 5 messages for context
-  intent: string;                   // Classified intent (experience, projects, contact, etc.)
-  retrievedChunks: string[];        // Relevant knowledge chunks
-  response: string;                 // Final generated response
-}
+User Query: "What's his GitHub?"
+        │
+        ▼
+┌─────────────────────────────────────────────────────────┐
+│  STEP 1: KEYWORD ROUTER (Deterministic)                  │
+│                                                          │
+│  Check query against hardcoded tool map:                 │
+│  "github" → { type: "structured", data: CONTACT.github } │
+│  "email"  → { type: "structured", data: CONTACT.email }  │
+│  "resume" → { type: "structured", data: CONTACT.cv }     │
+│  "phone"  → { type: "structured", data: CONTACT.phone }  │
+│                                                          │
+│  Match found? → Return structured response immediately   │
+│  No match?   → Pass to Step 2                            │
+└──────────────────────────┬──────────────────────────────┘
+                           │ (no keyword match)
+                           ▼
+┌─────────────────────────────────────────────────────────┐
+│  STEP 2: SEMANTIC RETRIEVAL (Vector Similarity)          │
+│                                                          │
+│  Embed the query using text-embedding-3-small            │
+│  Cosine similarity against 20 pre-embedded chunks        │
+│  Return top 3 chunks (within 2,500 token budget)         │
+└──────────────────────────┬──────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────┐
+│  STEP 3: LLM GENERATION                                  │
+│                                                          │
+│  System prompt (_system.md) + retrieved chunks + history  │
+│  → GPT-4.1-mini generates the final response             │
+└─────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Proposed Approach
+## Data Architecture: Two-Tier Knowledge Store
 
-### Phase 1: Install Dependencies (5 min)
+### Tier 1: Structured Data (JSON Lookup Table)
 
-```bash
-pnpm add @langchain/langgraph @langchain/openai @langchain/core
-```
-
-**Package purposes:**
-- `@langchain/langgraph` — State graph orchestration (StateGraph, START, END, nodes, edges)
-- `@langchain/openai` — ChatOpenAI model + OpenAIEmbeddings for vector search
-- `@langchain/core` — Base types (Messages, Documents, VectorStore)
-
-### Phase 2: Build In-Memory Vector Store (30 min)
-
-Create `server/knowledge/vectorStore.ts`:
-
-**Strategy:** Since we only have 20 chunks (~4,000 total tokens), we'll use an **in-memory vector store** — no external database needed. Embeddings are computed once at server start and cached.
+Deterministic, instant, zero-cost retrieval for factual queries.
 
 ```typescript
-import { OpenAIEmbeddings } from "@langchain/openai";
-import { MemoryVectorStore } from "langchain/vectorstores/memory";
-import { Document } from "@langchain/core/documents";
-
-// Load all knowledge chunks as Documents
-// Compute embeddings once at startup
-// Expose a similarity search function
+// server/knowledge/structured.ts
+export const STRUCTURED_DATA = {
+  contact: {
+    email: "boh.ze.jun@gmail.com",
+    linkedin: "https://linkedin.com/in/junboh",
+    github: "https://github.com/junnyboi",
+    phone: "+65 8233 5937",
+    whatsapp: "https://wa.me/6582335937",
+    location: "Singapore",
+  },
+  resume: {
+    downloadUrl: "/assets/JunBoh-CV-2026.pdf",
+    filename: "JunBoh_CV_2026.pdf",
+  },
+  techStack: {
+    languages: ["JavaScript", "TypeScript", "Python", "Golang", "Java", "SQL", "C#"],
+    frameworks: ["React", "Vue.js", "Node.js", "Django", "Spring Boot", "Tailwind", "Next.js"],
+    tools: ["Git", "Docker", "CI/CD", "Webpack/Vite", "Kafka", "Shell"],
+    domains: ["AI Agent Interfaces", "Payment Systems", "High-Traffic Architecture", "GDPR"],
+  },
+  currentRole: {
+    company: "Meta (Manus AI)",
+    title: "Senior Frontend Software Engineer",
+    since: "Feb 2026",
+    location: "Singapore",
+  },
+  metrics: {
+    experience: "7+ years",
+    processed: "$57M launch week",
+    signups: "15M in 48h",
+    dau: "8M daily users",
+    savings: "$1.5M/annum",
+    countries: "100+",
+    paymentMethods: "50+",
+  },
+};
 ```
 
-**Embedding model:** `text-embedding-3-small` ($0.02/1M tokens) — for 20 chunks at ~500 tokens each, the one-time embedding cost is ~$0.0002 (essentially free). Re-embeds only when `content_hash` changes.
+### Tier 2: Vector Documents (Embedded Markdown Chunks)
 
-**Embedding cache:** Store computed embeddings in a local JSON file (`server/knowledge/.embeddings-cache.json`). On startup, compare `content_hash` of each chunk against the cache — only re-embed changed files. This means zero API calls on most server restarts.
+Semantic, contextual retrieval for conversational queries.
 
-### Phase 3: Build the LangGraph Agent (45 min)
+```
+server/knowledge/*.md (existing 20 files)
+├── role-meta.md          → embedded as vector
+├── role-hoyoverse.md     → embedded as vector
+├── projects-games.md     → embedded as vector
+├── why-hire.md           → embedded as vector
+└── ... (all 20 files)
+```
 
-Create `server/knowledge/agent.ts`:
+---
+
+## LangGraph State Graph (Updated)
 
 ```typescript
-import { StateGraph, START, END } from "@langchain/langgraph";
-import { ChatOpenAI } from "@langchain/openai";
-import { Annotation } from "@langchain/langgraph";
-
-// Define state schema
 const AgentState = Annotation.Root({
   query: Annotation<string>,
   history: Annotation<Array<{ role: string; content: string }>>,
+  routeType: Annotation<"structured" | "semantic">,  // NEW: routing decision
+  structuredResponse: Annotation<string | null>,       // NEW: instant lookup result
   retrievedContext: Annotation<string>,
   response: Annotation<string>,
 });
 
-// Node 1: Retrieve relevant chunks via vector similarity
-async function retrieveContext(state: typeof AgentState.State) {
-  const results = await vectorStore.similaritySearch(state.query, 3);
-  const context = results.map(doc => doc.pageContent).join("\n\n---\n\n");
-  return { retrievedContext: context };
-}
+// Graph topology:
+//
+//   START → route → [structured] → formatStructured → END
+//                 → [semantic]   → retrieve → generate → END
 
-// Node 2: Generate response using LLM with retrieved context
-async function generateResponse(state: typeof AgentState.State) {
-  const systemMessage = `${systemPrompt}\n\n---\n\n${state.retrievedContext}`;
-  const response = await llm.invoke([
-    { role: "system", content: systemMessage },
-    ...state.history,
-    { role: "user", content: state.query },
-  ]);
-  return { response: response.content };
-}
-
-// Build the graph
 const graph = new StateGraph(AgentState)
-  .addNode("retrieve", retrieveContext)
-  .addNode("generate", generateResponse)
-  .addEdge(START, "retrieve")
+  .addNode("route", keywordRoute)           // Deterministic keyword check
+  .addNode("formatStructured", formatLookup) // Format structured data as natural language
+  .addNode("retrieve", vectorRetrieve)       // Embed query + similarity search
+  .addNode("generate", llmGenerate)          // LLM with context
+  .addEdge(START, "route")
+  .addConditionalEdges("route", (state) => {
+    return state.routeType === "structured" ? "formatStructured" : "retrieve";
+  })
+  .addEdge("formatStructured", END)
   .addEdge("retrieve", "generate")
   .addEdge("generate", END)
   .compile();
 ```
 
-**Why no `classifyIntent` node in v1:** For 20 chunks, vector similarity search is already fast enough (~5ms) and accurate enough that a separate classification step adds latency without meaningful accuracy gain. The classification node becomes valuable when you have 100+ chunks or need to route to different tools (web search, calendar, etc.).
+---
 
-### Phase 4: Replace the Router Interface (15 min)
-
-Update `server/knowledge/router.ts` to use the LangGraph agent internally while keeping the same exported `getRelevantContext()` interface. This means **zero changes to `server/routers.ts`** — backward compatible.
+## Keyword Router: Tool Map
 
 ```typescript
-// Option A: Keep getRelevantContext() as the interface (backward compatible)
-export async function getRelevantContext(query: string): Promise<string> {
-  const results = await vectorStore.similaritySearch(query, 3);
-  const chunks = results.map(doc => doc.pageContent).join("\n\n---\n\n");
-  return [systemPrompt, "---", chunks, contactChunk].join("\n\n");
+// server/knowledge/keywordRouter.ts
+
+interface ToolMatch {
+  type: "structured";
+  category: string;
+  response: string;  // Pre-formatted markdown response
 }
 
-// Option B: Expose the full agent for richer responses (future)
-export async function runAgent(query: string, history: Message[]): Promise<string> {
-  const result = await graph.invoke({ query, history, retrievedContext: "", response: "" });
-  return result.response;
+const TOOL_MAP: Array<{ keywords: string[]; match: ToolMatch }> = [
+  {
+    keywords: ["email", "mail", "reach out", "contact him"],
+    match: {
+      type: "structured",
+      category: "contact",
+      response: "You can reach Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh). He's also available on WhatsApp at [+65 8233 5937](https://wa.me/6582335937).",
+    },
+  },
+  {
+    keywords: ["github", "repo", "source code", "open source"],
+    match: {
+      type: "structured",
+      category: "github",
+      response: "Jun's GitHub is [github.com/junnyboi](https://github.com/junnyboi). Notable public repos include [askJun](https://github.com/junnyboi/askjun) (this AI portfolio) and [Swipe](https://github.com/junnyboi/swipe) (image pinboard app).",
+    },
+  },
+  {
+    keywords: ["resume", "cv", "download cv", "pdf"],
+    match: {
+      type: "structured",
+      category: "resume",
+      response: "You can download Jun's CV directly from the **Download CV** button in the header, or [click here](/assets/JunBoh-CV-2026.pdf) to download the PDF.",
+    },
+  },
+  {
+    keywords: ["phone", "call", "whatsapp", "number"],
+    match: {
+      type: "structured",
+      category: "phone",
+      response: "Jun's phone number is **+65 8233 5937**. You can also reach him on [WhatsApp](https://wa.me/6582335937) for a quick chat.",
+    },
+  },
+  {
+    keywords: ["linkedin", "connect"],
+    match: {
+      type: "structured",
+      category: "linkedin",
+      response: "Jun's LinkedIn is [linkedin.com/in/junboh](https://linkedin.com/in/junboh) — he has 5,392 followers and is active in the Singapore tech community.",
+    },
+  },
+  {
+    keywords: ["location", "where", "based", "country", "city"],
+    match: {
+      type: "structured",
+      category: "location",
+      response: "Jun is based in **Singapore**. He's open to Singapore-based roles and compelling remote opportunities.",
+    },
+  },
+  {
+    keywords: ["tech stack", "technologies", "what languages", "what tools"],
+    match: {
+      type: "structured",
+      category: "techstack",
+      response: "**Languages:** JavaScript, TypeScript, Python, Golang, Java, SQL, C#\n**Frameworks:** React, Vue.js, Node.js, Django, Spring Boot, Tailwind, Next.js, Framer Motion\n**Tools:** Git, Docker, CI/CD, Webpack/Vite, Kafka\n**Domains:** AI Agent Interfaces, Payment Systems (50+ methods, 100+ countries), High-Traffic Architecture (8M DAU), GDPR Compliance",
+    },
+  },
+];
+
+export function keywordRoute(query: string): ToolMatch | null {
+  const lower = query.toLowerCase();
+  for (const { keywords, match } of TOOL_MAP) {
+    if (keywords.some(kw => lower.includes(kw))) {
+      return match;
+    }
+  }
+  return null; // No deterministic match → fall through to semantic
 }
 ```
 
-**Recommendation:** Start with Option A (drop-in replacement) then migrate to Option B when you want the agent to handle the full LLM call internally (removing the raw fetch from `routers.ts`).
+---
 
-### Phase 5: Update routers.ts (10 min)
+## Execution Order (Updated)
 
-Since `getRelevantContext` becomes async (embedding search is async), update the chat.send mutation:
+| Step | Duration | Description |
+|------|----------|-------------|
+| 1 | 5 min | Install `@langchain/langgraph`, `@langchain/openai`, `@langchain/core` |
+| 2 | 20 min | Create `server/knowledge/structured.ts` — JSON lookup table + keyword tool map |
+| 3 | 20 min | Create `server/knowledge/keywordRouter.ts` — deterministic routing logic |
+| 4 | 30 min | Create `server/knowledge/vectorStore.ts` — in-memory embeddings + cache |
+| 5 | 30 min | Create `server/knowledge/agent.ts` — LangGraph StateGraph with conditional routing |
+| 6 | 15 min | Rewrite `server/knowledge/router.ts` — new `getRelevantContext()` using hybrid agent |
+| 7 | 10 min | Update `server/routers.ts` — add `await` to the now-async call |
+| 8 | 15 min | Write vitest tests for both routing paths |
+| 9 | 10 min | Add `.embeddings-cache.json` to `.gitignore`, test end-to-end |
+| 10 | 5 min | Checkpoint + push |
 
-```diff
-- const context = getRelevantContext(lastUserMessage);
-+ const context = await getRelevantContext(lastUserMessage);
+**Total: ~160 minutes** (up from 110 min due to the hybrid routing layer)
+
+---
+
+## Embedding Cache Strategy
+
 ```
-
-### Phase 6: Embedding Cache + Startup Optimization (15 min)
-
-Create `server/knowledge/.embeddings-cache.json`:
-
-```json
+server/knowledge/.embeddings-cache.json (gitignored)
 {
   "model": "text-embedding-3-small",
+  "dimensions": 1536,
+  "generated_at": "2026-06-08T10:00:00Z",
   "chunks": {
-    "role-meta": { "hash": "c3d4e5f6", "version": 1, "embedding": [0.012, -0.034, ...] },
-    "role-hoyoverse": { "hash": "e5f6a7b8", "version": 1, "embedding": [...] }
+    "role-meta": {
+      "content_hash": "c3d4e5f6",
+      "version": 1,
+      "embedding": [0.012, -0.034, 0.056, ...]  // 1536 floats
+    },
+    ...
   }
 }
 ```
 
-On startup:
-1. Load all `.md` files
-2. Load cache file
-3. For each chunk: if `content_hash` matches cache → use cached embedding
-4. For changed/new chunks: compute embedding via API, update cache
-5. Save updated cache to disk
-
-**Result:** Server restarts are instant (no API calls) unless knowledge files change.
-
-### Phase 7: Testing & Verification (15 min)
-
-Write a vitest test for the vector store:
-```typescript
-describe("knowledge/vectorStore", () => {
-  it("returns relevant chunks for a payment query", async () => {
-    const results = await search("payment systems");
-    expect(results.some(r => r.id === "role-hoyoverse")).toBe(true);
-  });
-
-  it("returns relevant chunks for an AI query", async () => {
-    const results = await search("AI agent experience");
-    expect(results.some(r => r.id === "role-meta")).toBe(true);
-  });
-
-  it("falls back to summary for unrelated queries", async () => {
-    const context = await getRelevantContext("random gibberish xyz");
-    expect(context).toContain("Professional Summary");
-  });
-});
-```
+**Cache invalidation rules:**
+1. If `content_hash` in `.md` file ≠ `content_hash` in cache → re-embed that chunk
+2. If `.md` file is new (no cache entry) → embed and add to cache
+3. If cache file doesn't exist → embed all chunks (first run only)
+4. If `model` in cache ≠ current model → re-embed all (model upgrade)
 
 ---
 
-## File-Level Plan
+## Cost Analysis (Hybrid vs Pure Vector)
 
-### New Files
+| Operation | Pure Vector | Hybrid |
+|-----------|------------|--------|
+| "What's his email?" | Embed query ($0.000002) + similarity search | **$0 — instant JSON lookup** |
+| "Tell me about payments" | Embed query + similarity search | Embed query + similarity search |
+| Average per query | $0.000002 | **$0.000001** (50% queries are deterministic) |
+| Monthly (50/day) | $0.003 | **$0.0015** |
 
-| File | Purpose |
-|------|---------|
-| `server/knowledge/vectorStore.ts` | In-memory vector store with embedding cache |
-| `server/knowledge/agent.ts` | LangGraph StateGraph (future full-agent mode) |
-| `server/knowledge/.embeddings-cache.json` | Cached embeddings (auto-generated, gitignored) |
+The cost difference is negligible, but the **latency** difference is significant:
+- Deterministic: **0ms** (no API call, no computation)
+- Semantic: **~200ms** (embedding API call + cosine similarity)
 
-### Modified Files
-
-| File | Change |
-|------|--------|
-| `server/knowledge/router.ts` | Replace keyword scoring with vector similarity search |
-| `server/routers.ts` | Add `await` to `getRelevantContext()` call (now async) |
-| `package.json` | Add `@langchain/langgraph`, `@langchain/openai`, `@langchain/core` |
-| `.gitignore` | Add `server/knowledge/.embeddings-cache.json` |
-
-### Unchanged Files
-
-| File | Why Unchanged |
-|------|--------------|
-| `server/knowledge/*.md` (all 20 files) | Same frontmatter format, same content |
-| `client/src/**` | Zero frontend changes |
-| `server/_core/env.ts` | Same `LLM_API_KEY` used by both LangGraph and raw fetch |
-
----
-
-## Data Flow (Post-Upgrade)
-
-```
-User sends "Tell me about his payment work"
-        │
-        ▼
-server/routers.ts → chat.send mutation
-        │
-        ├── Extract last user message
-        │
-        ▼
-server/knowledge/router.ts → getRelevantContext(query)  [NOW ASYNC]
-        │
-        ├── 1. Embed the query using text-embedding-3-small
-        ├── 2. Cosine similarity search against 20 pre-embedded chunks
-        ├── 3. Return top 3 chunks: role-hoyoverse, company-hoyoverse, summary
-        ├── 4. Concatenate: system prompt + matched chunks + contact
-        │
-        ▼
-Assembled context string (~2,000-3,000 tokens)
-        │
-        ▼
-LLM call: [{ role: "system", content: assembledContext }, ...history]
-```
-
-**vs. Current (keyword-based):**
-- Current: "payment" matches keyword → returns role-hoyoverse ✓
-- New: "cashier systems" (no exact keyword match) → embedding similarity → returns role-hoyoverse ✓
-- New: "how did he handle money at the game company" → embedding similarity → returns role-hoyoverse ✓
-
----
-
-## Compliance Checks
-
-- **Structure:** New files follow existing `server/knowledge/` pattern. Agent is a helper module, not a new API endpoint.
-- **Architecture:** Same interface (`getRelevantContext`) — backward compatible. The LangGraph graph is internal implementation detail.
-- **React:** N/A — zero frontend changes.
-- **Security:** Embeddings are computed server-side only. No user input in file paths. API key reused from existing ENV.
-- **Performance:** In-memory vector store means ~5ms retrieval (vs ~1ms for keyword). Embedding cache eliminates startup API calls.
+For "What's his email?" — the recruiter gets an answer in 0ms instead of 200ms. That's the difference between feeling instant and feeling like it's "thinking."
 
 ---
 
@@ -305,73 +317,17 @@ LLM call: [{ role: "system", content: assembledContext }, ...history]
 
 | Category | Status | Notes |
 |----------|--------|-------|
-| Logic | **Pass** | Vector similarity is more accurate than keyword matching; fallback to summary maintained |
-| Security | **Pass** | Same API key, same server-side execution, no new attack surface |
-| Architecture | **Pass** | Drop-in replacement via same exported function signature |
-| Structure | **Pass** | New files in existing directory |
-| React | **N/A** | No frontend changes |
-| Performance | **Low risk** | First startup requires embedding API call (~2s for 20 chunks). Subsequent starts use cache (0ms). |
-| Cost | **Low risk** | One-time embedding: $0.0002. Per-query embedding: $0.000002. Negligible. |
-
-**One risk identified and mitigated:**
-
-> **Risk:** If the OpenAI API is unreachable during first startup (no cache), the vector store won't initialize.
-> **Mitigation:** Fall back to the existing keyword-based scoring if embeddings fail. The keyword router code remains as a fallback path.
-
----
-
-## Verification
-
-| Command / Check | What It Proves |
-|----------------|---------------|
-| `npx tsc --noEmit` | Zero TypeScript errors |
-| `pnpm test` | All existing + new tests pass |
-| Ask "payment systems" → mentions HoYoverse | Semantic retrieval works |
-| Ask "how did he handle money at the game company" → mentions HoYoverse | Paraphrase understanding works (keyword router would MISS this) |
-| Ask "What's his email?" → returns contact info | Contact always-include logic works |
-| Check `.embeddings-cache.json` exists after first run | Cache generation works |
-| Restart server → no embedding API calls in logs | Cache reuse works |
-| `wc -c .embeddings-cache.json` → ~50KB | Reasonable cache size for 20 chunks |
-
----
-
-## Execution Order
-
-| Step | Duration | Description |
-|------|----------|-------------|
-| 1 | 5 min | Install `@langchain/langgraph`, `@langchain/openai`, `@langchain/core` |
-| 2 | 30 min | Build `vectorStore.ts` with embedding cache and similarity search |
-| 3 | 15 min | Rewrite `router.ts` to use vector similarity (keep keyword as fallback) |
-| 4 | 10 min | Update `routers.ts` to await the now-async `getRelevantContext()` |
-| 5 | 15 min | Build `agent.ts` (LangGraph StateGraph — future full-agent mode) |
-| 6 | 15 min | Write vitest tests for vector retrieval accuracy |
-| 7 | 5 min | Add `.embeddings-cache.json` to `.gitignore` |
-| 8 | 10 min | Test end-to-end, verify paraphrase queries work |
-| 9 | 5 min | Checkpoint + push |
-
-**Total: ~110 minutes**
-
----
-
-## Future Extensions (Enabled by LangGraph)
-
-Once the StateGraph is in place, adding new capabilities is trivial:
-
-| Extension | Effort | What It Adds |
-|-----------|--------|-------------|
-| **Web search tool** | 30 min | Agent can search the web for questions outside the knowledge base |
-| **GitHub tool** | 30 min | Agent can fetch latest commit info, repo stats from Jun's GitHub |
-| **Calendar/booking tool** | 1 hour | Agent can check availability and suggest meeting times |
-| **Multi-step reasoning** | 30 min | Agent decides if it needs more info before answering |
-| **Conversation memory** | 30 min | Agent remembers context across sessions (stored in DB) |
-| **Adaptive retrieval** | 15 min | Agent decides how many chunks to retrieve based on query complexity |
-
-Each extension is just a new node + edge in the graph. The architecture scales without rewrites.
+| Logic | **Pass** | Keyword router handles deterministic queries; vector handles semantic; fallback to summary if both miss |
+| Security | **Pass** | Same API key, server-side only, no user input in file paths |
+| Architecture | **Pass** | Same exported interface; conditional routing is internal |
+| Performance | **Pass** | Deterministic queries are faster (0ms vs 200ms); semantic queries same as before |
+| Cost | **Pass** | Negligible embedding cost; deterministic queries are free |
+| Resilience | **Pass** | If embedding API fails → fall back to keyword-only router (existing behavior) |
 
 ---
 
 ## Open Questions
 
-1. **Do you want the full agent mode (Option B) immediately?** This would move the LLM call inside the LangGraph graph, removing the raw fetch from `routers.ts`. Cleaner architecture but slightly more complex to debug.
-2. **Should we keep the keyword router as a permanent fallback?** Recommended for resilience — if embeddings fail, keyword matching still works.
-3. **Do you want to add the `classifyIntent` node?** Not needed for 20 chunks, but useful if you plan to add tools (web search, GitHub, etc.) soon.
+1. **Should the keyword router also handle the "handsome" Easter egg?** (Probably yes — it's a deterministic response, not a semantic one)
+2. **Should we add a "confidence threshold" to the keyword router?** (e.g., require 2+ keyword matches before claiming a deterministic match, to avoid false positives)
+3. **Do you want structured responses to still go through the LLM for natural language formatting?** (Current plan: pre-formatted markdown returned directly. Alternative: pass structured data to LLM for a more conversational tone.)
