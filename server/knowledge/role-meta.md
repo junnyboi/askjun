@@ -15,4 +15,3 @@ version: 1
 - Championed real-time collaboration and sharing features, enabling multi-user interaction with AI-generated artifacts and file actions across the platform
 - Championed and advocated for a game development use case within Manus, pioneering this by vibe-coding two production-ready games (TeaPets and TeaPets 3D) that went viral internally across the workplace for weeks — directly influencing the team to explore game dev as a product vertical
 
-In fact, this very site — **askJun** — is a working example of Jun's ability to design and ship a production-ready AI agent from scratch. You're chatting with the proof.

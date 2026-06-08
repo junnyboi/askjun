@@ -106,6 +106,7 @@ export interface RetrievalResult {
 export async function getRelevantContext(query: string): Promise<RetrievalResult> {
   try {
     const result = await runHybridAgent(query);
+    console.log(`[Router] Query: "${query.slice(0, 50)}" → Agent returned type: ${result.type}, context length: ${result.type === "semantic" ? result.context.length : "N/A"}`);
 
     if (result.type === "structured") {
       return { type: "structured", content: result.response };
@@ -113,7 +114,9 @@ export async function getRelevantContext(query: string): Promise<RetrievalResult
 
     // Semantic: if context is empty (vector store failed), use keyword fallback
     if (!result.context || result.context.length < 100) {
-      return { type: "semantic", content: keywordFallback(query) };
+      const fallback = keywordFallback(query);
+      console.log(`[Router] Vector store empty, using keyword fallback. Fallback length: ${fallback.length}`);
+      return { type: "semantic", content: fallback };
     }
 
     return { type: "semantic", content: result.context };
@@ -124,6 +127,8 @@ export async function getRelevantContext(query: string): Promise<RetrievalResult
     if (kwMatch) {
       return { type: "structured", content: kwMatch.response };
     }
-    return { type: "semantic", content: keywordFallback(query) };
+    const fallback = keywordFallback(query);
+    console.log(`[Router] Exception fallback length: ${fallback.length}`);
+    return { type: "semantic", content: fallback };
   }
 }
