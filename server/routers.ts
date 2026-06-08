@@ -3,7 +3,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { ENV } from "./_core/env";
-import { SYSTEM_PROMPT } from "./knowledge";
+import { getRelevantContext } from "./knowledge/router";
 import { getDb } from "./db";
 import { analyticsEvents, visitors } from "../drizzle/schema";
 import { eq, desc, sql, count, and, gte, lte } from "drizzle-orm";
@@ -81,10 +81,12 @@ export const appRouter = router({
             ? `${ENV.llmApiUrl.replace(/\/$/, "")}/v1/chat/completions`
             : "https://api.openai.com/v1/chat/completions";
 
-          // Build messages with system prompt + last 10 user messages
+          // Build messages with relevant context + last 5 user messages
+          const lastUserMessage = input.messages[input.messages.length - 1]?.content || "";
+          const context = getRelevantContext(lastUserMessage);
           const chatMessages = [
-            { role: "system" as const, content: SYSTEM_PROMPT },
-            ...input.messages.slice(-10),
+            { role: "system" as const, content: context },
+            ...input.messages.slice(-5),
           ];
 
           const response = await fetch(llmUrl, {
