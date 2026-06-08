@@ -3,7 +3,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { ENV } from "./_core/env";
-import { getRelevantContext } from "./knowledge/router";
+import { getRelevantContext, type RetrievalResult } from "./knowledge/router";
 import { getDb } from "./db";
 import { analyticsEvents, visitors } from "../drizzle/schema";
 import { eq, desc, sql, count, and, gte, lte } from "drizzle-orm";
@@ -81,11 +81,18 @@ export const appRouter = router({
             ? `${ENV.llmApiUrl.replace(/\/$/, "")}/v1/chat/completions`
             : "https://api.openai.com/v1/chat/completions";
 
-          // Build messages with relevant context + last 5 user messages
+          // Hybrid retrieval: keyword router (instant) or semantic (vector + LLM)
           const lastUserMessage = input.messages[input.messages.length - 1]?.content || "";
-          const context = getRelevantContext(lastUserMessage);
+          const retrieval: RetrievalResult = await getRelevantContext(lastUserMessage);
+
+          // If keyword router returned a structured response, return it directly
+          if (retrieval.type === "structured") {
+            return { content: retrieval.content, rateLimited: false };
+          }
+
+          // Semantic path: use retrieved context as system prompt for LLM
           const chatMessages = [
-            { role: "system" as const, content: context },
+            { role: "system" as const, content: retrieval.content },
             ...input.messages.slice(-5),
           ];
 

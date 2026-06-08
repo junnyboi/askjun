@@ -1,24 +1,29 @@
 /**
- * Knowledge Router — Keyword-based retrieval with token budget.
- * Loads frontmatter .md files at server start, scores by keyword match,
- * returns system prompt + top relevant chunks within token budget.
+ * Knowledge Router — Hybrid retrieval interface.
  *
- * Vector-ready: each chunk has content_hash + version for future embedding cache.
+ * Uses LangGraph hybrid agent:
+ * 1. Keyword Router (deterministic) for explicit queries → instant response
+ * 2. Vector Similarity (semantic) for conversational queries → context for LLM
+ *
+ * Falls back to keyword-only scoring if vector store fails to initialize.
  */
 
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import crypto from "crypto";
+import { runHybridAgent } from "./agent";
+import { keywordRoute } from "./keywordRouter";
+
+// ============================================================================
+// FALLBACK: Keyword-only router (used when vector store is unavailable)
+// ============================================================================
 
 interface KnowledgeChunk {
   id: string;
-  title: string;
   keywords: string[];
   priority: "high" | "medium" | "low";
   tokens: number;
-  contentHash: string;
-  version: number;
   content: string;
 }
 
@@ -27,15 +32,10 @@ const MAX_CONTEXT_TOKENS = 2500;
 
 let systemPrompt = "";
 let chunks: KnowledgeChunk[] = [];
-let loaded = false;
+let fallbackLoaded = false;
 
-function computeHash(content: string): string {
-  return crypto.createHash("sha256").update(content).digest("hex").slice(0, 8);
-}
-
-function loadKnowledge(): void {
-  if (loaded) return;
-
+function loadFallbackKnowledge(): void {
+  if (fallbackLoaded) return;
   const dir = path.resolve(import.meta.dirname);
   const files = fs.readdirSync(dir).filter(f => f.endsWith(".md"));
 
@@ -43,91 +43,87 @@ function loadKnowledge(): void {
     try {
       const raw = fs.readFileSync(path.join(dir, file), "utf-8");
       const { data, content } = matter(raw);
-
       if (file === "_system.md") {
         systemPrompt = content.trim();
         continue;
       }
-
       chunks.push({
         id: data.id || file.replace(".md", ""),
-        title: data.title || file,
         keywords: Array.isArray(data.keywords) ? data.keywords : [],
         priority: data.priority || "medium",
         tokens: data.tokens || 500,
-        contentHash: data.content_hash || computeHash(content),
-        version: data.version || 1,
         content: content.trim(),
       });
-    } catch (err) {
-      console.warn(`[Knowledge] Failed to parse ${file}:`, err);
-    }
+    } catch {}
   }
-
-  loaded = true;
-  console.log(`[Knowledge] Loaded ${chunks.length} chunks + system prompt`);
+  fallbackLoaded = true;
 }
 
-/**
- * Get relevant context for a user query.
- * Always includes the system prompt + top matching chunks within token budget.
- */
-export function getRelevantContext(query: string): string {
-  loadKnowledge();
-
+function keywordFallback(query: string): string {
+  loadFallbackKnowledge();
   const lowerQuery = query.toLowerCase();
-
-  // Score each chunk by keyword matches weighted by priority
-  const scored = chunks.map(chunk => {
-    const keywordHits = chunk.keywords.filter(kw => lowerQuery.includes(kw)).length;
-    const score = keywordHits * PRIORITY_WEIGHT[chunk.priority];
-    return { ...chunk, score };
-  });
-
-  // Sort by score descending, then by priority
-  const ranked = scored
+  const scored = chunks
+    .map(chunk => ({
+      ...chunk,
+      score: chunk.keywords.filter(kw => lowerQuery.includes(kw)).length * PRIORITY_WEIGHT[chunk.priority],
+    }))
     .filter(c => c.score > 0)
-    .sort((a, b) => b.score - a.score || PRIORITY_WEIGHT[b.priority] - PRIORITY_WEIGHT[a.priority]);
+    .sort((a, b) => b.score - a.score);
 
-  // Select chunks within token budget
   let tokenBudget = MAX_CONTEXT_TOKENS;
   const selected: KnowledgeChunk[] = [];
-  for (const chunk of ranked) {
+  for (const chunk of scored) {
     if (tokenBudget <= 0) break;
     selected.push(chunk);
     tokenBudget -= chunk.tokens;
   }
 
-  // Fallback: if no chunks matched, include the summary
   if (selected.length === 0) {
     const summary = chunks.find(c => c.id === "summary");
     if (summary) selected.push(summary);
   }
 
-  // Always include contact for redirect capability
-  const hasContact = selected.some(c => c.id === "contact");
-  if (!hasContact) {
-    const contact = chunks.find(c => c.id === "contact");
-    if (contact) selected.push(contact);
+  const contact = chunks.find(c => c.id === "contact");
+  if (contact && !selected.some(c => c.id === "contact")) selected.push(contact);
+
+  return [systemPrompt, "---", ...selected.map(c => c.content)].join("\n\n");
+}
+
+// ============================================================================
+// PRIMARY: Hybrid agent (keyword + vector)
+// ============================================================================
+
+export interface RetrievalResult {
+  type: "structured" | "semantic";
+  content: string;  // Either the final response (structured) or context for LLM (semantic)
+}
+
+/**
+ * Get relevant context for a user query using the hybrid agent.
+ * Returns a RetrievalResult indicating whether the response is final (structured)
+ * or needs LLM generation (semantic context).
+ */
+export async function getRelevantContext(query: string): Promise<RetrievalResult> {
+  try {
+    const result = await runHybridAgent(query);
+
+    if (result.type === "structured") {
+      return { type: "structured", content: result.response };
+    }
+
+    // Semantic: if context is empty (vector store failed), use keyword fallback
+    if (!result.context || result.context.length < 100) {
+      return { type: "semantic", content: keywordFallback(query) };
+    }
+
+    return { type: "semantic", content: result.context };
+  } catch (err) {
+    console.warn("[Router] Hybrid agent failed, using keyword fallback:", err);
+    // Check keyword router first even in fallback
+    const kwMatch = keywordRoute(query);
+    if (kwMatch) {
+      return { type: "structured", content: kwMatch.response };
+    }
+    return { type: "semantic", content: keywordFallback(query) };
   }
-
-  // Assemble: system prompt + selected chunks
-  const contextParts = [systemPrompt, "---", ...selected.map(c => c.content)];
-  return contextParts.join("\n\n");
-}
-
-/**
- * Export all chunks for potential future use (embedding generation, debugging).
- */
-export function getAllChunks(): KnowledgeChunk[] {
-  loadKnowledge();
-  return chunks;
-}
-
-/**
- * Get only the system prompt (for testing/debugging).
- */
-export function getSystemPrompt(): string {
-  loadKnowledge();
-  return systemPrompt;
 }
