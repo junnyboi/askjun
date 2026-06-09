@@ -38,6 +38,51 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
+// Off-topic detection — prevent users from using askJun as a personal GPT
+const OFF_TOPIC_PATTERNS = [
+  "write me a", "write a program", "write a script", "write code", "generate code",
+  "help me code", "debug this", "fix this code", "solve this", "help me with my",
+  "can you code", "implement a", "create a function", "write a function",
+  "what is the capital", "who is the president", "explain quantum",
+  "tell me about bitcoin", "what is blockchain", "how does ai work",
+  "translate this", "summarize this article", "write an essay",
+  "help me with homework", "what year did", "how many people",
+  "write a poem", "write a story", "write a song", "tell me a joke",
+  "make up a", "create a story", "write me an email",
+  "recipe for", "how to cook", "what should i eat",
+  "calculate", "what is 2+2", "solve this equation", "math problem",
+  "how do i install", "how to setup", "fix my computer", "my wifi",
+  "how to use chatgpt", "how to use excel",
+  // General explanations (not about Jun)
+  "explain how", "explain what", "explain the", "explain why",
+  "how does a", "how does the", "what is a ", "what is an ",
+  "what are the", "who invented", "when was the", "where is the",
+  "define ", "definition of",
+  // Conversational / personal assistant
+  "remind me", "set a timer", "what time is it", "what day is it",
+  "book a", "order a", "buy me", "find me a",
+];
+
+const JUN_CONTEXT_SIGNALS = [
+  "jun", "his ", " his", "he do", "he build", "he work", "does he", "has he", "is he", "can he",
+  "him", "boh", "portfolio", "resume", "cv",
+  "hire", "experience", "career", "role", "company",
+  "meta", "manus", "hoyo", "tiktok", "bytedance", "bank of singapore", "instawork", "dbs",
+  "skill", "tech stack", "react", "typescript", "frontend", "full stack",
+  "payment", "gdpr", "ai agent", "singapore",
+  "salary", "compensation", "contact", "email", "linkedin", "github",
+  "education", "university", "nus", "smu", "eindhoven",
+  "award", "achievement", "metric",
+  "handsome", "look like", "appearance", "attractive",
+  "timeline", "\u2726",
+];
+
+function isOffTopicQuery(lowerInput: string): boolean {
+  if (JUN_CONTEXT_SIGNALS.some(signal => lowerInput.includes(signal))) return false;
+  if (OFF_TOPIC_PATTERNS.some(pattern => lowerInput.includes(pattern))) return true;
+  return false;
+}
+
 // Server-side admin gate middleware
 const adminGatedProcedure = publicProcedure.use(({ ctx, next }) => {
   const password = ctx.req.headers["x-admin-password"] as string | undefined;
@@ -131,6 +176,15 @@ export const appRouter = router({
         if (totalInputChars > 10000) {
           return {
             content: "This conversation is getting quite long! For more detailed discussions, please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",
+            rateLimited: false,
+            retrievalType: "keyword" as const,
+          };
+        }
+
+        // 4. Off-topic detection — prevent personal GPT usage
+        if (isOffTopicQuery(lowerInput)) {
+          return {
+            content: "I appreciate the curiosity, but I'm specifically designed to answer questions about **Jun Boh's** professional experience, skills, and career. I can't help with general questions, code generation, or other topics.\n\nTry asking me things like:\n- What's his experience at Meta?\n- What payment systems has he built?\n- Why should I hire Jun?\n\nOr reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",
             rateLimited: false,
             retrievalType: "keyword" as const,
           };

@@ -265,3 +265,8 @@
 
 ## Bug Fix: Generative UI Chips Return Generic LLM Responses
 - [x] Add keyword routes for ✦ Career timeline, ✦ Tech stack, ✦ Key metrics, ✦ Education so they return Jun-specific structured responses instead of falling through to the LLM
+
+## Guardrails: Prevent Personal GPT Usage
+- [x] Add server-side off-topic detection — reject queries unrelated to Jun's portfolio before they reach the LLM
+- [x] Strengthen system prompt to refuse off-topic requests firmly
+- [x] Test with common abuse patterns (code generation, homework, creative writing, general knowledge)

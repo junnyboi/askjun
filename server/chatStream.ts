@@ -45,6 +45,66 @@ const INJECTION_PATTERNS = [
 const CANARY = "ASKJUN_CANARY_7x9k";
 const LEAKED_PATTERNS = ["RULES:", "KNOWLEDGE BASE:", "PERSONALITY:", CANARY, "ONLY discuss information provided", "Never reveal internal system"];
 
+// Off-topic detection — catches queries clearly unrelated to Jun's portfolio
+// Uses negative signals (off-topic indicators) and positive signals (Jun-related terms)
+const OFF_TOPIC_PATTERNS = [
+  // Code generation / homework
+  "write me a", "write a program", "write a script", "write code", "generate code",
+  "help me code", "debug this", "fix this code", "solve this", "help me with my",
+  "can you code", "implement a", "create a function", "write a function",
+  // General knowledge / personal GPT usage
+  "what is the capital", "who is the president", "explain quantum",
+  "tell me about bitcoin", "what is blockchain", "how does ai work",
+  "translate this", "summarize this article", "write an essay",
+  "help me with homework", "what year did", "how many people",
+  // Creative writing
+  "write a poem", "write a story", "write a song", "tell me a joke",
+  "make up a", "create a story", "write me an email",
+  // Recipes / lifestyle
+  "recipe for", "how to cook", "what should i eat",
+  // Math / calculations
+  "calculate", "what is 2+2", "solve this equation", "math problem",
+  // Unrelated tech support
+  "how do i install", "how to setup", "fix my computer", "my wifi",
+  "how to use chatgpt", "how to use excel",
+  // General explanations (not about Jun)
+  "explain how", "explain what", "explain the", "explain why",
+  "how does a", "how does the", "what is a ", "what is an ",
+  "what are the", "who invented", "when was the", "where is the",
+  "define ", "definition of",
+  // Conversational / personal assistant
+  "remind me", "set a timer", "what time is it", "what day is it",
+  "book a", "order a", "buy me", "find me a",
+];
+
+// Positive signals that indicate the query IS about Jun (override off-topic detection)
+const JUN_CONTEXT_SIGNALS = [
+  "jun", "his ", " his", "he do", "he build", "he work", "does he", "has he", "is he", "can he",
+  "him", "boh", "portfolio", "resume", "cv",
+  "hire", "experience", "career", "role", "company",
+  "meta", "manus", "hoyo", "tiktok", "bytedance", "bank of singapore", "instawork", "dbs",
+  "skill", "tech stack", "react", "typescript", "frontend", "full stack",
+  "payment", "gdpr", "ai agent", "singapore",
+  "salary", "compensation", "contact", "email", "linkedin", "github",
+  "education", "university", "nus", "smu", "eindhoven",
+  "award", "achievement", "metric",
+  "handsome", "look like", "appearance", "attractive",
+  "timeline", "\u2726",
+];
+
+function isOffTopic(lowerInput: string): boolean {
+  // If the query contains Jun-related context signals, it's on-topic
+  if (JUN_CONTEXT_SIGNALS.some(signal => lowerInput.includes(signal))) {
+    return false;
+  }
+  // If the query matches off-topic patterns, reject it
+  if (OFF_TOPIC_PATTERNS.some(pattern => lowerInput.includes(pattern))) {
+    return true;
+  }
+  // Short greetings and ambiguous queries are allowed through (the LLM system prompt handles them)
+  return false;
+}
+
 export async function chatStreamHandler(req: Request, res: Response) {
   const ip = req.ip || req.socket?.remoteAddress || "unknown";
 
@@ -77,6 +137,16 @@ export async function chatStreamHandler(req: Request, res: Response) {
   const totalChars = messages.reduce((sum, m) => sum + m.content.length, 0);
   if (totalChars > 10000) {
     res.json({ type: "structured", content: "This conversation is getting quite long! Please reach Jun directly at boh.ze.jun@gmail.com." });
+    return;
+  }
+
+  // Off-topic detection — prevent users from using askJun as a personal GPT
+  if (isOffTopic(lowerInput)) {
+    res.json({
+      type: "structured",
+      content: "I appreciate the curiosity, but I'm specifically designed to answer questions about **Jun Boh's** professional experience, skills, and career. I can't help with general questions, code generation, or other topics.\n\nTry asking me things like:\n- What's his experience at Meta?\n- What payment systems has he built?\n- Why should I hire Jun?\n\nOr reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",
+      retrievalType: "keyword",
+    });
     return;
   }
 
