@@ -391,13 +391,15 @@ export default function Home() {
                         </>
                       ) : (
                         isTyping && msg.role === "assistant" && !msg.toolUse && (
-                          <div className="flex items-center gap-2 py-2">
-                            <div className="flex gap-1">
-                              <span className="w-1.5 h-1.5 rounded-full bg-accent/60 animate-pulse" />
-                              <span className="w-1.5 h-1.5 rounded-full bg-accent/60 animate-pulse" style={{ animationDelay: "0.2s" }} />
-                              <span className="w-1.5 h-1.5 rounded-full bg-accent/60 animate-pulse" style={{ animationDelay: "0.4s" }} />
+                          <div className="flex items-center gap-3 py-3">
+                            {/* Nothing-style sequential bars */}
+                            <div className="flex items-end gap-[3px] h-4">
+                              <span className="w-[3px] h-full bg-accent/70 rounded-sm typing-bar" style={{ animationDelay: "0ms" }} />
+                              <span className="w-[3px] h-full bg-accent/70 rounded-sm typing-bar" style={{ animationDelay: "150ms" }} />
+                              <span className="w-[3px] h-full bg-accent/70 rounded-sm typing-bar" style={{ animationDelay: "300ms" }} />
+                              <span className="w-[3px] h-full bg-accent/70 rounded-sm typing-bar" style={{ animationDelay: "450ms" }} />
                             </div>
-                            <span className="text-[10px] font-mono text-muted-foreground/50">thinking...</span>
+                            <span className="text-[10px] font-mono animate-shimmer">thinking...</span>
                           </div>
                         )
                       )}

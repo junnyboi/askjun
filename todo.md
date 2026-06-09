@@ -270,3 +270,6 @@
 - [x] Add server-side off-topic detection — reject queries unrelated to Jun's portfolio before they reach the LLM
 - [x] Strengthen system prompt to refuse off-topic requests firmly
 - [x] Test with common abuse patterns (code generation, homework, creative writing, general knowledge)
+
+## UX: Enhanced Typing Indicator
+- [x] Replace basic pulsing dots with a more engaging, Nothing-aesthetic typing animation
