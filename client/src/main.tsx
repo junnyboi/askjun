@@ -14,9 +14,14 @@ const trpcClient = trpc.createClient({
     httpBatchLink({
       url: "/api/trpc",
       transformer: superjson,
-      headers() {
-        const adminPw = getAdminPassword();
-        return adminPw ? { "x-admin-password": adminPw } : {};
+      headers({ opList }) {
+        // Only attach admin password for admin.* procedures
+        const isAdminOp = opList.some(op => op.path.startsWith("admin."));
+        if (isAdminOp) {
+          const adminPw = getAdminPassword();
+          return adminPw ? { "x-admin-password": adminPw } : {};
+        }
+        return {};
       },
       fetch(input, init) {
         return globalThis.fetch(input, {

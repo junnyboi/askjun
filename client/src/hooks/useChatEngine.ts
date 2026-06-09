@@ -31,6 +31,17 @@ const APPEARANCE_KEYWORDS = [
   "how does jun look", "how does he look", "jun look", "does he look like",
 ];
 
+function fallbackCopyToClipboard(text: string) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  try { document.execCommand("copy"); } catch { /* silent */ }
+  document.body.removeChild(textarea);
+}
+
 export function useChatEngine() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -230,7 +241,14 @@ export function useChatEngine() {
     const transcript = messages
       .map((m) => `${m.role === "user" ? "You" : "askJun"}: ${m.content}`)
       .join("\n\n");
-    navigator.clipboard.writeText(transcript);
+    // Clipboard with fallback for insecure contexts
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(transcript).catch(() => {
+        fallbackCopyToClipboard(transcript);
+      });
+    } else {
+      fallbackCopyToClipboard(transcript);
+    }
     analytics.shareConversation();
     toast.success("Conversation copied to clipboard!");
   }, [messages]);

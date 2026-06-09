@@ -242,3 +242,15 @@
 - [x] Chunks reload on server restart (knowledge files re-parsed from disk on each boot)
 - [x] VectorStore logs "Initialized with X chunks (Y newly embedded)" on each restart
 - [ ] Future: Add /api/admin/reindex endpoint for manual re-embedding without restart
+
+## Audit Fix Sprint (June 2026)
+- [x] Fix viewport maximum-scale=1 accessibility violation (C15)
+- [x] Add robots.txt for SEO (Lighthouse SEO flag)
+- [x] Fix rate limiter memory leak — add periodic eviction (S1/S6)
+- [x] Fix admin password sent on all requests — scope to admin routes only (C22)
+- [x] Fix Portfolio.tsx `as any` casts — add proper project interface (C11)
+- [x] Fix chatStream fullContent leak in done event after canary replacement (S4)
+- [x] Add clipboard fallback in useChatEngine handleShare (C1)
+- [x] Add meta theme-color tag (C17)
+- [x] Fix label-content-name-mismatch accessibility issue (askJun logo button)
+- [ ] Fix color contrast issue on accent text (Lighthouse a11y) — deferred: requires Nothing Red (#E60000) design decision

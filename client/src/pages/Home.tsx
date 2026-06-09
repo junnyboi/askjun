@@ -132,7 +132,7 @@ export default function Home() {
           <button
             onClick={() => resetConversation()}
             className="font-mono text-sm text-foreground hover:opacity-70 transition-opacity active:scale-95"
-            aria-label="Reset conversation"
+            aria-label="askJun - Reset conversation"
           >
             ask<span className="text-accent">Jun</span>
           </button>

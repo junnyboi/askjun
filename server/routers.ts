@@ -11,6 +11,14 @@ import { eq, desc, sql, count, and, gte, lte } from "drizzle-orm";
 // In-memory rate limiter
 const rateLimits = new Map<string, { count: number; resetAt: number }>();
 
+// Periodic eviction — prevent unbounded memory growth
+setInterval(() => {
+  const now = Date.now();
+  rateLimits.forEach((limit, ip) => {
+    if (limit.resetAt <= now) rateLimits.delete(ip);
+  });
+}, 600000); // Every 10 minutes
+
 // Simple chat counter (resets on server restart, but gives a live feel)
 let chatCounter = 0;
 const RATE_LIMIT_MAX = 30; // messages per window

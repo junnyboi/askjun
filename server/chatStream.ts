@@ -13,6 +13,14 @@ const streamRateLimits = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT_MAX = 30;
 const RATE_LIMIT_WINDOW = 3600000;
 
+// Periodic eviction — prevent unbounded memory growth
+setInterval(() => {
+  const now = Date.now();
+  streamRateLimits.forEach((limit, ip) => {
+    if (limit.resetAt <= now) streamRateLimits.delete(ip);
+  });
+}, 600000); // Every 10 minutes
+
 function checkStreamRateLimit(ip: string): boolean {
   const now = Date.now();
   const limit = streamRateLimits.get(ip);
@@ -160,10 +168,11 @@ export async function chatStreamHandler(req: Request, res: Response) {
     const contentUpper = fullContent.toUpperCase();
     if (LEAKED_PATTERNS.some(p => contentUpper.includes(p.toUpperCase()))) {
       // Send a replacement — client should discard previous tokens
-      res.write(`data: ${JSON.stringify({ type: "replace", content: "I'd be happy to tell you about Jun's professional experience! What specific aspect of his career would you like to know about?" })}\n\n`);
+      fullContent = "I'd be happy to tell you about Jun's professional experience! What specific aspect of his career would you like to know about?";
+      res.write(`data: ${JSON.stringify({ type: "replace", content: fullContent })}\n\n`);
     }
 
-    // Signal completion
+    // Signal completion (fullContent is sanitized if canary was triggered)
     res.write(`data: ${JSON.stringify({ type: "done", fullContent })}\n\n`);
     res.end();
   } catch (error) {
