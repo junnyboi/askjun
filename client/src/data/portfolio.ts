@@ -179,10 +179,10 @@ export const HIGHLIGHTS = [
 
 export const CHAT_SUGGESTIONS = [
   "Why should I hire Jun?",
-  "What's Jun's experience with AI agent interfaces?",
-  "Tell me about the payment systems he built",
-  "What tech stack does Jun work with?",
-  "Why is he looking for new opportunities?",
-  "What was his biggest technical challenge?",
+  "Show me his career timeline",
+  "What's his tech stack?",
+  "What are his key achievements?",
+  "Where did he study?",
   "Tell me about his work at Meta/Manus",
+  "What's Jun's experience with AI agent interfaces?",
 ];
