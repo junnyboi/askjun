@@ -126,6 +126,35 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
       response: "Jun prefers **Singapore-based roles** (onsite or hybrid). He's open to compelling remote opportunities for the right company and role. Best to discuss specifics directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",
     },
   },
+  // ✦ Generative UI chip routes — return Jun-specific summaries alongside the interactive components
+  {
+    keywords: ["\u2726 career timeline", "show me his career timeline"],
+    match: {
+      category: "generative_timeline",
+      response: "Here's Jun's career journey across 7+ years:\n\n**Meta (Manus AI)** — Senior Frontend Engineer (Feb 2026–Present)\nBuilding the core AI agent conversation interface for Manus's autonomous agent platform.\n\n**Instawork** — Senior Full Stack Engineer (Jul 2025–Jan 2026)\nCross-platform features for partner web and Pro mobile — messaging, AI-assisted booking, ratings.\n\n**HoYoverse** — Senior Frontend Engineer (Jul 2022–Jul 2025)\nScaled payment UIs for 5 flagship titles (Genshin Impact, Honkai: Star Rail) across 100+ countries, handling ~8M DAU and ~$57M in launch week transactions.\n\n**TikTok, ByteDance** — Full Stack Engineer (Jun 2021–Jul 2022)\nGDPR/data-residency compliance for payments. Rockstar Employee Award 2021.\n\n**Bank of Singapore** — Full Stack Engineer (Jul 2019–Apr 2021)\nCEO Recognition Award 2020. Innovation projects delivering $1.5M/annum savings.\n\n**DBS Bank** — Data Scientist (Aug–Dec 2018)\nNetwork analysis of ~6M client relationships.",
+    },
+  },
+  {
+    keywords: ["\u2726 tech stack", "what's his tech stack"],
+    match: {
+      category: "generative_skills",
+      response: "Here's Jun's technical arsenal:\n\n**Languages:** TypeScript, JavaScript, Python, Golang, Java, SQL, C#\n\n**Frameworks:** React, Vue.js, Node.js, Django, Spring Boot, Tailwind CSS, Framer Motion, Next.js\n\n**Tools:** Git, Docker, CI/CD, Webpack/Vite, Kafka, Shell\n\n**Domain Expertise:**\n- AI Agent Interfaces — real-time streaming, multi-turn conversations, generative UI\n- Payment Systems — 50+ methods, 100+ countries, $57M launch week\n- High-Traffic Architecture — 8M DAU, 15M sign-ups in 48h\n- GDPR Compliance — data residency, cross-border payment isolation\n- Real-time Collaboration — multi-user AI artifact sharing\n\nHis sweet spot is **React + TypeScript** at scale, with full-stack reach into Python/Golang when needed.",
+    },
+  },
+  {
+    keywords: ["\u2726 key metrics", "what are his key achievements", "what are his key metrics"],
+    match: {
+      category: "generative_metrics",
+      response: "Jun's career in numbers:\n\n| Metric | Value | Context |\n|--------|-------|---------|\n| Launch Week Revenue | ~$57M | HoYoverse game launches |\n| Sign-ups in 48h | 15M+ | HoYoverse auth system |\n| Daily Active Users | 8M | Payment platform scale |\n| Annual Savings | $1.5M | Bank of Singapore innovation |\n| Countries Supported | 100+ | Global payment coverage |\n| Payment Methods | 50+ | Cross-platform integration |\n| Live-ops Incidents | -30% | Reliability improvements |\n| Trial-shift Ratings | +20% | Instawork feature impact |\n| Legacy Latency Fix | -90% | N+1 query optimization |\n\nThese aren't vanity metrics — they represent real production systems serving real users at massive scale.",
+    },
+  },
+  {
+    keywords: ["\u2726 education", "where did he study"],
+    match: {
+      category: "generative_education",
+      response: "Jun's academic background:\n\n**National University of Singapore** (2015–2019)\nBachelor of Engineering — Industrial & Systems Engineering (Honours)\nFoundation in optimization, systems thinking, and data science.\n\n**Eindhoven University of Technology** (2018)\nMasters Exchange — Industrial Engineering & Innovation Sciences\nInternational exposure in the Netherlands; focus on innovation management.\n\n**Singapore Management University** (2020)\nAdvanced Certification in Private Banking\nCompleted while working at Bank of Singapore — deepened fintech domain knowledge.\n\nHis engineering background gives him a systems-level perspective on software architecture — he thinks in flows, bottlenecks, and optimization.",
+    },
+  },
 ];
 
 /**
