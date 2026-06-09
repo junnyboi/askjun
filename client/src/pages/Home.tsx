@@ -283,7 +283,7 @@ export default function Home() {
                     <button
                       key={i}
                       onClick={() => { analytics.chipClick(s); handleSend(s); }}
-                      className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-border text-muted-foreground hover:border-accent hover:text-accent transition-all hover:scale-[1.02] rounded-lg"
+                      className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-border text-muted-foreground rounded-lg transition-all duration-200 ease-out hover:border-accent hover:text-accent hover:bg-accent/5 hover:scale-[1.04] hover:-translate-y-0.5 hover:shadow-sm active:scale-95 active:translate-y-0"
                     >
                       {s}
                     </button>
