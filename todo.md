@@ -224,11 +224,12 @@
 - [x] Add canary token (ASKJUN_CANARY_7x9k) in system prompt — if leaked in output, response is replaced
 
 ## Generative UI (Rich Responses)
-- [ ] When asked about career timeline → render an interactive timeline component in chat
-- [ ] When asked about tech stack → render a visual skills grid/chart in chat
-- [ ] When asked about metrics → render a metrics card with animated counters
-- [ ] Implement a "tool_call" response type that triggers frontend component rendering
-- [ ] Use structured JSON responses from LLM to drive component selection
+- [x] When asked about career timeline → render interactive ChatTimeline component (animated dots, company colors)
+- [x] When asked about tech stack → render visual ChatSkillsChart (categorized grid with color-coded dots)
+- [x] When asked about metrics → render ChatMetricsCard (animated counters in grid layout)
+- [x] Implement generativeUI detection via client-side keyword matching (detectGenerativeUI function)
+- [x] Components render after streaming completes, alongside the text response
+- [ ] Future: Add backend tool_call response type for LLM-driven component selection (requires OpenAI function calling)
 
 ## Real-Time Token Streaming (SSE)
 - [x] Replace simulated streaming (setTimeout) with real SSE from the LLM (/api/chat/stream endpoint)

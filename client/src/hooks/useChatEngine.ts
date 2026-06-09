@@ -12,6 +12,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { getResponse, shouldSimulateToolUse, getToolUseResponse } from "@/data/chatEngine";
 import { analytics } from "@/lib/analytics";
 import { toast } from "sonner";
+import { detectGenerativeUI, type GenerativeUIType } from "@/components/generative";
 
 export interface Message {
   id: string;
@@ -20,6 +21,7 @@ export interface Message {
   toolUse?: { action: string; status: string };
   showProfileImage?: boolean;
   retrievalType?: "keyword" | "semantic" | "fallback";
+  generativeUI?: GenerativeUIType;
 }
 
 const APPEARANCE_KEYWORDS = [
@@ -199,9 +201,15 @@ export function useChatEngine() {
       const assistantMsgId = `assistant-${Date.now()}`;
       setMessages((prev) => [...prev, { id: assistantMsgId, role: "assistant", content: "" }]);
 
-      // Detect appearance/handsome queries
+      // Detect appearance/handsome queries and generative UI
       const lowerQuery = query.toLowerCase();
       const isAppearanceQuery = APPEARANCE_KEYWORDS.some(kw => lowerQuery.includes(kw));
+      const generativeUIType = detectGenerativeUI(query);
+
+      // Set generativeUI type on the message immediately
+      if (generativeUIType) {
+        setMessages((prev) => prev.map((m) => m.id === assistantMsgId ? { ...m, generativeUI: generativeUIType } : m));
+      }
 
       try {
         // Use SSE streaming endpoint

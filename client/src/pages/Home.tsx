@@ -17,6 +17,7 @@ import { analytics } from "@/lib/analytics";
 import { useChatEngine } from "@/hooks/useChatEngine";
 import { useSpeechToText } from "@/hooks/useSpeechToText";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { ChatTimeline, ChatSkillsChart, ChatMetricsCard } from "@/components/generative";
 
 // Module-level constant — no re-creation on render
 const PLACEHOLDERS = [
@@ -364,6 +365,14 @@ export default function Home() {
                                 alt="Jun Boh at Meta"
                                 className="w-full h-auto"
                               />
+                            </div>
+                          )}
+                          {/* Generative UI components */}
+                          {msg.generativeUI && !isTyping && (
+                            <div className="mt-2">
+                              {msg.generativeUI === "timeline" && <ChatTimeline />}
+                              {msg.generativeUI === "skills" && <ChatSkillsChart />}
+                              {msg.generativeUI === "metrics" && <ChatMetricsCard />}
                             </div>
                           )}
                         </>
