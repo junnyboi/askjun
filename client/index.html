@@ -57,7 +57,10 @@
       })();
     </script>
     <!-- Nothing Typography: Space Grotesk (display), Inter (body), Space Mono (technical) -->
-    <!-- Self-hosted in index.css via @font-face — no external font requests -->
+    <!-- Primary: self-hosted via @font-face in index.css (no render-blocking) -->
+    <!-- Fallback: Google Fonts loaded async (non-render-blocking) in case storage proxy fails -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" onload="this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" /></noscript>
   </head>
 
   <body>
