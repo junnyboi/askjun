@@ -5,13 +5,11 @@
 
 import { motion } from "framer-motion";
 import { HIGHLIGHTS } from "@/data/portfolio";
+import { CollapsibleCard } from "./CollapsibleCard";
 
 export function ChatMetricsCard() {
   return (
-    <div className="my-4 border border-border rounded-lg overflow-hidden">
-      <div className="px-4 py-2 bg-card border-b border-border">
-        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Key Metrics & Impact</span>
-      </div>
+    <CollapsibleCard title="Key Metrics & Impact">
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-border">
         {HIGHLIGHTS.map((h, i) => (
           <motion.div
@@ -33,6 +31,6 @@ export function ChatMetricsCard() {
           </motion.div>
         ))}
       </div>
-    </div>
+    </CollapsibleCard>
   );
 }

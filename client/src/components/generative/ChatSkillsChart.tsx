@@ -5,6 +5,7 @@
 
 import { motion } from "framer-motion";
 import { SKILLS } from "@/data/portfolio";
+import { CollapsibleCard } from "./CollapsibleCard";
 
 const CATEGORY_LABELS: Record<string, string> = {
   language: "Languages",
@@ -28,10 +29,7 @@ export function ChatSkillsChart() {
   }, {} as Record<string, string[]>);
 
   return (
-    <div className="my-4 border border-border rounded-lg overflow-hidden">
-      <div className="px-4 py-2 bg-card border-b border-border">
-        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Tech Stack</span>
-      </div>
+    <CollapsibleCard title="Tech Stack">
       <div className="p-4 space-y-3">
         {Object.entries(grouped).map(([category, skills], catIndex) => (
           <motion.div
@@ -65,6 +63,6 @@ export function ChatSkillsChart() {
           </motion.div>
         ))}
       </div>
-    </div>
+    </CollapsibleCard>
   );
 }

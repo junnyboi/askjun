@@ -17,7 +17,7 @@ import { analytics } from "@/lib/analytics";
 import { useChatEngine } from "@/hooks/useChatEngine";
 import { useSpeechToText } from "@/hooks/useSpeechToText";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { ChatTimeline, ChatSkillsChart, ChatMetricsCard } from "@/components/generative";
+import { ChatTimeline, ChatSkillsChart, ChatMetricsCard, ChatEducationTimeline } from "@/components/generative";
 
 // Module-level constant — no re-creation on render
 const PLACEHOLDERS = [
@@ -373,6 +373,7 @@ export default function Home() {
                               {msg.generativeUI === "timeline" && <ChatTimeline />}
                               {msg.generativeUI === "skills" && <ChatSkillsChart />}
                               {msg.generativeUI === "metrics" && <ChatMetricsCard />}
+                              {msg.generativeUI === "education" && <ChatEducationTimeline />}
                             </div>
                           )}
                         </>

@@ -5,13 +5,11 @@
 
 import { motion } from "framer-motion";
 import { EXPERIENCES } from "@/data/portfolio";
+import { CollapsibleCard } from "./CollapsibleCard";
 
 export function ChatTimeline() {
   return (
-    <div className="my-4 border border-border rounded-lg overflow-hidden">
-      <div className="px-4 py-2 bg-card border-b border-border">
-        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Career Timeline</span>
-      </div>
+    <CollapsibleCard title="Career Timeline">
       <div className="p-4 space-y-0">
         {EXPERIENCES.map((exp, i) => (
           <motion.div
@@ -48,6 +46,6 @@ export function ChatTimeline() {
           </motion.div>
         ))}
       </div>
-    </div>
+    </CollapsibleCard>
   );
 }

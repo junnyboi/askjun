@@ -7,7 +7,7 @@
  * component matches, it's rendered alongside the text response.
  */
 
-export type GenerativeUIType = "timeline" | "skills" | "metrics" | null;
+export type GenerativeUIType = "timeline" | "skills" | "metrics" | "education" | null;
 
 const TIMELINE_KEYWORDS = [
   "timeline", "career timeline", "career history", "work history",
@@ -27,6 +27,12 @@ const METRICS_KEYWORDS = [
   "what has he achieved", "results",
 ];
 
+const EDUCATION_KEYWORDS = [
+  "education", "university", "degree", "school",
+  "where did he study", "academic", "qualification",
+  "NUS", "SMU", "eindhoven",
+];
+
 /**
  * Detect if a user query should trigger a generative UI component.
  * Returns the component type or null if no match.
@@ -37,6 +43,7 @@ export function detectGenerativeUI(query: string): GenerativeUIType {
   if (TIMELINE_KEYWORDS.some(kw => lower.includes(kw))) return "timeline";
   if (SKILLS_KEYWORDS.some(kw => lower.includes(kw))) return "skills";
   if (METRICS_KEYWORDS.some(kw => lower.includes(kw))) return "metrics";
+  if (EDUCATION_KEYWORDS.some(kw => lower.includes(kw))) return "education";
   
   return null;
 }
@@ -44,3 +51,4 @@ export function detectGenerativeUI(query: string): GenerativeUIType {
 export { ChatTimeline } from "./ChatTimeline";
 export { ChatSkillsChart } from "./ChatSkillsChart";
 export { ChatMetricsCard } from "./ChatMetricsCard";
+export { ChatEducationTimeline } from "./ChatEducationTimeline";

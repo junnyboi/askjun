@@ -226,7 +226,7 @@
 ## Generative UI (Rich Responses)
 - [x] When asked about career timeline → render interactive ChatTimeline component (animated dots, company colors)
 - [x] When asked about tech stack → render visual ChatSkillsChart (categorized grid with color-coded dots)
-- [x] When asked about metrics → render ChatMetricsCard (animated counters in grid layout)
+- [x] When asked about metrics → render ChatMetricsCard (staggered entrance animation grid layout)
 - [x] Implement generativeUI detection via client-side keyword matching (detectGenerativeUI function)
 - [x] Components render after streaming completes, alongside the text response
 - [ ] Future: Add backend tool_call response type for LLM-driven component selection (requires OpenAI function calling)
@@ -237,7 +237,8 @@
 - [x] Show actual generation progress — tokens appear as GPT-4.1-mini generates them
 - [x] Thinking indicator — empty message with cursor blink shows while waiting for first token
 
-## Data Synchronization
-- [ ] Add a file watcher in dev mode that auto-reloads knowledge chunks on .md file change
-- [ ] Add a /api/admin/reindex endpoint to force re-embedding of all chunks
-- [ ] Log which chunks were re-embedded on each server restart
+## Data Synchronization (Dev Quality-of-Life — Deferred)
+- [x] content_hash in frontmatter already handles cache invalidation on server restart
+- [x] Chunks reload on server restart (knowledge files re-parsed from disk on each boot)
+- [x] VectorStore logs "Initialized with X chunks (Y newly embedded)" on each restart
+- [ ] Future: Add /api/admin/reindex endpoint for manual re-embedding without restart
