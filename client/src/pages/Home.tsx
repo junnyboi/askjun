@@ -9,7 +9,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Streamdown } from "streamdown";
-import { CHAT_SUGGESTIONS, PROFILE } from "@/data/portfolio";
+import { QUICK_CHIPS, GENERATIVE_CHIPS, PROFILE } from "@/data/portfolio";
 import ThemeToggle from "@/components/ThemeToggle";
 import FontScaleToggle from "@/components/FontScaleToggle";
 import { getFollowUps } from "@/data/followUps";
@@ -277,13 +277,25 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Suggestion chips */}
+                {/* Quick answer chips */}
                 <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3 sm:mt-4 justify-center">
-                  {CHAT_SUGGESTIONS.filter(s => !usedChips.has(s)).slice(0, 3).map((s, i) => (
+                  {QUICK_CHIPS.filter(s => !usedChips.has(s)).slice(0, 3).map((s, i) => (
                     <button
-                      key={i}
+                      key={`q-${i}`}
                       onClick={() => { analytics.chipClick(s); handleSend(s); }}
                       className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-border text-muted-foreground rounded-lg transition-all duration-200 ease-out hover:border-accent hover:text-accent hover:bg-accent/5 hover:scale-[1.04] hover:-translate-y-0.5 hover:shadow-sm active:scale-95 active:translate-y-0"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+                {/* Generative UI chips — visual distinction with accent border */}
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2 justify-center">
+                  {GENERATIVE_CHIPS.filter(s => !usedChips.has(s)).slice(0, 4).map((s, i) => (
+                    <button
+                      key={`g-${i}`}
+                      onClick={() => { analytics.chipClick(s); handleSend(s); }}
+                      className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-accent/30 text-accent/70 rounded-lg transition-all duration-200 ease-out hover:border-accent hover:text-accent hover:bg-accent/5 hover:scale-[1.04] hover:-translate-y-0.5 hover:shadow-sm active:scale-95 active:translate-y-0"
                     >
                       {s}
                     </button>

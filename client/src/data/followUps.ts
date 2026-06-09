@@ -7,7 +7,7 @@ const FOLLOW_UP_MAP: Record<string, string[]> = {
   meta: [
     "What tech stack does he use at Meta?",
     "Tell me about his biggest technical challenge",
-    "Why is he looking for new opportunities?",
+    "✦ Career timeline",
   ],
   manus: [
     "What specific features did he build?",
@@ -17,12 +17,12 @@ const FOLLOW_UP_MAP: Record<string, string[]> = {
   ai: [
     "Tell me about his work at Meta/Manus",
     "What payment systems has he built?",
-    "What's his education background?",
+    "✦ Tech stack",
   ],
   payment: [
     "How did he handle 15M sign-ups in 48 hours?",
     "What about his GDPR compliance work?",
-    "What tech stack does he use?",
+    "✦ Key metrics",
   ],
   hoyo: [
     "Tell me about the payment methods he integrated",
@@ -62,12 +62,12 @@ const FOLLOW_UP_MAP: Record<string, string[]> = {
   challenge: [
     "Tell me about his GDPR work at TikTok",
     "How did he handle 15M sign-ups?",
-    "What does he look like?",
+    "✦ Key metrics",
   ],
   education: [
     "What certifications does he have?",
     "Tell me about his work experience",
-    "What does he look like?",
+    "✦ Education",
   ],
   awards: [
     "Tell me about his innovation projects",
@@ -89,8 +89,8 @@ const FOLLOW_UP_MAP: Record<string, string[]> = {
 // Default follow-ups if no specific match
 const DEFAULT_FOLLOW_UPS = [
   "What's his experience with AI agents?",
-  "Tell me about his biggest achievement",
-  "Can I download his resume?",
+  "✦ Career timeline",
+  "✦ Key metrics",
 ];
 
 export function getFollowUps(lastQuery: string): string[] {

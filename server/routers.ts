@@ -118,9 +118,9 @@ export const appRouter = router({
           };
         }
 
-        // 3. Session token budget (max total input chars across all messages: 5000)
+        // 3. Session token budget (max total input chars across all messages: 10000)
         const totalInputChars = input.messages.reduce((sum, m) => sum + m.content.length, 0);
-        if (totalInputChars > 5000) {
+        if (totalInputChars > 10000) {
           return {
             content: "This conversation is getting quite long! For more detailed discussions, please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",
             rateLimited: false,

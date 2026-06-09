@@ -177,12 +177,21 @@ export const HIGHLIGHTS = [
   { metric: "50+", label: "Payment methods integrated", context: "HoYoverse" },
 ];
 
-export const CHAT_SUGGESTIONS = [
+// Quick answer chips — keyword router (instant responses)
+export const QUICK_CHIPS = [
   "Why should I hire Jun?",
-  "Show me his career timeline",
-  "What's his tech stack?",
-  "What are his key achievements?",
-  "Where did he study?",
+  "What's his current role?",
+  "How many years of experience?",
   "Tell me about his work at Meta/Manus",
-  "What's Jun's experience with AI agent interfaces?",
 ];
+
+// Generative UI chips — trigger interactive components
+export const GENERATIVE_CHIPS = [
+  "✦ Career timeline",
+  "✦ Tech stack",
+  "✦ Key metrics",
+  "✦ Education",
+];
+
+// Combined for backward compatibility
+export const CHAT_SUGGESTIONS = [...QUICK_CHIPS, ...GENERATIVE_CHIPS];

@@ -13,24 +13,28 @@ const TIMELINE_KEYWORDS = [
   "timeline", "career timeline", "career history", "work history",
   "career path", "career journey", "experience timeline",
   "where has he worked", "companies he worked",
+  "✦ career timeline",
 ];
 
 const SKILLS_KEYWORDS = [
   "tech stack", "technology stack", "skills", "what technologies",
   "programming languages", "frameworks", "tools he uses",
   "what can he code", "technical skills",
+  "✦ tech stack",
 ];
 
 const METRICS_KEYWORDS = [
   "metrics", "achievements", "impact", "numbers",
   "key metrics", "biggest achievement", "accomplishments",
   "what has he achieved", "results",
+  "✦ key metrics",
 ];
 
 const EDUCATION_KEYWORDS = [
   "education", "university", "degree", "school",
   "where did he study", "academic", "qualification",
   "NUS", "SMU", "eindhoven",
+  "✦ education",
 ];
 
 /**

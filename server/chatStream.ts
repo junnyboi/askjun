@@ -67,7 +67,7 @@ export async function chatStreamHandler(req: Request, res: Response) {
   }
 
   const totalChars = messages.reduce((sum, m) => sum + m.content.length, 0);
-  if (totalChars > 5000) {
+  if (totalChars > 10000) {
     res.json({ type: "structured", content: "This conversation is getting quite long! Please reach Jun directly at boh.ze.jun@gmail.com." });
     return;
   }
