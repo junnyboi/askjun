@@ -256,12 +256,12 @@
 - [ ] Fix color contrast issue on accent text (Lighthouse a11y) — deferred: requires Nothing Red (#E60000) design decision
 
 ## Performance: Self-Host Google Fonts
-- [ ] Download Space Grotesk (400,500,600,700), Inter (300,400,500,600,700), Space Mono (400,700) as WOFF2
-- [ ] Place font files in /home/ubuntu/webdev-static-assets/ and upload via manus-upload-file --webdev
-- [ ] Create @font-face declarations in index.css with font-display: swap
-- [ ] Remove Google Fonts <link> tags from index.html
-- [ ] Remove preconnect hints to fonts.googleapis.com and fonts.gstatic.com
-- [ ] Verify zero render-blocking external font requests
+- [x] Download Space Grotesk (400,500,600,700), Inter (300,400,500,600,700), Space Mono (400,700) as WOFF2
+- [x] Place font files in /home/ubuntu/webdev-static-assets/ and upload via manus-upload-file --webdev
+- [x] Create @font-face declarations in index.css with font-display: swap
+- [x] Remove Google Fonts <link> tags from index.html
+- [x] Remove preconnect hints to fonts.googleapis.com and fonts.gstatic.com
+- [x] Verify zero render-blocking external font requests
 
 ## Bug Fix: Generative UI Chips Return Generic LLM Responses
 - [x] Add keyword routes for ✦ Career timeline, ✦ Tech stack, ✦ Key metrics, ✦ Education so they return Jun-specific structured responses instead of falling through to the LLM

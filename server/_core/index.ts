@@ -7,6 +7,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { chatStreamHandler } from "../chatStream";
+import { registerStorageProxy } from "./storageProxy";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -33,6 +34,9 @@ async function startServer() {
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
+  // Storage proxy for self-hosted assets (fonts, etc.)
+  registerStorageProxy(app);
 
   // SSE streaming chat endpoint (must be registered BEFORE tRPC)
   app.post("/api/chat/stream", chatStreamHandler);
