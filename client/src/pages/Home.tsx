@@ -38,6 +38,8 @@ export default function Home() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [showProfileZoom, setShowProfileZoom] = useState(false);
+  const [showScrollToBottom, setShowScrollToBottom] = useState(false);
+  const [copiedMsgId, setCopiedMsgId] = useState<string | null>(null);
 
   // Rotating placeholder text
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
@@ -57,6 +59,27 @@ export default function Home() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Track if user is NOT at the bottom of the chat scroll container
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const handleContainerScroll = () => {
+      const { scrollHeight, scrollTop, clientHeight } = container;
+      const isAtBottom = scrollHeight - scrollTop - clientHeight < 100;
+      setShowScrollToBottom(!isAtBottom && hasMessages);
+    };
+    container.addEventListener("scroll", handleContainerScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleContainerScroll);
+  }, [hasMessages]);
+
+  // Also re-check scroll-to-bottom visibility when content grows during streaming
+  useEffect(() => {
+    if (!scrollRef.current || !hasMessages) return;
+    const { scrollHeight, scrollTop, clientHeight } = scrollRef.current;
+    const isAtBottom = scrollHeight - scrollTop - clientHeight < 100;
+    setShowScrollToBottom(!isAtBottom);
+  }, [messages, hasMessages]);
 
   // Auto-focus input on desktop
   useEffect(() => {
@@ -327,6 +350,39 @@ export default function Home() {
                       <span className="text-[10px] font-mono text-muted-foreground">
                         {msg.role === "user" ? "you" : "askJun"}
                       </span>
+                      {/* Copy button for assistant messages */}
+                      {msg.role === "assistant" && msg.content && !isTyping && (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={() => {
+                                const text = msg.content;
+                                if (navigator.clipboard && window.isSecureContext) {
+                                  navigator.clipboard.writeText(text).catch(() => {});
+                                } else {
+                                  const ta = document.createElement("textarea");
+                                  ta.value = text;
+                                  ta.style.position = "fixed";
+                                  ta.style.opacity = "0";
+                                  document.body.appendChild(ta);
+                                  ta.select();
+                                  try { document.execCommand("copy"); } catch {}
+                                  document.body.removeChild(ta);
+                                }
+                                setCopiedMsgId(msg.id);
+                                setTimeout(() => setCopiedMsgId(null), 2000);
+                              }}
+                              className="text-[9px] font-mono px-1.5 py-0.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all"
+                              aria-label="Copy response"
+                            >
+                              {copiedMsgId === msg.id ? "✓ copied" : "copy"}
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="text-xs font-mono">
+                            Copy response to clipboard
+                          </TooltipContent>
+                        </Tooltip>
+                      )}
                       {msg.role === "assistant" && msg.retrievalType && msg.content && !isTyping && (
                         <Tooltip>
                           <TooltipTrigger asChild>
@@ -454,6 +510,31 @@ export default function Home() {
             </div>
           )}
         </div>
+
+        {/* Floating scroll-to-bottom button */}
+        <AnimatePresence>
+          {showScrollToBottom && hasMessages && (
+            <motion.button
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => {
+                if (scrollRef.current) {
+                  scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+                }
+              }}
+              aria-label="Scroll to bottom"
+              className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 bg-foreground text-background text-[10px] font-mono rounded-full shadow-lg hover:opacity-80 transition-opacity active:scale-95"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="m5 12 7 7 7-7" />
+                <path d="M12 5v14" />
+              </svg>
+              scroll to bottom
+            </motion.button>
+          )}
+        </AnimatePresence>
 
         {/* Bottom-docked input when in conversation */}
         {hasMessages && (

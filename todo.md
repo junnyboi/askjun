@@ -273,3 +273,7 @@
 
 ## UX: Enhanced Typing Indicator
 - [x] Replace basic pulsing dots with a more engaging, Nothing-aesthetic typing animation
+
+## UX: Scroll & Copy Enhancements
+- [x] Add floating 'scroll to bottom' button when streamed response exceeds viewport height
+- [x] Add per-response 'copy to clipboard' button on each assistant message
