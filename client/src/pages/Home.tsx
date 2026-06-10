@@ -87,35 +87,39 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handler);
   }, [messages]);
 
-  // Scroll behavior: smooth scroll to the TOP of the latest assistant response, then hold
+  // Scroll behavior: smooth scroll so the assistant response starts at the TOP of the viewport, then hold
   const hasScrolledToResponseRef = useRef(false);
   const lastAssistantIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!scrollRef.current) return;
-
-    // Detect when a new assistant message appears (empty placeholder inserted)
     const lastMsg = messages[messages.length - 1];
-    if (lastMsg?.role === "assistant" && lastMsg.id !== lastAssistantIdRef.current) {
-      // New assistant response started
+    if (!lastMsg || lastMsg.role !== "assistant") return;
+
+    // Detect new assistant message
+    if (lastMsg.id !== lastAssistantIdRef.current) {
       lastAssistantIdRef.current = lastMsg.id;
       hasScrolledToResponseRef.current = false;
     }
 
-    // Smooth scroll to the top of the response element once
-    if (lastMsg?.role === "assistant" && !hasScrolledToResponseRef.current) {
+    // Wait until the assistant message has actual content (first token arrived), then scroll once
+    if (!hasScrolledToResponseRef.current && lastMsg.content.length > 0) {
       hasScrolledToResponseRef.current = true;
+      // Use double-rAF to ensure DOM has painted the content
       requestAnimationFrame(() => {
-        const responseEl = scrollRef.current?.querySelector(`[data-msg-id="${lastMsg.id}"]`);
-        if (responseEl && scrollRef.current) {
-          const containerTop = scrollRef.current.getBoundingClientRect().top;
-          const elementTop = responseEl.getBoundingClientRect().top;
-          const offset = elementTop - containerTop + scrollRef.current.scrollTop - 24; // 24px breathing room
-          scrollRef.current.scrollTo({ top: offset, behavior: "smooth" });
-        }
+        requestAnimationFrame(() => {
+          const responseEl = scrollRef.current?.querySelector(`[data-msg-id="${lastMsg.id}"]`);
+          if (responseEl && scrollRef.current) {
+            const containerRect = scrollRef.current.getBoundingClientRect();
+            const elementRect = responseEl.getBoundingClientRect();
+            // Calculate where the response element is relative to the scroll container
+            const scrollOffset = elementRect.top - containerRect.top + scrollRef.current.scrollTop - 16;
+            scrollRef.current.scrollTo({ top: scrollOffset, behavior: "smooth" });
+          }
+        });
       });
     }
-    // No further scrolling during streaming — user reads from the top of the response
+    // No further scrolling during streaming — user reads from the top down
   }, [messages]);
 
   // Speech-to-text
