@@ -218,6 +218,28 @@ html.font-xlarge { --font-scale: 1.3; }
     line-height: 1.7;
   }
 
+  /* Portfolio scaled text classes — match chat conversation proportions */
+  .scaled-body {
+    font-size: calc(11px * var(--font-scale));
+    line-height: 1.6;
+  }
+  .scaled-sm {
+    font-size: calc(12px * var(--font-scale));
+    line-height: 1.5;
+  }
+  .scaled-xs {
+    font-size: calc(10px * var(--font-scale));
+    line-height: 1.4;
+  }
+  .scaled-heading {
+    font-size: calc(14px * var(--font-scale));
+    line-height: 1.3;
+  }
+  .scaled-lg {
+    font-size: calc(18px * var(--font-scale));
+    line-height: 1.3;
+  }
+
 
 
   .container {

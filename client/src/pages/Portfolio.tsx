@@ -238,8 +238,8 @@ export default function Portfolio() {
           </nav>
         </aside>
 
-        {/* Main content */}
-        <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14 leading-relaxed">
+        {/* Main content — font-scale aware */}
+        <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14 leading-relaxed scaled-body">
 
           {/* Profile header */}
           <div className="flex items-center gap-3 mb-6">
@@ -247,8 +247,8 @@ export default function Portfolio() {
               <img src="/profile-thumb.webp" alt="Jun" className="w-full h-full object-cover" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-foreground">{PROFILE.name}</h1>
-              <p className="text-xs text-muted-foreground">{PROFILE.title}</p>
+              <h1 className="scaled-lg font-bold text-foreground">{PROFILE.name}</h1>
+              <p className="scaled-sm text-muted-foreground">{PROFILE.title}</p>
             </div>
           </div>
 
@@ -256,8 +256,8 @@ export default function Portfolio() {
           <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-4 mb-10">
             {HIGHLIGHTS.slice(0, 4).map((h, i) => (
               <div key={i} className="flex flex-col">
-                <span className="font-mono text-sm font-bold text-foreground">{h.metric}</span>
-                <span className="text-[10px] text-muted-foreground font-mono">{h.label}</span>
+                <span className="font-mono scaled-heading font-bold text-foreground">{h.metric}</span>
+                <span className="scaled-xs text-muted-foreground font-mono">{h.label}</span>
               </div>
             ))}
           </div>
@@ -269,14 +269,14 @@ export default function Portfolio() {
                 <div key={i} className="py-4 border-b border-border/50 last:border-0">
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div>
-                      <h3 className="text-sm font-semibold text-foreground">{exp.company}</h3>
-                      <p className="text-xs text-muted-foreground">{exp.role} · {exp.location}</p>
+                      <h3 className="scaled-heading font-semibold text-foreground">{exp.company}</h3>
+                      <p className="scaled-sm text-muted-foreground">{exp.role} · {exp.location}</p>
                     </div>
-                    <span className="text-[10px] font-mono text-muted-foreground whitespace-nowrap">{exp.period}</span>
+                    <span className="scaled-xs font-mono text-muted-foreground whitespace-nowrap">{exp.period}</span>
                   </div>
                   <ul className="mt-2 space-y-1">
                     {exp.bullets.map((b, j) => (
-                      <li key={j} className="text-[11px] text-muted-foreground leading-relaxed pl-3 relative before:content-['·'] before:absolute before:left-0 before:text-accent">
+                      <li key={j} className="scaled-body text-muted-foreground leading-relaxed pl-3 relative before:content-['·'] before:absolute before:left-0 before:text-accent">
                         {b}
                       </li>
                     ))}
@@ -290,7 +290,7 @@ export default function Portfolio() {
           <CollapsibleSection id="skills" title="Skills">
             <div className="flex flex-wrap gap-1.5">
               {SKILLS.map((s) => (
-                <span key={s.name} className="text-[11px] font-mono px-2 py-0.5 border border-border text-muted-foreground rounded-md hover:border-accent/50 hover:text-accent transition-colors">
+                <span key={s.name} className="scaled-body font-mono px-2 py-0.5 border border-border text-muted-foreground rounded-md hover:border-accent/50 hover:text-accent transition-colors">
                   {s.name}
                 </span>
               ))}
@@ -337,7 +337,7 @@ export default function Portfolio() {
                         <span key={j} className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${tag === "AI" ? "border border-accent/50 text-accent" : "border border-border text-muted-foreground"}`}>{tag}</span>
                       ))}
                     </div>
-                    <p className="text-[11px] text-muted-foreground mb-2 leading-relaxed">{project.description}</p>
+                    <p className="scaled-body text-muted-foreground mb-2 leading-relaxed">{project.description}</p>
                     <div className="flex flex-wrap gap-1">
                       {project.tech.map((t, j) => (
                         <span key={j} className="text-[9px] font-mono px-1.5 py-0.5 bg-muted text-muted-foreground rounded">{t}</span>
@@ -367,11 +367,11 @@ export default function Portfolio() {
                 >
                   <span className="text-[10px] font-mono text-muted-foreground mt-0.5">{project.liveDemo ? <span className="text-green-500">●</span> : "↗"}</span>
                   <div className="min-w-0">
-                    <h3 className="text-xs font-semibold text-foreground group-hover:text-accent transition-colors">{project.title}</h3>
-                    <p className="text-[10px] text-muted-foreground mt-0.5">{project.description}</p>
+                    <h3 className="scaled-sm font-semibold text-foreground group-hover:text-accent transition-colors">{project.title}</h3>
+                    <p className="scaled-xs text-muted-foreground mt-0.5">{project.description}</p>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {project.tags.map((tag, j) => (
-                        <span key={j} className="text-[8px] font-mono px-1 py-0.5 rounded border border-border text-muted-foreground/60">{tag}</span>
+                        <span key={j} className="scaled-xs font-mono px-1 py-0.5 rounded border border-border text-muted-foreground/60">{tag}</span>
                       ))}
                     </div>
                   </div>
@@ -392,13 +392,13 @@ export default function Portfolio() {
                 <a key={i} href={project.link} target="_blank" rel="noopener noreferrer"
                   className="group flex items-start gap-3 p-3 border border-border rounded-lg hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-200"
                 >
-                  <span className="text-[10px] font-mono text-muted-foreground mt-0.5">{project.visibility === "private" ? "🔒" : "↗"}</span>
+                  <span className="scaled-xs font-mono text-muted-foreground mt-0.5">{project.visibility === "private" ? "🔒" : "↗"}</span>
                   <div className="min-w-0">
-                    <h3 className="text-xs font-semibold text-foreground group-hover:text-accent transition-colors">{project.title}</h3>
-                    <p className="text-[10px] text-muted-foreground mt-0.5">{project.description}</p>
+                    <h3 className="scaled-sm font-semibold text-foreground group-hover:text-accent transition-colors">{project.title}</h3>
+                    <p className="scaled-xs text-muted-foreground mt-0.5">{project.description}</p>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {project.tags.map((tag, j) => (
-                        <span key={j} className="text-[8px] font-mono px-1 py-0.5 rounded border border-border text-muted-foreground/60">{tag}</span>
+                        <span key={j} className="scaled-xs font-mono px-1 py-0.5 rounded border border-border text-muted-foreground/60">{tag}</span>
                       ))}
                     </div>
                   </div>
@@ -414,10 +414,10 @@ export default function Portfolio() {
                 <div key={i} className="py-3 border-b border-border/50 last:border-0">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <h3 className="text-sm font-semibold text-foreground">{edu.school}</h3>
-                      <p className="text-xs text-muted-foreground">{edu.degree}</p>
+                      <h3 className="scaled-heading font-semibold text-foreground">{edu.school}</h3>
+                      <p className="scaled-sm text-muted-foreground">{edu.degree}</p>
                     </div>
-                    <span className="text-[10px] font-mono text-muted-foreground whitespace-nowrap">{edu.year}</span>
+                    <span className="scaled-xs font-mono text-muted-foreground whitespace-nowrap">{edu.year}</span>
                   </div>
                 </div>
               ))}
@@ -456,12 +456,12 @@ export default function Portfolio() {
                 <div key={i} className="py-3 border-b border-border/50 last:border-0">
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div>
-                      <h3 className="text-sm font-semibold text-foreground">{award.title}</h3>
-                      <p className="text-xs text-muted-foreground">{award.org}</p>
+                      <h3 className="scaled-heading font-semibold text-foreground">{award.title}</h3>
+                      <p className="scaled-sm text-muted-foreground">{award.org}</p>
                     </div>
-                    <span className="text-[10px] font-mono text-muted-foreground whitespace-nowrap">{award.year}</span>
+                    <span className="scaled-xs font-mono text-muted-foreground whitespace-nowrap">{award.year}</span>
                   </div>
-                  <p className="text-[11px] text-muted-foreground leading-relaxed">{award.description}</p>
+                  <p className="scaled-body text-muted-foreground leading-relaxed">{award.description}</p>
                 </div>
               ))}
             </div>
@@ -473,12 +473,12 @@ export default function Portfolio() {
               <div className="py-3">
                 <div className="flex items-start justify-between gap-2 mb-1">
                   <div>
-                    <h3 className="text-sm font-semibold text-foreground">Keynote Speaker — SINFO 2024</h3>
-                    <p className="text-xs text-muted-foreground">Instituto Superior Técnico · Lisbon, Portugal</p>
+                    <h3 className="scaled-heading font-semibold text-foreground">Keynote Speaker — SINFO 2024</h3>
+                    <p className="scaled-sm text-muted-foreground">Instituto Superior Técnico · Lisbon, Portugal</p>
                   </div>
-                  <span className="text-[10px] font-mono text-muted-foreground whitespace-nowrap">2024</span>
+                  <span className="scaled-xs font-mono text-muted-foreground whitespace-nowrap">2024</span>
                 </div>
-                <p className="text-[11px] text-muted-foreground leading-relaxed">
+                <p className="scaled-body text-muted-foreground leading-relaxed">
                   Delivered a keynote at SINFO, one of Portugal's largest student-organized tech conferences. Shared insights on building high-scale frontend systems and payment architectures at HoYoverse, covering challenges of serving 8M daily active users across 100+ countries.
                 </p>
               </div>
@@ -487,7 +487,7 @@ export default function Portfolio() {
 
           {/* Contact */}
           <CollapsibleSection id="contact" title="Contact">
-            <div className="flex flex-wrap gap-4 text-xs font-mono items-center">
+            <div className="flex flex-wrap gap-4 scaled-sm font-mono items-center">
               <a href={`mailto:${PROFILE.email}`} className="text-muted-foreground hover:text-accent transition-colors">{PROFILE.email}</a>
               <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-muted-foreground hover:text-accent transition-colors">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
