@@ -253,6 +253,20 @@ export function useChatEngine() {
     toast.success("Conversation copied to clipboard!");
   }, [messages]);
 
+  const handleStopGenerating = useCallback(() => {
+    // Abort the active SSE stream
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    // Clear any simulated streaming timeout
+    if (streamingTimeoutRef.current) {
+      clearTimeout(streamingTimeoutRef.current);
+      streamingTimeoutRef.current = null;
+    }
+    setIsTyping(false);
+  }, []);
+
   const handleRegenerate = useCallback(
     async (assistantMsgId: string) => {
       if (isTyping) return;
@@ -305,6 +319,7 @@ export function useChatEngine() {
     usedChips,
     hasMessages: messages.length > 0,
     handleSend,
+    handleStopGenerating,
     handleRegenerate,
     handleShare,
     resetConversation,
