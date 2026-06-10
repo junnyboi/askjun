@@ -31,7 +31,7 @@ const PLACEHOLDERS = [
 export default function Home() {
   const {
     messages, input, setInput, isTyping, usedChips,
-    hasMessages, handleSend, handleShare, resetConversation,
+    hasMessages, handleSend, handleRegenerate, handleShare, resetConversation,
   } = useChatEngine();
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -350,38 +350,54 @@ export default function Home() {
                       <span className="text-[10px] font-mono text-muted-foreground">
                         {msg.role === "user" ? "you" : "askJun"}
                       </span>
-                      {/* Copy button for assistant messages */}
+                      {/* Copy + Regenerate buttons for assistant messages */}
                       {msg.role === "assistant" && msg.content && !isTyping && (
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              onClick={() => {
-                                const text = msg.content;
-                                if (navigator.clipboard && window.isSecureContext) {
-                                  navigator.clipboard.writeText(text).catch(() => {});
-                                } else {
-                                  const ta = document.createElement("textarea");
-                                  ta.value = text;
-                                  ta.style.position = "fixed";
-                                  ta.style.opacity = "0";
-                                  document.body.appendChild(ta);
-                                  ta.select();
-                                  try { document.execCommand("copy"); } catch {}
-                                  document.body.removeChild(ta);
-                                }
-                                setCopiedMsgId(msg.id);
-                                setTimeout(() => setCopiedMsgId(null), 2000);
-                              }}
-                              className="text-[9px] font-mono px-1.5 py-0.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all"
-                              aria-label="Copy response"
-                            >
-                              {copiedMsgId === msg.id ? "✓ copied" : "copy"}
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent side="top" className="text-xs font-mono">
-                            Copy response to clipboard
-                          </TooltipContent>
-                        </Tooltip>
+                        <>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <button
+                                onClick={() => {
+                                  const text = msg.content;
+                                  if (navigator.clipboard && window.isSecureContext) {
+                                    navigator.clipboard.writeText(text).catch(() => {});
+                                  } else {
+                                    const ta = document.createElement("textarea");
+                                    ta.value = text;
+                                    ta.style.position = "fixed";
+                                    ta.style.opacity = "0";
+                                    document.body.appendChild(ta);
+                                    ta.select();
+                                    try { document.execCommand("copy"); } catch {}
+                                    document.body.removeChild(ta);
+                                  }
+                                  setCopiedMsgId(msg.id);
+                                  setTimeout(() => setCopiedMsgId(null), 2000);
+                                }}
+                                className="text-[9px] font-mono px-1.5 py-0.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all"
+                                aria-label="Copy response"
+                              >
+                                {copiedMsgId === msg.id ? "✓ copied" : "copy"}
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent side="top" className="text-xs font-mono">
+                              Copy response to clipboard
+                            </TooltipContent>
+                          </Tooltip>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <button
+                                onClick={() => handleRegenerate(msg.id)}
+                                className="text-[9px] font-mono px-1.5 py-0.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all"
+                                aria-label="Regenerate response"
+                              >
+                                ↻
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent side="top" className="text-xs font-mono">
+                              Regenerate response
+                            </TooltipContent>
+                          </Tooltip>
+                        </>
                       )}
                       {msg.role === "assistant" && msg.retrievalType && msg.content && !isTyping && (
                         <Tooltip>

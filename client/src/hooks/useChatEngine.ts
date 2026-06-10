@@ -253,6 +253,44 @@ export function useChatEngine() {
     toast.success("Conversation copied to clipboard!");
   }, [messages]);
 
+  const handleRegenerate = useCallback(
+    async (assistantMsgId: string) => {
+      if (isTyping) return;
+
+      // Find the user message that preceded this assistant message
+      const msgIndex = messagesRef.current.findIndex(m => m.id === assistantMsgId);
+      if (msgIndex <= 0) return;
+      const userMsg = messagesRef.current[msgIndex - 1];
+      if (!userMsg || userMsg.role !== "user") return;
+
+      // Remove the old assistant response and replace with a new empty placeholder
+      const newAssistantId = `assistant-${Date.now()}`;
+      const messagesWithoutOld = messagesRef.current.filter(m => m.id !== assistantMsgId);
+      setMessages([...messagesWithoutOld, { id: newAssistantId, role: "assistant", content: "" }]);
+      setIsTyping(true);
+
+      // Detect appearance/generative UI for the original query
+      const lowerQuery = userMsg.content.toLowerCase();
+      const isAppearanceQuery = APPEARANCE_KEYWORDS.some(kw => lowerQuery.includes(kw));
+      const generativeUIType = detectGenerativeUI(userMsg.content);
+      if (generativeUIType) {
+        setMessages((prev) => prev.map((m) => m.id === newAssistantId ? { ...m, generativeUI: generativeUIType } : m));
+      }
+
+      try {
+        // Re-send with all messages up to (but not including) the old assistant response
+        const apiMessages = messagesWithoutOld.map((m) => ({ role: m.role, content: m.content }));
+        await streamFromServer(apiMessages, newAssistantId, isAppearanceQuery);
+      } catch {
+        const isToolUse = shouldSimulateToolUse(userMsg.content);
+        const response = isToolUse ? getToolUseResponse() : getResponse(userMsg.content);
+        setMessages((prev) => prev.map((m) => m.id === newAssistantId ? { ...m, retrievalType: "fallback" } : m));
+        simulateStreaming(response.text, newAssistantId, isToolUse ? response.toolUse : undefined, isAppearanceQuery || response.showProfileImage);
+      }
+    },
+    [isTyping, streamFromServer, simulateStreaming]
+  );
+
   const resetConversation = useCallback(() => {
     if (abortControllerRef.current) abortControllerRef.current.abort();
     setMessages([]);
@@ -267,6 +305,7 @@ export function useChatEngine() {
     usedChips,
     hasMessages: messages.length > 0,
     handleSend,
+    handleRegenerate,
     handleShare,
     resetConversation,
   };
