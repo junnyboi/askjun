@@ -87,26 +87,36 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handler);
   }, [messages]);
 
-  // Auto-scroll to bottom during streaming — always scroll when typing, smooth when near bottom
-  const scrollRAFRef = useRef<number | null>(null);
+  // Scroll behavior: smooth scroll to the TOP of the latest assistant response, then hold
+  const hasScrolledToResponseRef = useRef(false);
+  const lastAssistantIdRef = useRef<string | null>(null);
+
   useEffect(() => {
     if (!scrollRef.current) return;
-    if (scrollRAFRef.current) cancelAnimationFrame(scrollRAFRef.current);
-    scrollRAFRef.current = requestAnimationFrame(() => {
-      if (!scrollRef.current) return;
-      if (isTyping) {
-        // Always scroll to bottom during active generation (SSE or simulated)
-        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-      } else {
-        // After generation completes, smooth scroll to show the final content
-        const { scrollHeight, scrollTop, clientHeight } = scrollRef.current;
-        const isNearBottom = scrollHeight - scrollTop - clientHeight < 200;
-        if (isNearBottom) {
-          scrollRef.current.scrollTo({ top: scrollHeight, behavior: "smooth" });
+
+    // Detect when a new assistant message appears (empty placeholder inserted)
+    const lastMsg = messages[messages.length - 1];
+    if (lastMsg?.role === "assistant" && lastMsg.id !== lastAssistantIdRef.current) {
+      // New assistant response started
+      lastAssistantIdRef.current = lastMsg.id;
+      hasScrolledToResponseRef.current = false;
+    }
+
+    // Smooth scroll to the top of the response element once
+    if (lastMsg?.role === "assistant" && !hasScrolledToResponseRef.current) {
+      hasScrolledToResponseRef.current = true;
+      requestAnimationFrame(() => {
+        const responseEl = scrollRef.current?.querySelector(`[data-msg-id="${lastMsg.id}"]`);
+        if (responseEl && scrollRef.current) {
+          const containerTop = scrollRef.current.getBoundingClientRect().top;
+          const elementTop = responseEl.getBoundingClientRect().top;
+          const offset = elementTop - containerTop + scrollRef.current.scrollTop - 24; // 24px breathing room
+          scrollRef.current.scrollTo({ top: offset, behavior: "smooth" });
         }
-      }
-    });
-  }, [messages, isTyping]);
+      });
+    }
+    // No further scrolling during streaming — user reads from the top of the response
+  }, [messages]);
 
   // Speech-to-text
   const { isListening, isSupported: isSpeechSupported, toggleListening } = useSpeechToText({
@@ -307,7 +317,7 @@ export default function Home() {
             /* ============ MESSAGES ============ */
             <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 py-6 space-y-6">
               {messages.map((msg) => (
-                <div key={msg.id} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                <div key={msg.id} data-msg-id={msg.id} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div className={`max-w-[85%] ${msg.role === "assistant" ? "border-l-2 border-accent pl-4" : ""}`}>
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-[10px] font-mono text-muted-foreground">
