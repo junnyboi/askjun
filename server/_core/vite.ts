@@ -24,6 +24,13 @@ export async function setupVite(app: Express, server: Server) {
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl;
 
+    // Guard: never serve HTML for static asset paths (PDF, images, fonts, etc.)
+    const STATIC_EXTENSIONS = /\.(pdf|png|jpg|jpeg|webp|gif|svg|ico|woff2?|ttf|eot|mp4|mp3|zip|json|xml|txt|css|js|map)$/i;
+    if (STATIC_EXTENSIONS.test(url)) {
+      res.status(404).send("Not found");
+      return;
+    }
+
     try {
       const clientTemplate = path.resolve(
         import.meta.dirname,
@@ -60,8 +67,14 @@ export function serveStatic(app: Express) {
 
   app.use(express.static(distPath));
 
-  // fall through to index.html if the file doesn't exist
-  app.use("*", (_req, res) => {
+  // fall through to index.html if the file doesn't exist (SPA routing)
+  // Guard: never serve HTML for static asset paths — return 404 instead
+  const STATIC_EXTENSIONS = /\.(pdf|png|jpg|jpeg|webp|gif|svg|ico|woff2?|ttf|eot|mp4|mp3|zip|json|xml|txt|css|js|map)$/i;
+  app.use("*", (req, res) => {
+    if (STATIC_EXTENSIONS.test(req.originalUrl)) {
+      res.status(404).send("Not found");
+      return;
+    }
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }
