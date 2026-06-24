@@ -126,6 +126,14 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
       response: "Jun prefers **Singapore-based roles** (onsite or hybrid). He's open to compelling remote opportunities for the right company and role. Best to discuss specifics directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",
     },
   },
+  // Who is Jun — prevent LLM from inflating title/experience
+  {
+    keywords: ["who is jun", "tell me about jun", "introduce jun", "jun boh", "about him"],
+    match: {
+      category: "who_is_jun",
+      response: "Jun Boh is a **Senior Software Engineer** with **7+ years** of professional experience (2019–present), currently at **Meta (Manus AI)** in Singapore.\n\nHe specializes in frontend engineering at scale — building AI agent conversation interfaces, payment systems processing $57M in launch weeks, and auth flows handling 15M sign-ups in 48 hours.\n\n**Career path:** Meta (Manus AI) → Instawork → HoYoverse → TikTok/ByteDance → Bank of Singapore → DBS Bank\n\nHe's currently exploring **Forward Deployed Engineer or Senior Software Engineer** opportunities at companies building AI-native products.",
+    },
+  },
   // Self-identification — prevent LLM from hallucinating about what askjun.org is
   {
     keywords: [
