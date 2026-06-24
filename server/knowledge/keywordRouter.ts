@@ -126,6 +126,14 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
       response: "Jun prefers **Singapore-based roles** (onsite or hybrid). He's open to compelling remote opportunities for the right company and role. Best to discuss specifics directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",
     },
   },
+  // Self-identification — prevent LLM from hallucinating about what askjun.org is
+  {
+    keywords: ["what is askjun", "what's askjun", "about askjun", "about this site", "about this website", "what is this", "what does this site do", "what is this chatbot", "who made this", "who built this"],
+    match: {
+      category: "self_identification",
+      response: "**askjun.org** is Jun Boh's AI-powered portfolio website. It's a chat-first interface where recruiters, hiring managers, and anyone curious can ask questions about Jun's professional experience, skills, and career.\n\nThe site is built by Jun himself as a showcase of his frontend engineering and AI skills — it uses React, TypeScript, GPT-4.1-mini, and a hybrid RAG system with real-time SSE streaming. Think of it as a conversational resume.\n\nYou're talking to me right now! I'm the AI assistant trained specifically on Jun's career data. I can tell you about his work at Meta, HoYoverse, TikTok, and more.",
+    },
+  },
   // ✦ Generative UI chip routes — return Jun-specific summaries alongside the interactive components
   {
     keywords: ["\u2726 career timeline", "show me his career timeline"],
