@@ -116,7 +116,7 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
     keywords: ["looking for", "what kind of role", "ideal role", "type of role", "interested in"],
     match: {
       category: "role_interest",
-      response: "Jun is looking for **Senior Frontend or Full Stack roles** at companies building AI-native products, working at scale with millions of users, and driving technical innovation. Singapore-based preferred, but open to compelling opportunities. He's particularly drawn to roles where he can architect complex UIs for AI systems.",
+      response: "Jun is looking for **Forward Deployed Engineer or Senior Software Engineer roles** at companies building AI-native products, working at scale with millions of users, and driving technical innovation. Singapore-based preferred, but open to compelling opportunities. He's particularly drawn to roles where he can architect complex UIs for AI systems.",
     },
   },
   {
