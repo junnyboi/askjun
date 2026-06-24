@@ -128,10 +128,20 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
   },
   // Self-identification — prevent LLM from hallucinating about what askjun.org is
   {
-    keywords: ["what is askjun", "what's askjun", "about askjun", "about this site", "about this website", "what is this", "what does this site do", "what is this chatbot", "who made this", "who built this"],
+    keywords: [
+      "what is askjun", "what's askjun", "about askjun", "about this site", "about this website",
+      "what is this", "what does this site do", "what is this chatbot",
+      "who made this", "who built this", "how was this built", "how were you built",
+      "how was askjun built", "how did jun build", "did jun build", "did jun really build",
+      "what are you", "who are you", "are you an ai", "are you a bot",
+      "are you chatgpt", "are you gpt", "are you gemini", "are you google",
+      "what model are you", "what model is this", "what llm", "which ai",
+      "what ai is this", "what powers this", "how does this work",
+      "are you real", "are you human",
+    ],
     match: {
       category: "self_identification",
-      response: "**askjun.org** is Jun Boh's AI-powered portfolio website. It's a chat-first interface where recruiters, hiring managers, and anyone curious can ask questions about Jun's professional experience, skills, and career.\n\nThe site is built by Jun himself as a showcase of his frontend engineering and AI skills — it uses React, TypeScript, GPT-4.1-mini, and a hybrid RAG system with real-time SSE streaming. Think of it as a conversational resume.\n\nYou're talking to me right now! I'm the AI assistant trained specifically on Jun's career data. I can tell you about his work at Meta, HoYoverse, TikTok, and more.\n\n**Quick links:**\n- [Download Jun's Resume (PDF)](/assets/JunBoh-CV-2026.pdf)\n- [View Full Portfolio](/portfolio)",
+      response: "**askjun.org** is Jun Boh's AI-powered portfolio website. It's a chat-first interface where recruiters, hiring managers, and anyone curious can ask questions about Jun's professional experience, skills, and career.\n\nThe site is built by Jun himself as a showcase of his frontend engineering and AI skills — it uses React, TypeScript, GPT-4.1-mini, and a hybrid RAG system with real-time SSE streaming. Think of it as a conversational resume.\n\nYou're talking to me right now! I'm the AI assistant trained specifically on Jun's career data. I can tell you about his work at Meta, HoYoverse, TikTok, and more.",
     },
   },
   // ✦ Generative UI chip routes — return Jun-specific summaries alongside the interactive components

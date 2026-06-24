@@ -277,3 +277,10 @@
 ## UX: Scroll & Copy Enhancements
 - [x] Add floating 'scroll to bottom' button when streamed response exceeds viewport height
 - [x] Add per-response 'copy to clipboard' button on each assistant message
+
+## Bug Fix: Blocked Links + Action Buttons + Identity Edge Cases
+- [ ] Fix blocked markdown links — replace relative URL links with inline action buttons (Download CV button, View Portfolio button)
+- [ ] Add "what are you" and identity questions to keyword router (prevent LLM from revealing itself as Google/OpenAI model)
+- [ ] Make resume keyword route trigger the toolUse mechanism so the inline Download CV button renders
+- [ ] Run comprehensive edge case testing and compile results table
+- [ ] Fix all issues found during testing

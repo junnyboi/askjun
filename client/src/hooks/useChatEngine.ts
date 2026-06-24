@@ -20,6 +20,8 @@ export interface Message {
   content: string;
   toolUse?: { action: string; status: string };
   showProfileImage?: boolean;
+  showDownloadCV?: boolean;
+  showPortfolioLink?: boolean;
   retrievalType?: "keyword" | "semantic" | "fallback";
   generativeUI?: GenerativeUIType;
 }
@@ -217,9 +219,20 @@ export function useChatEngine() {
       const isAppearanceQuery = APPEARANCE_KEYWORDS.some(kw => lowerQuery.includes(kw));
       const generativeUIType = detectGenerativeUI(query);
 
-      // Set generativeUI type on the message immediately
-      if (generativeUIType) {
-        setMessages((prev) => prev.map((m) => m.id === assistantMsgId ? { ...m, generativeUI: generativeUIType } : m));
+      // Detect if we should show action buttons
+      const CV_KEYWORDS = ["resume", "cv", "download cv", "pdf", "download his", "give me his cv"];
+      const PORTFOLIO_KEYWORDS = ["portfolio", "experience", "projects", "what is askjun", "about this site", "about askjun", "what are you", "who are you"];
+      const showDownloadCV = CV_KEYWORDS.some(kw => lowerQuery.includes(kw));
+      const showPortfolioLink = PORTFOLIO_KEYWORDS.some(kw => lowerQuery.includes(kw));
+
+      // Set generativeUI type and action buttons on the message immediately
+      if (generativeUIType || showDownloadCV || showPortfolioLink) {
+        setMessages((prev) => prev.map((m) => m.id === assistantMsgId ? {
+          ...m,
+          ...(generativeUIType ? { generativeUI: generativeUIType } : {}),
+          ...(showDownloadCV ? { showDownloadCV: true } : {}),
+          ...(showPortfolioLink ? { showPortfolioLink: true } : {}),
+        } : m));
       }
 
       try {
