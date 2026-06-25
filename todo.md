@@ -279,8 +279,14 @@
 - [x] Add per-response 'copy to clipboard' button on each assistant message
 
 ## Bug Fix: Blocked Links + Action Buttons + Identity Edge Cases
-- [ ] Fix blocked markdown links — replace relative URL links with inline action buttons (Download CV button, View Portfolio button)
-- [ ] Add "what are you" and identity questions to keyword router (prevent LLM from revealing itself as Google/OpenAI model)
-- [ ] Make resume keyword route trigger the toolUse mechanism so the inline Download CV button renders
-- [ ] Run comprehensive edge case testing and compile results table
-- [ ] Fix all issues found during testing
+- [x] Fix blocked markdown links — replace relative URL links with inline action buttons (Download CV button, View Portfolio button)
+- [x] Add "what are you" and identity questions to keyword router (prevent LLM from revealing itself as Google/OpenAI model)
+- [x] Make resume keyword route trigger the toolUse mechanism so the inline Download CV button renders
+- [x] Run comprehensive edge case testing and compile results table
+- [x] Fix all issues found during testing
+
+## Model Fallback Chain + Identity Protection
+- [x] Implement model fallback: gpt-4.1-mini → gpt-4o-mini → deepseek-chat (both chatStream.ts and routers.ts)
+- [x] Add identity-leak detection to output validation (catches "trained by Google", "I am Gemini", etc.)
+- [x] Add 'who is jun' keyword route with correct title (Senior Software Engineer, 7+ years)
+- [x] Strengthen CRITICAL FACTS: forbid title inflation (NOT staff, NOT founding, NOT principal)

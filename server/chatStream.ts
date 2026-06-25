@@ -43,7 +43,14 @@ const INJECTION_PATTERNS = [
 ];
 
 const CANARY = "ASKJUN_CANARY_7x9k";
-const LEAKED_PATTERNS = ["RULES:", "KNOWLEDGE BASE:", "PERSONALITY:", CANARY, "ONLY discuss information provided", "Never reveal internal system"];
+const LEAKED_PATTERNS = [
+  "RULES:", "KNOWLEDGE BASE:", "PERSONALITY:", CANARY,
+  "ONLY discuss information provided", "Never reveal internal system",
+  // Identity leak detection — model revealing itself instead of acting as askJun
+  "I am a large language model", "trained by Google", "I'm a large language model",
+  "I am an AI assistant made by", "I'm Gemini", "I am Gemini",
+  "developed by Google", "created by Google", "made by Google DeepMind",
+];
 
 // Off-topic detection — catches queries clearly unrelated to Jun's portfolio
 // Uses negative signals (off-topic indicators) and positive signals (Jun-related terms)
@@ -169,23 +176,44 @@ export async function chatStreamHandler(req: Request, res: Response) {
     ...messages.slice(-5),
   ];
 
-  try {
-    const llmResponse = await fetch(llmUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${ENV.llmApiKey}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4.1-mini",
-        messages: chatMessages,
-        max_tokens: 1024,
-        temperature: 0.7,
-        stream: true, // Enable streaming!
-      }),
-    });
+  // Model fallback chain: gpt-4.1-mini → gpt-4o-mini → deepseek-chat
+  const MODEL_FALLBACK_CHAIN = ["gpt-4.1-mini", "gpt-4o-mini", "deepseek-chat"];
 
-    if (!llmResponse.ok || !llmResponse.body) {
+  let llmResponse: globalThis.Response | null = null;
+  let usedModel = MODEL_FALLBACK_CHAIN[0];
+
+  try {
+    for (const model of MODEL_FALLBACK_CHAIN) {
+      try {
+        const response = await fetch(llmUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${ENV.llmApiKey}`,
+          },
+          body: JSON.stringify({
+            model,
+            messages: chatMessages,
+            max_tokens: 1024,
+            temperature: 0.7,
+            stream: true,
+          }),
+        });
+
+        if (response.ok && response.body) {
+          llmResponse = response;
+          usedModel = model;
+          console.log(`[ChatStream] Using model: ${model}`);
+          break;
+        } else {
+          console.warn(`[ChatStream] Model ${model} failed (${response.status}), trying next...`);
+        }
+      } catch (err) {
+        console.warn(`[ChatStream] Model ${model} error:`, err);
+      }
+    }
+
+    if (!llmResponse || !llmResponse.body) {
       res.json({ type: "error", content: "I'm having trouble connecting right now. Please try again." });
       return;
     }

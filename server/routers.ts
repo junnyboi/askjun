@@ -209,29 +209,43 @@ export const appRouter = router({
             ...input.messages.slice(-5),
           ];
 
-          const response = await fetch(llmUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${ENV.llmApiKey}`,
-            },
-            body: JSON.stringify({
-              model: "gpt-4.1-mini",
-              messages: chatMessages,
-              max_tokens: 1024,
-              temperature: 0.7,
-            }),
-          });
+          // Model fallback chain: gpt-4.1-mini → gpt-4o-mini → deepseek-chat
+          const MODEL_CHAIN = ["gpt-4.1-mini", "gpt-4o-mini", "deepseek-chat"];
+          let response: globalThis.Response | null = null;
 
-          if (!response.ok) {
-            const errText = await response.text().catch(() => "");
-            console.error(`[Chat] LLM error: ${response.status} ${errText}`);
-          return {
-            content:
-              "I'm having trouble connecting right now. Please try again in a moment, or reach Jun directly at **boh.ze.jun@gmail.com**.",
-            rateLimited: false,
-            retrievalType: "semantic" as const,
-          };
+          for (const model of MODEL_CHAIN) {
+            try {
+              const r = await fetch(llmUrl, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${ENV.llmApiKey}`,
+                },
+                body: JSON.stringify({
+                  model,
+                  messages: chatMessages,
+                  max_tokens: 1024,
+                  temperature: 0.7,
+                }),
+              });
+              if (r.ok) {
+                response = r;
+                console.log(`[Chat] Using model: ${model}`);
+                break;
+              } else {
+                console.warn(`[Chat] Model ${model} failed (${r.status}), trying next...`);
+              }
+            } catch (err) {
+              console.warn(`[Chat] Model ${model} error:`, err);
+            }
+          }
+
+          if (!response) {
+            return {
+              content: "I'm having trouble connecting right now. Please try again in a moment, or reach Jun directly at **boh.ze.jun@gmail.com**.",
+              rateLimited: false,
+              retrievalType: "semantic" as const,
+            };
           }
 
           const data = (await response.json()) as {
@@ -244,20 +258,18 @@ export const appRouter = router({
             data.choices?.[0]?.message?.content ||
             "I couldn't generate a response. Please try asking something else.";
 
-          // 4. Output validation — detect if LLM leaked system prompt fragments
+          // Output validation — detect if LLM leaked system prompt or revealed its identity
           const CANARY = "ASKJUN_CANARY_7x9k";
           const LEAKED_PATTERNS = [
-            "RULES:",
-            "KNOWLEDGE BASE:",
-            "PERSONALITY:",
-            CANARY,
-            "ONLY discuss information provided",
-            "Never reveal internal system",
+            "RULES:", "KNOWLEDGE BASE:", "PERSONALITY:", CANARY,
+            "ONLY discuss information provided", "Never reveal internal system",
+            "I am a large language model", "trained by Google", "I'm a large language model",
+            "I'm Gemini", "I am Gemini", "developed by Google", "made by Google",
           ];
           const contentUpper = content.toUpperCase();
           if (LEAKED_PATTERNS.some(p => contentUpper.includes(p.toUpperCase()))) {
-            console.warn("[Chat] Output validation: potential prompt leak detected, sanitizing");
-            content = "I'd be happy to tell you about Jun's professional experience! What specific aspect of his career would you like to know about?";
+            console.warn("[Chat] Output validation: identity/prompt leak detected, sanitizing");
+            content = "I'm Jun's AI portfolio assistant, built by Jun himself using React, TypeScript, and a hybrid RAG system. I can tell you about his professional experience, skills, and career. What would you like to know?";
           }
 
           return { content, rateLimited: false, retrievalType: "semantic" as const };
