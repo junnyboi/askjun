@@ -170,11 +170,13 @@ export function useChatEngine() {
                   content: fullContent,
                 } : m));
               } else if (parsed.type === "replace") {
-                // Output validation triggered — replace entire content
+                // Output validation triggered (hallucination/identity leak) — replace entire content + show action buttons
                 fullContent = parsed.content;
                 setMessages((prev) => prev.map((m) => m.id === msgId ? {
                   ...m,
                   content: fullContent,
+                  showDownloadCV: true,
+                  showPortfolioLink: true,
                 } : m));
               } else if (parsed.type === "done") {
                 // Stream complete
