@@ -296,7 +296,7 @@ export async function chatStreamHandler(req: Request, res: Response) {
     }
 
     if (shouldReplace) {
-      fullContent = "I'd be happy to tell you about Jun's professional experience! He has worked at **Meta (Manus AI)**, **Instawork**, **HoYoverse**, **TikTok/ByteDance**, **Bank of Singapore**, and **DBS Bank**. What specific role or company would you like to know more about?";
+      fullContent = "Jun is currently a **Senior Frontend Software Engineer at Meta (Manus AI)** in Singapore, building the core AI agent conversation interface. He has 7+ years of experience across **Meta**, **Instawork**, **HoYoverse**, **TikTok/ByteDance**, **Bank of Singapore**, and **DBS Bank**. What specific role or company would you like to know more about?";
       res.write(`data: ${JSON.stringify({ type: "replace", content: fullContent })}\n\n`);
     }
 
