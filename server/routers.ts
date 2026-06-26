@@ -267,9 +267,35 @@ export const appRouter = router({
             "I'm Gemini", "I am Gemini", "developed by Google", "made by Google",
           ];
           const contentUpper = content.toUpperCase();
+          let shouldSanitize = false;
+
           if (LEAKED_PATTERNS.some(p => contentUpper.includes(p.toUpperCase()))) {
-            console.warn("[Chat] Output validation: identity/prompt leak detected, sanitizing");
-            content = "I'm Jun's AI portfolio assistant, built by Jun himself using React, TypeScript, and a hybrid RAG system. I can tell you about his professional experience, skills, and career. What would you like to know?";
+            console.warn("[Chat] Output validation: identity/prompt leak detected");
+            shouldSanitize = true;
+          }
+
+          // Company hallucination detection
+          const HALLUCINATED_COMPANIES = [
+            "SHOPEE", "GRAB", "LAZADA", "SEA GROUP", "RAZER", "GARENA",
+            "GOOGLE", "AMAZON", "APPLE", "MICROSOFT", "NETFLIX", "UBER",
+            "STRIPE", "AIRBNB", "SPOTIFY", "TWITTER", "SNAP",
+            "BINANCE", "CRYPTO.COM", "REVOLUT", "WISE",
+            "SHOPIFY", "SALESFORCE", "ORACLE", "SAP",
+            "JPMORGAN", "GOLDMAN", "MORGAN STANLEY", "CITIBANK", "OCBC", "UOB",
+          ];
+          const WORK_VERBS = ["WORKED AT", "JOINED", "WAS AT", "EMPLOYED AT", "ROLE AT", "POSITION AT", "TIME AT", "STINT AT", "EXPERIENCE AT"];
+          for (const company of HALLUCINATED_COMPANIES) {
+            if (contentUpper.includes(company)) {
+              if (WORK_VERBS.some(verb => contentUpper.includes(verb + " " + company) || contentUpper.includes("AT " + company))) {
+                console.warn(`[Chat] Hallucination detected: claimed Jun worked at ${company}`);
+                shouldSanitize = true;
+                break;
+              }
+            }
+          }
+
+          if (shouldSanitize) {
+            content = "I'd be happy to tell you about Jun's professional experience! He has worked at **Meta (Manus AI)**, **Instawork**, **HoYoverse**, **TikTok/ByteDance**, **Bank of Singapore**, and **DBS Bank**. What specific role or company would you like to know more about?";
           }
 
           return { content, rateLimited: false, retrievalType: "semantic" as const };

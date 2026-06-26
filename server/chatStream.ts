@@ -264,9 +264,39 @@ export async function chatStreamHandler(req: Request, res: Response) {
 
     // Output validation on the full response
     const contentUpper = fullContent.toUpperCase();
+    let shouldReplace = false;
+
+    // Check for prompt/identity leaks
     if (LEAKED_PATTERNS.some(p => contentUpper.includes(p.toUpperCase()))) {
-      // Send a replacement — client should discard previous tokens
-      fullContent = "I'd be happy to tell you about Jun's professional experience! What specific aspect of his career would you like to know about?";
+      shouldReplace = true;
+    }
+
+    // Check for company hallucinations — Jun ONLY worked at these companies
+    const REAL_COMPANIES = ["META", "MANUS", "INSTAWORK", "HOYOVERSE", "HOYO", "TIKTOK", "BYTEDANCE", "BANK OF SINGAPORE", "DBS"];
+    const HALLUCINATED_COMPANIES = [
+      "SHOPEE", "GRAB", "LAZADA", "SEA GROUP", "RAZER", "GARENA",
+      "GOOGLE", "AMAZON", "APPLE", "MICROSOFT", "NETFLIX", "UBER",
+      "STRIPE", "AIRBNB", "SPOTIFY", "TWITTER", "SNAP",
+      "BINANCE", "CRYPTO.COM", "REVOLUT", "WISE",
+      "SHOPIFY", "SALESFORCE", "ORACLE", "SAP",
+      "JPMORGAN", "GOLDMAN", "MORGAN STANLEY", "CITIBANK",
+      "OCBC", "UOB",
+    ];
+    // Only flag if the response claims Jun "worked at" or "joined" a hallucinated company
+    const WORK_VERBS = ["WORKED AT", "JOINED", "WAS AT", "EMPLOYED AT", "ROLE AT", "POSITION AT", "TIME AT", "STINT AT", "EXPERIENCE AT"];
+    for (const company of HALLUCINATED_COMPANIES) {
+      if (contentUpper.includes(company)) {
+        // Check if it's in a work context (not just mentioning the company in passing)
+        if (WORK_VERBS.some(verb => contentUpper.includes(verb + " " + company) || contentUpper.includes(company + "'") || contentUpper.includes("AT " + company))) {
+          console.warn(`[ChatStream] Hallucination detected: claimed Jun worked at ${company}`);
+          shouldReplace = true;
+          break;
+        }
+      }
+    }
+
+    if (shouldReplace) {
+      fullContent = "I'd be happy to tell you about Jun's professional experience! He has worked at **Meta (Manus AI)**, **Instawork**, **HoYoverse**, **TikTok/ByteDance**, **Bank of Singapore**, and **DBS Bank**. What specific role or company would you like to know more about?";
       res.write(`data: ${JSON.stringify({ type: "replace", content: fullContent })}\n\n`);
     }
 
