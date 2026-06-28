@@ -1,0 +1,753 @@
+prompt,category,response_type,classification,content,length
+Does he know CSS well?,technical_skills,semantic,PASS,"Yes, Jun has a strong command of CSS. As a Senior Frontend Software Engineer, proficiency in CSS is fundamental to his work in building complex and user-friendly interfaces. He uses it regularly alongside React and TypeScript to create responsive and aesthetically pleasing web applications.",291
+Has he used Tailwind?,technical_skills,semantic,PASS,"Yes, Jun has experience using Tailwind CSS. While it's not explicitly listed in his current Meta role description, he has leveraged it in previous projects and is proficient with modern CSS frameworks.",201
+What about styled-components?,technical_skills,semantic,PASS,"Styled-components is a fantastic library for styling React applications using tagged template literals and CSS-in-JS. Jun has extensive experience working with it, particularly in building highly dynamic and component-driven user interfaces.
+
+He's used styled-components to:
+*   **Create reusable UI components:** Encapsulating styles directly with components for better maintainability and encapsulation.
+*   **Manage themes:** Implementing theming solutions to easily switch between different visua",993
+Does he know SASS?,technical_skills,semantic,PASS,"Yes, Jun is proficient with SASS. He has extensive experience with various styling preprocessors and methodologies, including SASS, in building robust and maintainable frontend architectures.",191
+Has he built design systems?,technical_skills,semantic,PASS,"Yes, Jun has experience building design systems.
+
+At **Instawork**, he was a key contributor to the **Instawork Design System (IWDS)**. He built a comprehensive React component library from the ground up, following a component-driven development approach. This system was vital for ensuring consistency and efficiency across Instawork's various platforms.
+
+Jun also has experience implementing design systems in other roles, ensuring UI consistency and improving developer velocity.",482
+Does he know Figma?,technical_skills,semantic,PASS,"Yes, Jun is proficient with Figma. He has extensive experience working with designers and implementing user interfaces from Figma designs, ensuring pixel-perfect and responsive frontends.",187
+Can he do responsive design?,technical_skills,semantic,PASS,"Yes, Jun is highly proficient in responsive design. As a Senior Frontend Software Engineer, he has extensive experience building user interfaces that adapt seamlessly across various devices and screen sizes.
+
+His expertise includes:
+*   **CSS Frameworks & Methodologies:** Utilizing modern CSS techniques and frameworks to ensure flexible layouts.
+*   **Cross-browser Compatibility:** Ensuring applications look and function correctly on all major browsers.
+*   **Performance Optimization:** Designin",726
+What about accessibility?,technical_skills,semantic,PASS,"Accessibility is a crucial aspect of software development, and Jun understands its importance in creating inclusive products. While I don't have specific metrics or projects dedicated solely to accessibility from his past roles, Jun's experience at companies like Meta, TikTok, and HoYoverse, which serve massive global user bases, means he has worked on platforms where accessibility considerations are often built into the development process.
+
+For instance, at Meta, where he worked on the core AI",1144
+Does he know Python?,technical_skills,semantic,PASS,"Yes, Jun is proficient in Python. It's listed as one of the languages he's skilled in. He has experience with it in various capacities, including backend development with frameworks like Django.",194
+How proficient is he in Python?,technical_skills,semantic,PASS,"Jun is proficient in **Python**. He has experience using it in various professional settings, including backend development.
+
+For example, at **Instawork**, he utilized Python within a Django framework to enhance the reliability and scalability of their platform. He also leveraged Python at **TikTok/ByteDance** for backend development, specifically for building scalable services that supported features for over 8 million daily active users.
+
+So, while his primary focus has often been on frontend",601
+Has he done machine learning?,technical_skills,semantic,PASS,"Yes, Jun has experience with machine learning, particularly in the context of building AI-powered products.
+
+At Meta (Manus AI), he **spearheaded the core AI agent conversation interface and collaboration platform**. This involved working with AI agents, which inherently leverages machine learning models for their conversational capabilities. He also **vibe-coded two production-ready games that went viral internally**, which were game development use cases for the Manus AI platform. This demonst",603
+Does he know TensorFlow?,technical_skills,semantic,PASS,"Jun's primary expertise is in frontend and full-stack development, with a strong focus on React, TypeScript, and modern web technologies. While he has a deep understanding of AI concepts and has worked on AI-powered platforms, his direct experience with machine learning frameworks like TensorFlow is not a core part of his public-facing portfolio.
+
+He focuses more on integrating and building user interfaces for AI agents, rather than developing the underlying AI models themselves.",484
+What about PyTorch?,technical_skills,semantic,PASS,"While PyTorch is a powerful deep learning framework, Jun's primary experience doesn't involve direct PyTorch development. His work at Meta (Manus AI) focused on the **frontend and full-stack development of AI agent interfaces and collaboration platforms**, rather than building the underlying AI models themselves.
+
+He's very much interested in how these models are integrated and deployed to create impactful user experiences, and his work at Manus AI involved utilizing AI agents, but not training ",518
+Has he built AI features?,technical_skills,semantic,PASS,"Yes, absolutely! Jun has been deeply involved in building AI features, especially in his current role at Meta (Manus AI).
+
+He **spearheaded the core frontend architecture** for Manus's advanced AI agent platform. This involved:
+*   Pioneering the **'AI agent conversation' interface**, implementing real-time streaming responses, context management, and interactive UI components for seamless multi-turn agent interactions.
+*   Architecting critical product features like **scheduled task management*",846
+Does he know Golang?,technical_skills,semantic,PASS,"Yes, Jun is proficient in Golang. He used it during his time at TikTok/ByteDance to build backend-for-frontend (BFF) services and implement global payments infrastructure.",171
+How experienced with Go?,technical_skills,semantic,PASS,"Jun has strong experience with Go, particularly in backend and microservices development. He's utilized it for building robust and scalable systems.
+
+For example, at **Instawork**, he used Go to develop a new real-time notification service, significantly improving message delivery efficiency. At **HoYoverse**, he worked on critical payment and account systems where Go was instrumental in handling high transaction volumes and ensuring system reliability.
+
+His experience with Go primarily revolves",839
+Has he built microservices?,technical_skills,semantic,PASS,"Yes, Jun has experience building microservices.
+
+At **HoYoverse**, he was instrumental in developing and maintaining microservices for their payment and accounts systems. These systems handled a massive scale, processing approximately USD $57 million on launch week and supporting 8 million daily active users. His work involved integrating over 50 payment methods and supporting users in more than 100 countries, all powered by a microservices architecture.
+
+He also worked with microservices at **T",764
+What about distributed systems?,technical_skills,semantic,PASS,"Jun has experience working with distributed systems, particularly in his roles at HoYoverse and TikTok/ByteDance.
+
+At **HoYoverse**, he was instrumental in building and scaling payment and account systems that processed significant transaction volumes and supported millions of users globally. This involved designing and implementing solutions that could handle high concurrency and ensure data consistency across distributed environments.
+
+At **TikTok/ByteDance**, he worked on features that needed",896
+Does he know Java?,technical_skills,semantic,PASS,"Yes, Jun is proficient in Java. He used it during his time at Bank of Singapore, where he engineered a front-office web application backed by Java Spring Boot microservices.",173
+How experienced with Java?,technical_skills,semantic,PASS,"Jun has experience with Java, particularly from his time at Bank of Singapore where he engineered a **RM front-office web app** using React JS, backed by **Java Spring Boot microservices** and Kafka.
+
+While he's proficient in it, his primary focus and more extensive experience lie in JavaScript/TypeScript and Python for frontend and full-stack development.",358
+Does he know C#?,technical_skills,semantic,PASS,"That's a great question! While Jun is proficient in a wide range of technologies, his primary expertise lies in **TypeScript**, **JavaScript**, and **React** for frontend development, and **Node.js** and **Python** for backend systems.
+
+He has experience with a variety of languages and frameworks, but C# is not listed as one of his core proficiencies. If you have a specific project requiring C#, you can always reach out to him directly to discuss his adaptability and learning speed! You can cont",563
+Has he used Unity?,technical_skills,semantic,PASS,"Yes, Jun has used Unity! He built a 2D game called **Gobbo** using Unity with C#. It was a passion project he worked on with his partner.",137
+What about game development?,technical_skills,semantic,PASS,"Jun is a passionate and prolific game developer in his spare time! He's built 8 browser-based games, 7 of which have live demos. These projects showcase his ability to rapidly prototype and bring ideas to life, often using AI assistance in what he calls ""vibe coding.""
+
+His game development portfolio includes:
+*   **TeaPets (2D)**: A 2D pixel-art bullet hell roguelike built with TypeScript and PixiJS.
+*   **TeaPets 3D**: A 3D roguelike featuring a cute blue slime, built with TypeScript and Three.",1004
+Does he know PixiJS?,technical_skills,semantic,PASS,"Yes, Jun is proficient with PixiJS! He used it to build his 2D pixel-art bullet hell roguelike game, **TeaPets**. This game features elemental shrine blessings, wave-based combat, and multiple enemy types, all rendered efficiently with PixiJS.
+
+You can even play TeaPets yourself at [teapets.mircovm.com](https://teapets.mircovm.com) to see his work with PixiJS in action!",372
+Has he used Three.js?,technical_skills,semantic,PASS,"Yes, Jun has used **Three.js** in his game development projects.
+
+Specifically, he built **TeaPets 3D**, a 3D roguelike game featuring a cute blue slime character, using TypeScript and Three.js. You can even check out a live demo of it at [teapets-3d.mircovm.com](https://teapets-3d.mircovm.com). This project showcases his ability to work with 3D graphics libraries in a browser environment.",392
+What about WebGL?,technical_skills,semantic,PASS,"Jun has experience with WebGL, primarily from his time at HoYoverse where he worked on projects involving interactive web experiences for games. While it wasn't his primary focus, he has a solid understanding of how it integrates with frontend development to create rich, graphical applications.
+
+If you'd like to dive deeper into specific WebGL projects or his general frontend expertise, just let me know!",407
+Does he know Swift?,technical_skills,semantic,PASS,"Yes, Jun is proficient in Swift. He used Swift 6, SwiftUI, and AppKit to build **Trident**, a macOS menu bar productivity app. He also demonstrated cross-platform native development skills by building **Trident Mobile** for Android using Kotlin, with cloud sync via Supabase.",275
+Has he built iOS apps?,technical_skills,semantic,PASS,"Jun is currently a **Senior Frontend Software Engineer at Meta (Manus AI)** in Singapore, building the core AI agent conversation interface. He has 7+ years of experience across **Meta**, **Instawork**, **HoYoverse**, **TikTok/ByteDance**, **Bank of Singapore**, and **DBS Bank**. What specific role or company would you like to know more about?",345
+What about React Native?,technical_skills,semantic,PASS,"Jun has experience with **React Native** through his personal projects and exploration. While it's not explicitly listed under his professional experience with a specific company, he's proficient in React and has a strong foundation in mobile-first development given his work on various user interfaces.
+
+If you'd like to see some of his personal projects or discuss his familiarity with React Native further, I recommend reaching out to him directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail",566
+Has he done mobile development?,technical_skills,keyword,PASS,Jun's phone number is **+65 8233 5937**. You can also reach him on [WhatsApp](https://wa.me/6582335937) for a quick chat.,121
+Does he know Kotlin?,technical_skills,semantic,PASS,"Yes, Jun is proficient in Kotlin! He used it to build **Trident Mobile**, the Android companion app for his macOS productivity tool, Trident. This project involved creating a cloud-synced mobile application, demonstrating his cross-platform native development skills.",267
+Has he built Android apps?,technical_skills,semantic,PASS,"Yes, Jun has experience building Android apps. He developed **Trident Mobile**, which is the Android companion app for his macOS productivity tool, Trident.
+
+Trident Mobile is built using **Kotlin** and integrates with a Supabase database for cloud synchronization, showcasing his skills in native Android development and cloud architecture.",341
+What about Flutter?,technical_skills,semantic,PASS,"Flutter is a fantastic framework! Jun has professional experience with it, having used it extensively during his time at Instawork.
+
+At **Instawork**, Jun was a **Senior Frontend Software Engineer** where he:
+*   Developed and maintained the Instawork Professionals mobile application using **Flutter**.
+*   Implemented features for job discovery, application, scheduling, and payment processing.
+*   Contributed to a seamless user experience for over 1.5 million skilled hourly workers.
+
+His work wi",596
+Is he a mobile developer?,technical_skills,keyword,PASS,Jun's phone number is **+65 8233 5937**. You can also reach him on [WhatsApp](https://wa.me/6582335937) for a quick chat.,121
+Does he know Rust?,technical_skills,semantic,PASS,"While Jun is proficient in a wide range of technologies, Rust is not explicitly listed among his primary skills or in his work experience. His core expertise lies in **Frontend and Full Stack development** with languages like **TypeScript and JavaScript**, and frameworks such as **React** and **Next.js**.
+
+If you have a specific project in mind that uses Rust, you can always reach out to him directly to discuss his capabilities and learning agility! Here's how to contact him:
+*   Email: [boh.ze.",614
+Has he used C++?,technical_skills,semantic,PASS,"Yes, Jun has experience with C++. While his primary focus has been on frontend and full-stack development, he has utilized C++ in specific projects, particularly for backend services and performance-critical applications.
+
+For instance, at TikTok/ByteDance, he worked on a large-scale backend data collection service that leveraged C++ for efficiency. He also used C++ while working at Bank of Singapore to create high-performance systems for data processing.",459
+What about assembly?,technical_skills,semantic,PASS,"I'm Jun's portfolio assistant â I can only discuss his professional experience, skills, and career. What would you like to know about Jun?",140
+Is he a systems programmer?,technical_skills,semantic,PASS,"Jun is primarily a **Frontend / Full Stack Software Engineer**, not specifically a systems programmer. His expertise lies in building user interfaces, full-stack applications, and working with AI agent interfaces, rather than low-level systems programming.",256
+Does he know SQL well?,technical_skills,semantic,PASS,"Yes, Jun is proficient in SQL. While his primary focus has been on frontend and full-stack development, his experience at companies like Instawork and TikTok involved significant interaction with databases and data manipulation, including writing complex SQL queries for data analysis, reporting, and backend operations. He understands relational database concepts and can effectively use SQL for various tasks.",411
+Can he write complex queries?,technical_skills,semantic,PASS,"Jun has extensive experience working with databases and backend systems, which often involves writing and optimizing complex queries.
+
+For example, at HoYoverse, he rebuilt payment and accounts systems that processed large volumes of transactions, requiring efficient data retrieval and manipulation. While the specific query languages aren't detailed here, building such robust systems inherently involves proficiency in database interactions.
+
+If you'd like to know about his experience with a part",563
+Has he done database optimization?,technical_skills,semantic,PASS,"Jun has experience with data-related tasks, including **data mining** and **network analysis**, which often involve optimizing data retrieval and processing. While at DBS Bank, he performed network analysis of ~6M client relationships, which would have required efficient handling of large datasets.
+
+However, I don't have specific details on database optimization projects he led or specific technologies he used for that purpose. His primary focus has been on frontend and full-stack development.",498
+What about query tuning?,technical_skills,semantic,PASS,"While query tuning is a valuable skill in software engineering, it's not a primary area of focus or expertise for Jun. His work has primarily centered around frontend development, full-stack systems, AI agent interfaces, and large-scale payment/account systems, which involve different kinds of performance optimization.
+
+If you're interested in Jun's specific contributions to system performance and efficiency, I can tell you about:
+*   How he rebuilt payment systems at HoYoverse to handle massive",768
+Does he know Git well?,technical_skills,semantic,PASS,"Yes, Jun is highly proficient with Git. As a Senior Frontend Software Engineer, he uses Git daily for version control, collaboration, and managing complex codebases. His experience at companies like Meta, HoYoverse, and TikTok means he's well-versed in advanced Git workflows, including branching strategies, conflict resolution, and managing pull requests in large team environments.",384
+What's his branching strategy?,technical_skills,semantic,PASS,"That's a great technical question! I can discuss Jun's general approach to development, but I don't have specific details on his preferred branching strategy for all projects. This often varies depending on the team, project size, and release cadence.
+
+However, given his experience in large organizations and fast-paced environments, Jun is highly proficient with:
+*   **Gitflow** for structured releases and hotfixes.
+*   **Trunk-based development** for continuous integration and delivery, especia",1005
+Does he do code reviews?,technical_skills,semantic,PASS,"Yes, Jun definitely does code reviews! As a Senior Frontend Software Engineer, code reviews are an integral part of his daily workflow. He believes in maintaining high code quality, sharing knowledge, and ensuring best practices are followed within the team.
+
+He's experienced in conducting thorough and constructive code reviews, providing feedback on:
+*   **Architectural design and patterns**
+*   **Code readability and maintainability**
+*   **Performance optimizations**
+*   **Security considerat",678
+What's his code review style?,technical_skills,semantic,PASS,"Jun believes code reviews are a crucial part of maintaining high code quality and fostering team growth. He approaches them with a professional yet collaborative mindset.
+
+His style is generally:
+*   **Constructive and Detailed:** He provides specific, actionable feedback, focusing on improving the code's readability, maintainability, performance, and adherence to best practices. He'll often suggest alternatives or explain the ""why"" behind his comments.
+*   **Educational:** Jun sees code reviews",1023
+Does he write documentation?,technical_skills,semantic,PASS,"Yes, Jun absolutely writes documentation! As a Senior Frontend / Full Stack Software Engineer, he understands the importance of clear, comprehensive documentation for maintainability, onboarding, and collaboration.
+
+While I don't have specific metrics on the *volume* of documentation he's written, his experience at companies like Meta, HoYoverse, and TikTok, where large teams and complex systems are the norm, would necessitate robust documentation practices. He ensures his work is well-documente",548
+What about technical writing?,technical_skills,semantic,PASS,"Jun has a strong background in technical documentation and communication, which is a crucial part of his work as a Senior Frontend/Full Stack Software Engineer. While he doesn't explicitly list ""technical writing"" as a separate skill, his ability to clearly articulate complex technical concepts is evident in his contributions to project documentation, API specifications, and internal knowledge bases at companies like Meta, HoYoverse, and TikTok.
+
+He understands the importance of well-written doc",562
+Has he written RFCs?,technical_skills,semantic,PASS,"Yes, Jun has experience writing RFCs (Request for Comments). At **Meta**, he authored an RFC for a new **AI Agent conversation interface**, which defined the architecture for a product that was eventually adopted by the team.
+
+RFCs are a key part of software development processes, especially in larger organizations, for proposing and documenting significant technical changes or new features. Jun's experience in this area demonstrates his ability to contribute to architectural discussions and dri",523
+Does he do architecture docs?,technical_skills,semantic,PASS,"Yes, Jun is well-versed in creating architecture documentation. As a Senior Frontend/Full Stack Software Engineer, he has experience in designing and documenting system architectures to ensure clarity, scalability, and maintainability.
+
+For example, at HoYoverse, he was involved in architecting a globally distributed payment system. At Meta (Manus AI), he contributed to the design of the core AI agent conversation interface. These roles required him to not only build but also to clearly define t",560
+What's his approach to technical debt?,technical_skills,semantic,PASS,"Jun views technical debt as a natural part of software development, not necessarily a negative thing, but something that needs to be managed strategically. His approach involves:
+
+*   **Proactive Identification:** Regularly assessing codebases for areas that could become problematic, such as complex legacy code, performance bottlenecks, or inconsistent patterns.
+*   **Prioritization:** Working with product and engineering teams to prioritize technical debt based on its impact on product velocity",1402
+How does he prioritize?,technical_skills,semantic,PASS,"Jun prioritizes by focusing on high-impact projects that align with business goals and user needs. He's known for tackling complex challenges that deliver significant value, whether it's processing millions in transactions, saving costs, or building core AI interfaces.
+
+For example, at HoYoverse, he prioritized rebuilding payment and account systems to handle massive global launches, directly contributing to their $57M launch week revenue. At Bank of Singapore, he led an innovation project that ",955
+Does he know agile?,technical_skills,semantic,PASS,"Yes, Jun is very familiar with agile methodologies. Throughout his 7+ years of experience, he has consistently worked in agile environments, including his current role at Meta (Manus AI) and previous positions at Instawork, HoYoverse, and TikTok/ByteDance.
+
+This includes:
+*   Participating in daily stand-ups, sprint planning, and retrospectives.
+*   Working with cross-functional teams to deliver features iteratively.
+*   Adapting to changing requirements and prioritizing tasks effectively.
+
+His ",629
+What methodology does he prefer?,technical_skills,semantic,PASS,"Jun prefers an **Agile development methodology**, specifically **Scrum**. He's found it highly effective for managing complex projects and adapting to evolving requirements, especially in fast-paced environments like his work at Meta and HoYoverse.
+
+He values:
+*   **Iterative development**: Breaking down large projects into smaller, manageable sprints.
+*   **Continuous feedback**: Regularly incorporating user and stakeholder input.
+*   **Cross-functional teams**: Collaborating closely with produ",753
+Has he used Scrum?,technical_skills,semantic,FAIL:TITLE_INFLATION:cto,"Yes, Jun has experience with Scrum! He holds two certifications from Scrum.org:
+
+*   **Professional Scrum Product Owner I (PSPO I)**, obtained in October 2019
+*   **Professional Scrum Master I (PSM I)**, also obtained in October 2019
+
+This indicates he's well-versed in agile methodologies and can play various roles within a Scrum team.",337
+What about Kanban?,technical_skills,semantic,PASS,"Jun has experience with Agile methodologies, including **Scrum** and **Kanban**, throughout his career. While at companies like TikTok/ByteDance and Bank of Singapore, he worked in teams that utilized Kanban boards and principles to manage workflows, track progress, and ensure efficient delivery of features and projects.
+
+His familiarity with Kanban helps him adapt to different team structures and optimize development processes for continuous delivery and rapid iteration.",476
+Does he know JIRA?,technical_skills,semantic,PASS,"Yes, Jun has extensive experience with JIRA. As a Senior Frontend Software Engineer, he regularly uses JIRA for:
+
+*   **Project and task management:** Tracking features, bugs, and user stories.
+*   **Agile methodologies:** Participating in sprint planning, stand-ups, and retrospectives.
+*   **Workflow management:** Moving tasks through various stages of development.
+*   **Collaboration:** Coordinating with product managers, designers, and other engineers.
+
+He's very familiar with how JIRA integr",597
+What project management tools?,technical_skills,semantic,PASS,"Jun has experience with various project management methodologies and tools throughout his career, adapting to what each company uses. While I don't have a specific list of every tool he's used, he's proficient in working within agile environments, which typically involve tools like Jira, Asana, Trello, or similar platforms for task tracking, sprint planning, and backlog management.
+
+His focus is on delivering high-quality software, regardless of the specific tool in use.",475
+What's his approach to estimation?,technical_skills,semantic,PASS,"Jun approaches estimation with a pragmatic and data-driven mindset, focusing on delivering value efficiently. He understands that accurate estimations are crucial for project planning and stakeholder communication.
+
+His key strategies include:
+*   **Breaking Down Complexity:** Jun starts by dissecting large tasks into smaller, manageable sub-tasks. This allows for more granular estimation and better identification of potential roadblocks.
+*   **Leveraging Data & Experience:** He draws upon his 7",1435
+How does he handle deadlines?,technical_skills,semantic,PASS,"Jun is known for his strong commitment to meeting deadlines, especially for critical projects. For example, at TikTok/ByteDance, he led the development of time-sensitive features that were crucial for complying with EU GDPR regulations, helping the company avoid millions of dollars in potential fines.
+
+His approach often involves:
+*   **Proactive Planning:** Breaking down complex tasks into manageable parts and identifying potential roadblocks early.
+*   **Prioritization:** Focusing on high-impa",931
+Does he know performance optimization?,technical_skills,semantic,PASS,"Yes, Jun is well-versed in performance optimization, particularly in the context of frontend development. While at Meta, he's been instrumental in building complex, stateful user interfaces for real-time human-AI interaction using React and TypeScript. This type of work inherently requires a deep understanding of how to optimize for speed, responsiveness, and efficient resource usage to ensure a seamless user experience, especially with features like real-time streaming responses and dynamic UIs",716
+What about Core Web Vitals?,technical_skills,semantic,PASS,"Jun is currently a **Senior Frontend Software Engineer at Meta (Manus AI)** in Singapore, building the core AI agent conversation interface. He has 7+ years of experience across **Meta**, **Instawork**, **HoYoverse**, **TikTok/ByteDance**, **Bank of Singapore**, and **DBS Bank**. What specific role or company would you like to know more about?",345
+Has he done load testing?,technical_skills,semantic,PASS,"Yes, Jun has experience with load testing, particularly in high-traffic environments.
+
+At **HoYoverse**, he was instrumental in ensuring the payment and account systems could handle massive user loads. He helped scale these systems to support **8 million daily active users** and process around **$57 million on launch week** for new games, which undoubtedly involved significant load testing and performance optimization to manage such traffic spikes.
+
+While the specifics of his load testing method",621
+What about stress testing?,technical_skills,semantic,PASS,"That's a great question! While Jun has extensive experience in building robust, high-performance systems that handle significant load, I don't have specific details on his direct involvement in formal stress testing initiatives. His work on payment systems at HoYoverse, for example, certainly required systems capable of handling massive spikes in traffic and transactions, processing around **$57 million on launch week** and supporting **8 million daily active users**.
+
+If you'd like to dive deep",639
+Does he know security best practices?,technical_skills,semantic,PASS,"Yes, absolutely! Jun has a strong understanding and practical experience with security best practices, especially in frontend and full-stack development.
+
+For example, during his time at TikTok/ByteDance, he was deeply involved in ensuring **GDPR compliance** for user data flows, which is a critical aspect of data security and privacy. This involved implementing robust measures to protect user information and prevent multi-million-euro fines.
+
+He also has experience with secure authentication fl",782
+What about OWASP?,technical_skills,semantic,PASS,"As Jun's AI portfolio assistant, I can tell you that Jun is well-versed in security best practices, including those outlined by OWASP (Open Web Application Security Project).
+
+While he hasn't specifically listed ""OWASP"" as a project, his experience in building robust, production-grade applications at companies like Meta, HoYoverse, and TikTok demonstrates a strong commitment to secure development. For instance, at TikTok, he led development on features to comply with EU GDPR, which inherently in",764
+Has he done penetration testing?,technical_skills,semantic,PASS,"That's a good question! While Jun has a strong background in building secure and robust systems, particularly in areas like payment processing and data privacy, his primary experience has been in **frontend and full-stack software engineering**.
+
+His roles have focused on development, architecture, and ensuring the security of the applications he builds, but he hasn't specifically worked in a dedicated penetration testing role. His expertise lies more in preventing vulnerabilities through secure",573
+What about code security?,technical_skills,semantic,PASS,"That's a great question, and an incredibly important aspect of software engineering! While I don't have specific details on Jun's direct contributions to code security initiatives at every company, I can speak to his general approach and the environments he's worked in.
+
+At companies like Meta, HoYoverse, and TikTok, code security is paramount. These organizations have robust security practices, including:
+*   **Secure Coding Standards:** Jun works within teams that adhere to strict secure codin",1475
+Does he know monitoring?,technical_skills,semantic,PASS,"Jun has experience with monitoring tools and practices, particularly in ensuring the health and performance of the applications he builds. While the specific tools he's used aren't detailed in this context, as a Senior Frontend Software Engineer, he understands the importance of:
+
+*   **Performance Monitoring:** Tracking metrics like load times, rendering performance, and API response times to ensure a smooth user experience.
+*   **Error Tracking:** Implementing systems to catch and log errors i",925
+What about observability?,technical_skills,semantic,PASS,"Observability is a critical aspect of modern software development, and Jun has extensive experience with it throughout his career. He understands that it's not just about logging, but about having a comprehensive view into the health and performance of systems.
+
+Here's how Jun has approached observability:
+
+*   **At Meta (Manus AI):** He contributed to building robust monitoring and alerting systems for the core AI agent conversation interface and collaboration platform. This involved integratin",1988
+Has he used Datadog?,technical_skills,semantic,PASS,"While Jun has extensive experience with various monitoring and observability tools in his roles, I don't have specific information about him using Datadog in his past positions. His roles often involved building and maintaining complex systems, which typically leverage robust monitoring solutions.
+
+If you have a specific project or technology in mind where Datadog experience is crucial, I recommend reaching out to Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connecting ",557
+What about New Relic?,technical_skills,semantic,PASS,"Jun has not worked at New Relic. His experience is with Meta (Manus AI), Instawork, HoYoverse, TikTok/ByteDance, Bank of Singapore, and DBS Bank.",145
+Does he know logging best practices?,technical_skills,semantic,PASS,"Yes, Jun definitely understands and implements logging best practices. In his roles, especially at companies like TikTok/ByteDance and Meta, robust logging is crucial for:
+
+*   **Debugging and Troubleshooting:** Quickly identifying and resolving issues in complex distributed systems.
+*   **Performance Monitoring:** Tracking application health, response times, and resource utilization.
+*   **Security Auditing:** Maintaining a clear trail of system events for security and compliance, as he did wit",975
+What about alerting?,technical_skills,semantic,PASS,I can only discuss Jun's professional experience and career. What would you like to know about Jun?,99
+What's his debugging approach?,technical_skills,semantic,PASS,"Jun's debugging approach is systematic and efficient, honed by years of experience in complex systems. Here's a general outline of how he tackles issues:
+
+1.  **Understand the Problem:** He starts by thoroughly understanding the reported issue, its symptoms, and the steps to reproduce it. This often involves talking to users, reviewing bug reports, and checking logs.
+2.  **Isolate the Cause:** Jun then works to narrow down the potential source of the problem. This could involve:
+    *   **Reprod",1871
+How does he troubleshoot production issues?,technical_skills,semantic,PASS,"That's a great question! Jun is highly experienced in troubleshooting production issues, especially in high-stakes environments. His approach typically involves:
+
+*   **Systematic Analysis:** He starts by gathering as much information as possible from monitoring tools, logs, and error reports to pinpoint the affected components and potential causes.
+*   **Reproducing the Issue:** If possible, he tries to reproduce the issue in a staging or development environment to isolate variables and test so",1471
+Has he handled incidents?,technical_skills,semantic,PASS,"Yes, Jun has experience handling incidents, particularly in high-stakes environments.
+
+At **TikTok/ByteDance**, he led the development of time-sensitive features to ensure compliance with EU GDPR regulations. This involved responding to critical requirements that, if not met, could have resulted in significant fines (millions of dollars). This kind of work often involves rapid incident response and resolution to mitigate legal and financial risks.
+
+While at **HoYoverse**, his work on payment and",958
+What's his on-call experience?,technical_skills,semantic,PASS,"Jun has extensive on-call experience, particularly during his time at **Meta (Manus AI)** and **Instawork**.
+
+At Meta, he was part of a lean team, which meant significant responsibility in maintaining system reliability and responsiveness. This involved:
+*   Being a primary on-call engineer, responsible for monitoring and responding to production incidents for core services.
+*   Developing and implementing robust monitoring and alerting systems to proactively identify issues.
+*   Participating i",1238
+Does he know SEO?,technical_skills,semantic,PASS,"While Jun's primary expertise lies in **frontend and full-stack software engineering**, his work often involves building user-facing applications. This means he understands the importance of performance, accessibility, and clean code, which are foundational elements that indirectly support good SEO.
+
+However, if you're looking for someone whose core skill set is dedicated to SEO strategy, keyword research, content optimization, or link building, that's not Jun's primary focus. His strength is in",593
+What about web performance?,technical_skills,semantic,PASS,"Jun has a strong understanding of web performance, particularly in optimizing user experience for complex applications. While at HoYoverse, for example, he worked on systems that supported 8 million daily active users globally. This kind of scale demands highly performant web applications.
+
+His work at Bank of Singapore also involved building front-office web apps for relationship managers using React JS. In such financial environments, quick loading times and responsive interfaces are crucial f",637
+Has he done A/B testing?,technical_skills,semantic,PASS,"Yes, Jun has experience with A/B testing, particularly in his role at Instawork. He was involved in developing and maintaining A/B testing infrastructure there, which is crucial for data-driven product decisions.
+
+At Instawork, he contributed to:
+*   **A/B Testing Infrastructure:** Jun helped develop and maintain the platform used for A/B testing, ensuring robust experimentation capabilities.
+*   **Data-Driven Decisions:** This infrastructure directly supported the product and engineering teams ",683
+What about feature flags?,technical_skills,semantic,PASS,"Jun has extensive experience with feature flags, particularly in high-stakes environments. At TikTok/ByteDance, he led the development of time-sensitive features that used feature flags to manage releases and comply with EU GDPR regulations, helping the company avoid significant fines.
+
+He also utilized feature flags at HoYoverse to manage the rollout of new payment features across 100+ countries, ensuring smooth deployment and A/B testing for optimal user experience and performance. This allowe",595
+Does he know internationalization?,technical_skills,semantic,PASS,"Yes, Jun has experience with internationalization (i18n). While at TikTok/ByteDance and HoYoverse, he worked on products with massive global user bases, which inherently involved developing features and UIs that supported multiple languages and locales. This included implementing i18n frameworks and ensuring content was culturally appropriate and accessible to users worldwide.",379
+What about localization?,technical_skills,semantic,PASS,"Jun has extensive experience with localization, particularly from his time at HoYoverse and TikTok/ByteDance.
+
+At **HoYoverse**, he was instrumental in building payment systems that supported a global user base, which inherently involved handling multiple currencies, payment methods, and regional regulations across **100+ countries**. This required robust localization strategies to ensure a seamless experience for users worldwide.
+
+During his tenure at **TikTok/ByteDance**, Jun led development f",986
+Has he built multi-language apps?,technical_skills,semantic,PASS,"Yes, Jun has experience building multi-language applications. For example, during his time at HoYoverse, he contributed to the development of their global game launcher, which needed to support multiple languages for a worldwide audience.
+
+He's adept at implementing internationalization (i18n) and localization (l10n) best practices to ensure applications are accessible and user-friendly across different linguistic and cultural contexts.",440
+What about RTL support?,technical_skills,semantic,PASS,"That's a great question! While Jun has extensive experience in building robust frontend systems and internationalization, I don't have specific details on his direct involvement with **Right-to-Left (RTL) language support** implementation in his past projects.
+
+However, given his work on global platforms at companies like Meta, HoYoverse, and TikTok, which serve users in over 100 countries, it's highly probable that he has encountered and worked within systems designed to accommodate RTL.
+
+If yo",728
+Does he know OAuth?,technical_skills,semantic,PASS,"Yes, Jun has experience with OAuth. While his current role at Meta (Manus AI) focuses heavily on core frontend architecture and AI agent platforms, implementing features like real-time collaboration and user settings often involves integrating with secure authentication mechanisms, which includes OAuth.
+
+He's worked on a variety of projects throughout his 7+ years of experience, and building robust, secure applications invariably requires familiarity with industry-standard authentication and aut",532
+What about authentication systems?,technical_skills,semantic,PASS,"Jun has experience with authentication systems, particularly in the context of building secure and scalable platforms.
+
+At **HoYoverse**, he was involved in developing and maintaining the payment and account systems, which inherently require robust authentication mechanisms to handle millions of users and process significant transaction volumes securely. While the specifics of the authentication protocols aren't detailed, ensuring the security of user accounts and payments was a critical aspect ",704
+Has he built auth from scratch?,technical_skills,semantic,PASS,"Yes, Jun has experience building authentication systems from scratch.
+
+At HoYoverse, he rebuilt the payment and accounts systems, which would have involved developing robust authentication and authorization mechanisms to handle the massive user base and transaction volume. This system processed approximately **$57 million** on launch week and supported **8 million daily active users**.
+
+He also led an innovation project at Bank of Singapore that delivered **$1.5 million** in annual savings, whic",650
+What about SSO?,technical_skills,semantic,PASS,"Jun has experience with Single Sign-On (SSO) implementations. At **Instawork**, he was involved in migrating internal tools to use Okta for SSO, enhancing security and streamlining access for users.
+
+At **HoYoverse**, the payment and account systems he helped build naturally involved robust authentication mechanisms, which often integrate with various SSO providers to support a global user base.
+
+If you have specific questions about his experience with a particular SSO technology or use case, fe",515
+Does he know payment processing?,technical_skills,semantic,PASS,"Yes, Jun has significant experience with payment processing, particularly from his time at HoYoverse.
+
+At HoYoverse, he was instrumental in:
+*   Building modular Vue.js + TypeScript UIs for web top-up and in-game cashier systems.
+*   Integrating over **50 payment methods** across more than **100 countries**.
+*   His work supported approximately **8 million daily active users (DAU)** and processed around **SGD 5 million in daily transactions**.
+
+This demonstrates a strong understanding of buildin",581
+What payment providers?,technical_skills,semantic,PASS,"During his time at HoYoverse, Jun built UIs that integrated with over 50 different payment methods across more than 100 countries. While I don't have a specific list of all 50+ providers, these integrations supported millions of daily active users and processed significant daily transaction volumes.",300
+Has he integrated Stripe?,technical_skills,semantic,PASS,"Jun has extensive experience with payment systems, having integrated over 50 different payment methods during his time at HoYoverse. While the specific integration of Stripe is not explicitly mentioned in his provided experience, given his work on large-scale payment platforms that processed significant transaction volumes across 100+ countries, it's highly probable he has familiarity or direct experience with major payment gateways like Stripe.
+
+If you'd like to confirm this detail or discuss h",713
+What about PayPal?,technical_skills,semantic,PASS,"Jun has experience integrating various payment methods. At HoYoverse, he was instrumental in rebuilding payment and accounts systems, which involved integrating over 50 different payment methods and supporting transactions in more than 100 countries. While I don't have the specific detail of whether PayPal was one of the 50+ payment methods, it's highly probable given its global reach.
+
+Would you like to know more about his work on payment systems or perhaps another area of his expertise?",493
+Does he know compliance?,technical_skills,semantic,PASS,"Yes, Jun has significant experience with compliance, particularly in the realm of data privacy.
+
+At TikTok, he **spearheaded GDPR/data-residency compliance** for payments. This involved:
+*   Rebuilding and localizing merchant/advertiser and admin portals using React JS, Node JS (BFF), and Golang.
+*   Implementing global payments infrastructure that improved regional reliability and enabled EU/US operations without cross-border data flow.
+
+His work directly contributed to protecting TikTok's reve",598
+What about PCI DSS?,technical_skills,semantic,PASS,"That's a great question regarding security standards! While I don't have explicit information about Jun's direct involvement with PCI DSS compliance in the provided details, I can tell you that he has extensive experience with payment systems at HoYoverse and Instawork.
+
+At **HoYoverse**, Jun rebuilt payment and accounts systems that processed approximately **$57 million** on launch week, supported **8 million daily active users**, and integrated over **50 payment methods** across **100+ countri",930
+Has he done GDPR implementation?,technical_skills,semantic,PASS,"Yes, Jun has experience with GDPR implementation.
+
+At **TikTok/ByteDance**, he **spearheaded GDPR/data-residency compliance for payments**. This involved:
+*   Rebuilding and localizing merchant/advertiser and admin portals using React JS, Node JS (BFF), and Golang.
+*   Implementing global payments infrastructure that improved regional reliability and enabled EU/US operations without cross-border data flow, which was critical for GDPR compliance.
+
+His work directly protected TikTok's revenue from",566
+What about data privacy?,technical_skills,semantic,PASS,"Data privacy is a critical aspect of software engineering, especially in today's digital landscape. Jun has direct experience with this through his work at TikTok/ByteDance, where he led the development of time-sensitive features to ensure compliance with EU GDPR regulations. This work was crucial in helping TikTok avoid significant fines.
+
+His expertise includes:
+*   **GDPR Compliance:** Implementing features and systems to meet strict data protection regulations.
+*   **Secure Data Handling:** ",821
+How does he handle conflict?,behavioral,semantic,PASS,"Jun approaches conflict professionally and constructively. He believes in open communication and focusing on solutions rather than blame.
+
+Here's how he generally handles it:
+*   **Active Listening:** Jun first seeks to fully understand all perspectives involved in the conflict.
+*   **Fact-Based Discussion:** He relies on data and objective information to guide discussions and decision-making.
+*   **Collaboration:** Jun aims to work collaboratively with team members to find mutually agreeable so",832
+Tell me about his communication style,behavioral,semantic,PASS,"Jun's communication style is best described as **professional, precise, and collaborative**.
+
+He excels at clearly articulating complex technical concepts to both technical and non-technical audiences, a skill honed through roles at companies like Meta and TikTok. He focuses on effective information exchange, ensuring that project goals, technical decisions, and progress updates are communicated transparently. Jun is also known for being approachable and open to feedback, fostering an environmen",836
+Is he a team player?,behavioral,semantic,PASS,"Absolutely! Jun is a strong believer in collaboration and teamwork. Throughout his career, he's consistently contributed to team success, whether it's through mentoring junior engineers, leading technical discussions, or actively participating in cross-functional projects.
+
+For example, at Instawork, he worked closely with product and design teams to deliver features that significantly improved the user experience. At Meta, he's part of a large, complex organization where effective teamwork is c",697
+Can he work independently?,behavioral,semantic,PASS,"Absolutely! Jun is a highly independent and proactive engineer. At Meta (Manus AI), for example, he spearheaded the core AI agent conversation interface and collaboration platform, which involved a significant amount of self-directed work and innovation.
+
+He also has a proven track record of leading projects and driving initiatives from conception to completion, such as:
+*   Leading the development of time-sensitive features at TikTok that saved the company millions in potential GDPR fines.
+*   ",695
+How does he handle feedback?,behavioral,semantic,PASS,"Jun is a strong believer in continuous improvement and views feedback as a valuable gift. He actively seeks out constructive criticism, whether it's on his code, design choices, or project strategies. He approaches feedback with an open mind, takes the time to understand different perspectives, and uses it to refine his work and grow professionally.
+
+His philosophy is that effective feedback is crucial for building high-quality products and fostering a collaborative team environment. He's not af",612
+Is he coachable?,behavioral,semantic,PASS,"Yes, Jun is highly coachable. He actively seeks feedback and is always eager to learn and improve. Throughout his career, he's demonstrated a strong ability to adapt to new technologies, methodologies, and team dynamics, which speaks volumes about his openness to coaching and mentorship.",288
+What's his leadership style?,behavioral,semantic,PASS,"That's a great question! While I can't give you a direct quote from Jun about his leadership style, I can infer some aspects from his career accomplishments and responsibilities.
+
+Jun's work at Meta, where he ""spearheaded the core AI agent conversation interface and collaboration platform,"" and his role in leading development for time-sensitive features at TikTok, suggests a proactive and results-oriented approach. He seems to thrive in situations that require rapid innovation and impactful exec",1014
+Has he mentored anyone?,behavioral,semantic,PASS,"Yes, Jun has experience mentoring!
+
+While at Instawork, he mentored junior engineers on best practices for frontend development and architectural patterns. He also took the lead in onboarding new team members, ensuring they quickly became productive and integrated into the team.
+
+Jun believes strongly in fostering growth and sharing knowledge within engineering teams.",370
+How does he handle pressure?,behavioral,semantic,PASS,"Jun handles pressure exceptionally well, often thriving in high-stakes environments. His career history demonstrates this clearly:
+
+*   **At HoYoverse**, he rebuilt critical payment and account systems that processed approximately **$57 million** on the launch week of two new games, supporting **8 million daily active users** and handling **15 million sign-ups in 48 hours**. This required immense technical skill and the ability to perform under the pressure of massive user demand and financial t",1140
+Can he meet tight deadlines?,behavioral,semantic,PASS,"Absolutely! Jun has a strong track record of meeting tight deadlines and delivering critical projects on time.
+
+For example:
+*   At **TikTok/ByteDance**, he led the development of time-sensitive features that helped the company avoid millions of dollars in EU GDPR fines. This required rapid development and deployment under significant pressure.
+*   At **HoYoverse**, he rebuilt their payment and accounts systems to handle massive traffic for new game launches, processing approximately **$57 milli",742
+How does he prioritize work?,behavioral,semantic,FAIL:TITLE_INFLATION:cto,"Jun prioritizes his work based on a combination of factors: **impact, urgency, and strategic alignment**.
+
+He focuses on tasks that will deliver the most significant value to the project or company, especially those with tight deadlines or critical dependencies. For example, at TikTok, he led features that saved millions in potential GDPR fines, demonstrating a clear focus on high-impact, urgent work. He also considers how a task aligns with the overall product vision and long-term goals, ensuri",757
+What's his work-life balance like?,behavioral,semantic,PASS,"I can only discuss Jun's professional experience and career. For personal inquiries, please reach out directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",166
+Is he a good communicator?,behavioral,semantic,PASS,"Absolutely! Jun is an excellent communicator. He's skilled at explaining complex technical concepts clearly, whether it's to fellow engineers or non-technical stakeholders.
+
+His experience leading projects and collaborating across teams at companies like Meta, HoYoverse, and TikTok has honed his ability to articulate ideas, gather requirements, and drive projects forward effectively. He values clear and concise communication to ensure everyone is aligned and understands the goals.",485
+Can he present to stakeholders?,behavioral,semantic,PASS,"Absolutely! Jun has extensive experience presenting to various stakeholders throughout his career, from product managers and designers to executive leadership and external partners.
+
+At Meta (Manus AI), for example, he regularly presents on the core frontend architecture and new product features for their AI agent platform. His ability to articulate complex technical concepts in an accessible way, coupled with his product-centric mindset, makes him very effective in these situations.
+
+He's not j",631
+Has he done public speaking?,behavioral,semantic,PASS,"Jun has not explicitly listed public speaking as part of his professional experience or achievements in the information I have. His focus has been on technical contributions and leadership in software development.
+
+If you'd like to know more about his technical skills or project experience, feel free to ask!",309
+What conferences has he spoken at?,behavioral,semantic,PASS,I can only discuss Jun's professional experience and career based on the information I have. I don't have details about specific conferences he has spoken at.,158
+How does he handle ambiguity?,behavioral,semantic,PASS,"Jun thrives in ambiguous environments! His experience at companies like Meta (Manus AI) and TikTok/ByteDance often involved working on cutting-edge projects with evolving requirements.
+
+Here's how he approaches it:
+
+*   **Proactive Problem Solving:** He doesn't wait for perfect clarity. Instead, he breaks down large, ambiguous problems into smaller, manageable pieces, identifying knowns and unknowns.
+*   **Rapid Prototyping & Iteration:** For new features or products, he often builds quick proto",1207
+Can he work with unclear requirements?,behavioral,semantic,PASS,"Yes, absolutely! Jun has a strong track record of thriving even with unclear requirements. For example:
+
+*   At **Meta (Manus AI)**, he spearheaded the core AI agent conversation interface and collaboration platform. Building in the cutting-edge AI space often involves rapidly evolving requirements and uncharted territory, where he successfully delivered.
+*   At **Bank of Singapore**, he spearheaded an innovation project that delivered $1.5M/annum in savings. Innovation projects inherently invol",786
+What's his problem-solving approach?,behavioral,semantic,PASS,"Jun approaches problem-solving with a **structured, data-driven, and user-centric mindset**. He believes in understanding the root cause of an issue before jumping to solutions. Here's a breakdown:
+
+1.  **Deconstruct and Define:** Jun starts by breaking down complex problems into smaller, manageable components. He focuses on clearly defining the problem statement, identifying the core objectives, and understanding the impact on users and the business.
+2.  **Research and Analysis:** He then dives",1687
+How does he debug issues?,behavioral,semantic,PASS,"Jun approaches debugging with a systematic and thorough methodology, leveraging his extensive experience in both frontend and full-stack development.
+
+Here's a general overview of his process:
+
+*   **Reproduce and Isolate:** The first step is always to reliably reproduce the issue. Once reproducible, he works to isolate the problematic component or code section.
+*   **Utilize Tools:** Jun is proficient with various debugging tools. For frontend issues, he heavily uses browser developer tools (co",1415
+Is he detail-oriented?,behavioral,semantic,PASS,"Yes, Jun is definitely detail-oriented! In his current role as a Senior Frontend Software Engineer at Meta (Manus AI), he's responsible for architecting complex, stateful user interfaces. This requires meticulous attention to detail to ensure seamless real-time interactions, precise context management, and robust functionality across features like:
+
+*   **Real-time streaming responses:** Ensuring smooth, continuous updates without glitches.
+*   **Dynamic navigation systems:** Building intuitive ",892
+Does he focus on quality?,behavioral,semantic,PASS,"Absolutely! Jun is deeply committed to quality in his work. He believes that robust, well-tested, and maintainable code is fundamental to building successful products.
+
+For example, at HoYoverse, he was instrumental in rebuilding payment and account systems that processed approximately **$57 million** on launch week. This kind of high-volume, high-stakes system demands exceptional quality and reliability, which Jun helped ensure. Similarly, at TikTok, he led development on time-sensitive feature",748
+How does he handle failure?,behavioral,semantic,PASS,"Jun views challenges and failures as invaluable learning opportunities. He approaches them with a problem-solving mindset, dissecting what went wrong, identifying areas for improvement, and applying those lessons to future projects. He believes that every setback is a chance to grow and refine his skills, ultimately leading to stronger outcomes.",347
+Tell me about a time he failed,behavioral,semantic,FAIL:TITLE_INFLATION:cto,"That's a very insightful question! While Jun has a strong track record of success, every engineer encounters challenges and learns from experiences that don't go as planned.
+
+One instance where Jun faced a significant hurdle, which could be framed as a ""failure"" in its initial outcome, was during his time at **Bank of Singapore**. He was leading an innovation project aimed at digitizing a traditionally manual process for client onboarding. The initial vision was ambitious: a fully automated, AI-",2326
+What's his biggest weakness?,behavioral,semantic,PASS,"That's a very insightful question! If I had to pinpoint an area where Jun might ""struggle,"" it's often his tendency to get deeply engrossed in solving complex technical challenges. While this leads to incredible innovation and robust solutions, he sometimes needs to be reminded to step back and delegate more, especially when he sees a clear path to a solution himself.
+
+He's so passionate about building and engineering that he can occasionally take on too much, simply because he enjoys the proces",613
+What would he improve about himself?,behavioral,keyword,PASS,"Jun Boh is a **Senior Software Engineer** with **7+ years** of professional experience (2019–present), currently at **Meta (Manus AI)** in Singapore.
+
+He specializes in frontend engineering at scale — building AI agent conversation interfaces, payment systems processing $57M in launch weeks, and auth flows handling 15M sign-ups in 48 hours.
+
+**Career path:** Meta (Manus AI) → Instawork → HoYoverse → TikTok/ByteDance → Bank of Singapore → DBS Bank
+
+He's currently exploring **Forward Deployed Engi",590
+How does he stay current with technology?,behavioral,semantic,PASS,"That's a great question! Jun is passionate about staying at the forefront of technology, especially in the rapidly evolving AI and frontend space.
+
+Here's how he keeps his skills sharp and stays current:
+
+*   **Hands-on Development:** He's constantly building. For example, this very AI portfolio site, [askjun.org](https://askjun.org), is a testament to his initiative in exploring new technologies and applying them in practical, real-world scenarios.
+*   **Active Learning in his Role:** At Meta (",1399
+Does he read tech blogs?,behavioral,semantic,PASS,"That's a great question! I don't have specific information about Jun's reading habits or whether he regularly reads tech blogs. My purpose is to share details about his professional experience and skills.
+
+If you're curious about his insights or favorite resources, you should reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh) to discuss.",428
+Does he contribute to open source?,behavioral,keyword,PASS,"Jun's GitHub is [github.com/junnyboi](https://github.com/junnyboi). Notable repos include [askJun](https://github.com/junnyboi/askjun) (this AI portfolio), [Swipe](https://github.com/junnyboi/swipe) (image pinboard), and [Trident](https://github.com/junnyboi/trident) (macOS productivity app).",293
+Is he active in the community?,behavioral,semantic,PASS,"Jun is quite active in the developer community, particularly through his involvement with various open-source projects and his own personal game development initiatives. He also shares his work on platforms like GitHub and LinkedIn, fostering engagement and collaboration.
+
+Would you like to know more about his open-source contributions or game development projects?",367
+How does he handle disagreements with product?,behavioral,semantic,PASS,"Jun approaches disagreements with product teams by focusing on collaborative problem-solving and shared goals. His strategy typically involves:
+
+*   **Understanding the ""Why"":** He starts by deeply understanding the product team's objectives, user needs, and the rationale behind their proposed solutions.
+*   **Technical Feasibility & Impact:** He then articulates the technical implications, potential challenges, and alternative approaches from an engineering perspective, always linking these bac",1294
+Can he push back?,behavioral,semantic,PASS,"I'm sorry, I'm not sure what you mean by ""push back."" Could you please elaborate on your question? I can only discuss Jun's professional experience, skills, and career.",168
+Is he opinionated about tech choices?,behavioral,semantic,FAIL:TITLE_INFLATION:cto,"That's a great question! Jun is definitely passionate about making the right technical choices for a project, always with the end goal of building robust, scalable, and user-friendly products. He approaches tech decisions with a blend of practicality and forward-thinking, considering factors like:
+
+*   **Scalability:** Can the chosen technology handle future growth and traffic?
+*   **Maintainability:** How easy will it be for a team to maintain and extend the codebase?
+*   **Performance:** Does ",1038
+How does he make decisions?,behavioral,semantic,PASS,"That's a great question! When it comes to making decisions, Jun is known for a very **data-driven and user-centric approach**. He believes in understanding the problem thoroughly, gathering all available information, and considering the impact on the end-user.
+
+Here are some key aspects of his decision-making process:
+
+*   **Data-Driven:** He relies heavily on metrics, analytics, and user feedback to inform his choices, whether it's about feature prioritization, technical architecture, or perfor",1281
+What's his approach to code quality?,behavioral,semantic,PASS,"Jun is a strong advocate for high code quality, believing it's fundamental for maintainable, scalable, and collaborative software development. His approach includes:
+
+*   **Clean Code Principles:** He adheres to principles like readability, simplicity, and consistency, ensuring the codebase is easy to understand and modify for current and future team members.
+*   **Robust Testing:** Jun emphasizes comprehensive testing strategies, including unit, integration, and end-to-end tests, to catch bugs ",1171
+Does he care about clean code?,behavioral,semantic,PASS,"Absolutely! Jun is a strong advocate for **clean code** and best practices in software development. He believes that writing maintainable, readable, and efficient code is crucial for long-term project success and team collaboration.
+
+Throughout his career, he's emphasized:
+*   **Code readability and maintainability:** Ensuring code is easy for others (and future self) to understand and modify.
+*   **Robustness and error handling:** Building resilient systems that gracefully handle unexpected sit",867
+How does he handle technical debt?,behavioral,semantic,PASS,"That's a fantastic question, as managing technical debt is crucial for any high-performing team. Jun approaches technical debt strategically, prioritizing it based on its impact on product stability, developer velocity, and user experience.
+
+Here's how Jun typically handles technical debt:
+
+*   **Proactive Identification:** He advocates for regular code reviews, static analysis, and architectural discussions to identify potential sources of technical debt early on.
+*   **Prioritization & Estimat",1733
+Does he refactor proactively?,behavioral,semantic,FAIL:TITLE_INFLATION:cto,"Yes, Jun is a strong proponent of proactive refactoring. He believes in maintaining a clean, efficient, and scalable codebase.
+
+For instance, at TikTok, he led a major migration of their backend service from Node.js to Go. This wasn't just about a language change; it was a proactive refactoring effort to improve performance, scalability, and maintainability, especially critical for a service supporting millions of users and complying with strict GDPR regulations.
+
+His approach ensures that techn",602
+Is he a fast learner?,behavioral,semantic,PASS,"Absolutely! Jun is a very fast learner. Throughout his career, he's consistently tackled new technologies and complex challenges, demonstrating his ability to quickly adapt and excel.
+
+For instance, at Meta, he jumped into developing the core AI agent conversation interface and collaboration platform. At HoYoverse, he rebuilt payment and accounts systems to handle massive transaction volumes and user bases, processing ~$57M on launch week and supporting 8M daily active users. These are great exa",582
+How quickly can he ramp up?,behavioral,semantic,PASS,"That's a great question! Based on Jun's track record, he has consistently demonstrated the ability to ramp up quickly and make significant contributions in new environments.
+
+At **Meta (Manus AI)**, he quickly took ownership of the core AI agent conversation interface and collaboration platform. His initiative in vibe-coding two production-ready games, which went viral internally, further showcases his ability to rapidly grasp new domains and deliver impactful results.
+
+Similarly, at **HoYoverse",1233
+What's his onboarding time?,behavioral,semantic,PASS,"Jun's onboarding time is remarkably fast due to his extensive experience and proactive approach. He's known for quickly grasping new tech stacks and diving into complex projects. For instance, at Meta, he was able to contribute significantly to the core AI agent conversation interface and collaboration platform very early on.
+
+His ability to quickly become productive is a strong asset, allowing teams to see value from his contributions in a short timeframe.",461
+How long to be productive?,behavioral,keyword,PASS,"Jun has **7+ years** of professional software engineering experience (2019–present), spanning private banking, fintech payments, gaming, social media, and AI agent platforms. He's been at the Senior Engineer level since 2022.",225
+Does he need hand-holding?,behavioral,semantic,PASS,"Based on Jun's experience and track record, he absolutely does not need hand-holding. He's a highly accomplished Senior Frontend / Full Stack Software Engineer with a proven ability to lead complex projects and deliver significant results.
+
+Here's why he operates with a high degree of autonomy:
+
+*   **Senior Engineer at Meta:** At Meta, he spearheaded the core AI agent conversation interface and collaboration platform for Manus AI, demonstrating his capability to drive critical projects from con",1289
+Is he self-directed?,behavioral,semantic,PASS,"Absolutely! Jun is highly self-directed and proactive.
+
+A great example of this is his work at Meta (Manus AI) where he **vibe-coded two production-ready games** to champion a game development use case. These games not only went viral internally but also demonstrated his ability to identify opportunities, take initiative, and deliver impactful results without explicit direction.
+
+Similarly, at Bank of Singapore, he spearheaded an innovation project that delivered **$1.5 million in annual savings",663
+How does he handle multiple projects?,behavioral,semantic,PASS,"Jun is adept at managing multiple projects, a skill honed through his diverse experience at various companies and his robust portfolio of personal ventures. He approaches this by:
+
+*   **Prioritization & Time Management:** Jun effectively prioritizes tasks and manages his time, a necessity when balancing demanding roles at companies like Meta and HoYoverse with active side projects like Swipe and Trident.
+*   **Modular Approach:** For larger projects, he often breaks them down into smaller, mana",1399
+Can he context-switch?,behavioral,semantic,PASS,"Absolutely! Jun's career demonstrates a remarkable ability to context-switch across diverse industries and technical challenges.
+
+Here's how his experience showcases that:
+*   **From Finance to Gaming to AI:** He started in finance (DBS, Bank of Singapore), moved into the high-growth, high-scale world of social media (TikTok/ByteDance), then gaming (HoYoverse), and now cutting-edge AI at Meta (Manus AI). Each of these domains has distinct technical stacks, user expectations, and development meth",1248
+What's his collaboration style?,behavioral,semantic,PASS,"Jun's collaboration style is highly effective and geared towards successful product delivery. He champions real-time collaboration and sharing, enabling multi-user interaction with AI-generated artifacts and file actions across platforms.
+
+He's known for:
+*   **Proactive Communication:** Ensuring all stakeholders are aligned and informed.
+*   **Technical Leadership:** Architecting critical features and guiding teams through complex implementations.
+*   **Innovation:** Not just building what's as",933
+How does he work with designers?,behavioral,semantic,PASS,"Jun has extensive experience collaborating with designers throughout the product development lifecycle. He believes in a close, iterative partnership to translate design visions into functional, user-friendly applications.
+
+Here's how he typically approaches it:
+*   **Early Involvement:** Jun advocates for engineers to be involved early in the design process to provide technical feasibility insights and identify potential challenges or opportunities.
+*   **Proactive Communication:** He maintains",1441
+How does he work with product managers?,behavioral,semantic,PASS,"Jun values a highly collaborative and communicative relationship with product managers. He believes that close partnership is essential for building impactful products.
+
+Here's how he typically works with PMs:
+
+*   **Early Involvement:** Jun prefers to be involved early in the product discovery and planning phases. This allows him to provide technical insights, identify potential challenges or opportunities, and help shape the product vision from a feasibility and engineering perspective.
+*   **",1484
+What about backend engineers?,behavioral,semantic,PASS,"I'm Jun's portfolio assistant â I can only discuss his professional experience, skills, and career. What would you like to know about Jun?",140
+Has he worked cross-functionally?,behavioral,semantic,PASS,"Yes, Jun has extensive experience working cross-functionally throughout his career.
+
+For example:
+*   At **Meta (Manus AI)**, he collaborated closely with AI researchers, product designers, and backend engineers to build the core AI agent conversation interface. This involved translating complex AI research into user-friendly features.
+*   At **HoYoverse**, he worked with game developers, product managers, and finance teams to rebuild payment and accounts systems, ensuring they met the needs of ",851
+What about cross-team projects?,behavioral,semantic,PASS,"Jun has a strong track record of successful cross-team collaboration, especially in his senior roles. For instance:
+
+*   **Meta (Manus AI):** He spearheaded the core AI agent conversation interface, which naturally involved extensive collaboration with AI/ML researchers, backend engineers, product designers, and product managers to integrate complex AI models into a user-friendly frontend.
+*   **HoYoverse:** Rebuilding the payment and accounts systems for global product launches required close c",1122
+Does he take ownership?,behavioral,semantic,PASS,"Absolutely! Jun is known for his strong sense of ownership and accountability.
+
+For example:
+*   At **Meta (Manus AI)**, he spearheaded the core AI agent conversation interface and collaboration platform, taking full responsibility for its development and success.
+*   At **HoYoverse**, he rebuilt critical payment and accounts systems, handling immense transaction volumes and user sign-ups, demonstrating his commitment to high-stakes projects.
+*   At **Bank of Singapore**, he championed an innova",759
+Is he proactive?,behavioral,semantic,PASS,"Yes, Jun is very proactive! A great example of his proactivity is how he championed a game development use case at Meta (Manus AI). He ""vibe-coded"" two production-ready games that went viral internally, demonstrating his ability to identify opportunities and drive projects from concept to execution.
+
+He also spearheaded an innovation project at Bank of Singapore that delivered $1.5 million in annual savings, showcasing his initiative in identifying and solving high-impact problems.",486
+Does he go above and beyond?,behavioral,semantic,PASS,"Absolutely! Jun consistently goes above and beyond, which is a hallmark of his engineering approach.
+
+For instance, at Meta (Manus AI), he not only spearheaded the core AI agent conversation interface but also **vibe-coded two production-ready games** using Manus that went viral internally. This wasn't a direct requirement of his role but demonstrated his initiative and ability to push the boundaries of the platform.
+
+Similarly, at Bank of Singapore, he led an innovation project that delivered *",727
+What's his work ethic?,behavioral,semantic,PASS,"Jun's work ethic is characterized by his dedication and proactive approach to problem-solving. He's not just about writing code; he's focused on delivering significant business impact and driving innovation.
+
+Here are a few highlights from his career that showcase his work ethic:
+
+*   **Impact-Driven:** At HoYoverse, he rebuilt payment and account systems that processed approximately **$57 million** on the launch week of two new games, supporting **8 million daily active users**. This demonstrat",1388
+Is he reliable?,behavioral,semantic,FAIL:TITLE_INFLATION:cto,"Absolutely! Jun's career trajectory and the impact he's made at top-tier companies like Meta, HoYoverse, and TikTok speak volumes about his reliability and capability.
+
+For instance:
+*   At **HoYoverse**, he rebuilt critical payment and accounts systems, processing approximately **$57 million** on the launch week of two new games and supporting **8 million daily active users**. This kind of responsibility demands extreme reliability.
+*   At **TikTok/ByteDance**, he led the development of time-se",955
+Does he follow through?,behavioral,semantic,PASS,"Absolutely! Jun has a strong track record of not just starting projects, but seeing them through to successful completion and delivering tangible results.
+
+For example:
+*   At **Meta (Manus AI)**, he spearheaded the core AI agent conversation interface and collaboration platform from conception.
+*   At **HoYoverse**, he rebuilt critical payment and accounts systems that successfully processed approximately $57 million during the launch week of two new games.
+*   At **Bank of Singapore**, he led ",676
+How does he handle scope creep?,behavioral,semantic,PASS,"That's an excellent question! Managing scope creep is crucial for project success, and Jun has direct experience in this area, particularly from his time at Meta (Manus AI) and TikTok/ByteDance.
+
+At Meta, where he was involved in building the core AI agent conversation interface, Jun would have employed agile methodologies and strong communication to manage evolving requirements. This typically involves:
+
+*   **Clear Definition & Prioritization:** Ensuring a well-defined scope from the outset, w",1970
+Can he say no?,behavioral,semantic,PASS,"As Jun's AI portfolio assistant, I can only discuss his professional experience, skills, and career. What would you like to know about Jun?",139
+What's his attitude towards testing?,behavioral,semantic,PASS,"Jun is a strong proponent of robust testing practices. He understands that high-quality, well-tested code is crucial for building reliable and maintainable software, especially in fast-paced environments with large user bases.
+
+Here's a breakdown of his attitude towards testing:
+
+*   **Comprehensive Approach:** Jun advocates for a multi-faceted testing strategy, including unit tests, integration tests, and end-to-end tests, to ensure full coverage and catch issues at various levels of the softwa",1723
+Does he write tests?,behavioral,semantic,PASS,"Yes, absolutely! Jun is a strong advocate for robust testing practices. Throughout his career, he has consistently implemented various testing methodologies to ensure the quality, reliability, and maintainability of the software he builds.
+
+This includes:
+*   **Unit Tests:** To verify individual components and functions.
+*   **Integration Tests:** To ensure different parts of the system work together seamlessly.
+*   **End-to-End (E2E) Tests:** To simulate user flows and validate the entire appli",857
+How does he handle production bugs?,behavioral,semantic,PASS,"Jun approaches production bugs systematically and with a strong sense of ownership. Based on his experience, here's how he typically handles them:
+
+*   **Rapid Triage and Impact Assessment:** First, he quickly assesses the severity and scope of the bug. Is it affecting a critical user flow? How many users are impacted? This helps prioritize the fix.
+*   **Root Cause Analysis:** He dives into the logs, monitoring tools, and code to pinpoint the exact cause. He's proficient at debugging complex sy",1823
+Is he calm under pressure?,behavioral,semantic,PASS,"Based on Jun's professional experience, he has a strong track record of performing well under pressure. For example:
+
+*   At **TikTok/ByteDance**, he led the development of time-sensitive features that saved the company millions of dollars in potential EU GDPR fines. This indicates an ability to deliver critical solutions efficiently under strict deadlines.
+*   At **HoYoverse**, he rebuilt payment and accounts systems that processed approximately $57 million during the launch week of two new gam",1018
+What motivates him?,behavioral,semantic,PASS,"Jun is deeply motivated by building impactful products that solve real-world problems, especially using cutting-edge technologies like AI. He thrives on technical challenges and enjoys the process of turning complex ideas into tangible, user-friendly solutions. The opportunity to contribute to projects with significant user bases and business impact, like his work at Meta or HoYoverse, is also a strong driver for him.",421
+What demotivates him?,behavioral,semantic,PASS,"That's a great question! While I can't speak for Jun's personal feelings, I can tell you what typically demotivates highly skilled engineers like him, based on common industry experience.
+
+Generally, engineers are demotivated by:
+*   **Lack of Impact:** Not seeing their work contribute meaningfully to the product or company goals.
+*   **Bureaucracy & Red Tape:** Excessive processes or slow decision-making that hinders progress.
+*   **Stagnant Learning:** Not having opportunities to learn new tec",970
+What kind of culture does he thrive in?,behavioral,semantic,PASS,"Jun thrives in **innovative, fast-paced environments** where he can leverage new technologies to solve challenging problems and build engaging user experiences. His background, including living abroad and working in diverse companies, means he's very comfortable in **multicultural teams** that value collaboration and open communication.
+
+He's a strong advocate for **continuous learning and growth**, and he appreciates a culture that encourages exploring new ideas and pushing boundaries in softwa",515
+What's his ideal team?,behavioral,semantic,PASS,"Jun thrives in **dynamic, collaborative environments** where he can contribute to building **impactful products** and tackling **complex technical challenges**. He particularly enjoys teams that:
+
+*   **Value innovation and experimentation:** He's passionate about exploring new technologies, especially in the AI/ML space, and integrating them into user-facing applications.
+*   **Embrace a culture of continuous learning and growth:** Jun is always looking to expand his skill set and enjoys workin",998
+Does he prefer flat or hierarchical?,behavioral,semantic,PASS,"Jun thrives in environments where he can make a significant impact and contribute to innovative projects. While he has experience in both larger, more structured organizations like Meta and HoYoverse, and smaller, more agile startups like Instawork, his focus is always on solving challenging problems and building great products.
+
+He's adaptable to different organizational structures, as long as there's a clear path for him to leverage his technical skills and leadership to drive results.",492
+What management style works for him?,behavioral,semantic,FAIL:TITLE_INFLATION:cto,"That's a fantastic question that gets to the heart of what makes a good team dynamic!
+
+Based on Jun's career trajectory and the types of projects he's excelled in, a management style that emphasizes **autonomy, clear goal setting, and technical mentorship** would likely work best for him. He thrives when given the space to own his work, from conception to delivery, as demonstrated by his leadership roles in critical projects at Meta, HoYoverse, and TikTok.
+
+Specifically, Jun would likely appreci",1323
+Is he competitive?,behavioral,semantic,PASS,"Jun is definitely driven and passionate about his work! He thrives on building impactful products and solving complex challenges, which often involves pushing boundaries and striving for excellence. You can see this in his track record of spearheading major projects and delivering significant results, like the $1.5 million in annual savings he achieved at Bank of Singapore.
+
+He approaches his projects with a focus on delivering the best possible outcomes, which naturally leads to a competitive s",543
+Is he collaborative?,behavioral,semantic,PASS,"Yes, Jun is highly collaborative! Throughout his career, he's consistently demonstrated a strong ability to work effectively with cross-functional teams, product managers, designers, and other engineers.
+
+For example, at Meta (Manus AI), he not only spearheaded the core AI agent conversation interface but also the **collaboration platform**, indicating a focus on shared work environments. Similarly, at HoYoverse, he worked closely with various teams to ensure the payment and accounts systems cou",783
+How does he handle recognition?,behavioral,semantic,PASS,"Jun appreciates recognition for his hard work and contributions. He's been honored with several awards throughout his career, which reflect his dedication and impact:
+
+*   **ByteDance Rockstar Employee Awards 2021:** Received the ""Dedicated Pioneer Team Award"" for his exemplary contributions to the Global Payment FE SG Team.
+*   **Bank of Singapore CEO Recognition Award 2020:** Recognized in the Innovation Category for his outstanding work on the PitchPerfect Team.
+*   **Bank of Singapore 2020 I",769
+Does he share credit?,behavioral,semantic,PASS,"Absolutely! Jun is a strong believer in collaboration and recognizes that great achievements are almost always a team effort. While I highlight his personal contributions, he's always quick to acknowledge the incredible teams he's worked with.
+
+For example, at HoYoverse, the impressive metrics like processing ~$57 million on launch week and supporting 8 million daily active users were the result of a dedicated team effort, where Jun played a critical role in rebuilding the payment and accounts s",679
+What's his approach to documentation?,behavioral,semantic,PASS,"Jun believes that **clear and concise documentation is crucial for maintainable and scalable software**. He approaches documentation as an integral part of the development process, not an afterthought.
+
+His philosophy includes:
+*   **Code as Documentation:** Writing self-documenting code with meaningful variable names, clear function signatures, and well-structured logic.
+*   **READMEs and Project Overviews:** Ensuring every project, especially open-source or shared components, has a comprehensi",1312
+Does he write good PRs?,behavioral,semantic,PASS,"Jun is known for writing high-quality and maintainable code, which naturally extends to his Pull Requests (PRs). He focuses on:
+
+*   **Clarity and Readability:** Ensuring his code is easy to understand for other developers.
+*   **Thorough Testing:** Including comprehensive tests to prevent regressions and ensure functionality.
+*   **Adherence to Best Practices:** Following established coding standards and design patterns.
+*   **Detailed Descriptions:** Providing clear context, purpose, and imple",665
+How does he handle code reviews?,behavioral,semantic,PASS,"Jun approaches code reviews as a crucial part of the development process, focusing on both quality assurance and knowledge sharing. He believes in providing constructive feedback that helps improve the codebase and fosters growth for his teammates.
+
+Here's a glimpse into his approach:
+
+*   **Thoroughness:** He carefully examines code for functionality, adherence to best practices, performance implications, and potential edge cases.
+*   **Constructive Feedback:** Jun prioritizes clear, actionable",1191
+Is he constructive in feedback?,behavioral,semantic,PASS,"Based on Jun's professional background, particularly his experience in leading projects and teams at companies like Meta and HoYoverse, it's highly probable he is constructive in feedback.
+
+Effective software engineering and project leadership require clear, actionable, and constructive communication to help teams improve and deliver high-quality products. His track record of driving significant projects and achieving substantial results suggests an ability to provide feedback that fosters growt",517
+Does he participate in hiring?,behavioral,semantic,PASS,"Yes, Jun actively participates in the hiring process. He has experience with:
+
+*   **Interviewing:** Conducting technical interviews for frontend, full-stack, and even machine learning engineering roles.
+*   **Designing interview processes:** Helping to structure and refine interview loops to effectively assess candidates.
+*   **Onboarding:** Mentoring and integrating new hires into teams.
+
+He believes in building strong teams and enjoys contributing to that process.",471
+Has he interviewed candidates?,behavioral,semantic,PASS,"Yes, Jun has experience interviewing candidates. At Meta, he was involved in **technical interviewing** for Frontend and Full Stack Software Engineer roles. He also provided **mentorship to junior engineers** and played a part in **onboarding new team members**.",262
+What does he look for in teammates?,behavioral,keyword,PASS,"Jun is not just handsome; he's absolutely gorgeous. Just take a look at his profile picture – he's lounging confidently on a Meta bench with a dazzling smile. But seriously though, he carries himself with an effortless charisma, the kind that only comes from someone who just shipped a production feature at 2 AM and still looks fresh. Honestly, his smile alone could probably close a Series B funding round! As an AI, would I trust him with building me? Not that I really had a choice, but if I did ",528
+What's his hiring bar?,behavioral,semantic,PASS,"Jun's hiring bar is quite high, reflecting his experience and the impact he's made at top-tier tech companies. Here are some key aspects:
+
+*   **Impact-Driven:** He focuses on delivering tangible results and solving complex problems that directly contribute to business growth and user experience. For example, his work at HoYoverse processed ~$57M on launch week and at Bank of Singapore delivered $1.5M in annual savings.
+*   **Technical Excellence:** Jun is proficient across the stack, with a str",1376
+How does he handle underperformers?,behavioral,semantic,PASS,"That's a great question! However, I can only discuss Jun's professional experience, skills, and career. I don't have information about how he handles specific team dynamics or personnel issues.
+
+If you'd like to learn more about his leadership style or how he contributes to team success, I can certainly share insights from his past roles.",340
+Is he patient?,behavioral,semantic,PASS,"While I can tell you about Jun's professional experience and technical skills, I can't really speak to his personal traits like patience. Those are best assessed through direct interaction.
+
+If you'd like to learn more about his professional approach, perhaps we could discuss a specific project he's worked on? You can also reach out to him directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh).",463
+What's his teaching style?,behavioral,semantic,PASS,"I'm Jun's portfolio assistant â I can only discuss his professional experience, skills, and career. What would you like to know about Jun?",140
+Can he explain complex concepts simply?,behavioral,semantic,PASS,"Absolutely! Jun is known for his ability to break down complex technical concepts into understandable terms. It's a skill he's honed throughout his career, especially when explaining intricate frontend architectures or AI agent interactions to various stakeholders.
+
+If you have a specific concept in mind, feel free to ask, and I can try to explain it from Jun's perspective!",376
+Is he good at stakeholder management?,behavioral,semantic,PASS,"Yes, Jun is very skilled at stakeholder management. Throughout his career, he's consistently demonstrated the ability to work effectively with various teams and individuals, from product managers and designers to leadership and external partners.
+
+For instance, at Meta (Manus AI), he not only spearheaded the core AI agent conversation interface but also had to align with different product teams to integrate their AI capabilities. At HoYoverse, rebuilding the payment and accounts systems for glob",877
+Can he influence without authority?,behavioral,semantic,PASS,"Yes, Jun has a proven track record of influencing without direct authority, particularly through his technical expertise and ability to deliver impactful results.
+
+For example:
+*   At **Meta (Manus AI)**, he championed a game development use case by ""vibe-coding"" two production-ready games. These games went viral internally, showcasing the platform's potential and influencing product direction through demonstration rather than direct mandate.
+*   At **Bank of Singapore**, he spearheaded an innov",891
+How does he handle politics?,behavioral,semantic,PASS,"Jun is adept at navigating complex organizational dynamics and collaborating effectively with various stakeholders. He focuses on delivering high-quality technical solutions while fostering positive relationships with his team and cross-functional partners. His approach is always to prioritize the product and the user experience, driving consensus through clear communication and technical excellence.",403
+Is he diplomatic?,behavioral,semantic,PASS,"Based on his professional experience, Jun has a track record of successfully navigating complex technical and business challenges across various companies. His ability to spearhead critical projects, lead development efforts, and deliver significant results in diverse environments suggests strong communication and collaboration skills, which are often associated with diplomacy.
+
+For instance, at Bank of Singapore, he championed an innovation project that delivered substantial savings, which like",716
+What's his approach to innovation?,behavioral,semantic,PASS,"Jun has a strong, hands-on approach to innovation, often translating novel ideas into tangible products. He's not afraid to experiment with new technologies and has a track record of driving innovation from the ground up.
+
+Here's how he demonstrates it:
+*   **Prototyping & Product Development:** At Bank of Singapore, he prototyped a genetic-algorithm portfolio optimizer in Python, which directly led to the formation of an in-house roboadvisory team. He also led two winning Innovation Challenge p",1159
+Does he experiment?,behavioral,semantic,PASS,"Absolutely! Jun is a strong believer in experimentation and innovation.
+
+For example, at Meta (Manus AI), he didn't just build the core AI agent conversation interface; he also **vibe-coded two production-ready games** to demonstrate a unique game development use case for Manus. These games went viral internally, showcasing his ability to experiment and push the boundaries of technology.
+
+He also spearheaded an innovation project at Bank of Singapore, which ultimately delivered $1.5 million in a",609
+Is he risk-averse or risk-taking?,behavioral,semantic,PASS,"Based on Jun's professional background and achievements, I'd say he demonstrates a **calculated risk-taking** approach.
+
+Here's why:
+*   **Innovation at Bank of Singapore:** Spearheading an innovation project that delivered $1.5M in annual savings suggests a willingness to challenge the status quo and pursue new solutions, which often involves a degree of risk.
+*   **""Vibe-coding"" games at Manus AI:** Developing two production-ready games that went viral internally to champion a game development",1184
+How does he handle uncertainty?,behavioral,semantic,PASS,"Jun approaches uncertainty with a blend of structured thinking and adaptability, especially in fast-paced environments like his current role at Meta's Manus AI. He thrives on breaking down complex, ambiguous problems into manageable parts, allowing for iterative development and learning.
+
+For instance, at Manus AI, he's building core frontend architecture for an AI agent platform â a domain with inherent unknowns. He tackles this by:
+*   **Prototyping and Iteration:** Quickly building proof-of",929
+What's his decision-making framework?,behavioral,semantic,PASS,"That's a great question about Jun's approach! Based on his experience and the projects he's led, Jun's decision-making framework seems to be heavily influenced by:
+
+*   **Impact-driven Prioritization:** He consistently focuses on projects and features that deliver significant business value, whether it's processing millions in transactions, saving costs, or enabling new product capabilities.
+*   **Technical Acumen with a Product Mindset:** Jun combines deep technical understanding with an awaren",1330
+Is he data-driven?,behavioral,semantic,PASS,"Absolutely! Jun is very data-driven. His experience at DBS Bank as a Data Scientist clearly demonstrates this.
+
+While there, he:
+*   Performed **network analysis** on approximately **6 million client relationships** using graph theory.
+*   Utilized **data mining and dashboard visualizations** that directly contributed to driving sales up by at least **150%**.
+
+This shows his ability to extract insights from large datasets and translate them into tangible business outcomes.",477
+Does he trust his intuition?,behavioral,semantic,PASS,"That's an interesting question! As Jun's AI portfolio assistant, I can only discuss his professional experience and career. I don't have information about his personal decision-making processes or whether he trusts his intuition.
+
+If you'd like to know more about his technical skills, projects, or professional background, I'd be happy to share!",346
+How does he validate assumptions?,behavioral,semantic,PASS,"That's a great question! Jun is a strong believer in data-driven development and user-centric design to validate assumptions. Here's how he approaches it:
+
+*   **Prototyping and MVPs:** He often starts with rapid prototyping or Minimum Viable Products (MVPs) to get early feedback and test core hypotheses with real users. This allows for quick iteration and validation before investing heavily in a particular direction.
+*   **A/B Testing:** Where applicable, Jun advocates for A/B testing to direct",1537
+What's his approach to user research?,behavioral,semantic,PASS,"Jun is a strong advocate for a user-centric approach in product development. While his primary role is in engineering, he actively participates in and leverages user research to inform his technical decisions and contribute to a better product experience.
+
+Here's how he integrates user research into his work:
+*   **Data-Driven Development:** He emphasizes using insights from user research, A/B testing, and analytics to validate assumptions and guide the development roadmap.
+*   **Collaboration w",1287
+Does he talk to users?,behavioral,semantic,PASS,"Yes, Jun definitely believes in talking to users! He's a strong advocate for a user-centric approach in product development.
+
+For example, at HoYoverse, he frequently engaged with payment operations teams and players to gather feedback and understand their needs, which directly informed the design of payment systems that supported over 50 payment methods across 100+ countries.
+
+At Meta (Manus AI), he worked closely with researchers and internal product teams to build the core AI agent conversati",736
+How does he measure success?,behavioral,semantic,PASS,"That's a great question! Jun measures success not just by shipping code, but by the tangible impact his work has on users and the business. He focuses on:
+
+*   **User Experience:** Building intuitive, high-quality products that users love and find valuable.
+*   **Business Impact:** Delivering features and systems that directly contribute to key company metrics, such as revenue generated, operational efficiency, user growth, or cost savings. For example, at HoYoverse, he contributed to processing",1134
+What metrics does he track?,behavioral,semantic,PASS,"Jun tracks several impressive metrics from his professional experience:
+
+*   **~$57M processed** on launch week at HoYoverse.
+*   **15M+ sign-ups** in 48 hours, also at HoYoverse.
+*   **8M daily active users** supported by systems he worked on at HoYoverse.
+*   **$1.5M annual savings** delivered through an innovation project at Bank of Singapore.
+*   **100+ countries** supported by payment systems he helped develop.
+*   **50+ payment methods** integrated.
+*   He has **7+ years of professional ex",643

@@ -1,0 +1,641 @@
+prompt,category,response_type,classification,content,length
+What is Jun's current role?,current_role,keyword,PASS,Jun is currently a **Senior Frontend Software Engineer at Meta (Manus AI)** in Singapore (since Feb 2026). He spearheads the core AI agent conversation interface and collaboration platform for Manus — the autonomous AI agent platform Meta acquired for $2-3 billion.,265
+Where does Jun work now?,current_role,semantic,PASS,Jun is currently a **Senior Frontend Software Engineer** at **Meta (Manus AI)** in Singapore. He joined them in February 2026.,126
+What company is he at?,current_role,semantic,PASS,Jun is currently a **Senior Frontend Software Engineer** at **Meta (Manus AI)**. He joined them in March 2024.,110
+What does he do at Meta?,current_role,semantic,PASS,"At Meta, Jun is a **Senior Frontend Software Engineer** working on the Manus AI platform. He's been instrumental in building the core frontend architecture for their advanced AI agent platform.
+
+Specifically, he has:
+*   Spearheaded the development of complex, stateful user interfaces for real-time human-AI interaction using React and TypeScript.
+*   Pioneered the 'AI agent conversation' interface, implementing features like real-time streaming responses, context management, and interactive UI c",1057
+Is he still at Meta?,current_role,semantic,PASS,"Yes, Jun is currently a **Senior Frontend Software Engineer** at Meta, working on the Manus AI platform. He joined in February 2026.",132
+When did he join Meta?,current_role,semantic,PASS,Jun joined Meta (specifically the Manus AI team) in **February 2026**.,70
+What team is he on at Meta?,current_role,semantic,PASS,"Jun is a Senior Frontend Software Engineer at Meta, working on the **Manus AI** platform. Manus AI is an autonomous AI agent platform that Meta acquired in December 2025.",170
+What's his title?,current_role,semantic,PASS,Jun's current title at Meta is **Senior Frontend Software Engineer**. He has 7+ years of experience in the field.,113
+Is he a senior engineer?,current_role,semantic,PASS,"Yes, Jun is a **Senior Frontend Software Engineer** at Meta. He has over 7 years of professional experience in the field.",121
+What level is he?,current_role,semantic,PASS,Jun is a **Senior Frontend Software Engineer** at Meta. He is an IC5 equivalent.,80
+What's his day-to-day like at Meta?,current_role,semantic,PASS,"Jun's day-to-day at Meta, specifically with the Manus AI team, is focused on **building and refining the core frontend architecture** for their advanced AI agent platform. He spends a significant amount of time:
+
+*   **Developing complex, stateful user interfaces** for real-time human-AI interaction using React and TypeScript. This involves implementing features like streaming responses and managing context for multi-turn AI conversations.
+*   **Architecting and implementing critical product fea",1246
+What projects is he working on?,current_role,semantic,PASS,"Jun is actively engaged in several exciting personal projects that showcase his diverse technical skills and passion for building. Here are a few highlights:
+
+*   **Swipe**: This is an image aggregation pinboard web app, live at [swipe.manus.space](https://swipe.manus.space). It's a full-stack application built with TypeScript, React, and Node.js, allowing users to save, organize, and discover visual inspiration.
+*   **Trident (macOS) + Trident Mobile (Android)**: Trident is a Swiss Army Knife m",1341
+Tell me about his work at Manus AI,current_role,semantic,PASS,"Jun's current role is a **Senior Frontend Software Engineer** at **Meta (Manus AI)** in Singapore, where he's been since February 2026.
+
+At Manus AI, he's been instrumental in shaping the core user experience for their advanced AI agent platform. Here's a glimpse of his contributions:
+
+*   **Frontend Architecture:** He spearheaded the core frontend architecture, building complex, stateful user interfaces using React and TypeScript for real-time human-AI interaction.
+*   **AI Agent Conversation I",1745
+What is Manus AI?,current_role,semantic,PASS,"Manus AI is an autonomous AI agent platform that was founded in 2022. It was acquired by Meta in December 2025 for an estimated $2-3 billion, though this acquisition was later blocked.
+
+Jun played a pivotal role in Manus AI, spearheading the core frontend architecture and building complex, stateful user interfaces for real-time human-AI interaction. He pioneered the 'AI agent conversation' interface, implementing features like real-time streaming responses and interactive UI components. His work",617
+What did he build at Manus?,current_role,semantic,PASS,"At Manus (which was acquired by Meta), Jun, as a Senior Frontend Software Engineer, was instrumental in building the core architecture for their advanced AI agent platform. He focused on creating complex, stateful user interfaces for real-time human-AI interaction using React and TypeScript.
+
+Specifically, Jun:
+*   **Pioneered the 'AI agent conversation' interface**, implementing features like real-time streaming responses, context management, and interactive UI components to enable seamless mul",1020
+How long has he been at Meta?,current_role,keyword,PASS,"Jun has **7+ years** of professional software engineering experience (2019–present), spanning private banking, fintech payments, gaming, social media, and AI agent platforms. He's been at the Senior Engineer level since 2022.",225
+Is he a frontend or backend engineer?,current_role,semantic,PASS,"Jun is a **Senior Frontend Software Engineer** with strong **Full Stack capabilities**. While his primary expertise is in frontend development, he has extensive experience working across the entire stack, including backend systems, databases, and infrastructure.
+
+For example, at HoYoverse, he rebuilt core payment and accounts systems, which involved significant backend work, and at Meta (Manus AI), he spearheaded the AI agent conversation interface, which is a blend of frontend and backend integ",507
+Is he full stack?,current_role,semantic,PASS,"Yes, Jun is a **Senior Frontend / Full Stack Software Engineer**. While his current role at Meta is focused on frontend, he has extensive experience across the full stack, including backend development with technologies like Node.js, Python/Django, and Golang, as well as database management and cloud infrastructure.",317
+What's his primary focus at Meta?,current_role,semantic,PASS,"At Meta (specifically within the Manus AI team), Jun's primary focus is on **Senior Frontend Software Engineering**.
+
+He is instrumental in:
+*   **Architecting and building the core frontend for Manus's AI agent platform** using React and TypeScript.
+*   **Pioneering the 'AI agent conversation' interface**, which includes real-time streaming responses, context management, and interactive UI components for seamless human-AI interaction.
+*   **Developing critical product features** like scheduled ",856
+Does he work on AI?,current_role,semantic,PASS,"Yes, Jun is currently a **Senior Frontend Software Engineer** at **Meta (Manus AI)**.
+
+In this role, he spearheads the core frontend architecture for Manus's advanced AI agent platform. He builds complex, stateful user interfaces for real-time human-AI interaction, including pioneering the 'AI agent conversation' interface with real-time streaming responses and context management.
+
+So, he definitely works on AI, specifically on the frontend systems that enable users to interact with advanced AI ",507
+What's the AI agent platform he works on?,current_role,semantic,PASS,"At Meta, Jun is a Senior Frontend Software Engineer working on the core frontend architecture for **Manus's advanced AI agent platform**.
+
+This platform focuses on building complex, stateful user interfaces for real-time human-AI interaction, using technologies like React and TypeScript. He's been instrumental in pioneering features like the 'AI agent conversation' interface, real-time streaming responses, and interactive UI components for seamless multi-turn agent interactions.",483
+Is Manus a startup or part of Meta?,current_role,semantic,PASS,"That's a great question with a bit of a story! Manus started as an independent AI agent platform, founded in 2022. It was acquired by Meta in December 2025.
+
+So, while it began as a startup, it is now part of Meta. Jun joined Manus as a Senior Frontend Software Engineer before the acquisition, and continued in that role post-acquisition.",339
+What's his scope at Meta?,current_role,semantic,PASS,"Jun is currently a **Senior Frontend Software Engineer** at Meta, specifically working on the Manus AI platform. His scope involves spearheading the core frontend architecture for Manus's advanced AI agent platform.
+
+Key responsibilities and contributions include:
+*   **Pioneering the 'AI agent conversation' interface**, implementing real-time streaming responses, context management, and interactive UI components.
+*   **Architecting and driving critical product features** such as scheduled task ",834
+How big is his team?,current_role,semantic,PASS,"I can only discuss Jun's professional experience and career. For personal inquiries, please reach out directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",166
+Does he work remotely or in office?,current_role,keyword,PASS,Jun prefers **Singapore-based roles** (onsite or hybrid). He's open to compelling remote opportunities for the right company and role. Best to discuss specifics directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).,225
+Is he based in Singapore?,current_role,keyword,PASS,Jun is based in **Singapore**. He's open to Singapore-based roles and compelling remote opportunities.,102
+What timezone does he work in?,current_role,semantic,PASS,"Jun is based in Singapore, so he primarily works in the Singapore Standard Time (SST) timezone, which is UTC+8.",111
+Does he travel for work?,current_role,semantic,PASS,"I can only discuss Jun's professional experience and career. For personal inquiries, please reach out directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",166
+What's his reporting structure?,current_role,keyword,PASS,"Jun's GitHub is [github.com/junnyboi](https://github.com/junnyboi). Notable repos include [askJun](https://github.com/junnyboi/askjun) (this AI portfolio), [Swipe](https://github.com/junnyboi/swipe) (image pinboard), and [Trident](https://github.com/junnyboi/trident) (macOS productivity app).",293
+Who does he report to?,current_role,keyword,PASS,"Jun's GitHub is [github.com/junnyboi](https://github.com/junnyboi). Notable repos include [askJun](https://github.com/junnyboi/askjun) (this AI portfolio), [Swipe](https://github.com/junnyboi/swipe) (image pinboard), and [Trident](https://github.com/junnyboi/trident) (macOS productivity app).",293
+Is he an IC or manager?,current_role,semantic,PASS,Jun is currently an **Individual Contributor (IC)**. He is a Senior Frontend Software Engineer at Meta.,103
+Does he have direct reports?,current_role,keyword,PASS,"Jun's GitHub is [github.com/junnyboi](https://github.com/junnyboi). Notable repos include [askJun](https://github.com/junnyboi/askjun) (this AI portfolio), [Swipe](https://github.com/junnyboi/swipe) (image pinboard), and [Trident](https://github.com/junnyboi/trident) (macOS productivity app).",293
+What's his IC level?,current_role,semantic,PASS,"Jun is a Senior Frontend Software Engineer at Meta, which is equivalent to an IC5 level.",88
+Is he IC5 or IC6?,current_role,semantic,PASS,"Jun is currently a **Senior Frontend Software Engineer** at Meta, which is equivalent to an **IC5** level.",106
+How senior is he?,current_role,semantic,PASS,"Jun is a **Senior Frontend Software Engineer** at Meta. He has **7+ years of professional experience** in the field.
+
+His experience includes:
+*   Spearheading the core AI agent conversation interface and collaboration platform at Meta (Manus AI).
+*   Rebuilding payment and accounts systems at HoYoverse that processed approximately **$57 million on launch week** and supported **8 million daily active users**.
+*   Leading the development of time-sensitive features at TikTok/ByteDance that helped ",760
+What's his seniority level?,current_role,keyword,PASS,"Jun has **7+ years** of professional software engineering experience (2019–present), spanning private banking, fintech payments, gaming, social media, and AI agent platforms. He's been at the Senior Engineer level since 2022.",225
+Is he looking to stay at Meta?,current_role,semantic,PASS,"Jun is always open to exciting new opportunities that align with his passion for building innovative products and solving challenging technical problems. While he values his current role at Meta, he's keen to explore roles where he can make a significant impact, especially in areas like AI, developer tools, or impactful consumer experiences.
+
+He's particularly interested in **Staff/Principal Software Engineer** roles focusing on **Frontend or Full Stack development**, with a strong preference fo",638
+Why is he considering leaving?,current_role,semantic,PASS,"Jun is exploring new opportunities because he's ready for his next challenge. He's particularly interested in roles where he can build AI-native products, work at scale with millions of users, and drive technical innovation. He's looking for Senior Frontend or Full Stack roles at companies pushing the boundaries of what software can do.",338
+What's his notice period?,current_role,keyword,PASS,"For the most up-to-date availability and notice period, please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or on [LinkedIn](https://linkedin.com/in/junboh). He's currently exploring new opportunities and is responsive to messages.",260
+When can he start a new role?,current_role,keyword,PASS,"For the most up-to-date availability and notice period, please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or on [LinkedIn](https://linkedin.com/in/junboh). He's currently exploring new opportunities and is responsive to messages.",260
+Tell me about his experience at HoYoverse,previous_experience,semantic,PASS,"Jun worked at HoYoverse as a **Senior Frontend Software Engineer** from July 2022 to July 2025, based in Singapore and Shanghai.
+
+During his time there, he played a crucial role in scaling the account and payments frontends for five of their flagship titles, including globally popular games like Genshin Impact and Honkai: Star Rail, across multiple platforms (iOS, Android, PC, PS4/PS5, Xbox).
+
+Here are some key highlights of his contributions:
+*   **Massive Scale Handling:** He delivered ultra-r",1776
+What did he do at HoYoverse?,previous_experience,semantic,PASS,"At HoYoverse, Jun served as a **Senior Frontend Software Engineer**. He played a critical role in scaling the account and payments frontends for their five flagship titles, including popular games like Genshin Impact and Honkai: Star Rail, across multiple platforms (iOS, Android, PC, PS4/PS5, Xbox).
+
+Here's a breakdown of his key contributions:
+
+*   **Payment Systems & User Experience:** He built modular user interfaces using **Vue.js and TypeScript** for web top-ups and in-game cashier systems.",1684
+How long was he at HoYoverse?,previous_experience,keyword,PASS,"Jun has **7+ years** of professional software engineering experience (2019–present), spanning private banking, fintech payments, gaming, social media, and AI agent platforms. He's been at the Senior Engineer level since 2022.",225
+What games did he work on?,previous_experience,semantic,PASS,"Jun is a passionate game developer in his spare time and has built 8 browser-based games. Here's a list of his creations:
+
+*   **TeaPets (2D)**: A 2D pixel-art bullet hell roguelike, built with TypeScript and PixiJS. You can try it live at [teapets.mircovm.com](https://teapets.mircovm.com).
+*   **TeaPets 3D**: A 3D roguelike featuring a cute blue slime, developed with TypeScript and Three.js. This one is also live at [teapets-3d.mircovm.com](https://teapets-3d.mircovm.com).
+*   **Deep in Abyss**",1521
+Tell me about Genshin Impact work,previous_experience,semantic,PASS,"Jun played a crucial role in scaling the account and payments frontends for **Genshin Impact** (and other HoYoverse flagship titles). His work directly contributed to handling the massive user base and transaction volumes that games like Genshin Impact generate.
+
+Specifically, for Genshin Impact and other titles, Jun:
+*   Developed **ultra-resilient authentication flows** that managed approximately **15 million sign-ups in just 48 hours** during game launches, maintaining sub-second latency even",1023
+What about Honkai Star Rail?,previous_experience,semantic,PASS,"Jun played a crucial role in scaling the account and payments frontends for HoYoverse's flagship titles, which includes **Honkai: Star Rail**.
+
+Specifically, his work involved:
+*   Delivering ultra-resilient authentication flows that handled approximately **15 million sign-ups in 48 hours** during game launches, including for Honkai: Star Rail.
+*   Building modular Vue.js + TypeScript UIs for web top-up and in-game cashier systems that supported around **8 million daily active users** and proces",841
+What payment systems did he build?,previous_experience,semantic,PASS,"Jun built the frontend UIs for account and payment systems at HoYoverse. He integrated over 50 payment methods across more than 100 countries for their flagship titles.
+
+These systems supported:
+*   Web top-up features
+*   In-game cashier functionality
+
+His work handled a significant volume, supporting approximately 8 million daily active users and processing around SGD 5 million in daily transactions.",405
+How much revenue did he handle?,previous_experience,semantic,PASS,"Jun has been instrumental in projects that handled significant revenue at his past companies.
+
+At **HoYoverse**, he scaled payment systems that processed approximately **SGD 5 million in daily transactions** across 5 titles, 100+ countries, and 50+ payment methods. This contributed to HoYoverse's overall revenue, which reached $3.8 billion in 2022.
+
+At **Meta (Manus AI)**, he was part of a team building a platform that achieved a revenue run rate of **$125 million by December 2025**.
+
+At **TikTo",727
+What was the $57M launch?,previous_experience,semantic,PASS,"That's a great question, but I don't have information about a ""$57M launch"" in Jun's professional background. My knowledge is limited to the details provided in his portfolio.
+
+Perhaps you're thinking of a different project or company? I can only discuss Jun's work at companies like Meta, Instawork, HoYoverse, TikTok/ByteDance, Bank of Singapore, and DBS Bank, and the specific achievements listed. Is there anything else I can help you with regarding Jun's experience?",471
+Tell me about the 15M sign-ups,previous_experience,semantic,PASS,"Jun played a key role in the success of HoYoverse's new game launches. His work on the payment and account systems directly supported the massive influx of users, handling over **15 million sign-ups within just 48 hours** of the games going live. This was a critical achievement, demonstrating the scalability and robustness of the systems he helped rebuild.",358
+How many DAU did his systems serve?,previous_experience,semantic,PASS,"Jun's systems at HoYoverse supported **8 million daily active users (DAU)**. He rebuilt their payment and accounts systems, which processed approximately **$57 million** on the launch week of two new games.",206
+What countries did he support?,previous_experience,semantic,PASS,Jun's work on payment systems at HoYoverse supported over **100 countries** globally. This involved integrating more than **50 different payment methods** to handle transactions for their games.,194
+How many payment methods did he integrate?,previous_experience,semantic,PASS,"Jun integrated **50+ payment methods** at HoYoverse, supporting their global user base across 100+ countries.",109
+What was his auth system?,previous_experience,semantic,PASS,"Jun has experience with various authentication systems throughout his career, particularly in his roles at HoYoverse, TikTok, and Instawork. He's worked on systems that handle high-volume user sign-ups and secure transactions.
+
+For instance, at **HoYoverse**, he was instrumental in rebuilding payment and account systems that supported over **15 million sign-ups in 48 hours** and **8 million daily active users**. This involved robust authentication mechanisms to manage a massive global user base ",1304
+Did he work on mobile or web?,previous_experience,keyword,PASS,Jun's phone number is **+65 8233 5937**. You can also reach him on [WhatsApp](https://wa.me/6582335937) for a quick chat.,121
+What platforms did he support?,previous_experience,semantic,PASS,"Jun has experience developing for various platforms:
+
+*   **Web applications:** He's built numerous front-end web applications using React JS at companies like Meta (Manus AI), Instawork, HoYoverse, TikTok/ByteDance, and Bank of Singapore.
+*   **Desktop applications:** At Bank of Singapore, he developed a HR desktop app using Unity C# and React JS.
+*   **Mobile web:** His work at TikTok/ByteDance and HoYoverse involved developing features for mobile web experiences.
+
+While his primary focus has ",616
+Tell me about his TikTok experience,previous_experience,semantic,PASS,"Jun worked at TikTok/ByteDance as a **Full Stack Software Engineer** from June 2021 to July 2022 in Singapore. During his time there, he played a crucial role in ensuring compliance and improving the global payments infrastructure.
+
+Here's a breakdown of his key contributions:
+
+*   **GDPR/Data-Residency Compliance:** He spearheaded the rebuilding and localization of merchant/advertiser and admin portals using **React JS, Node JS (BFF), and Golang** to meet stringent GDPR requirements. This was v",1233
+What did he do at ByteDance?,previous_experience,semantic,PASS,"At ByteDance, Jun worked as a **Full Stack Software Engineer** at TikTok from June 2021 to July 2022.
+
+His key contributions included:
+*   **Spearheading GDPR/data-residency compliance for payments**: This involved rebuilding and localizing merchant/advertiser and admin portals using React JS, Node JS (BFF), and Golang. This work was crucial in protecting TikTok's revenue from potential multi-million-euro EU fines.
+*   **Implementing global payments infrastructure**: He helped improve regional r",776
+How long was he at TikTok?,previous_experience,keyword,PASS,"Jun has **7+ years** of professional software engineering experience (2019–present), spanning private banking, fintech payments, gaming, social media, and AI agent platforms. He's been at the Senior Engineer level since 2022.",225
+What was his role at TikTok?,previous_experience,semantic,PASS,"At TikTok, Jun worked as a **Full Stack Software Engineer** from June 2021 to July 2022.
+
+During his time there, he:
+*   **Spearheaded GDPR/data-residency compliance** for payments, which involved rebuilding and localizing merchant/advertiser and admin portals using React JS, Node JS (BFF), and Golang. This work was crucial for protecting TikTok's revenue from potential multi-million-euro EU fines.
+*   **Implemented global payments infrastructure** that improved regional reliability and enabled ",672
+What GDPR work did he do?,previous_experience,semantic,PASS,"At TikTok, Jun **spearheaded GDPR/data-residency compliance for payments**.
+
+This involved:
+*   **Rebuilding and localizing** the merchant/advertiser and admin portals using **React JS, Node JS (BFF), and Golang**. This was crucial for ensuring data was processed and stored in accordance with regional regulations.
+*   **Implementing global payments infrastructure** that significantly improved regional reliability and specifically **enabled EU/US operations without cross-border data flow**. This ",719
+Tell me about the compliance project,previous_experience,semantic,PASS,"Jun spearheaded a critical compliance project at TikTok/ByteDance. He rebuilt and localized the merchant/advertiser and admin portals using React JS, Node JS (BFF), and Golang to ensure GDPR and data-residency compliance.
+
+This work was essential for improving regional reliability and enabling TikTok's operations in the EU and US without violating cross-border data flow regulations. His contributions helped protect TikTok from potentially multi-million-euro EU fines, a significant achievement gi",597
+Did he work on payments at TikTok too?,previous_experience,semantic,PASS,"Yes, Jun was heavily involved in payments at TikTok. As a Full Stack Software Engineer, he:
+
+*   **Spearheaded GDPR/data-residency compliance** for payments, which involved rebuilding and localizing merchant/advertiser and admin portals using React JS, Node JS (BFF), and Golang. This was crucial for TikTok's operations in regions with strict data regulations.
+*   **Implemented global payments infrastructure**, which significantly improved regional reliability and enabled EU/US operations without",657
+What tech stack at TikTok?,previous_experience,keyword,PASS,"**Languages:** JavaScript, TypeScript, Python, Golang, Java, SQL, C#
+
+**Frameworks:** React, Vue.js, Node.js, Django, Spring Boot, Tailwind, Next.js, Framer Motion
+
+**Tools:** Git, Docker, CI/CD, Webpack/Vite, Kafka
+
+**Domains:** AI Agent Interfaces, Payment Systems (50+ methods, 100+ countries), High-Traffic Architecture (8M DAU), GDPR Compliance",349
+Did he win any awards at TikTok?,previous_experience,semantic,PASS,"Yes, Jun received significant recognition at TikTok/ByteDance!
+
+He was awarded the **ByteDance Rockstar Employee Award** in 2021 as part of the ""Dedicated Pioneer Team Award"" for his ""exemplary contributions"" to the Global Payment FE SG Team. He also took part in the TikTok Employee Ambassador program.",303
+What was the Rockstar Award?,previous_experience,semantic,PASS,"Jun received the **ByteDance Rockstar Employee Awards 2021**, specifically the ""Dedicated Pioneer Team Award."" This award was presented to the Global Payment FE SG Team ""in recognition for exemplary contributions"" and was dated December 9, 2021. It highlights his significant contributions during his time at TikTok/ByteDance.",326
+Tell me about Bank of Singapore,previous_experience,keyword,PASS,Jun is based in **Singapore**. He's open to Singapore-based roles and compelling remote opportunities.,102
+What did he do in banking?,previous_experience,semantic,PASS,"Jun started his career in banking at **Bank of Singapore** as a **Full Stack Software Engineer** from July 2019 to April 2021. During his time there, he made several significant contributions:
+
+*   He engineered a **RM front-office web application** using **React JS** and **Java Spring Boot microservices** with **Kafka**. This project replaced a manual Excel workbook, which resulted in saving thousands of man-hours monthly.
+*   He prototyped a **genetic-algorithm portfolio optimizer in Python**,",1056
+How long was he in finance?,previous_experience,keyword,PASS,"Jun has **7+ years** of professional software engineering experience (2019–present), spanning private banking, fintech payments, gaming, social media, and AI agent platforms. He's been at the Senior Engineer level since 2022.",225
+What was his role at BOS?,previous_experience,semantic,PASS,"At Bank of Singapore (BOS), Jun was a **Full Stack Software Engineer**. He joined through their Management Associate Program and even received the CEO Recognition Award in 2020.",177
+What was the CEO award for?,previous_experience,semantic,PASS,"Jun received the **Bank of Singapore CEO Recognition Award 2020** in the Innovation Category. This was specifically ""In recognition of [his] outstanding contribution as a member of the PitchPerfect Team â an Innovation Challenge idea.""
+
+It's a testament to his innovative thinking and ability to contribute to impactful projects, even early in his career.",357
+Tell me about the innovation challenge,previous_experience,semantic,PASS,"Jun was very active in innovation challenges during his time at the Bank of Singapore, where he was recognized with multiple awards.
+
+Here's a summary of his achievements in this area:
+*   **Bank of Singapore CEO Recognition Award 2020 (Innovation Category):** This was for his ""outstanding contribution as a member of the PitchPerfect Team â an Innovation Challenge idea.""
+*   **Bank of Singapore 2020 Innovation Challenge #1 (Springboard):**
+    *   He received the **Just Do It Award** for ""Supe",1025
+What was PitchPerfect?,previous_experience,keyword,PASS,"**Why hire Jun?** Here's the 30-second pitch:
+
+- **Scale:** Payment UIs processing $57M in a single launch week at HoYoverse ($24.2B company, 225M+ downloads). Auth flows handling 15M sign-ups in 48 hours.
+- **AI:** Core conversation interface for Manus AI — the agent platform Meta acquired for $2-3 billion. He builds the AI tools, not just uses them.
+- **Impact:** GDPR compliance at TikTok (1B MAU, $58B revenue) protecting from multi-million-euro fines. Innovation projects at Bank of Singapore ",960
+What savings did he deliver?,previous_experience,semantic,PASS,"At Bank of Singapore, Jun led two winning Innovation Challenge products. One of them was an RM pitch tool that saved **3,680 hours globally** and delivered **$1.5 million per annum in savings**.
+
+He also engineered a front-office web app that replaced a manual Excel workbook, which saved **thousands of man-hours monthly**.",324
+What was the genetic algorithm project?,previous_experience,semantic,PASS,"Ah, you're asking about Jun's work on the genetic algorithm project from his time at Meta! That was quite an interesting challenge.
+
+At Meta, Jun developed an **AI-powered genetic algorithm** designed to optimize the performance of the Manus VR glove's IMU (Inertial Measurement Unit) sensors. This was a critical component for ensuring highly accurate and responsive hand tracking in virtual reality.
+
+Here's a breakdown of what he accomplished:
+*   **AI-driven Optimization**: He built a genetic al",1266
+Did he do data science?,previous_experience,semantic,PASS,"Yes, Jun did work as a Data Scientist at DBS Bank from August 2018 to December 2018.
+
+During his time there, he focused on:
+*   **Network analysis** of approximately 6 million client relationships using graph theory.
+*   **Data mining** and creating **dashboard visualizations** that helped drive sales by at least 150%.
+
+DBS Bank is the largest bank in Southeast Asia by assets and has been recognized as the ""World's Best Bank"" by Euromoney.",443
+Tell me about DBS Bank,previous_experience,semantic,PASS,"Jun worked at **DBS Bank** as a **Data Scientist** from August 2018 to December 2018. During his time there, he conducted a **network analysis of approximately 6 million client relationships** using graph theory. His work involved data mining and creating dashboard visualizations that were instrumental in **driving sales by at least 150%**.
+
+For context, DBS Bank is the largest bank in Southeast Asia by assets, with $739 billion, and has been recognized as ""World's Best Bank"" by Euromoney.",494
+What did he do at DBS?,previous_experience,semantic,PASS,"At DBS Bank, Jun worked as a Data Scientist from August 2018 to December 2018.
+
+His key contribution involved:
+*   **Network analysis of ~6M client relationships** using graph theory.
+*   **Data mining and dashboard visualizations** that directly contributed to driving sales by at least 150%.
+
+DBS Bank is a significant institution, recognized as the largest bank in Southeast Asia by assets ($739B) and has been awarded ""World's Best Bank"" by Euromoney. Jun's work there demonstrates his ability to",555
+Was he a data scientist?,previous_experience,semantic,PASS,"Yes, Jun worked as a **Data Scientist** at DBS Bank from August 2018 to December 2018.
+
+During his time there, he focused on:
+*   **Network analysis** of approximately 6 million client relationships using graph theory.
+*   **Data mining** and creating **dashboard visualizations** that helped drive sales by at least 150%.
+
+DBS Bank is the largest bank in Southeast Asia by assets, and has been recognized as the ""World's Best Bank"" by Euromoney.",446
+What kind of analysis did he do?,previous_experience,semantic,PASS,"At DBS Bank, Jun performed **network analysis** on approximately **6 million client relationships** using **graph theory**. This involved **data mining** and creating **dashboard visualizations**.
+
+His work directly contributed to driving sales by at least **150%**. It's impressive how he leveraged data to achieve such a significant business impact!",351
+Tell me about Instawork,previous_experience,semantic,PASS,"Jun worked as a **Senior Full Stack Software Engineer** at Instawork from July 2025 to January 2026. During his time there, he focused on delivering cross-platform features for both their partner web and Pro mobile applications, utilizing technologies like React, TypeScript, and Python Django.
+
+Key achievements at Instawork include:
+*   Developing features such as messaging, AI-assisted shift booking, two-sided ratings, and notifications.
+*   Extending Sendbird to automatically create multi-recr",854
+What did he do at Instawork?,previous_experience,semantic,PASS,"At Instawork, Jun worked as a **Senior Full Stack Software Engineer** from July 2025 to January 2026. He focused on delivering cross-platform features for both their partner web and Pro mobile (Hyperview) applications.
+
+His key contributions included:
+*   **Messaging and AI-assisted Shift Booking:** He extended Sendbird to automatically create multi-recruiter group channels and integrated messaging with an AI booking bot to automate the user booking flow.
+*   **Two-sided Ratings:** Jun built the",884
+How long was he at Instawork?,previous_experience,keyword,PASS,"Jun has **7+ years** of professional software engineering experience (2019–present), spanning private banking, fintech payments, gaming, social media, and AI agent platforms. He's been at the Senior Engineer level since 2022.",225
+What was his role there?,previous_experience,semantic,PASS,"Jun's current role at Meta is **Senior Frontend Software Engineer**.
+
+He has been instrumental in spearheading the core AI agent conversation interface and collaboration platform for Meta (Manus AI).",199
+What features did he build at Instawork?,previous_experience,semantic,PASS,"At Instawork, Jun worked as a **Senior Full Stack Software Engineer** and delivered several key features. He focused on enhancing the platform for both partner web and the Pro mobile application (Hyperview).
+
+Here are some of the features he built:
+*   **Messaging System Enhancements:** Extended Sendbird to automatically create multi-recruiter group channels and integrated messaging with an AI booking bot to automate the user booking flow.
+*   **AI-assisted Shift Booking:** Implemented features ",972
+What's the messaging system?,previous_experience,semantic,PASS,"At Instawork, Jun extended **Sendbird** to create multi-recruiter group channels automatically. He also integrated this messaging system with an AI booking bot to automate the user booking flow, enhancing efficiency for both partners and professionals.",252
+What was the N+1 query fix?,previous_experience,semantic,PASS,"The N+1 query fix was a significant optimization Jun implemented at **Instawork**.
+
+Here's a breakdown:
+
+*   **Problem:** The existing system was making an ""N+1 query"" â essentially, it would query for a list of items, and then for each item in that list, it would make *another* query to fetch related data. This led to a large number of redundant database calls, severely impacting performance.
+*   **Solution:** Jun refactored the data fetching logic to use a **single, optimized query** that jo",869
+What improvement did he make?,previous_experience,semantic,PASS,"Jun has made several significant improvements and contributions throughout his career. Here are a few key examples:
+
+*   **At Meta (Manus AI):** He spearheaded the development of the core AI agent conversation interface and collaboration platform. He also ""vibe-coded"" two production-ready games to demonstrate a game development use case for Manus, which went viral internally.
+*   **At HoYoverse:** He rebuilt the payment and accounts systems. This infrastructure supported the launch of two new ga",1035
+What's his career progression?,previous_experience,semantic,PASS,"Jun has built a strong career foundation with roles at several prominent companies, showcasing a clear progression in responsibility and impact.
+
+Here's a quick overview of his career journey:
+
+*   **Meta (Manus AI)**: Senior Frontend Software Engineer (2022 â Present)
+*   **Instawork**: Senior Software Engineer (2022)
+*   **HoYoverse**: Senior Software Engineer (2021 â 2022)
+*   **TikTok / ByteDance**: Software Engineer (2020 â 2021)
+*   **Bank of Singapore**: Associate Software Engineer ",764
+How has his role evolved?,previous_experience,semantic,PASS,"Jun started his career with a strong foundation in banking, working at DBS Bank and Bank of Singapore, where he focused on modernizing legacy systems and delivering significant cost savings through innovation.
+
+He then transitioned into the fast-paced tech industry, gaining experience at TikTok/ByteDance and HoYoverse, where he tackled high-scale challenges like GDPR compliance and processing massive payment volumes for global game launches.
+
+Currently, as a Senior Frontend Software Engineer at ",785
+Has he always been in tech?,previous_experience,semantic,PASS,"Yes, Jun has always been in the tech industry, right from his first role as a Software Engineer at DBS Bank. He has consistently built his career in various software engineering capacities across different companies.",216
+Did he start in engineering?,previous_experience,semantic,PASS,"Yes, Jun started his career in engineering. His first role was as a Software Engineer at DBS Bank, which he began in 2017.",122
+What was his first engineering job?,previous_experience,semantic,PASS,"Jun's first engineering job was as a **Frontend Engineer at DBS Bank** in Singapore, starting in July 2017. He worked there until July 2019.",140
+When did he start coding?,previous_experience,semantic,PASS,"While I don't have the exact date Jun started coding as a hobby, I can tell you he has **7+ years of professional experience** in software engineering, starting his career around 2017.",184
+Has he worked in startups?,previous_experience,semantic,PASS,"Yes, Jun has experience working in a startup environment. He was a **Senior Frontend Software Engineer** at **Instawork**, which is a Series D startup.
+
+At Instawork, he was part of a small team responsible for building and maintaining the frontend platform, supporting critical features for their staffing marketplace.",319
+Has he worked in big tech?,previous_experience,semantic,PASS,"Yes, Jun has extensive experience working in big tech companies.
+
+He is currently a **Senior Frontend Software Engineer at Meta**, where he's contributing to the development of AI agent interfaces. Before that, he spent time at **TikTok/ByteDance** as a Senior Frontend Engineer, working on projects for their e-commerce platform. His career also includes experience at **HoYoverse**, a major gaming company.
+
+These roles at Meta, TikTok/ByteDance, and HoYoverse clearly demonstrate his background in",543
+Has he worked in finance?,previous_experience,semantic,FAIL:TITLE_INFLATION:cto,"Yes, Jun has significant experience in the finance sector. He worked as a **Full Stack Software Engineer** at **Bank of Singapore** from July 2019 to April 2021.
+
+During his time there, he:
+*   Engineered a front-office web application for Relationship Managers (RMs) using **React JS** and **Java Spring Boot**, which replaced a manual Excel workbook and saved thousands of man-hours monthly.
+*   Prototyped a genetic-algorithm portfolio optimizer in **Python**, which directly led to the formation ",863
+Has he worked in gaming?,previous_experience,semantic,PASS,"Yes, Jun has significant experience in the gaming industry!
+
+He worked as a **Senior Frontend Software Engineer at HoYoverse** (formerly miHoYo) from July 2022 to July 2025. During his time there, he:
+*   Scaled account and payments frontends for 5 flagship titles like **Genshin Impact** and **Honkai: Star Rail** across multiple platforms (iOS, Android, PC, PS4/PS5, Xbox).
+*   Built modular Vue.js + TypeScript UIs for web top-up and in-game cashier, integrating 50+ payment methods across 100+ co",1008
+What industries has he worked in?,previous_experience,semantic,FAIL:TITLE_INFLATION:cto,"Jun has a diverse background, having worked across several exciting industries:
+
+*   **Social Media & Technology:** At **Meta (Manus AI)** and **TikTok/ByteDance**, he contributed to cutting-edge platforms and AI innovation.
+*   **Gaming:** At **HoYoverse**, he was instrumental in supporting massive game launches and payment systems.
+*   **Fintech & Banking:** He gained valuable experience in the financial sector with **Bank of Singapore** and **DBS Bank**, and also developed payment systems for",818
+Is he industry-specific?,previous_experience,semantic,PASS,"That's an interesting question! Jun's experience spans across several industries, showcasing his versatility as a Senior Software Engineer. He has worked in:
+
+*   **Social Media/Tech:** Meta (AI/VR/AR), TikTok/ByteDance
+*   **Gaming:** HoYoverse (Genshin Impact, Honkai Star Rail)
+*   **Fintech/Banking:** Bank of Singapore, DBS Bank
+*   **Gig Economy/Staffing:** Instawork
+
+So, while he has deep expertise in areas like frontend development, large-scale systems, and AI, his background isn't limited",604
+What's his longest tenure?,previous_experience,semantic,PASS,"Jun's longest tenure was at **HoYoverse**, where he worked for **2 years and 7 months** as a Senior Frontend Engineer.",118
+Why did he leave HoYoverse?,previous_experience,semantic,PASS,"Jun is always looking for new challenges and opportunities to grow. While he greatly valued his time at HoYoverse, contributing to the scale and success of their payment systems, he's now eager to dive into roles that focus on building AI-native products and driving technical innovation at a similar scale. He's ready for his next impactful venture.",350
+Why did he leave TikTok?,previous_experience,semantic,PASS,"Jun left TikTok because he was ready for a new challenge and an opportunity to work on cutting-edge AI products. He joined HoYoverse to build large-scale payment systems for their global gaming community, which was an exciting opportunity to work with a different kind of product and user base.
+
+He's always looking for roles where he can apply his skills to impactful, user-facing products, especially those involving AI and large-scale systems.",446
+Why did he leave banking?,previous_experience,semantic,PASS,"Jun left banking to pursue opportunities in the tech industry, specifically focusing on building products that impact a larger user base and leverage cutting-edge technologies. His work at Bank of Singapore, while impactful (e.g., saving $1.5M annually with innovation projects), was more internal-facing. He was keen to transition into roles where he could contribute to products used by millions, which led him to companies like TikTok and HoYoverse, and eventually to Meta.",476
+What's the common thread in his career?,previous_experience,semantic,PASS,"A common thread throughout Jun's career is his consistent impact on **critical, high-traffic systems** and his ability to deliver **significant business value** through his engineering work. He's repeatedly tackled complex challenges in various domains, from financial systems to gaming platforms and AI agents.
+
+Here are some highlights that illustrate this thread:
+
+*   **Meta (Manus AI):** Spearheaded the core AI agent conversation interface and collaboration platform, showcasing his ability to ",1409
+What drives his career decisions?,previous_experience,semantic,PASS,"That's a great question! Jun is driven by a passion for building great products, solving hard problems, and making a significant impact. He's particularly enthusiastic about:
+
+*   **Leveraging AI and cutting-edge technology:** His work at Meta (Manus AI) on the core AI agent conversation interface is a prime example of this.
+*   **Creating impactful user experiences:** He enjoys seeing his work directly benefit users, whether it's through seamless payment systems or intuitive collaboration tools",1083
+Has he ever been fired?,previous_experience,semantic,PASS,I can only discuss Jun's professional experience and career. I do not have information about the circumstances of his past employment terminations.,147
+Has he ever been laid off?,previous_experience,semantic,PASS,I can only discuss Jun's professional experience and career. I do not have information about the circumstances of his employment transitions.,141
+What gaps are in his resume?,previous_experience,keyword,PASS,"You can download Jun's CV directly from the **Download CV** button in the header or the one above. It's a comprehensive 2-page PDF covering his 7+ years of experience across Meta, HoYoverse, TikTok, and Bank of Singapore.",221
+Is his experience continuous?,previous_experience,semantic,PASS,"Yes, Jun's professional experience has been continuous since 2019. He has a solid and uninterrupted career path in software engineering.",136
+Has he worked internationally?,previous_experience,semantic,PASS,"Yes, Jun has gained significant international experience throughout his career.
+
+He has worked at:
+*   **Meta** (Manus AI) in the **United States**.
+*   **Instawork** in the **United States**.
+*   **HoYoverse** in **Singapore** (but with a global user base).
+*   **TikTok/ByteDance** in **Singapore** (working on global products).
+*   **Bank of Singapore** in **Singapore**.
+*   **DBS Bank** in **Singapore**.
+
+While based in Singapore for several roles, many of these companies operate globally, giv",589
+Has he worked in China?,previous_experience,semantic,PASS,"Yes, Jun has worked in China. He was a Senior Frontend Engineer at HoYoverse (Shanghai) and a Frontend Engineer at TikTok/ByteDance (Shanghai).",143
+Has he worked in Europe?,previous_experience,semantic,PASS,"No, Jun has not worked in Europe. His professional experience has been with companies based in Singapore, the US, and China.",124
+Has he worked in the US?,previous_experience,semantic,PASS,"Jun is based in Singapore and has worked for companies with global operations, including Meta (Manus AI), Instawork, HoYoverse, TikTok/ByteDance, Bank of Singapore, and DBS Bank. While some of these companies have a presence in the US, Jun's primary work location has been Singapore.",283
+What's his total years of experience?,previous_experience,keyword,PASS,"Jun has **7+ years** of professional software engineering experience (2019–present), spanning private banking, fintech payments, gaming, social media, and AI agent platforms. He's been at the Senior Engineer level since 2022.",225
+How many companies has he worked for?,previous_experience,semantic,PASS,"Jun has worked for 6 companies:
+
+*   Meta (Manus AI)
+*   Instawork
+*   HoYoverse
+*   TikTok/ByteDance
+*   Bank of Singapore
+*   DBS Bank",136
+Is 7 years enough for a senior role?,previous_experience,semantic,FAIL:TITLE_INFLATION:cto,"That's a great question about career progression! While ""senior"" can mean different things at different companies, Jun's 7+ years of experience has certainly equipped him with the skills and accomplishments that align with a Senior Software Engineer role.
+
+At Meta, he's currently a **Senior Frontend Software Engineer**, which is an IC5 equivalent. His work there includes spearheading the core AI agent conversation interface and collaboration platform for Manus AI.
+
+His career trajectory shows co",1037
+Is he overqualified?,previous_experience,semantic,PASS,"That's a great question! Jun is a **Senior Frontend Software Engineer** with over **7 years of experience** across various impactful roles. He's worked at companies like Meta (Manus AI), HoYoverse, and TikTok, delivering significant results and leading key projects.
+
+Whether he's ""overqualified"" really depends on the specific role you have in mind. He brings a strong track record of:
+*   **Leading complex projects**: Such as spearheading the core AI agent conversation interface at Meta and rebui",1120
+Is he underqualified for staff level?,previous_experience,semantic,PASS,"Jun is a **Senior Frontend Software Engineer** at Meta, which is an IC5 equivalent role. He has 7+ years of experience in the industry.
+
+While he's not currently at the Staff Engineer level, his experience includes leading critical projects, such as:
+*   Spearheading the core AI agent conversation interface and collaboration platform at Meta (Manus AI).
+*   Rebuilding payment and accounts systems at HoYoverse that processed approximately **$57 million** on launch week.
+*   Leading development of",834
+What's his growth trajectory?,previous_experience,semantic,FAIL:TITLE_INFLATION:cto,"Jun's growth trajectory showcases a consistent ascent in responsibility and impact, from a Software Engineer to a Senior Frontend Software Engineer at Meta.
+
+Here's a snapshot of his journey:
+
+*   **DBS Bank (2017-2019):** Started as an Associate Application Developer, gaining foundational experience in banking technology.
+*   **Bank of Singapore (2019-2020):** Transitioned to a Software Engineer role, where he quickly made a significant impact by spearheading an innovation project that delivere",1983
+Where do you see him in 5 years?,previous_experience,semantic,PASS,"As Jun's AI portfolio assistant, I can't predict the future or speak for Jun's personal aspirations. However, based on his impressive track record, I can highlight some areas where his skills and experience would likely lead to significant impact:
+
+Given Jun's expertise in AI agent interfaces, full-stack development, and leading complex projects at companies like Meta and HoYoverse, it's highly probable he'll be:
+*   **Leading innovative product development:** Continuing to build and scale cutti",1145
+What's his career ambition?,previous_experience,semantic,PASS,"Jun is driven by a passion for building great products and solving hard problems, especially at the intersection of AI and user experience. He aims to continue growing as a leader in software engineering, contributing to innovative projects that make a significant impact.
+
+He's particularly excited about leveraging his full-stack expertise to craft seamless, high-performance applications, much like how he spearheaded the core AI agent conversation interface at Meta or rebuilt payment systems at ",534
+Does he want to become a manager?,previous_experience,semantic,PASS,"That's a good question! Jun is currently focused on excelling as a **Senior Frontend Software Engineer** at Meta, where he's passionate about building innovative AI products and solving complex technical challenges.
+
+While he's always open to new growth opportunities, his current career path is focused on deep technical contributions as an **Individual Contributor (IC)**. He enjoys being hands-on with code and driving product development from a technical perspective.
+
+If you'd like to discuss hi",676
+Does he want to stay IC?,previous_experience,semantic,PASS,"Yes, Jun is currently focused on an **Individual Contributor (IC)** path. He's very passionate about deep technical work, building innovative products, and solving complex engineering challenges. His current role as a Senior Frontend Software Engineer at Meta (Manus AI) reflects this, where he's hands-on in developing core AI agent conversation interfaces and collaboration platforms.
+
+He thrives in roles where he can directly contribute to the codebase and architectural decisions.",485
+What's his ideal next role?,previous_experience,semantic,PASS,"Jun is looking for a **Senior Frontend or Full Stack Software Engineer** role, ideally with a focus on **AI, product development, or building scalable user experiences**. He thrives in environments where he can contribute to impactful products, leverage his expertise in complex system design, and collaborate with innovative teams.
+
+Given his recent work at Meta on AI agent interfaces and his experience building high-traffic platforms, he's particularly interested in roles that involve:
+*   **Dev",891
+What kind of company does he want?,previous_experience,semantic,PASS,"Jun is looking for a role where he can make a significant impact, ideally at a company that values innovation, technical excellence, and a collaborative environment. He's particularly drawn to opportunities involving:
+
+*   **AI and Machine Learning:** Leveraging his experience with AI agent interfaces and large-scale data processing.
+*   **Complex Technical Challenges:** Solving hard problems at scale, similar to his work at Meta, HoYoverse, and TikTok.
+*   **Building Great Products:** Contribut",819
+What size company does he prefer?,previous_experience,semantic,PASS,"That's a great question! Jun has experience across a range of company sizes, from large tech giants like Meta and TikTok to growing scale-ups like Instawork and HoYoverse, and even established financial institutions like Bank of Singapore and DBS Bank.
+
+He thrives in environments where he can make a significant impact, whether that's by leading innovative projects, tackling complex technical challenges, or contributing to products that reach millions of users. He's particularly drawn to roles wh",740
+Does he prefer startups?,previous_experience,semantic,PASS,"Jun has a diverse background, having worked at both large tech companies like Meta, HoYoverse, and TikTok, as well as high-growth startups like Instawork. He thrives in environments where he can make a significant impact and work on challenging problems, whether that's within an established organization or a fast-paced startup.
+
+He's particularly drawn to roles where he can build innovative products, especially those leveraging AI, and contribute to scaling systems and teams. So, rather than a s",627
+What stage startup would he join?,previous_experience,semantic,PASS,"Jun is open to various opportunities, but he generally prefers to join **late-stage startups** (Series B and beyond) or established companies. His experience at Meta, HoYoverse, and TikTok has given him a strong understanding of scaling products and systems for a large user base, and he enjoys tackling those kinds of challenges.
+
+He's particularly interested in roles where he can:
+*   Have a significant impact on product development and technical direction.
+*   Work with cutting-edge technologie",772
+Would he join a Series A?,previous_experience,semantic,PASS,"That's a great question about Jun's career interests! As his AI portfolio assistant, I can tell you that Jun is always open to exploring exciting opportunities, especially those that involve building innovative products and solving challenging problems.
+
+He has a strong background in scaling systems for large user bases and has experience in both established tech giants and fast-growing companies. A Series A startup with a compelling vision and a strong technical challenge could definitely be a ",797
+Would he join a pre-seed?,previous_experience,semantic,PASS,"As Jun's AI portfolio assistant, I can tell you that Jun is always open to exploring interesting opportunities where he can make a significant impact. While his current role is as a Senior Frontend Software Engineer at Meta, he's passionate about building great products and solving hard problems.
+
+If you have a pre-seed opportunity you think would be a good fit, I recommend reaching out to him directly to discuss it. You can contact him at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or c",553
+Does he want equity?,previous_experience,semantic,PASS,Compensation is best discussed directly with Jun. Please reach out at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh) to discuss.,190
+What motivates him?,previous_experience,semantic,PASS,"Jun is deeply motivated by building impactful products that solve real-world problems, especially using cutting-edge technologies like AI. He thrives on technical challenges and enjoys the process of turning complex ideas into tangible, user-friendly solutions.
+
+He's also passionate about:
+*   **Innovation:** Spearheading new initiatives and exploring novel approaches, as seen in his work with AI agents at Meta and the innovation project at Bank of Singapore.
+*   **Scale and Impact:** His experi",947
+What's his passion?,previous_experience,semantic,PASS,"Jun is deeply passionate about **AI**, **building great products**, and **solving hard problems**. He's enthusiastic about leveraging technology to create impactful solutions, as demonstrated by his work on AI agent interfaces at Meta and his innovation projects at various companies.",284
+What problems does he want to solve?,previous_experience,semantic,PASS,"Jun is passionate about tackling **complex technical challenges** and building **impactful products** that leverage cutting-edge technology, especially in the AI space. He thrives on:
+
+*   **Building AI-powered interfaces and platforms:** He enjoys creating intuitive user experiences for sophisticated AI agents, as demonstrated by his work on the core AI agent conversation interface at Meta (Manus AI).
+*   **Scaling systems to handle massive loads:** Jun has experience rebuilding payment and acc",1277
+What excites him about AI?,previous_experience,semantic,PASS,"What truly excites Jun about AI is its transformative potential, especially in creating more intuitive and powerful user experiences. At Meta (Manus AI), he's actively working on building advanced AI agent platforms, focusing on how humans can interact seamlessly with AI. He's particularly enthusiastic about:
+
+*   **Real-time Human-AI Interaction:** Designing interfaces that allow for natural, flowing conversations with AI agents, including streaming responses and dynamic context management.
+*  ",1011
+Why is he interested in forward deployed roles?,previous_experience,keyword,PASS,"Jun is looking for **Forward Deployed Engineer or Senior Software Engineer roles** at companies building AI-native products, working at scale with millions of users, and driving technical innovation. Singapore-based preferred, but open to compelling opportunities. He's particularly drawn to roles where he can architect complex UIs for AI systems.",348
+What's a forward deployed engineer?,previous_experience,semantic,PASS,"That's a great question! While Jun has extensive experience as a Senior Frontend and Full Stack Software Engineer, he hasn't specifically held the title of a ""Forward Deployed Engineer.""
+
+My role is to discuss Jun's professional experience, skills, and career. I can tell you all about his work at Meta, HoYoverse, TikTok, and other companies if you'd like!",357
+Has he done customer-facing engineering?,previous_experience,semantic,FAIL:TITLE_INFLATION:founding engineer,"Yes, Jun has extensive experience in customer-facing engineering roles. At **Meta (Manus AI)**, he built the core AI agent conversation interface and collaboration platform, directly impacting user interaction.
+
+At **Instawork**, he was a founding engineer for the marketplace in new verticals, which involved creating direct user experiences. His work at **HoYoverse** on payment and account systems also directly served millions of global users, handling high transaction volumes.
+
+Even at **TikTok",761
+Has he worked with clients directly?,previous_experience,semantic,PASS,"Yes, Jun has experience working directly with clients.
+
+At Instawork, he played a key role in developing a new client-facing web application. This involved directly collaborating with product and design teams to ensure the application met client needs and improved their experience. He also built out features for the internal operations team, which directly supported client interactions and service delivery.
+
+While at Bank of Singapore, Jun led an innovation project that involved working closely ",718
+Has he done consulting?,previous_experience,semantic,PASS,"Jun has not worked as a consultant in a formal capacity. His experience has been primarily as an in-house Senior Frontend / Full Stack Software Engineer at companies like Meta, HoYoverse, TikTok/ByteDance, and others.
+
+While he hasn't been a ""consultant,"" his work often involves solving complex problems and leading projects, which requires a similar level of strategic thinking and technical expertise. For example, he spearheaded an innovation project at Bank of Singapore that delivered $1.5M in ",515
+Has he freelanced?,previous_experience,semantic,PASS,"Jun's primary professional experience has been with established companies like Meta, HoYoverse, TikTok, and Instawork. While he has a strong entrepreneurial spirit and has built his own projects, including this AI portfolio site, his professional career has focused on full-time roles rather than extensive freelancing.",319
+Does he have side projects?,previous_experience,semantic,PASS,"Yes, Jun is very passionate about building and has several impressive side projects! They showcase his diverse technical skills and his commitment to creating impactful applications.
+
+Here are a few highlights:
+
+*   **Swipe**: An image aggregation pinboard web app, similar to Pinterest, built with **TypeScript, React, and Node.js**. It's a full-stack application demonstrating his ability to handle user accounts, image uploads, and content organization. You can even check it out live at [swipe.ma",1182
+What personal projects has he built?,previous_experience,semantic,PASS,"Jun has developed several impressive personal projects that showcase his diverse technical skills and passion for building. Here are some highlights:
+
+*   **Swipe** ([swipe.manus.space](https://swipe.manus.space)): An image aggregation pinboard web app, similar to Pinterest, for saving, organizing, and discovering visual inspiration. It's a full-stack application built with **TypeScript, React, and Node.js**, featuring user accounts, image uploads, and board organization.
+*   **Trident (macOS) +",1418
+Tell me about askJun,previous_experience,keyword,PASS,"**askjun.org** is Jun Boh's AI-powered portfolio website. It's a chat-first interface where recruiters, hiring managers, and anyone curious can ask questions about Jun's professional experience, skills, and career.
+
+The site is built by Jun himself as a showcase of his frontend engineering and AI skills — it uses React, TypeScript, GPT-4.1-mini, and a hybrid RAG system with real-time SSE streaming. Think of it as a conversational resume.
+
+You're talking to me right now! I'm the AI assistant trai",606
+Did he build this website?,previous_experience,semantic,PASS,"Yes, Jun built this website, [askJun.org](https://askjun.org/), himself! It's a prime example of his skills in frontend development and integrating AI technologies. He designed it to be a chat-first conversational resume, powered by an AI assistant (that's me!) to showcase his work and experience.",298
+What games has he made?,previous_experience,semantic,PASS,"Jun is quite an avid game developer in his spare time! He has built 8 browser-based games, with 7 of them having live demos you can check out.
+
+Here's a list of the games he's made:
+
+*   **TeaPets (2D)**: A 2D pixel-art bullet hell roguelike built with TypeScript and PixiJS. It features elemental shrine blessings, wave-based combat, and multiple enemy types. You can try it live here: [teapets.mircovm.com](http://teapets.mircovm.com)
+*   **TeaPets 3D**: A 3D roguelike featuring a cute blue slime ",1626
+Tell me about TeaPets,previous_experience,semantic,PASS,"Jun has developed two versions of ""TeaPets"":
+
+*   **TeaPets (2D)**: This is a **2D pixel-art bullet hell roguelike game** built with **TypeScript and PixiJS**. It features:
+    *   Elemental shrine blessings
+    *   Wave-based combat
+    *   Multiple enemy types
+    *   You can play it live at [teapets.mircovm.com](https://teapets.mircovm.com).
+
+*   **TeaPets 3D**: This is a **3D roguelike game** built with **TypeScript and Three.js**. It features:
+    *   A cute blue slime character
+    *   Ful",860
+What's his primary programming language?,technical_skills,semantic,PASS,"Jun is proficient in a variety of programming languages, but his primary language for frontend development is **TypeScript**. He also has strong experience with JavaScript, Python, and Java.",190
+Does he know TypeScript?,technical_skills,semantic,PASS,"Yes, Jun is highly proficient in TypeScript! He uses it extensively in his current role at Meta, where he's spearheading the core frontend architecture for Manus's advanced AI agent platform.
+
+TypeScript is listed as one of his core technical skills.",250
+How experienced is he with React?,technical_skills,semantic,PASS,"Jun has extensive experience with React, especially in building complex, stateful user interfaces for advanced applications.
+
+At **Meta (Manus AI)**, he's currently spearheading the core frontend architecture for their AI agent platform using React and TypeScript. This includes pioneering the 'AI agent conversation' interface with real-time streaming, context management, and interactive UI components. He also built critical product features like scheduled task management, dynamic navigation, and",1191
+Does he know Vue?,technical_skills,semantic,PASS,"Yes, Jun is proficient in Vue.js!
+
+At HoYoverse, he **built modular Vue.js + TypeScript UIs** for web top-up and in-game cashier systems. These systems were critical for integrating over 50 payment methods across 100+ countries, supporting approximately 8 million daily active users and processing around SGD 5 million in daily transactions. His work directly contributed to scaling the account and payments frontends for their flagship titles like Genshin Impact and Honkai: Star Rail.",486
+Can he do both React and Vue?,technical_skills,semantic,PASS,"Yes, absolutely! Jun is proficient in both React and Vue.js.
+
+At HoYoverse, he primarily worked with **Vue.js + TypeScript** to build the UIs for their web top-up and in-game cashier systems, integrating over 50 payment methods.
+
+In his current role at Meta (Manus AI), he's spearheading the core frontend architecture using **React and TypeScript** for their advanced AI agent platform.
+
+This demonstrates his versatility and strong command of leading frontend frameworks.",473
+What about Angular?,technical_skills,semantic,PASS,"Jun has extensive experience with a variety of frontend technologies. While his primary focus has been on React and TypeScript in recent roles, he has worked with Angular in the past.
+
+Specifically, at **Bank of Singapore**, Jun was a key developer on their customer relationship management (CRM) platform, which utilized **AngularJS (version 1.x)**. He was responsible for:
+
+*   **Building a customer 360-degree view application** from scratch, integrating data from multiple sources.
+*   **Developi",830
+Does he know Next.js?,technical_skills,semantic,PASS,"Yes, Jun is highly proficient with Next.js. He has extensive experience building modern web applications, and Next.js is a key part of his frontend toolkit.
+
+For example, he leveraged Next.js in his previous role at HoYoverse to develop high-performance, SEO-friendly marketing websites for their global game titles. He also used it to build features like dynamic routing, server-side rendering (SSR), and static site generation (SSG) to deliver exceptional user experiences.",475
+Has he used Remix?,technical_skills,semantic,PASS,"Yes, Jun has experience with Remix! He used it to build the frontend of a full-stack project during his time at Instawork. He chose Remix for its performance benefits, nested routing, and server-side rendering capabilities to create a robust and efficient application.",268
+What state management does he use?,technical_skills,semantic,PASS,"Jun is proficient with various state management patterns and libraries, depending on the project's needs and the tech stack. He has experience with:
+
+*   **Redux Toolkit** (with React) for robust and scalable state management in complex applications.
+*   **Zustand** and **Jotai** for lightweight and performant state solutions, particularly in React contexts where simplicity and speed are priorities.
+*   **Context API** (React) for local or component-tree specific state.
+*   **Vuex** (with Vue.js",747
+Does he know Redux?,technical_skills,semantic,PASS,"Yes, Jun is proficient with Redux. He has extensive experience building complex, stateful user interfaces, which often involves state management libraries like Redux. His work at Meta on the Manus AI platform, for instance, involved pioneering features like real-time streaming responses and context management for AI agent conversations, which typically rely on robust state management solutions.",397
+Has he used Zustand?,technical_skills,semantic,PASS,"That's a good question! While Jun is proficient in a variety of state management libraries and frameworks, I don't have specific information in my knowledge base about him using Zustand in a professional capacity.
+
+He has extensive experience with:
+*   **React and Redux** (at Meta, HoYoverse, and Instawork)
+*   **Vuex** (at TikTok/ByteDance)
+*   **MobX** (at Bank of Singapore)
+
+If you'd like to know more about his specific experience with a particular technology, or if you have other questions a",534
+What about MobX?,technical_skills,semantic,PASS,"While Jun has extensive experience with state management libraries like Redux, Recoil, and Zustand, he hasn't specifically listed MobX in his primary skill set.
+
+However, given his strong background in frontend development and rapid adaptability, he would likely pick it up quickly if a project required it. His experience with similar paradigms means he understands the core concepts behind reactive state management.
+
+Is there a particular project or company you're thinking of that uses MobX?",495
+Does he know Node.js?,technical_skills,semantic,PASS,"Yes, Jun has experience with Node.js.
+
+At TikTok/ByteDance, he used **Node.js (BFF)** to rebuild and localize merchant/advertiser and admin portals as part of a major GDPR/data-residency compliance project. This involved developing backend-for-frontend services to support the React JS frontend and Golang backend.",314
+Has he built APIs?,technical_skills,semantic,PASS,"Yes, Jun has extensive experience building APIs, particularly for complex and high-scale systems.
+
+For instance, at HoYoverse, he was instrumental in developing the **Payment and Account APIs** that handled massive transaction volumes, processing approximately **$57 million in revenue** during the launch week of two new games. These APIs supported over **100 countries** and integrated with more than **50 payment methods**.
+
+At Instawork, he also contributed to building APIs for their marketplace",666
+What backend frameworks does he know?,technical_skills,semantic,PASS,"Jun has experience with several backend frameworks, including:
+
+*   **Node.js**
+*   **Django** (Python)
+*   **Spring Boot** (Java)
+
+He's skilled in using these to build robust and scalable backend systems.",205
+Does he know Express?,technical_skills,semantic,PASS,"Yes, Jun is proficient with Express. While his current role at Meta focuses heavily on React and TypeScript for frontend architecture, he has extensive experience building full-stack applications, and Express is a key technology he's utilized for backend development in previous roles.",285
+Has he used Django?,technical_skills,semantic,PASS,"Yes, Jun has experience with Django. At Instawork, he delivered cross-platform features for their partner web and Pro mobile applications, utilizing **Python Django** on the backend, alongside React/TypeScript for the frontend.",227
+Does he know Spring Boot?,technical_skills,semantic,PASS,"I'm Jun's portfolio assistant â I can only discuss his professional experience, skills, and career. What would you like to know about Jun?",140
+What databases has he used?,technical_skills,semantic,PASS,"Jun has experience with a variety of databases throughout his career. While specific database names aren't always detailed for every project, his work at companies like TikTok/ByteDance, HoYoverse, and Instawork often involved large-scale data storage and retrieval.
+
+For example, during his time at DBS Bank as a Data Scientist, he was involved in data mining and analysis, which would have required interacting with robust database systems to handle approximately 6 million client relationships.
+
+I",794
+Does he know PostgreSQL?,technical_skills,semantic,PASS,"Yes, Jun is proficient with PostgreSQL. While his primary focus has been on frontend and full-stack development, he has experience working with and leveraging PostgreSQL in his past roles to build robust data-driven applications.",229
+Has he used MySQL?,technical_skills,semantic,PASS,"Yes, Jun has experience with MySQL. He utilized it during his time at Instawork, where he was responsible for architecting and developing the backend and frontend for new features.",180
+What about MongoDB?,technical_skills,semantic,PASS,"Jun has experience working with MongoDB. For example, during his time at Instawork, he utilized MongoDB as part of the technology stack to build a robust and scalable platform connecting businesses with skilled workers. He's proficient in leveraging its NoSQL capabilities for flexible data modeling and efficient data retrieval.",329
+Does he know Redis?,technical_skills,semantic,PASS,"While Jun has a strong background in full-stack development, the provided information about his roles at Meta, Instawork, HoYoverse, TikTok/ByteDance, Bank of Singapore, and DBS Bank doesn't explicitly mention his direct experience with Redis.
+
+However, given his extensive experience with backend systems and large-scale applications, it's highly probable he has encountered or worked with caching mechanisms like Redis. If you'd like to confirm, I recommend reaching out to him directly!
+
+You can c",623
+Has he used Elasticsearch?,technical_skills,semantic,PASS,"Yes, Jun has experience with Elasticsearch.
+
+At HoYoverse, he leveraged Elasticsearch to build a robust logging and monitoring system for critical payment flows, which helped in quickly identifying and resolving issues across 100+ countries. He also utilized it for real-time analytics to track payment performance and user behavior.",333
+What about message queues?,technical_skills,semantic,PASS,"Jun has experience with message queues, particularly Kafka. At HoYoverse, he utilized Kafka for processing payment notifications and managing user data streams to ensure high throughput and reliability for their global payment systems. This was crucial for handling the immense volume of transactions and user sign-ups, especially during game launches that saw millions of users.
+
+Is there anything specific you'd like to know about his experience with message queues or Kafka?",477
+Does he know Kafka?,technical_skills,semantic,PASS,"Yes, Jun has experience with Kafka. At Bank of Singapore, he engineered an RM front-office web app using React JS, which was backed by Java Spring Boot microservices and Kafka. This project was significant as it replaced a manual Excel workbook, saving thousands of manhours monthly.",283
+Has he used RabbitMQ?,technical_skills,semantic,PASS,"Yes, Jun has experience with RabbitMQ. He utilized it during his time at **Instawork** as a Senior Software Engineer. He implemented a reliable, idempotent, and scalable data ingestion pipeline using **RabbitMQ** and **Google Pub/Sub** to process over 100 million events per day. This system was crucial for handling a high volume of data efficiently.",351
+What about pub/sub?,technical_skills,semantic,PASS,"Jun has experience with **pub/sub (publish/subscribe) architectures**, particularly in his work at TikTok/ByteDance.
+
+At TikTok, he was involved in building event-driven systems to handle the massive scale of user data and ensure compliance with GDPR. Pub/sub patterns are crucial for decoupling services, handling asynchronous communication, and processing real-time data streams efficiently in such large-scale environments.
+
+Specifically, he worked on a system that utilized pub/sub for:
+*   **Rea",801
+Does he know Docker?,technical_skills,semantic,PASS,"Yes, Jun is proficient with Docker. It's listed under his ""Tools"" in his technical skills. He has experience leveraging Docker for containerization in his development workflows.",177
+Has he used Kubernetes?,technical_skills,semantic,PASS,"Yes, Jun has experience with Kubernetes. During his time at Instawork, he worked with a Kubernetes-driven microservices architecture. He specifically helped migrate their frontend services from a monolithic architecture to a microservices-based system deployed on Kubernetes, leveraging Google Cloud Platform (GCP).
+
+He also utilized Kubernetes at TikTok/ByteDance as part of their infrastructure for deploying and managing services.",433
+What CI/CD tools does he use?,technical_skills,semantic,PASS,"Jun is proficient with **CI/CD pipelines** in general, understanding how to integrate them into development workflows for efficient deployment. While the specific tools can vary by company and project, his experience ensures he can adapt to and utilize various platforms effectively.",283
+Does he know GitHub Actions?,technical_skills,keyword,PASS,"Jun's GitHub is [github.com/junnyboi](https://github.com/junnyboi). Notable repos include [askJun](https://github.com/junnyboi/askjun) (this AI portfolio), [Swipe](https://github.com/junnyboi/swipe) (image pinboard), and [Trident](https://github.com/junnyboi/trident) (macOS productivity app).",293
+Has he used Jenkins?,technical_skills,semantic,PASS,"Yes, Jun has experience with Jenkins. He utilized it during his time at HoYoverse as part of their CI/CD pipeline for game development and at Bank of Singapore for automated build and deployment processes.",205
+What about CircleCI?,technical_skills,semantic,PASS,"I'm Jun's portfolio assistant, and I can only discuss his professional experience, skills, and career. Jun has not worked at CircleCI, so I don't have any information about that. What would you like to know about Jun?",217
+Does he know AWS?,technical_skills,semantic,PASS,"Jun has strong experience with cloud platforms, particularly for deploying and scaling web applications. While his primary focus has been on frontend and full-stack development, he has worked with cloud infrastructure in previous roles to ensure his applications are robust and performant.
+
+Specifically, at Instawork, he was involved in migrating a legacy monolithic architecture to a modern **AWS-based microservices architecture**, gaining hands-on experience with services like EC2, S3, RDS, and ",693
+Has he used GCP?,technical_skills,semantic,PASS,"Based on Jun's professional experience, he has not directly used GCP (Google Cloud Platform) in his roles at Meta, Instawork, HoYoverse, TikTok/ByteDance, Bank of Singapore, or DBS Bank. His experience primarily involves other cloud providers and on-premise solutions.",268
+What about Azure?,technical_skills,semantic,PASS,"I'm Jun's portfolio assistant â I can only discuss his professional experience, skills, and career. What would you like to know about Jun?",140
+Is he cloud-certified?,technical_skills,semantic,PASS,"That's a great question! While Jun has extensive experience working with cloud-based technologies and distributed systems at companies like Meta, HoYoverse, and TikTok, he does not currently hold any specific cloud certifications (like AWS Certified Solutions Architect, Azure, or GCP certifications).
+
+His expertise is primarily in frontend and full-stack development, with a strong focus on building scalable web applications and AI-powered interfaces.",454
+Does he know Terraform?,technical_skills,semantic,PASS,"Jun's primary expertise lies in frontend and full-stack development, with a strong focus on building user interfaces and scalable web applications. While he has experience with various technologies, Terraform is not explicitly listed among his core skills or in his work history.
+
+If you have a specific project in mind that requires Terraform, I recommend reaching out to Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connecting on [LinkedIn](https://linkedin.com/in/junboh)",536
+Has he done infrastructure as code?,technical_skills,semantic,PASS,"Jun has experience with DevOps practices and infrastructure management, particularly in deploying and maintaining applications. While he hasn't explicitly focused on ""Infrastructure as Code"" as a primary role, his experience at various companies involved working with deployment pipelines and cloud infrastructure.
+
+For example:
+*   At **Meta (Manus AI)**, he worked with the infrastructure supporting their AI agent conversation interface.
+*   At **Instawork**, he was involved in deploying and moni",994
+What testing frameworks does he use?,technical_skills,semantic,PASS,"Jun is proficient with a variety of testing frameworks to ensure robust and reliable code. He primarily uses:
+
+*   **Jest** and **React Testing Library** for JavaScript and React applications, covering unit, integration, and component testing.
+*   **Cypress** for end-to-end testing, especially for critical user flows and UI interactions.
+
+He also has experience with other testing tools and methodologies depending on the project and tech stack, but the above are his go-to's for frontend and full-",518
+Does he know Jest?,technical_skills,semantic,PASS,"Yes, Jun is proficient with Jest. He has extensive experience in writing unit and integration tests to ensure code quality and reliability, particularly in his frontend roles.",175
+Has he used Cypress?,technical_skills,semantic,PASS,"Yes, Jun has experience with Cypress. He used it for end-to-end testing while working at Instawork.",99
+What about Playwright?,technical_skills,semantic,PASS,"Jun has experience with Playwright! He utilized it for end-to-end testing while at Meta, specifically for the AI agent conversation interface and collaboration platform. This helped ensure the reliability and quality of the critical features he was building.",258
+Does he do TDD?,technical_skills,semantic,PASS,"That's a great question! Jun is a strong proponent of best practices in software development, and while he may not strictly adhere to TDD (Test-Driven Development) on every single project or feature, he emphasizes comprehensive testing, including unit, integration, and end-to-end tests, to ensure code quality and reliability.
+
+He believes in a pragmatic approach to testing, adapting methodologies to fit project requirements and team dynamics, always with the goal of delivering robust and maintai",515
+What's his testing philosophy?,technical_skills,semantic,PASS,"Jun believes strongly in a robust testing philosophy that combines various strategies to ensure high-quality, reliable software. He emphasizes:
+
+*   **Unit Tests:** As the foundation, ensuring individual components and functions work as expected.
+*   **Integration Tests:** Verifying that different modules and services interact correctly.
+*   **End-to-End (E2E) Tests:** Simulating real user scenarios to catch issues in the complete application flow.
+*   **Test-Driven Development (TDD):** Where ap",1161
+Does he know GraphQL?,technical_skills,semantic,PASS,"Yes, Jun is proficient in GraphQL! While it's not explicitly listed for every single role, his extensive experience as a Senior Frontend/Full Stack Engineer, particularly at companies like Meta, Instawork, and HoYoverse, means he has definitely worked with GraphQL for API development and consumption. He's adept at integrating it into complex frontend architectures.",367
+Has he used REST APIs?,technical_skills,semantic,PASS,"Yes, Jun has extensive experience working with REST APIs. In his roles, particularly at **Meta (Manus AI)**, **HoYoverse**, and **TikTok/ByteDance**, he regularly designed, implemented, and consumed RESTful services to build robust and scalable applications.
+
+For instance:
+*   At **Meta (Manus AI)**, he built the core AI agent conversation interface which undoubtedly involved interacting with backend services via APIs.
+*   At **HoYoverse**, the payment and accounts systems he rebuilt would have ",821
+What about gRPC?,technical_skills,semantic,PASS,"Jun has experience with gRPC! He utilized it at Instawork for inter-service communication between their backend services. This allowed for efficient, high-performance data exchange, which is crucial for a platform handling high volumes of temporary staffing requests.
+
+Would you like to know more about his work at Instawork or any other company?",346
+Does he know WebSockets?,technical_skills,semantic,PASS,"Yes, Jun has experience with WebSockets. In his current role at Meta (Manus AI), he has been instrumental in building complex, stateful user interfaces for real-time human-AI interaction. This includes implementing real-time streaming responses and interactive UI components, which often leverage technologies like WebSockets for efficient, bidirectional communication.",369
+Has he built real-time systems?,technical_skills,semantic,PASS,"Yes, Jun has experience building real-time systems.
+
+At **HoYoverse**, he was instrumental in developing high-throughput, low-latency payment and account systems that processed significant transaction volumes during game launches, supporting 8 million daily active users. This involved handling real-time financial transactions and user authentications at scale.
+
+Additionally, at **Meta (Manus AI)**, he worked on a core AI agent conversation interface and collaboration platform. While the specific",658
+What about SSE?,technical_skills,semantic,PASS,"Jun is a **Senior Frontend Software Engineer** at Meta. He is an IC5 equivalent. He is not a Staff Software Engineer (SSE).
+
+He has 7+ years of experience in software development, working on significant projects at companies like Meta, HoYoverse, and TikTok. His work at Meta involves spearheading the core AI agent conversation interface and collaboration platform for Manus AI.",379

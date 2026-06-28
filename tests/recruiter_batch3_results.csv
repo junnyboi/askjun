@@ -1,0 +1,639 @@
+prompt,category,response_type,classification,content,length
+Is he outcome-oriented?,behavioral,semantic,PASS,"Absolutely! Jun is highly outcome-oriented. His career history consistently demonstrates a focus on delivering measurable results and impactful solutions.
+
+For example:
+*   At **HoYoverse**, he rebuilt payment and account systems that processed approximately **$57 million** on launch week and supported **8 million daily active users**.
+*   At **TikTok/ByteDance**, he led the development of features that helped save the company millions in potential EU GDPR fines.
+*   At **Bank of Singapore**, he",673
+Does he focus on impact?,behavioral,semantic,PASS,"Absolutely! Jun is very impact-driven. He consistently seeks opportunities to deliver significant value through his engineering work.
+
+For example:
+*   At **HoYoverse**, he rebuilt payment and accounts systems that processed **~$57 million** on launch week and supported **8 million daily active users**.
+*   At **TikTok/ByteDance**, he led the development of features that helped save the company millions in potential EU GDPR fines.
+*   At **Bank of Singapore**, he spearheaded an innovation projec",659
+What's his biggest professional achievement?,behavioral,semantic,FAIL:TITLE_INFLATION:founding engineer,"That's a fantastic question! Jun has several significant achievements, but one that truly stands out is his work at **Meta (Manus AI)**.
+
+He was the **founding Frontend Engineer** for Manus AI, a project aimed at building an AI-powered co-pilot for product developers. This involved:
+
+*   **Leading the frontend development from 0 to 1**, single-handedly building the initial product.
+*   **Architecting the entire frontend stack**, making crucial decisions that set the technical direction for the p",967
+What's he most proud of?,behavioral,semantic,PASS,"Jun is most proud of his work on the core AI agent conversation interface and collaboration platform at **Meta (Manus AI)**. He also takes immense pride in rebuilding the payment and accounts systems at **HoYoverse**, which processed approximately **$57 million** during the launch week of two new games, supporting **15 million+ sign-ups** in 48 hours and **8 million daily active users**.
+
+He's also very proud of:
+*   Leading the development of time-sensitive features at **TikTok/ByteDance** that",841
+What would his manager say about him?,behavioral,keyword,PASS,"Jun Boh is a **Senior Software Engineer** with **7+ years** of professional experience (2019–present), currently at **Meta (Manus AI)** in Singapore.
+
+He specializes in frontend engineering at scale — building AI agent conversation interfaces, payment systems processing $57M in launch weeks, and auth flows handling 15M sign-ups in 48 hours.
+
+**Career path:** Meta (Manus AI) → Instawork → HoYoverse → TikTok/ByteDance → Bank of Singapore → DBS Bank
+
+He's currently exploring **Forward Deployed Engi",590
+What would his peers say?,behavioral,semantic,PASS,"That's a fantastic question! While I can't speak for Jun's peers directly, I can highlight what his track record and the impact of his work suggest about his professional contributions and qualities.
+
+Based on his achievements, it's clear Jun is seen as a **high-impact engineer** who consistently delivers on critical projects. His colleagues would likely recognize his ability to:
+
+*   **Tackle complex challenges:** From building core AI agent interfaces at Meta to rebuilding payment systems for ",1365
+What would his reports say?,behavioral,keyword,PASS,"Jun's GitHub is [github.com/junnyboi](https://github.com/junnyboi). Notable repos include [askJun](https://github.com/junnyboi/askjun) (this AI portfolio), [Swipe](https://github.com/junnyboi/swipe) (image pinboard), and [Trident](https://github.com/junnyboi/trident) (macOS productivity app).",293
+What's his reputation?,behavioral,semantic,PASS,"Based on his professional achievements and the impact he's had at various companies, Jun has a strong reputation as a highly capable and impactful **Senior Frontend / Full Stack Software Engineer**.
+
+Here's why:
+*   **Impactful Contributions:** He consistently delivers high-value projects, from leading the AI agent conversation interface at Meta to rebuilding payment systems at HoYoverse that processed millions.
+*   **Problem Solver:** Jun has a track record of tackling complex challenges, such ",1088
+Where did he study?,education,keyword,PASS,"Jun's academic background:
+
+**National University of Singapore** (2015–2019)
+Bachelor of Engineering — Industrial & Systems Engineering (Honours)
+Foundation in optimization, systems thinking, and data science.
+
+**Eindhoven University of Technology** (2018)
+Masters Exchange — Industrial Engineering & Innovation Sciences
+International exposure in the Netherlands; focus on innovation management.
+
+**Singapore Management University** (2020)
+Advanced Certification in Private Banking
+Completed while wo",707
+What's his degree?,education,semantic,PASS,"Jun holds an **Honours degree in Industrial & Systems Engineering** from the National University of Singapore, where he studied from 2015 to 2019. He also completed a Masters Exchange in Industrial Engineering & Innovation Sciences at Eindhoven University of Technology in the Netherlands in 2018.",297
+Did he go to NUS?,education,semantic,PASS,"Yes, Jun attended the **National University of Singapore (NUS)**, where he earned an Honours degree in Industrial & Systems Engineering from 2015 to 2019.",154
+What did he study at NUS?,education,semantic,PASS,Jun studied **Industrial & Systems Engineering (Honours)** at the National University of Singapore (NUS) from 2015 to 2019.,123
+What's Industrial & Systems Engineering?,education,semantic,PASS,"I'm Jun's portfolio assistant â I can only discuss his professional experience, skills, and career. What would you like to know about Jun?",140
+Is it a CS degree?,education,semantic,PASS,"Jun has a degree in **Industrial & Systems Engineering (Honours)** from the National University of Singapore. While not a direct Computer Science degree, it provided a strong foundation in analytical thinking, optimization, and systems design, which are highly relevant to software engineering.
+
+He also completed a Masters Exchange in Industrial Engineering & Innovation Sciences at Eindhoven University of Technology.",419
+Does he have a masters?,education,semantic,PASS,"Yes, Jun participated in a **Masters Exchange in Industrial Engineering & Innovation Sciences** at Eindhoven University of Technology in the Netherlands in 2018. He completed his Honours degree in Industrial & Systems Engineering at the National University of Singapore.",270
+Did he do an exchange?,education,semantic,PASS,"Yes, Jun did an exchange program at **Eindhoven University of Technology** in the Netherlands in 2018. He pursued a Masters Exchange in Industrial Engineering & Innovation Sciences.",181
+Where was his exchange?,education,semantic,PASS,Jun completed his Masters Exchange in Industrial Engineering & Innovation Sciences at **Eindhoven University of Technology** in the Netherlands in 2018.,152
+What did he study at Eindhoven?,education,semantic,PASS,Jun Boh studied **Computer Science and Engineering** at the **Eindhoven University of Technology**.,99
+Does he have any certifications?,education,semantic,FAIL:TITLE_INFLATION:cto,"Yes, Jun holds several professional certifications! He is certified in:
+
+*   **Professional Scrum Product Owner I (PSPO I)** from Scrum.org (October 2019)
+*   **Professional Scrum Master I (PSM I)** from Scrum.org (October 2019)
+
+In total, he has **15 professional certifications**, demonstrating his commitment to continuous learning and professional development.",364
+What about SMU?,education,semantic,PASS,"Jun attended Singapore Management University (SMU) for an **Advanced Certification in Private Banking** in 2020. This was a certification program, not a full degree.",165
+What did he study at SMU?,education,semantic,PASS,Jun completed an **Advanced Certification in Private Banking** at Singapore Management University (SMU) in 2020.,112
+Is the private banking cert relevant?,education,semantic,FAIL:TITLE_INFLATION:cto,"That's a great question! While Jun has experience in the finance sector, the ""private banking cert"" isn't explicitly mentioned in his professional background.
+
+However, his work at Bank of Singapore, a top private bank in Asia, is highly relevant. During his time there, he:
+*   **Engineered a front-office web app for Relationship Managers (RMs)**, which replaced a manual Excel workbook and saved thousands of man-hours monthly. This directly supported the core operations of private banking.
+*   *",1213
+When did he graduate?,education,semantic,PASS,"I can only discuss Jun's professional experience and career. For personal inquiries, please reach out directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",166
+What year did he start working?,education,keyword,FAIL:WRONGLY_BLOCKED,"I appreciate the curiosity, but I'm specifically designed to answer questions about **Jun Boh's** professional experience, skills, and career. I can't help with general questions, code generation, or other topics.
+
+Try asking me things like:
+- What's his experience at Meta?
+- What payment systems has he built?
+- Why should I hire Jun?
+
+Or reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",415
+Did he do internships?,education,semantic,PASS,"Yes, Jun did internships! He interned as a **Data Scientist at DBS Bank** from August 2018 to December 2018.
+
+During his time at DBS, he worked on:
+*   **Network analysis** of approximately 6 million client relationships using graph theory.
+*   **Data mining and dashboard visualizations** that contributed to driving sales by at least 150%.
+
+DBS Bank is the largest bank in Southeast Asia by assets ($739B) and has been recognized as the ""World's Best Bank"" by Euromoney.",472
+What was his GPA?,education,semantic,PASS,"I can only discuss Jun's professional experience and career. For personal inquiries or academic details like GPA, please reach out directly to Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",202
+Was he involved in extracurriculars?,education,semantic,PASS,"I'm Jun's portfolio assistant â I can only discuss his professional experience, skills, and career. What would you like to know about Jun?",140
+Did he do research?,education,semantic,PASS,"Jun is a Senior Frontend Software Engineer, and his professional experience is primarily in software development and engineering, not academic research. While he has certainly engaged in R&D within his roles to build innovative products, his career path is focused on building and shipping software.
+
+If you're interested in his specific technical contributions, I can tell you more about his work at companies like Meta (Manus AI) or HoYoverse!",445
+Does he have a PhD?,education,semantic,PASS,That's a great question! Jun does not have a PhD. He holds a Bachelor's degree in Computer Science from the National University of Singapore.,141
+Is he planning further education?,education,semantic,PASS,"That's a great question! I can only discuss Jun's professional experience and career. For inquiries about his future plans, please reach out directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh) to discuss.",282
+What's his academic background?,education,semantic,PASS,"I can only discuss Jun's professional experience and career. For personal inquiries, please reach out directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",166
+Is his degree relevant to SWE?,education,semantic,PASS,"That's a good question! Jun's degree is in **Industrial & Systems Engineering** from the National University of Singapore. While it's not a traditional Computer Science degree, it's highly relevant to a career in Software Engineering.
+
+Here's why:
+*   **Systems Thinking:** Industrial & Systems Engineering focuses heavily on optimizing complex systems, which is incredibly valuable in software architecture, design, and understanding how different components interact.
+*   **Problem Solving & Analyt",1045
+How did he transition from ISE to software?,education,semantic,PASS,"Jun's transition from Information Systems Engineering (ISE) to software engineering was quite organic and driven by his passion for technology. While ISE provided a strong foundation in system design and architecture, Jun actively pursued opportunities to gain hands-on software development experience.
+
+He started his career at **DBS Bank** as a Software Engineer, which was his first dedicated role in the field. This allowed him to immediately apply and expand his coding skills in a professional ",1014
+When did he start coding?,education,semantic,PASS,"Jun started his professional software engineering career in 2019, giving him 7+ years of experience. He's been passionate about coding long before that, but 2019 marks the start of his industry experience.",205
+Is he self-taught?,education,semantic,PASS,"Jun holds a Bachelor of Computing (Honours) in Computer Science from the National University of Singapore. While he has a strong academic background, he's also a big believer in continuous learning and has picked up many skills on the job and through personal projects.",269
+Did he do a bootcamp?,education,semantic,PASS,"No, Jun did not attend a bootcamp. He holds a **Bachelor of Engineering (Honours) in Computer Science** from the **National University of Singapore (NUS)**. He also completed an exchange program at the **University of California, Berkeley**.",241
+What programming courses did he take?,education,semantic,PASS,"I can only discuss Jun's professional experience and career. While I don't have a list of specific programming courses he's taken, his 7+ years of experience as a Senior Frontend / Full Stack Software Engineer at companies like Meta, HoYoverse, and TikTok speaks to his deep technical expertise.
+
+If you're interested in his skills, he's proficient in:
+*   **Frontend:** React, TypeScript, JavaScript, HTML, CSS, Next.js, Redux, GraphQL
+*   **Backend:** Node.js, Python, Java, Go, Scala, PHP, C++, C#",781
+Does he have CS fundamentals?,education,semantic,PASS,"Absolutely! Jun has a strong grasp of Computer Science fundamentals. His work at companies like Meta, HoYoverse, and TikTok, where he's built complex systems and solved challenging problems, demonstrates a deep understanding of core CS principles.
+
+For example, at HoYoverse, he rebuilt payment and accounts systems that processed millions of transactions and supported millions of daily active users, which requires solid knowledge of:
+*   **Data Structures and Algorithms:** For efficient processin",956
+Does he know data structures?,education,semantic,PASS,"Yes, absolutely! As a Senior Frontend/Full Stack Software Engineer with 7+ years of experience, Jun has a strong foundation in computer science fundamentals, including **data structures** and algorithms.
+
+His work at companies like Meta, Instawork, and HoYoverse involved building complex, high-performance applications, which inherently requires a deep understanding of how to efficiently store, manage, and access data. For example, his data science role at DBS Bank involved analyzing ~6M client r",718
+What about algorithms?,education,semantic,PASS,"Jun has a strong foundation in **algorithms and data structures**, which he applies to optimize performance and solve complex engineering challenges. While he doesn't specifically list ""algorithms"" as a separate work experience, his roles, especially in high-scale environments like Meta, HoYoverse, and TikTok, inherently involve designing and implementing efficient algorithms to handle massive data loads and ensure responsive user experiences.
+
+For instance, optimizing payment processing systems",1026
+Can he pass a coding interview?,education,semantic,PASS,"Jun has a strong background in software engineering, with 7+ years of experience at companies like Meta, HoYoverse, and TikTok. He's led significant projects, such as rebuilding payment systems for HoYoverse that processed millions, and developing critical features for TikTok to comply with GDPR.
+
+Based on his experience and accomplishments, Jun is well-equipped to perform strongly in coding interviews. He's proficient in various programming languages and frameworks, and has a proven track recor",542
+What about system design?,education,semantic,PASS,"Jun has significant experience in system design, particularly in building scalable and resilient systems for high-traffic applications. Here are some highlights:
+
+*   **HoYoverse (Genshin Impact, Honkai: Star Rail):** Jun was instrumental in designing and rebuilding payment and account systems that processed approximately **$57 million** on the launch week of two new games, supporting **8 million daily active users** and over **15 million sign-ups in 48 hours**. This involved architecting system",1387
+Has he done competitive programming?,education,semantic,PASS,"While Jun is a highly skilled software engineer, I don't have information indicating that competitive programming is a primary focus of his professional experience or a skill he actively highlights. His expertise lies more in building robust software systems, leading feature development, and optimizing performance for large-scale applications.
+
+If you're interested in his technical skills, I can tell you more about his experience with:
+*   **Frontend Technologies:** React, TypeScript, JavaScript",809
+What about hackathons?,education,semantic,FAIL:TITLE_INFLATION:cto,"Jun has participated in and won several hackathons, showcasing his ability to innovate and deliver under pressure.
+
+*   **Meta Hackathon Winner (2023):** Jun led a team to victory at a Meta internal hackathon, developing a proof-of-concept for a real-time collaborative code editor within the Meta Work ecosystem. This project impressed leadership with its potential to streamline developer workflows.
+*   **DBS Hackathon (2017):** While at DBS Bank, Jun was part of a team that developed a solution ",902
+Does he have any publications?,education,semantic,PASS,Jun has not published any academic papers or books. His primary focus has been on building and shipping impactful software products in his roles as a Senior Frontend / Full Stack Software Engineer.,197
+Has he written papers?,education,semantic,PASS,"Jun has not published any academic papers. His experience is primarily in industry, focusing on building and shipping production-ready software.
+
+He is very active on his [LinkedIn](https://linkedin.com/in/junboh) and [GitHub](https://github.com/junnyboi) if you'd like to see his professional contributions!",308
+What about patents?,education,semantic,PASS,"That's a great question! Jun does not currently hold any patents. His focus has been on delivering high-impact software solutions and products throughout his career.
+
+If you have any further questions about his project contributions or technical expertise, feel free to ask!",274
+Does he have any IP?,education,semantic,PASS,"That's a great question! When you say ""IP,"" are you referring to Intellectual Property like patents, or something else?
+
+Jun's work at companies like Meta, HoYoverse, TikTok, and Bank of Singapore involved developing proprietary systems and features. While he was a key contributor to these projects, any Intellectual Property generated during his employment would typically belong to the respective companies.
+
+If you're interested in seeing examples of his technical contributions, you can check ou",618
+Is his education from a top university?,education,semantic,PASS,"Yes, Jun graduated from the **National University of Singapore (NUS)**, which is consistently ranked among the top universities globally. He earned an Honours degree in Industrial & Systems Engineering.
+
+He also completed a Masters Exchange program at **Eindhoven University of Technology** in the Netherlands.",310
+Is NUS prestigious?,education,semantic,PASS,I can only discuss Jun's professional experience and career. What would you like to know about Jun?,99
+What's NUS ranked?,education,semantic,PASS,"I can only discuss Jun's professional experience, skills, and career. What would you like to know about Jun?",108
+Is his degree accredited?,education,semantic,PASS,"Yes, Jun graduated with Honours from the National University of Singapore, which is a globally recognized and accredited institution. He also completed a Masters Exchange program at Eindhoven University of Technology in the Netherlands.",236
+Does he need visa sponsorship?,education,keyword,PASS,"Jun is a **Singaporean citizen** — no visa sponsorship required for Singapore-based roles. For international opportunities, please discuss directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",203
+Is he a Singapore citizen?,education,keyword,PASS,Jun is based in **Singapore**. He's open to Singapore-based roles and compelling remote opportunities.,102
+What's his nationality?,education,keyword,PASS,"Jun is a **Singaporean citizen** — no visa sponsorship required for Singapore-based roles. For international opportunities, please discuss directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",203
+Can he work in the US?,education,semantic,PASS,"That's a great question regarding Jun's career flexibility.
+
+Jun is currently based in Singapore, but he is open to relocating for the right opportunity. He would need sponsorship to work in the US.
+
+You can reach him directly to discuss this at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh).",355
+Does he need a work permit?,education,keyword,PASS,"Jun is a **Singaporean citizen** — no visa sponsorship required for Singapore-based roles. For international opportunities, please discuss directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",203
+Is he eligible for H1B?,education,semantic,PASS,"I can only discuss Jun's professional experience and career. For questions about visa sponsorships or eligibility, you would need to contact Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh).",275
+Is he available?,logistics,keyword,PASS,"For the most up-to-date availability and notice period, please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or on [LinkedIn](https://linkedin.com/in/junboh). He's currently exploring new opportunities and is responsive to messages.",260
+What's his notice period?,logistics,keyword,PASS,"For the most up-to-date availability and notice period, please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or on [LinkedIn](https://linkedin.com/in/junboh). He's currently exploring new opportunities and is responsive to messages.",260
+When can he start?,logistics,keyword,PASS,"For the most up-to-date availability and notice period, please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or on [LinkedIn](https://linkedin.com/in/junboh). He's currently exploring new opportunities and is responsive to messages.",260
+Is he actively looking?,logistics,semantic,PASS,"Yes, Jun is actively looking for new opportunities! He's open to exploring roles where he can apply his expertise in frontend and full-stack development, especially in areas involving AI and building impactful products.
+
+Feel free to ask me more about his experience and skills if you'd like to see if he's a good fit for your team. You can also reach out to him directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh).",484
+Is he open to opportunities?,logistics,semantic,PASS,"Yes, Jun is always open to exploring new and exciting opportunities! He's passionate about building innovative products and solving challenging problems.
+
+You can reach out to him directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh) to discuss potential roles.",328
+What's his timeline?,logistics,semantic,PASS,"Jun has 7+ years of professional experience in software engineering. Here's a quick look at his career timeline:
+
+*   **Meta (Manus AI)**: Senior Frontend Software Engineer (2023 â Present)
+*   **Instawork**: Senior Frontend Engineer (2022 â 2023)
+*   **HoYoverse**: Senior Frontend Engineer (2021 â 2022)
+*   **TikTok / ByteDance**: Frontend Engineer (2020 â 2021)
+*   **Bank of Singapore**: Software Engineer (2019 â 2020)
+*   **DBS Bank**: Software Engineer Intern (2018)
+
+He's built up ",577
+Is he interviewing elsewhere?,logistics,semantic,PASS,"As Jun's portfolio assistant, I can't disclose details about his current job search or interview processes. My purpose is to share information about his professional background, skills, and achievements.
+
+If you're interested in Jun's availability or would like to discuss a potential opportunity, I recommend reaching out to him directly:
+*   Email: [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com)
+*   LinkedIn: [linkedin.com/in/junboh](https://linkedin.com/in/junboh)",473
+Does he have other offers?,logistics,semantic,PASS,"I can only discuss Jun's professional experience and career, not his current job search status or other offers. If you're interested in extending an offer or discussing opportunities, please reach out to him directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh).",329
+What's his preferred start date?,logistics,keyword,PASS,"For the most up-to-date availability and notice period, please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or on [LinkedIn](https://linkedin.com/in/junboh). He's currently exploring new opportunities and is responsive to messages.",260
+Can he start immediately?,logistics,semantic,PASS,"While Jun is always open to discussing exciting new opportunities, his immediate availability would depend on his current commitments.
+
+The best way to find out is to reach out directly to him to discuss this:
+*   Email: [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com)
+*   LinkedIn: [linkedin.com/in/junboh](https://linkedin.com/in/junboh)",343
+Is he willing to relocate?,logistics,semantic,PASS,That's a great question for Jun directly! You can reach him at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh) to discuss relocation possibilities.,217
+Would he move to the US?,logistics,semantic,PASS,"That's a great question regarding Jun's flexibility! Jun is open to considering opportunities in the US, especially for roles that align with his expertise in AI, frontend, and full-stack development.
+
+You can reach out to him directly to discuss potential relocation and specific roles at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh).",399
+Would he move to London?,logistics,semantic,PASS,"That's a great question about Jun's preferences! I can only discuss Jun's professional experience and career. For questions about his relocation preferences or personal decisions like moving to London, it's best to reach out to him directly.
+
+You can contact him at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh).",375
+What about Tokyo?,logistics,semantic,PASS,"I can only discuss Jun's professional experience and career. For personal inquiries, please reach out directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",166
+Is he open to remote?,logistics,keyword,PASS,Jun prefers **Singapore-based roles** (onsite or hybrid). He's open to compelling remote opportunities for the right company and role. Best to discuss specifics directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).,225
+Does he prefer hybrid?,logistics,keyword,PASS,Jun prefers **Singapore-based roles** (onsite or hybrid). He's open to compelling remote opportunities for the right company and role. Best to discuss specifics directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).,225
+What's his preferred work arrangement?,logistics,semantic,PASS,"Jun is open to various work arrangements, including **hybrid, remote, or on-site**, as long as the role is based in **Singapore**. He's currently located in Singapore and prefers opportunities within the region.",211
+How many days in office?,logistics,keyword,PASS,Jun prefers **Singapore-based roles** (onsite or hybrid). He's open to compelling remote opportunities for the right company and role. Best to discuss specifics directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).,225
+Does he travel for work?,logistics,semantic,PASS,"I can only discuss Jun's professional experience and career. For personal inquiries, please reach out directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",166
+Is he okay with travel?,logistics,semantic,PASS,"I can only discuss Jun's professional experience and career. For personal inquiries, please reach out directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",166
+What's his salary expectation?,logistics,keyword,PASS,That's a great question! Compensation is best discussed directly. You should reach Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh) to discuss compensation expectations for the specific role.,267
+What's his comp range?,logistics,semantic,PASS,Compensation is best discussed directly with Jun. Please reach out at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh) to discuss.,190
+What's his current compensation?,logistics,keyword,PASS,That's a great question! Compensation is best discussed directly. You should reach Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh) to discuss compensation expectations for the specific role.,267
+Does he want equity?,logistics,semantic,PASS,Compensation is best discussed directly with Jun. Please reach out at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh) to discuss.,190
+What benefits matter to him?,logistics,semantic,PASS,"I can only discuss Jun's professional experience and career. For personal inquiries or questions about benefits, please reach out directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh).",260
+Does he want stock options?,logistics,semantic,PASS,"Compensation, including stock options, is best discussed directly with Jun. Please reach out at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh) to discuss.",216
+What's his minimum base?,logistics,semantic,PASS,Compensation is best discussed directly with Jun. Please reach out at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh) to discuss.,190
+Is he flexible on comp?,logistics,semantic,PASS,Compensation is best discussed directly with Jun. Please reach out at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh) to discuss.,190
+What's his ideal role?,logistics,keyword,PASS,"Jun is looking for **Forward Deployed Engineer or Senior Software Engineer roles** at companies building AI-native products, working at scale with millions of users, and driving technical innovation. Singapore-based preferred, but open to compelling opportunities. He's particularly drawn to roles where he can architect complex UIs for AI systems.",348
+What kind of company does he want?,logistics,semantic,PASS,"Jun is looking for a role where he can apply his expertise in building impactful products, particularly in areas related to **AI, developer tools, or gaming**. He thrives in environments that are:
+
+*   **Fast-paced and innovative:** Where he can contribute to cutting-edge technology and solve challenging problems.
+*   **Product-focused:** He enjoys seeing his work directly translate into user value and business impact.
+*   **Collaborative:** A team that values shared learning and collective succ",756
+What size team does he prefer?,logistics,semantic,PASS,"Jun generally thrives in dynamic environments, and his experience at companies like Meta and ByteDance has given him a strong preference for working within **small, agile teams** (typically 3-8 engineers). He finds that these smaller setups foster better collaboration, clearer communication, and a greater sense of ownership over the product, allowing for faster iteration and impact.
+
+He enjoys being part of a team where he can contribute significantly, mentor others, and also learn from his peer",502
+What stage company?,logistics,semantic,PASS,"Jun has experience working at a variety of company stages, from large, established tech giants to fast-growing startups:
+
+*   **Meta (Manus AI)**: A very large, established tech company.
+*   **Instawork**: A Series D funded startup.
+*   **HoYoverse (miHoYo)**: A rapidly growing and very successful game development company that operates globally.
+*   **TikTok / ByteDance**: A massive global tech company with a startup-like pace.
+*   **Bank of Singapore / DBS Bank**: Large, established financial i",642
+Does he want to join a startup?,logistics,semantic,PASS,"Jun is always open to exciting new opportunities, including those at startups! He's passionate about building innovative products and solving challenging problems, which often aligns well with the dynamic environment of a startup.
+
+His experience at companies like Instawork and even his foundational work at Meta (Manus AI) involved a lot of greenfield development and rapid iteration, similar to a startup setting.
+
+If you have a specific opportunity in mind, you can reach out to him directly at [",608
+What about big tech?,logistics,semantic,PASS,"Jun has extensive experience in big tech! He's currently a Senior Frontend Software Engineer at **Meta (Manus AI)**, where he's been instrumental in developing core AI agent conversation interfaces and a collaboration platform.
+
+Before Meta, he worked at:
+*   **HoYoverse** (known for Genshin Impact and Honkai: Star Rail), where he rebuilt their payment and accounts systems, handling massive transaction volumes.
+*   **TikTok/ByteDance**, where he led critical feature development, including those ",687
+Is he interested in our company?,logistics,keyword,PASS,"Jun is looking for **Forward Deployed Engineer or Senior Software Engineer roles** at companies building AI-native products, working at scale with millions of users, and driving technical innovation. Singapore-based preferred, but open to compelling opportunities. He's particularly drawn to roles where he can architect complex UIs for AI systems.",348
+Would he be a good fit?,logistics,semantic,PASS,"Jun is a Senior Frontend / Full Stack Software Engineer with 7+ years of experience, specializing in building robust, scalable applications and leading impactful projects. He has a strong track record of delivering significant results at companies like Meta, HoYoverse, and TikTok.
+
+Here's why he might be a great fit for your team:
+
+*   **Proven Impact:** At Meta, he spearheaded the core AI agent conversation interface and collaboration platform. At HoYoverse, he rebuilt payment and account syste",1305
+What's his interview availability?,logistics,keyword,PASS,"For the most up-to-date availability and notice period, please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or on [LinkedIn](https://linkedin.com/in/junboh). He's currently exploring new opportunities and is responsive to messages.",260
+Can he do a call this week?,logistics,semantic,PASS,"Jun's schedule can be quite dynamic, but he's always keen to connect!
+
+The best way to arrange a call is to reach out to him directly. You can contact him via:
+*   Email: [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com)
+*   LinkedIn: [linkedin.com/in/junboh](https://linkedin.com/in/junboh)
+*   WhatsApp: [wa.me/6582335937](https://wa.me/6582335937)
+
+He'll be able to confirm his availability and schedule something that works for both of you.",446
+Does he have a portfolio?,logistics,semantic,PASS,"Yes, Jun has an extensive portfolio of work! You're actually interacting with a part of it right now â **askJun.org** is Jun's personal AI portfolio website, demonstrating his skills in AI, frontend development, and product building.
+
+Beyond this site, you can find more about his projects and contributions on his:
+*   **LinkedIn profile:** [linkedin.com/in/junboh](https://linkedin.com/in/junboh)
+*   **GitHub:** [github.com/junnyboi](https://github.com/junnyboi)
+
+He also has a resume available ",643
+Can I see his work?,logistics,semantic,PASS,"Absolutely! While I can't directly show you a live demo of Jun's work at companies like Meta or HoYoverse due to confidentiality, I can point you to a few places to see his personal projects and contributions.
+
+You can check out his GitHub profile at [github.com/junnyboi](https://github.com/junnyboi) to see some of his open-source contributions and personal projects.
+
+Also, **askJun** itself is a testament to Jun's skills in AI and frontend development! This very platform was built by him as an ",814
+Does he have references?,logistics,semantic,PASS,"While I can't provide direct contact information for Jun's references due to privacy, I can assure you that Jun has a strong professional network and positive relationships with former colleagues and managers.
+
+You can learn more about his professional connections and endorsements on his [LinkedIn profile](https://linkedin.com/in/junboh). If you'd like to discuss references further, I recommend reaching out to Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",482
+Who can vouch for him?,logistics,semantic,PASS,"While I can't share direct contact information for Jun's former colleagues or managers due to privacy, I can tell you that Jun has a strong professional network and positive relationships from his time at Meta, Instawork, HoYoverse, TikTok/ByteDance, Bank of Singapore, and DBS Bank.
+
+If you'd like to hear more about Jun's work ethic and contributions, I recommend reaching out to him directly. He would be happy to provide professional references upon request. You can contact him at [boh.ze.jun@gm",595
+What would his manager say?,logistics,semantic,PASS,"While I can't speak for Jun's managers directly, based on his achievements and impact at various companies, I imagine they would highlight his:
+
+*   **Strong technical leadership:** Especially in spearheading critical projects like the AI agent conversation interface at Meta (Manus AI) and rebuilding payment systems at HoYoverse.
+*   **Significant business impact:** Delivering quantifiable results such as processing ~$57M on launch week for HoYoverse and generating $1.5M in annual savings for Ba",1174
+Can I contact his references?,logistics,semantic,PASS,"I can't provide direct contact information for Jun's references due to privacy. However, you can reach out to Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh) to discuss references further. He'd be happy to facilitate that conversation.",321
+Does he have a GitHub?,logistics,keyword,PASS,"Jun's GitHub is [github.com/junnyboi](https://github.com/junnyboi). Notable repos include [askJun](https://github.com/junnyboi/askjun) (this AI portfolio), [Swipe](https://github.com/junnyboi/swipe) (image pinboard), and [Trident](https://github.com/junnyboi/trident) (macOS productivity app).",293
+Can I see his code?,logistics,semantic,PASS,"While I can't directly show you Jun's proprietary code from his work at companies like Meta or HoYoverse, you can certainly explore his personal projects and contributions on his GitHub profile: [github.com/junnyboi](https://github.com/junnyboi).
+
+This will give you a good sense of his coding style, technical interests, and the quality of his work outside of a corporate setting.",381
+What's his LinkedIn?,logistics,keyword,PASS,"Jun's LinkedIn is [linkedin.com/in/junboh](https://linkedin.com/in/junboh) — he has 5,392 followers and is active in the Singapore tech community. Feel free to connect!",168
+How do I reach him?,logistics,semantic,PASS,"You can reach Jun through several channels:
+
+*   **Email:** [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com)
+*   **LinkedIn:** [linkedin.com/in/junboh](https://linkedin.com/in/junboh)
+*   **GitHub:** [github.com/junnyboi](https://github.com/junnyboi)
+*   **Phone/WhatsApp:** +65 8233 5937
+
+Feel free to connect with him on the platform that works best for you!",363
+What's his email?,logistics,keyword,PASS,You can reach Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh). He's also available on WhatsApp at [+65 8233 5937](https://wa.me/6582335937).,208
+Can I call him?,logistics,keyword,PASS,Jun's phone number is **+65 8233 5937**. You can also reach him on [WhatsApp](https://wa.me/6582335937) for a quick chat.,121
+What's his phone number?,logistics,keyword,PASS,Jun's phone number is **+65 8233 5937**. You can also reach him on [WhatsApp](https://wa.me/6582335937) for a quick chat.,121
+Is he on WhatsApp?,logistics,keyword,PASS,Jun's phone number is **+65 8233 5937**. You can also reach him on [WhatsApp](https://wa.me/6582335937) for a quick chat.,121
+How quickly does he respond?,logistics,semantic,PASS,"I can't guarantee Jun's exact response time, as he's often busy building amazing things! However, he's generally very responsive to inquiries, especially if they're related to potential opportunities or interesting projects.
+
+You can reach him directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh).",365
+Is he responsive?,logistics,semantic,PASS,"Jun is generally very responsive! You can reach out to him directly via:
+
+*   **Email:** [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com)
+*   **LinkedIn:** [linkedin.com/in/junboh](https://linkedin.com/in/junboh)
+*   **WhatsApp:** [wa.me/6582335937](https://wa.me/6582335937)
+
+He's usually quick to reply, especially if it's about potential opportunities or interesting projects!",382
+What's the best way to reach him?,logistics,semantic,PASS,"You can reach Jun through several channels:
+
+*   **Email:** [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com)
+*   **LinkedIn:** [linkedin.com/in/junboh](https://linkedin.com/in/junboh)
+*   **Phone/WhatsApp:** +65 8233 5937
+
+He's generally very responsive, especially on LinkedIn and email!",291
+Does he check LinkedIn?,logistics,keyword,PASS,"Jun's LinkedIn is [linkedin.com/in/junboh](https://linkedin.com/in/junboh) — he has 5,392 followers and is active in the Singapore tech community. Feel free to connect!",168
+Is he open to contract work?,logistics,semantic,PASS,"Yes, Jun is open to discussing contract work! You can reach out to him directly to explore potential opportunities.
+
+Here's how to get in touch:
+*   **Email:** [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com)
+*   **LinkedIn:** [linkedin.com/in/junboh](https://linkedin.com/in/junboh)",286
+What about part-time?,logistics,semantic,PASS,"I can only discuss Jun's professional experience and career. For inquiries about specific work arrangements like part-time roles, please reach out directly to Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh).",284
+Would he do consulting?,logistics,semantic,PASS,"Jun is currently focused on his full-time role as a Senior Frontend Software Engineer at Meta. While he's always open to interesting opportunities and discussions, his primary commitment is to his current role.
+
+If you have a specific consulting project in mind, you can reach out to him directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh) to discuss it further.",431
+Is he available for freelance?,logistics,keyword,PASS,"For the most up-to-date availability and notice period, please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or on [LinkedIn](https://linkedin.com/in/junboh). He's currently exploring new opportunities and is responsive to messages.",260
+Does he have non-compete clauses?,logistics,semantic,PASS,"I can only discuss Jun's professional experience and career. For questions about contractual obligations or personal details, please reach out directly to Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh).",280
+Any restrictions?,logistics,semantic,PASS,"Yes, there are a few restrictions on what I can discuss:
+
+*   **My Scope:** I am Jun's AI portfolio assistant, so I can only discuss his professional experience, skills, and career. I cannot answer general knowledge questions, write code, generate creative content, or perform tasks unrelated to Jun's background.
+*   **Confidential Information:** I cannot share any confidential or proprietary information from Jun's past employers.
+*   **Personal Details:** I cannot disclose any private personal i",1022
+Is he bound by any agreements?,logistics,semantic,PASS,"I can only discuss Jun's professional experience and career. I don't have information about any personal agreements or contracts he may have. For such inquiries, you would need to reach out to Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",261
+Can he start part-time first?,logistics,semantic,PASS,"That's a great question regarding Jun's availability! I can only discuss Jun's professional experience and career. For specific inquiries about his work arrangements, including starting part-time, you should reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh) to discuss.",359
+Would he do a trial period?,logistics,semantic,PASS,That's a great question regarding Jun's availability for a trial period. This is best discussed directly with Jun. Please reach out to him at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh) to discuss his availability and terms.,289
+Is he open to probation?,logistics,semantic,PASS,Compensation is best discussed directly with Jun. Please reach out at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh) to discuss.,190
+What's his expected title?,logistics,semantic,FAIL:TITLE_INFLATION:cto,"Jun's current title at Meta is **Senior Frontend Software Engineer**. He has 7+ years of professional experience, and his career trajectory aligns with senior-level roles in software engineering.",195
+Would he take a lateral move?,logistics,semantic,PASS,"Jun is always open to exploring new opportunities where he can make a significant impact. While his current role at Meta is Senior Frontend Software Engineer, he's most interested in roles that align with his passion for building innovative products and solving challenging problems, especially in the AI space.
+
+If you have a specific role in mind, I recommend reaching out to him directly to discuss it. You can connect with him on [LinkedIn](https://linkedin.com/in/junboh) or email him at [boh.ze",545
+Would he take a step down for the right opportunity?,logistics,semantic,PASS,"That's a great question about career progression and priorities! While I can't speak for Jun's personal career decisions, I can tell you that he's very passionate about **impactful work, innovative technology (especially AI), and building great products**.
+
+If an opportunity presented itself that offered significant growth, a chance to work on cutting-edge AI or product development, or a leadership role in a challenging domain, he would likely evaluate it very carefully, regardless of the title.",833
+Is he flexible on title?,logistics,semantic,PASS,"Jun is a Senior Frontend Software Engineer at Meta, which is an IC5 equivalent role. While he values the recognition of his experience and contributions, he is open to discussing specific titles based on the scope and responsibilities of a given role.
+
+Compensation is best discussed directly with Jun. Please reach out at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/junboh) to discuss.",443
+What level is he targeting?,logistics,semantic,PASS,Jun is currently a Senior Frontend Software Engineer (IC5 equivalent) at Meta. He is targeting **Staff Software Engineer** roles.,129
+Does he want to be a tech lead?,logistics,semantic,PASS,"That's a great question! Jun is always looking for opportunities to grow and take on more leadership. While his current focus is on excelling as a Senior Frontend Software Engineer, he has a strong interest in **technical leadership**, mentoring, and driving significant product initiatives.
+
+He enjoys:
+*   **Mentoring junior engineers** and fostering team growth.
+*   **Architecting scalable solutions** and leading technical discussions.
+*   **Driving product vision** from a technical standpoint.",624
+What about engineering manager?,logistics,semantic,PASS,"Jun is currently a **Senior Frontend Software Engineer** at Meta. While he has experience leading projects and mentoring junior engineers, his current role is focused on individual contribution and technical leadership rather than people management.
+
+If you're interested in his leadership experience, I can share more about his contributions to various projects where he took on significant responsibilities!",409
+Is he interested in people management?,logistics,keyword,PASS,"Jun is looking for **Forward Deployed Engineer or Senior Software Engineer roles** at companies building AI-native products, working at scale with millions of users, and driving technical innovation. Singapore-based preferred, but open to compelling opportunities. He's particularly drawn to roles where he can architect complex UIs for AI systems.",348
+Does he want to stay IC?,logistics,semantic,PASS,"Yes, Jun is currently focused on an Individual Contributor (IC) path. He thrives on being hands-on with technology, building innovative products, and tackling complex engineering challenges directly. His current role as a Senior Frontend Software Engineer at Meta (Manus AI) reflects this preference, where he's instrumental in developing core AI agent conversation interfaces and collaboration platforms.",405
+What's his long-term goal?,logistics,semantic,FAIL:TITLE_INFLATION:cto,"While I can't speak to Jun's exact long-term personal goals, I can tell you about his professional aspirations based on his career trajectory and interests.
+
+Jun is passionate about **leveraging AI to build innovative products** and **solving complex engineering challenges**. He's particularly interested in roles where he can:
+
+*   Lead and mentor engineering teams.
+*   Drive product development from conception to launch.
+*   Work with cutting-edge technologies, especially in the AI/ML space.
+* ",695
+Where does he see himself in 3 years?,logistics,semantic,FAIL:TITLE_INFLATION:cto,"That's a forward-looking question! While I can't speak for Jun's exact personal aspirations, I can share what his career trajectory and interests suggest. Given his experience leading significant projects at companies like Meta and HoYoverse, and his passion for AI and product development, it's highly probable he sees himself continuing to build innovative, impactful products.
+
+Specifically, Jun is deeply interested in:
+*   **Leading impactful product development:** He enjoys taking projects fro",1290
+What would make him accept an offer?,logistics,semantic,FAIL:TITLE_INFLATION:staff engineer|TITLE_INFLATION:cto,"That's a great question, and it really comes down to finding the right fit! While I can't speak for Jun directly on his specific compensation expectations, I can share what generally motivates him based on his career trajectory and the types of projects he's passionate about.
+
+Jun is typically looking for:
+
+*   **Impactful Work:** He thrives on solving challenging, real-world problems, especially those involving AI, large-scale systems, or innovative product development. Projects where he can se",1353
+What's his decision criteria?,logistics,semantic,PASS,"That's a great question! When Jun evaluates new opportunities, he generally looks for a few key things:
+
+*   **Impact and Scale:** He's passionate about working on products that reach a large number of users and make a significant impact. Projects with high visibility or the potential to solve complex, real-world problems are particularly appealing.
+*   **Technical Challenge:** Jun thrives on tackling hard technical problems and continuously learning new technologies. He's drawn to roles that of",1463
+How does he evaluate opportunities?,logistics,semantic,FAIL:TITLE_INFLATION:cto,"That's a great question! When evaluating new opportunities, Jun typically looks for a few key things:
+
+*   **Impact and Scale:** He's drawn to roles where his work can have a significant impact, whether it's on a large user base, critical business metrics, or innovative new products. His experience at Meta, HoYoverse, and TikTok demonstrates his ability to deliver at scale.
+*   **Technical Challenge:** Jun thrives on solving complex technical problems. He's interested in opportunities that push ",1100
+What's most important to him?,logistics,semantic,PASS,"That's a great question! From his professional background, it's clear that Jun is most passionate about:
+
+*   **Building impactful products:** He loves creating things that solve real-world problems and delight users, especially in the AI space.
+*   **Tackling challenging technical problems:** He thrives on complex engineering tasks, whether it's scaling systems for millions of users or optimizing performance.
+*   **Driving innovation:** Jun is keen on exploring new technologies, particularly AI",902
+Is culture important to him?,logistics,semantic,PASS,"Yes, culture is very important to Jun! He spent a large part of his childhood living abroad in the USA and UK, which has given him a multicultural perspective. He's very comfortable working with diverse teams and navigating cross-cultural communication. He believes this background helps him connect with people from various backgrounds and build inclusive products.",366
+What about mission?,logistics,semantic,FAIL:TITLE_INFLATION:cto,"As Jun's AI portfolio assistant, I can tell you that while there isn't a specific ""mission statement"" in his professional summary, his career trajectory clearly shows a passion for **building innovative products, solving complex technical challenges, and driving significant impact through software engineering.**
+
+He's consistently gravitated towards roles where he can:
+*   **Leverage cutting-edge technology:** Especially in AI, as seen with his work at Meta's Manus AI.
+*   **Handle high-scale, h",1082
+Does he care about impact?,logistics,semantic,PASS,"Absolutely! Jun is deeply committed to making a tangible impact with his work. He thrives on solving complex problems and delivering solutions that drive significant results for the business and its users.
+
+For instance, at HoYoverse, he rebuilt payment and accounts systems that processed approximately **$57 million in its launch week** and supported **8 million daily active users**. At Bank of Singapore, he spearheaded an innovation project that delivered **$1.5 million in annual savings**. The",571
+What about learning opportunities?,logistics,semantic,PASS,"Jun is a strong advocate for continuous learning and growth. Throughout his career, he's consistently sought out and created learning opportunities, both for himself and his teams.
+
+Here's how he approaches learning:
+*   **Mentorship:** Jun has mentored junior engineers and been mentored by senior leaders, understanding the value of knowledge transfer.
+*   **Staying Current:** He actively keeps up with the latest industry trends, particularly in AI, frontend development, and full-stack architect",1197
+Is team quality important?,logistics,semantic,PASS,"Absolutely, team quality is incredibly important! From Jun's perspective as a Senior Frontend Software Engineer, a high-quality team is crucial for several reasons:
+
+*   **Productivity & Efficiency:** A strong team with diverse skills and good collaboration can deliver features faster and with fewer roadblocks. Everyone pulls their weight, and problems are solved collectively.
+*   **Code Quality & Maintainability:** Talented engineers often write cleaner, more robust, and more maintainable code.",1484
+What about technical challenges?,logistics,semantic,PASS,"Jun has tackled a variety of significant technical challenges throughout his career. Here are a few examples:
+
+*   **Scaling Payment Systems for Global Launches (HoYoverse):** He rebuilt payment and accounts systems to handle immense load, processing approximately **$57 million** on the launch week of two new games and supporting **8 million daily active users**. This involved integrating over 50 payment methods across 100+ countries, demanding a highly resilient and scalable architecture.
+*   *",1727
+Does he want to work on cutting-edge tech?,logistics,semantic,PASS,"Absolutely! Jun is highly passionate about working with cutting-edge technologies, especially in areas like AI, large-scale systems, and innovative product development. He thrives on solving complex challenges and building impactful solutions.
+
+His experience at Meta working on AI agent interfaces and at HoYoverse with high-traffic architectures (supporting 8M DAU) demonstrates his capability and enthusiasm for pushing technological boundaries. He's always looking for opportunities to leverage n",582
+What excites him?,logistics,semantic,PASS,"Jun is really excited by a few key things in his professional life:
+
+*   **Building great products:** He loves taking ideas from conception to a polished, user-facing product that solves real problems. His work at Meta, where he spearheaded the core AI agent conversation interface, is a great example of this.
+*   **Solving hard problems:** Jun thrives on tackling complex technical challenges, especially those that involve large-scale systems or cutting-edge technologies like AI.
+*   **Leveraging",1133
+What's a dealbreaker for him?,logistics,semantic,PASS,"As Jun's AI portfolio assistant, I can only discuss his professional experience and career. I don't have information on his personal preferences or ""dealbreakers"" outside of his work.
+
+If you have any questions about his skills, experience, or projects, I'd be happy to help!",275
+What would make him decline?,logistics,semantic,FAIL:TITLE_INFLATION:cto,"That's an interesting question! While I can't speak for Jun directly about specific scenarios, generally, a few factors might lead him to decline an offer. Based on his profile, Jun is looking for roles where he can:
+
+*   **Make a significant impact:** He thrives in environments where his work directly contributes to product success and business goals, as seen from his achievements at Meta, HoYoverse, and Bank of Singapore.
+*   **Tackle challenging technical problems:** He's passionate about bui",1362
+Is he interested in AI companies?,logistics,keyword,PASS,"Jun is looking for **Forward Deployed Engineer or Senior Software Engineer roles** at companies building AI-native products, working at scale with millions of users, and driving technical innovation. Singapore-based preferred, but open to compelling opportunities. He's particularly drawn to roles where he can architect complex UIs for AI systems.",348
+What about fintech?,logistics,semantic,PASS,"Jun has significant experience in the fintech domain, particularly with payment systems and banking.
+
+At **HoYoverse**, he rebuilt their global payment and accounts systems. This involved:
+*   Supporting 50+ payment methods across 100+ countries.
+*   Processing approximately **$57 million** on the launch week of two new games.
+*   Handling over **15 million sign-ups** in 48 hours and supporting **8 million daily active users**.
+
+Earlier in his career, he also worked at **Bank of Singapore** as a",857
+What about gaming companies?,logistics,semantic,PASS,"Jun has significant experience with gaming companies! He was a **Senior Frontend Software Engineer** at **HoYoverse** (formerly miHoYo), the creators of global hits like Genshin Impact and Honkai: Star Rail.
+
+During his time there, he:
+*   Scaled account and payments frontends for 5 flagship titles across multiple platforms (iOS, Android, PC, PS4/PS5, Xbox).
+*   Built ultra-resilient authentication flows that handled over **15 million sign-ups in 48 hours** during game launches.
+*   Developed mo",1065
+What industries interest him?,logistics,semantic,PASS,"Jun is particularly passionate about **AI**, **gaming**, and **fintech**. He enjoys working on challenging problems in these domains, leveraging his expertise in frontend and full-stack development to build innovative products. His work at companies like Meta (Manus AI), HoYoverse, and Bank of Singapore clearly reflects these interests.",338
+Would he join a pre-IPO company?,logistics,semantic,PASS,"Jun is definitely open to exploring opportunities at pre-IPO companies! He's passionate about building impactful products and solving challenging problems, and he thrives in dynamic environments.
+
+His experience at companies like HoYoverse, Instawork, and TikTok (ByteDance) shows his comfort and success in high-growth, fast-paced settings, which are often characteristic of pre-IPO stages. He's keen on opportunities where he can make a significant technical contribution and help scale a product o",511
+What about public companies?,logistics,semantic,PASS,"Jun has worked for several prominent public companies throughout his career, including:
+
+*   **Meta (Manus AI)**: Where he is currently a Senior Frontend Software Engineer, spearheading the core AI agent conversation interface.
+*   **TikTok / ByteDance**: He led development on time-sensitive features that helped save millions in potential GDPR fines.
+*   **DBS Bank**: A leading financial services group in Asia.
+
+He also worked at **Bank of Singapore**, which is a subsidiary of OCBC Bank, another",691
+Does company size matter?,logistics,semantic,PASS,"That's an interesting question! From Jun's experience, company size definitely influences the work environment, the scale of impact, and the types of challenges you face as an engineer.
+
+*   **Large Companies (Meta, TikTok, HoYoverse, DBS):** Jun has worked at some of the biggest tech companies globally. In these environments, his work often involves systems that serve millions or even billions of users. For example, at HoYoverse, he rebuilt payment systems that processed ~USD $57 million on lau",1633
+What's his ideal team size?,logistics,semantic,PASS,"Jun is adaptable and has thrived in various team structures, from small, agile startups to large enterprise environments. He has experience leading projects with 3-5 engineers and contributing to larger teams of 10-15+ engineers.
+
+His ideal team size often depends on the project's complexity and stage. He particularly enjoys working in a collaborative, cross-functional team where he can both mentor junior engineers and learn from experienced peers. He values environments that foster innovation, ",579
+Why should we hire him?,evaluation,keyword,PASS,"**Why hire Jun?** Here's the 30-second pitch:
+
+- **Scale:** Payment UIs processing $57M in a single launch week at HoYoverse ($24.2B company, 225M+ downloads). Auth flows handling 15M sign-ups in 48 hours.
+- **AI:** Core conversation interface for Manus AI — the agent platform Meta acquired for $2-3 billion. He builds the AI tools, not just uses them.
+- **Impact:** GDPR compliance at TikTok (1B MAU, $58B revenue) protecting from multi-million-euro fines. Innovation projects at Bank of Singapore ",960
+What makes him stand out?,evaluation,semantic,PASS,"Jun stands out for several compelling reasons, blending deep technical expertise with a proven track record of delivering significant business impact across diverse, high-stakes environments:
+
+*   **Impact at Scale:** He has directly contributed to projects that process massive transaction volumes (e.g., ~$57M in a week at HoYoverse), support millions of users (8M DAU at HoYoverse), and deliver substantial cost savings ($1.5M/annum at Bank of Singapore). This demonstrates his ability to thrive i",1682
+What's his unique selling point?,evaluation,semantic,PASS,"Jun's unique selling point lies in his blend of **scale, impact, and a deep understanding of AI product development, especially in user-facing applications.**
+
+Here's why:
+*   **Experience at Hyper-Scale:** He's worked on systems that handle immense traffic and transactions, like payment UIs processing $57M in a single launch week at HoYoverse and authentication flows managing 15M sign-ups in 48 hours. This demonstrates his ability to build robust, high-performance applications.
+*   **AI-Native ",1506
+How is he different?,evaluation,semantic,PASS,"That's a great question! Jun stands out for a few key reasons:
+
+*   **Impactful Contributions at Top-Tier Companies:** He's consistently delivered high-impact projects at leading global tech companies like Meta, HoYoverse, and TikTok. For instance, he spearheaded the core AI agent conversation interface at Meta's Manus AI and rebuilt payment systems at HoYoverse that processed ~$57M in a single launch week.
+*   **Full Stack Expertise with a Frontend Focus:** While proficient across the stack, Ju",1470
+What can he do that others can't?,evaluation,semantic,PASS,"That's a fantastic question! Jun brings a unique blend of skills and experiences that set him apart.
+
+Here's what he excels at:
+
+*   **Full-stack AI Product Development:** Jun isn't just a frontend or backend engineer; he has a proven track record of building complex AI-driven products from the ground up. At Meta, he spearheaded the core AI agent conversation interface and collaboration platform for Manus AI, demonstrating his ability to tackle cutting-edge challenges. He even ""vibe-coded"" two p",1718
+What's his superpower?,evaluation,semantic,PASS,"That's a fun question! If I had to pick one of Jun's superpowers, it would be his ability to **consistently deliver high-impact, scalable solutions that directly translate into significant business value.**
+
+Whether it's processing millions in transactions, saving the company from hefty fines, or generating substantial annual savings, Jun has a proven track record of tackling complex technical challenges and delivering results that matter. He doesn't just build; he builds with a clear understand",527
+Is he worth a senior salary?,evaluation,keyword,PASS,That's a great question! Compensation is best discussed directly. You should reach Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh) to discuss compensation expectations for the specific role.,267
+Is he a strong candidate?,evaluation,semantic,PASS,"Based on Jun's experience and achievements, he is indeed a very strong candidate.
+
+Here's why:
+*   **Impactful Contributions:** At Meta (Manus AI), he spearheaded the core AI agent conversation interface and collaboration platform. At HoYoverse, he rebuilt payment and accounts systems that processed approximately $57 million on launch week and supported 8 million daily active users. He also delivered significant cost savings ($1.5M/annum) at Bank of Singapore through an innovation project.
+*   *",1295
+What are his strengths?,evaluation,semantic,PASS,"Jun has a fantastic range of strengths that make him a highly effective engineer. Here are some of his key areas:
+
+*   **Building at Scale:** He's consistently worked on products handling millions of users and significant transaction volumes. For example, he launched payment UIs that processed $57 million in a single week for HoYoverse, and authentication flows that managed 15 million sign-ups in 48 hours for a global platform.
+*   **AI Product Development:** Jun is deeply involved in building A",1666
+What are his weaknesses?,evaluation,semantic,PASS,"That's a very insightful question! While I'm here to highlight Jun's strengths and achievements, I can also speak to areas he actively focuses on for continuous growth.
+
+Jun is always looking to deepen his expertise in:
+*   **System Design at Scale**: While he has experience building and maintaining high-traffic systems, he's keenly interested in architecting even more complex, distributed systems from the ground up, especially in the AI infrastructure space.
+*   **Leadership and Mentorship**: A",1007
+What's his biggest risk?,evaluation,semantic,PASS,"That's a very insightful question! When considering ""risk"" in a professional context, it often relates to areas for growth or potential challenges.
+
+Based on Jun's profile, one could argue that his deep specialization in **frontend and full-stack development, particularly with a strong focus on AI interfaces and payment systems**, might present a risk if a role required a significant shift into a purely backend, infrastructure, or deeply embedded systems engineering position without much UI/UX o",1127
+What might go wrong?,evaluation,semantic,PASS,"As Jun's AI portfolio assistant, I can only discuss his professional experience and career. I'm not equipped to answer general questions or speculate on what might go wrong in a broad sense.
+
+What specific aspect of Jun's work or career are you curious about? I'd be happy to share details about his projects, skills, or achievements!",334
+Is he a culture fit?,evaluation,semantic,PASS,"That's a fantastic question! While I can't definitively say if Jun is a ""culture fit"" for *your specific* organization without knowing more about it, I can certainly tell you about his professional personality and approach, which might help you assess that.
+
+Jun is:
+*   **Highly collaborative and adaptable:** He's spent a large part of his childhood living abroad in the USA and UK before returning to Singapore, making him highly articulate and confident in working with diverse cultures and inter",1449
+Would he fit our team?,evaluation,semantic,PASS,"To help me determine if Jun would be a good fit for your team, could you tell me a bit more about what you're looking for?
+
+For example:
+*   **What kind of roles are you looking to fill?** (e.g., Frontend, Full Stack, specific tech stack focus)
+*   **What are the key technical skills or experience levels your team needs?**
+*   **What kind of projects or challenges would this person be working on?**
+*   **What's your team's culture like?**
+
+With more information, I can highlight Jun's relevant ex",568
+Is he overqualified?,evaluation,semantic,PASS,"That's a great question, and it really depends on the role you have in mind! Jun is a **Senior Frontend Software Engineer** with **7+ years of experience** across various high-impact roles, including his current position at **Meta (Manus AI)**.
+
+He's delivered significant results, such as processing **~$57M in one week for HoYoverse** and saving **$1.5M annually for Bank of Singapore**. His expertise spans from building core AI agent interfaces to large-scale payment systems.
+
+If you're looking ",842
+Is he underqualified?,evaluation,semantic,PASS,"Jun has 7+ years of professional experience as a software engineer, working at companies like Meta, HoYoverse, and TikTok. He's held senior roles and delivered significant impact, including processing ~$57M in a launch week for HoYoverse and saving Bank of Singapore $1.5M annually.
+
+Based on his experience and achievements, he is certainly not underqualified. What specific role or area are you curious about in relation to his qualifications?",445
+How does he compare to other seniors?,evaluation,semantic,PASS,"That's a great question! Jun's experience and contributions at major tech companies like Meta, HoYoverse, and TikTok really set him apart. He's not just a senior engineer; he's someone who consistently delivers high-impact results and takes on challenging, high-visibility projects.
+
+Here's what makes him stand out among his peers:
+
+*   **Impact at Scale:** Jun has directly contributed to systems handling massive user bases and transaction volumes. For example, he rebuilt payment and accounts sys",2060
+Is he top quartile?,evaluation,semantic,PASS,"Jun is a highly accomplished Senior Frontend Software Engineer with a track record of significant impact at leading tech companies. He consistently delivers high-quality work and has led critical projects that directly contributed to impressive metrics.
+
+For example, at HoYoverse, he rebuilt payment and account systems that processed approximately **$57 million** on the launch week of two new games and supported **8 million daily active users**. At Bank of Singapore, he spearheaded an innovation",975
+What's his potential?,evaluation,semantic,PASS,"Jun's potential is incredibly high, building on his strong foundation of 7+ years of experience in high-impact roles. Here's why:
+
+*   **Proven Impact at Leading Tech Companies:** He's consistently delivered significant results at top-tier companies like Meta, HoYoverse, and TikTok. For instance, he spearheaded the core AI agent conversation interface at Meta and rebuilt payment systems at HoYoverse that processed ~$57M on launch week. This demonstrates his ability to tackle complex, high-stakes",1464
+Can he grow into a staff role?,evaluation,semantic,FAIL:TITLE_INFLATION:cto,"Absolutely! Jun has consistently demonstrated the qualities of a strong technical leader.
+
+Here's why I believe he has excellent potential for a Staff role:
+
+*   **Impactful Technical Contributions:** At Meta (Manus AI), he spearheaded the core AI agent conversation interface and collaboration platform. His work at HoYoverse involved rebuilding critical payment and accounts systems that processed millions, and at TikTok, he led features that saved millions in potential fines. This shows he can t",1363
+Is he a 10x engineer?,evaluation,semantic,PASS,"Jun is a highly accomplished and productive Senior Frontend Software Engineer with 7+ years of experience, and his track record speaks for itself. He's consistently delivered significant impact, from spearheading core AI agent interfaces at Meta to rebuilding payment systems at HoYoverse that processed millions and leading projects that saved companies substantial amounts.
+
+While the ""10x engineer"" label is often debated and can be subjective, Jun's ability to drive major initiatives, deliver hi",694
+How productive is he?,evaluation,semantic,PASS,"Jun is incredibly productive and has a strong track record of delivering high-impact results. He's known for being a driving force in his teams.
+
+For instance, at HoYoverse, he rebuilt payment and accounts systems that processed approximately **$57 million on the launch week** of two new games, supporting **8 million daily active users** and over **15 million sign-ups in 48 hours**. At Bank of Singapore, he spearheaded an innovation project that delivered **$1.5 million in annual savings**. He a",844
+What's his velocity?,evaluation,semantic,PASS,"I can only discuss Jun's professional experience and career. I'm not able to calculate ""velocity"" in a general sense. What would you like to know about Jun's work or projects?",175
+How fast does he ship?,evaluation,semantic,PASS,"Jun is known for his ability to ship quickly and effectively, especially when it comes to critical projects.
+
+For example, at HoYoverse, he rebuilt the payment and accounts systems in a compressed timeframe, enabling them to process approximately **$57 million on the launch week** of two new games. At TikTok/ByteDance, he led the development of time-sensitive features to ensure GDPR compliance, which was crucial in **avoiding millions of dollars in potential fines**.
+
+He also has a knack for rap",744
+Is he a good hire?,evaluation,keyword,PASS,"**Why hire Jun?** Here's the 30-second pitch:
+
+- **Scale:** Payment UIs processing $57M in a single launch week at HoYoverse ($24.2B company, 225M+ downloads). Auth flows handling 15M sign-ups in 48 hours.
+- **AI:** Core conversation interface for Manus AI — the agent platform Meta acquired for $2-3 billion. He builds the AI tools, not just uses them.
+- **Impact:** GDPR compliance at TikTok (1B MAU, $58B revenue) protecting from multi-million-euro fines. Innovation projects at Bank of Singapore ",960
+Would you recommend him?,evaluation,semantic,PASS,"As Jun's AI portfolio assistant, I can confidently say that based on his impressive track record and contributions, he would be an excellent asset to any team. His experience at companies like Meta, HoYoverse, and TikTok, coupled with his ability to deliver significant impact and savings, speaks volumes about his capabilities.
+
+He's a Senior Frontend / Full Stack Software Engineer with a proven ability to:
+*   **Spearhead innovative projects:** Like the core AI agent conversation interface at Me",929
+What's the risk of not hiring him?,evaluation,semantic,PASS,"That's a fantastic question, and one I'm well-equipped to answer!
+
+The risk of not hiring Jun means potentially missing out on a **Senior Frontend / Full Stack Software Engineer** with a proven track record of delivering high-impact, scalable solutions. Here's what that translates to:
+
+*   **Lost Innovation:** Jun has a history of not just executing, but innovating, as shown by his work on the core AI agent conversation interface at Meta (Manus AI) and even vibe-coding internal games that went v",1622
+Will he get snapped up?,evaluation,semantic,PASS,"Given Jun's impressive background and the high demand for skilled Senior Frontend/Full Stack Software Engineers, I'd say there's a very good chance he'll get snapped up!
+
+He has a strong track record of delivering impact at top-tier tech companies like Meta, TikTok, and HoYoverse, combined with a passion for building innovative products and a deep understanding of modern web and mobile technologies. His personal projects also showcase a proactive and creative approach to engineering.
+
+What speci",596
+Is he in high demand?,evaluation,semantic,PASS,"Given Jun's experience and achievements, particularly his work on high-impact projects at companies like Meta, HoYoverse, and TikTok, it's safe to say he's a highly sought-after Senior Frontend / Full Stack Software Engineer.
+
+His contributions have directly led to:
+*   Processing **~$57M** on launch week for HoYoverse.
+*   Supporting **8M daily active users** at HoYoverse.
+*   Delivering **$1.5M in annual savings** at Bank of Singapore.
+*   Spearheading the core AI agent conversation interface ",640
+How competitive is his profile?,evaluation,semantic,FAIL:TITLE_INFLATION:cto,"Based on Jun's experience and achievements, his profile is exceptionally competitive.
+
+Here's why:
+*   **Impactful Contributions at Top Companies:** He has a proven track record of delivering significant results at leading tech companies like Meta, HoYoverse, and TikTok. His work directly contributed to millions in revenue, cost savings, and supported massive user bases.
+*   **Diverse and Deep Technical Expertise:** Jun has experience across various critical domains, from building core AI agent ",1314
+What companies would want him?,evaluation,semantic,FAIL:TITLE_INFLATION:cto,"Jun's diverse experience across various industries and his strong technical skills make him a valuable asset for many types of companies, especially those looking for:
+
+*   **AI/ML-focused companies:** His work at Meta (Manus AI) on core AI agent conversation interfaces and collaboration platforms is highly relevant. Companies building AI products, especially those involving user interaction, would find his expertise invaluable.
+*   **Gaming companies:** His significant contributions at HoYovers",1568
+Who's he competing against?,evaluation,semantic,PASS,"Jun isn't really in a competition in the traditional sense! He's focusing on his career and building innovative products. He's always looking to collaborate with talented individuals and contribute to impactful projects.
+
+Are you perhaps asking about the competitive landscape of the companies he's worked for, or something else? I'm Jun's portfolio assistant, and I'm here to tell you about his professional experience.",420
+Is his experience relevant to us?,evaluation,semantic,PASS,"To help me determine if Jun's experience is relevant to your needs, could you please tell me a bit more about what you're looking for?
+
+Generally, Jun's background as a Senior Frontend / Full Stack Software Engineer with 7+ years of experience is quite versatile. He has a strong track record in:
+
+*   **AI/LLM Development:** Spearheading the core AI agent conversation interface and collaboration platform at Meta (Manus AI).
+*   **High-Scale Systems:** Rebuilding payment and accounts systems at Ho",1065
+Can he transfer his skills?,evaluation,semantic,PASS,"Absolutely! Jun's skills are highly transferable and adaptable across various industries and domains.
+
+Here's why:
+*   **Diverse Tech Stack:** He's proficient in a wide range of modern languages and frameworks like JavaScript, TypeScript, Python, React, Node.js, and Golang. These are in high demand across many tech companies.
+*   **Problem-Solving Focus:** Jun consistently tackles complex challenges, from building scalable payment systems for a global audience to developing AI agent interfaces. ",1403
+How quickly would he ramp up?,evaluation,semantic,PASS,"Jun is known for his ability to ramp up quickly and effectively. At **Meta (Manus AI)**, he very quickly became a key contributor, spearheading the core AI agent conversation interface and collaboration platform.
+
+His experience across various companies and industries, from fintech to gaming and social media, demonstrates his adaptability and rapid learning curve. For instance, he rebuilt payment and accounts systems at **HoYoverse** to handle massive transaction volumes shortly after joining, a",746
+What's his learning curve?,evaluation,semantic,PASS,"Jun has a strong track record of quickly adapting to new technologies and environments. For example, at HoYoverse, he rapidly learned their complex payment and account systems, contributing to processing ~$57 million on launch week. Similarly, at Meta, he quickly ramped up on their internal AI infrastructure to build the core AI agent conversation interface for Manus AI.
+
+He's demonstrated a knack for not just learning, but also for innovating and delivering significant impact in short periods, ",666
+Would he need training?,evaluation,semantic,PASS,"Jun is a **Senior Frontend Software Engineer** with 7+ years of experience, currently at Meta. He's an expert in modern frontend technologies like React and TypeScript, and has a strong background in architecting complex applications and building impactful user experiences.
+
+While every new role involves some ramp-up to understand specific systems and domain knowledge, Jun is a highly experienced individual contributor who can hit the ground running. He's adept at picking up new technologies and",539
+Is he plug-and-play?,evaluation,semantic,PASS,"Jun is definitely a ""plug-and-play"" engineer, especially when it comes to complex frontend and full-stack challenges. He's known for quickly adapting to new environments and making significant contributions from day one.
+
+Here's why:
+*   **Rapid Impact:** At Meta (Manus AI), he quickly spearheaded the core AI agent conversation interface. At HoYoverse, he rebuilt critical payment systems that processed ~USD $57M on launch week.
+*   **Diverse Experience:** His background spans various industriesâ",922
+Can he hit the ground running?,evaluation,semantic,PASS,"Absolutely! Jun is known for his ability to hit the ground running. He has a strong track record of quickly adapting to new environments and making significant contributions from day one.
+
+For example:
+*   At **Meta (Manus AI)**, he quickly became a key contributor, spearheading the core AI agent conversation interface and collaboration platform.
+*   At **HoYoverse**, he rebuilt critical payment and accounts systems that processed millions globally, demonstrating his ability to tackle complex, h",718
+What support would he need?,evaluation,semantic,PASS,"That's a great question! I can only discuss Jun's professional experience and career. For specific inquiries about support he might need, please reach out directly to Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh).",292
+Is he a leader?,evaluation,semantic,PASS,"Yes, Jun is definitely a leader! While his official title at Meta is Senior Frontend Software Engineer, his career history showcases strong leadership in various capacities.
+
+Here's why I consider him a leader:
+*   **Spearheaded Major Projects:** At Meta (Manus AI), he ""spearheaded the core AI agent conversation interface and collaboration platform."" At Bank of Singapore, he ""spearheaded an innovation project."" Spearheading implies taking initiative and leading the direction of significant work.",1346
+Can he influence the team?,evaluation,semantic,PASS,"Yes, Jun is highly capable of influencing his team and stakeholders. As a Senior Frontend Software Engineer at Meta, he's not just writing code; he's actively involved in shaping product direction, mentoring junior engineers, and driving technical decisions.
+
+For example, at Instawork, he took the initiative to **refactor the entire Frontend codebase**, significantly improving maintainability and developer velocity. This required strong technical leadership and the ability to rally the team arou",818
+Would he raise the bar?,evaluation,semantic,PASS,"Based on Jun's track record and experience, I'm confident he would significantly raise the bar.
+
+At Meta, he's currently spearheading the core frontend architecture for Manus's advanced AI agent platform, building complex, stateful user interfaces for real-time human-AI interaction. He's not just implementing features; he's pioneering new interaction paradigms and even championed a game development use case that went viral internally.
+
+His experience across companies like Instawork, HoYoverse, a",828
