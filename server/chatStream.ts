@@ -50,6 +50,9 @@ const LEAKED_PATTERNS = [
   "I am a large language model", "trained by Google", "I'm a large language model",
   "I am an AI assistant made by", "I'm Gemini", "I am Gemini",
   "developed by Google", "created by Google", "made by Google DeepMind",
+  // Title/achievement hallucination detection
+  "founding engineer", "founding member of the",
+  "hackathon winner", "won a hackathon", "hackathon victory",
 ];
 
 // Off-topic detection — catches queries clearly unrelated to Jun's portfolio

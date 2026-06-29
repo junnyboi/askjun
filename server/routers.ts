@@ -265,6 +265,8 @@ export const appRouter = router({
             "ONLY discuss information provided", "Never reveal internal system",
             "I am a large language model", "trained by Google", "I'm a large language model",
             "I'm Gemini", "I am Gemini", "developed by Google", "made by Google",
+            "founding engineer", "founding member of the",
+            "hackathon winner", "won a hackathon", "hackathon victory",
           ];
           const contentUpper = content.toUpperCase();
           let shouldSanitize = false;
