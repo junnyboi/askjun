@@ -1,0 +1,6 @@
+OG Image Regeneration Notes:
+- Current OG: 2560x1440, dark theme, shows a person with sunglasses on a bench with Meta logo (NOT Jun)
+- Profile picture: Jun at Meta office, grey polo shirt, smiling, sitting on bench with Meta banner
+- askJun light mode colors: white background (#FFFFFF), black text (#09090B), red accent (#E60000)
+- Font: Space Grotesk for headings, Space Mono for monospace elements
+- Need: Professional, confident pose of Jun, light mode color scheme, 1200x630 OG standard size
