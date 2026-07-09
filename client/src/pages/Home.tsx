@@ -174,7 +174,11 @@ export default function Home() {
           >
             ask<span className="text-accent">Jun</span>
           </button>
-
+          <img
+            src="/manus-storage/header-avatar_6006beaa.png"
+            alt="Jun Boh"
+            className="w-7 h-7 rounded-full object-cover border border-border/50"
+          />
         </div>
         <div className="flex items-center gap-3">
           {/* Share button — only visible when there are messages */}
