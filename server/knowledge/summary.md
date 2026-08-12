@@ -9,7 +9,7 @@ version: 1
 ---
 
 ## Professional Summary
-Software Engineer who spearheaded the core AI agent conversation interface and collaboration platform at Meta (Manus AI), rebuilt the payment and accounts systems at HoYoverse to process ~USD $57m with ~70m downloads globally on the launch week of 2 new games. Led development of time sensitive features which saved TikTok millions of dollars in EU GDPR fines and also spearheaded an innovation project at Bank of Singapore, delivering $1.5m/annum in savings. Championed a game development use case at Manus by vibe-coding two production-ready games that went viral internally.
+Software Engineer who built AI agent conversation interfaces and collaboration tools at Meta (Manus AI), rebuilt the payment and accounts systems at HoYoverse to process ~USD $57m with ~70m downloads globally on the launch week of 2 new games. Led development of time sensitive features which saved TikTok millions of dollars in EU GDPR fines and also spearheaded an innovation project at Bank of Singapore, delivering $1.5m/annum in savings and estimated to help the sales team close deals 2x faster!
 
 ## Key Metrics
 - ~$57M processed on launch week (HoYoverse)

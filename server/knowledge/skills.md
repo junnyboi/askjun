@@ -9,7 +9,6 @@ version: 1
 ---
 
 ## Technical Skills
-- **Languages:** JavaScript, TypeScript, Python, Golang, Java, SQL, HTML/CSS, C#
-- **Frameworks:** React, Vue.js, Node.js, Django, Spring Boot, Tailwind CSS, Next.js, Framer Motion
-- **Tools:** Git, Docker, CI/CD pipelines, Webpack/Vite, Kafka, Shell
-- **Domains:** AI Agent Interfaces, Payment Systems (50+ methods, 100+ countries), High-Traffic Architecture (8M DAU), GDPR Compliance, Real-time Collaboration
+- **Languages:** JavaScript, React, Vue, TypeScript, Python, Django, SQL
+- **Tools:** Git, Docker, Shell, Browser Dev Tools, Postman, Fiddler, CI/CD pipelines
+- **Domains:** AI Agent Interfaces, Payment Systems (50+ methods, 100+ countries), High-Traffic Architecture (8M DAU), GDPR Compliance

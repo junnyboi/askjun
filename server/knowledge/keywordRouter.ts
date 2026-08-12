@@ -58,7 +58,7 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
     keywords: ["tech stack", "technologies he uses", "what languages does he know", "what tools"],
     match: {
       category: "techstack",
-      response: "**Languages:** JavaScript, TypeScript, Python, Golang, Java, SQL, C#\n\n**Frameworks:** React, Vue.js, Node.js, Django, Spring Boot, Tailwind, Next.js, Framer Motion\n\n**Tools:** Git, Docker, CI/CD, Webpack/Vite, Kafka\n\n**Domains:** AI Agent Interfaces, Payment Systems (50+ methods, 100+ countries), High-Traffic Architecture (8M DAU), GDPR Compliance",
+      response: "**Languages:** JavaScript, React, Vue, TypeScript, Python, Django, SQL\n\n**Tools:** Git, Docker, Shell, Browser Dev Tools, Postman, Fiddler, CI/CD pipelines\n\n**Domains:** AI Agent Interfaces, Payment Systems (50+ methods, 100+ countries), High-Traffic Architecture (8M DAU), GDPR Compliance",
     },
   },
   // Easter egg — deterministic, no need for semantic search
@@ -74,7 +74,7 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
     keywords: ["hire", "why hire", "should i hire", "why should", "value proposition", "pitch"],
     match: {
       category: "why_hire",
-      response: "**Why hire Jun?** Here's the 30-second pitch:\n\n- **Scale:** Payment UIs processing $57M in a single launch week at HoYoverse ($24.2B company, 225M+ downloads). Auth flows handling 15M sign-ups in 48 hours.\n- **AI:** Core conversation interface for Manus AI — the agent platform Meta acquired for $2-3 billion. He builds the AI tools, not just uses them.\n- **Impact:** GDPR compliance at TikTok (1B MAU, $58B revenue) protecting from multi-million-euro fines. Innovation projects at Bank of Singapore ($120B AUM) saving $1.5M annually.\n- **Range:** React, TypeScript, Vue, Python, Golang, Java — shipped production code in all of them. Frontend specialist who goes full-stack when needed.\n- **Proof:** He doesn't just talk about building AI — this very conversation is powered by an AI agent he designed and shipped from scratch.\n\nReach Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or [LinkedIn](https://linkedin.com/in/junboh) to discuss further.",
+      response: "**Why hire Jun?** Here's the 30-second pitch:\n\n- **Scale:** Payment UIs processing $57M in a single launch week at HoYoverse ($24.2B company, 225M+ downloads). Auth flows handling 15M sign-ups in 48 hours.\n- **AI:** Core conversation interface for Manus AI — the agent platform Meta acquired. He builds the AI tools, not just uses them.\n- **Impact:** GDPR compliance at TikTok (1B MAU, $58B revenue) protecting from multi-million-euro fines. Innovation projects at Bank of Singapore ($120B AUM) saving $1.5M annually and helping sales close deals 2x faster.\n- **Range:** React, TypeScript, Vue, Python, Django, SQL — frontend specialist who goes full-stack when needed.\n- **Proof:** He doesn't just talk about building AI — this very conversation is powered by an AI agent he designed and shipped from scratch.\n\nReach Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or [LinkedIn](https://linkedin.com/in/junboh) to discuss further.",
     },
   },
   {
@@ -131,7 +131,7 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
     keywords: ["who is jun", "tell me about jun", "introduce jun", "jun boh", "about him"],
     match: {
       category: "who_is_jun",
-      response: "Jun Boh is a **Senior Software Engineer** with **7+ years** of professional experience (2019–present), currently at **Meta (Manus AI)** in Singapore.\n\nHe specializes in frontend engineering at scale — building AI agent conversation interfaces, payment systems processing $57M in launch weeks, and auth flows handling 15M sign-ups in 48 hours.\n\n**Career path:** Meta (Manus AI) → Instawork → HoYoverse → TikTok/ByteDance → Bank of Singapore → DBS Bank\n\nHe's currently exploring **Forward Deployed Engineer or Senior Software Engineer** opportunities at companies building AI-native products.",
+      response: "Jun Boh is a **Senior Frontend / Full Stack Software Engineer** with **7+ years** of professional experience (2019–present), currently at **Meta (Manus AI)** in Singapore.\n\nHe specializes in frontend engineering at scale — building AI agent conversation interfaces, payment systems processing $57M in launch weeks, and auth flows handling 15M sign-ups in 48 hours.\n\n**Career path:** Meta (Manus AI) → Instawork → HoYoverse → TikTok/ByteDance → Bank of Singapore → DBS Bank\n\nHe's currently exploring **Forward Deployed Engineer or Senior Software Engineer** opportunities at companies building AI-native products.",
     },
   },
   // Self-identification — prevent LLM from hallucinating about what askjun.org is
@@ -164,7 +164,7 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
     keywords: ["\u2726 tech stack", "what's his tech stack"],
     match: {
       category: "generative_skills",
-      response: "Here's Jun's technical arsenal:\n\n**Languages:** TypeScript, JavaScript, Python, Golang, Java, SQL, C#\n\n**Frameworks:** React, Vue.js, Node.js, Django, Spring Boot, Tailwind CSS, Framer Motion, Next.js\n\n**Tools:** Git, Docker, CI/CD, Webpack/Vite, Kafka, Shell\n\n**Domain Expertise:**\n- AI Agent Interfaces — real-time streaming, multi-turn conversations, generative UI\n- Payment Systems — 50+ methods, 100+ countries, $57M launch week\n- High-Traffic Architecture — 8M DAU, 15M sign-ups in 48h\n- GDPR Compliance — data residency, cross-border payment isolation\n- Real-time Collaboration — multi-user AI artifact sharing\n\nHis sweet spot is **React + TypeScript** at scale, with full-stack reach into Python/Golang when needed.",
+      response: "Here's Jun's technical arsenal:\n\n**Languages:** JavaScript, React, Vue, TypeScript, Python, Django, SQL\n\n**Tools:** Git, Docker, Shell, Browser Dev Tools, Postman, Fiddler, CI/CD pipelines\n\n**Domain Expertise:**\n- AI Agent Interfaces — real-time streaming, multi-turn conversations, generative UI\n- Payment Systems — 50+ methods, 100+ countries, $57M launch week\n- High-Traffic Architecture — 8M DAU, 15M sign-ups in 48h\n- GDPR Compliance — data residency, cross-border payment isolation\n\nHis sweet spot is **React + TypeScript** at scale, with full-stack reach into Python/Django when needed.",
     },
   },
   {
