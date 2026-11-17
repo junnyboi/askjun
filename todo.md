@@ -290,3 +290,17 @@
 - [x] Add identity-leak detection to output validation (catches "trained by Google", "I am Gemini", etc.)
 - [x] Add 'who is jun' keyword route with correct title (Senior Software Engineer, 7+ years)
 - [x] Strengthen CRITICAL FACTS: forbid title inflation (NOT staff, NOT founding, NOT principal)
+## UI Overhaul: Redesign Proposals (Nov 2026)
+- [x] Audit current Home, conversation and Portfolio UI (desktop + mobile) against checkpoint 0e73a474
+- [x] Write proposal doc with four directions, shared conversation/mobile views and phased plan (docs/REDESIGN_PROPOSALS.md)
+- [x] Generate proposal mockups with gpt-image-2.5 (docs/redesign/)
+- [ ] DECISION: choose direction (A Signal / B Split Dossier / C Bento Ask / D Editorial / blend)
+- [ ] DECISION: point GitHub link at profile instead of askjun repo?
+- [ ] DECISION: source chips under answers (needs backend change)?
+- [ ] DECISION: lighter accent red in dark mode?
+- [ ] Phase 0 quick fixes: resize/re-encode 3.85 MB header avatar; contrast token fixes; minimum text size; single name for portfolio link; confirm before Escape clears chat; remove model names from public UI
+- [ ] Phase 1 foundations: type scale + spacing tokens; shared AskInput, Chip, MetricTile components
+- [ ] Phase 2 home in chosen direction
+- [ ] Phase 3 conversation view: reading column, action row, New chat button
+- [ ] Phase 4 portfolio page rework
+- [ ] Phase 5 mobile, dark mode check, Lighthouse, tests, checkpoint, GitHub push
