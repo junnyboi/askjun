@@ -22,10 +22,10 @@ export function ChatMetricsCard() {
             <span className="text-lg sm:text-xl font-bold font-mono text-accent">
               {h.metric}
             </span>
-            <span className="text-[10px] text-muted-foreground mt-0.5 leading-tight">
+            <span className="text-xs text-muted-foreground mt-0.5 leading-tight">
               {h.label}
             </span>
-            <span className="text-[9px] font-mono text-muted-foreground/50 mt-1">
+            <span className="text-xs font-mono text-muted-foreground mt-1">
               {h.context}
             </span>
           </motion.div>

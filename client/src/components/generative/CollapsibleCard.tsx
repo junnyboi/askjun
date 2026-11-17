@@ -22,7 +22,7 @@ export function CollapsibleCard({ title, children, defaultExpanded = true }: Col
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full px-4 py-2 bg-card border-b border-border flex items-center justify-between hover:bg-muted/30 transition-colors"
       >
-        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">
+        <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
           {title}
         </span>
         <motion.svg

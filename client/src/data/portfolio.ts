@@ -13,6 +13,8 @@ export interface Experience {
   bullets: string[];
   logo?: string;
   color: string;
+  /** Question asked when this employer is clicked in the dossier timeline */
+  askPrompt: string;
 }
 
 export interface Skill {
@@ -42,6 +44,7 @@ export const PROFILE = {
 export const EXPERIENCES: Experience[] = [
   {
     company: "Meta (Manus AI)",
+    askPrompt: "Tell me about his work at Meta (Manus AI)",
     role: "Senior Frontend Software Engineer",
     location: "Singapore",
     period: "Feb 2026 — Present",
@@ -57,6 +60,7 @@ export const EXPERIENCES: Experience[] = [
   },
   {
     company: "Instawork",
+    askPrompt: "What did he build at Instawork?",
     role: "Senior Full Stack Software Engineer",
     location: "Singapore",
     period: "Jul 2025 — Jan 2026",
@@ -69,6 +73,7 @@ export const EXPERIENCES: Experience[] = [
   },
   {
     company: "HoYoverse",
+    askPrompt: "What did he build at HoYoverse?",
     role: "Senior Frontend Software Engineer",
     location: "Singapore / Shanghai",
     period: "Jul 2022 — Jul 2025",
@@ -84,6 +89,7 @@ export const EXPERIENCES: Experience[] = [
   },
   {
     company: "TikTok, ByteDance",
+    askPrompt: "What did he build at TikTok?",
     role: "Full Stack Software Engineer",
     location: "Singapore",
     period: "Jun 2021 — Jul 2022",
@@ -97,6 +103,7 @@ export const EXPERIENCES: Experience[] = [
   },
   {
     company: "Bank of Singapore",
+    askPrompt: "What did he do at Bank of Singapore?",
     role: "Full Stack Software Engineer",
     location: "Singapore",
     period: "Jul 2019 — Apr 2021",
@@ -111,6 +118,7 @@ export const EXPERIENCES: Experience[] = [
   },
   {
     company: "DBS Bank",
+    askPrompt: "What did he do at DBS Bank?",
     role: "Data Scientist",
     location: "Singapore",
     period: "Aug 2018 — Dec 2018",
@@ -165,21 +173,82 @@ export const EDUCATION: Education[] = [
   },
 ];
 
-export const HIGHLIGHTS = [
-  { metric: "~$57M", label: "Processed on launch week", context: "HoYoverse" },
-  { metric: "15M+", label: "Sign-ups in 48 hours", context: "HoYoverse" },
-  { metric: "8M", label: "Daily active users", context: "HoYoverse" },
-  { metric: "$1.5M", label: "Annual savings delivered", context: "Bank of Singapore" },
-  { metric: "100+", label: "Countries supported", context: "Payment Systems" },
-  { metric: "50+", label: "Payment methods integrated", context: "HoYoverse" },
+export interface Award {
+  title: string;
+  org: string;
+  year: string;
+  description: string;
+}
+
+export const AWARDS: Award[] = [
+  {
+    title: "ByteDance Rockstar Employee Award",
+    org: "ByteDance / TikTok",
+    year: "2021",
+    description: "Dedicated Pioneer Team Award — presented to the Global Payment FE SG Team for exemplary contributions to the payments infrastructure.",
+  },
+  {
+    title: "CEO Recognition Award — Innovation Category",
+    org: "Bank of Singapore",
+    year: "2020",
+    description: "Recognized for outstanding contribution as a member of the PitchPerfect Team, an Innovation Challenge idea that saved 3,680 hours globally. Signed by CEO Bahren Shaari.",
+  },
+  {
+    title: "Innovation Challenge — Just Do It Award",
+    org: "Bank of Singapore",
+    year: "2020",
+    description: "Awarded for \"SuperSolver\" — a genetic-algorithm portfolio optimizer prototype that led to the formation of an in-house roboadvisory team.",
+  },
+  {
+    title: "Innovation Challenge — Silver Award",
+    org: "Bank of Singapore",
+    year: "2020",
+    description: "Awarded for \"Pitchbook 4.0\" — an RM pitch tool that streamlined client presentations, delivering $1.5M in annual savings.",
+  },
 ];
 
-// Quick answer chips — keyword router (instant responses)
-export const QUICK_CHIPS = [
-  "Why should I hire Jun?",
-  "What's his current role?",
-  "How many years of experience?",
-  "Tell me about his work at Meta/Manus",
+export interface Talk {
+  title: string;
+  venue: string;
+  year: string;
+  description: string;
+}
+
+export const TALKS: Talk[] = [
+  {
+    title: "Keynote Speaker — SINFO 2024",
+    venue: "Instituto Superior Técnico · Lisbon, Portugal",
+    year: "2024",
+    description: "Delivered a keynote at SINFO, one of Portugal's largest student-organized tech conferences. Shared insights on building high-scale frontend systems and payment architectures at HoYoverse, covering challenges of serving 8M daily active users across 100+ countries.",
+  },
+];
+
+export interface Highlight {
+  metric: string;
+  label: string;
+  context: string;
+  /** Question asked when this metric is clicked */
+  prompt: string;
+}
+
+export const HIGHLIGHTS: Highlight[] = [
+  { metric: "~$57M", label: "Processed on launch week", context: "HoYoverse", prompt: "Tell me about the ~$57M launch week at HoYoverse" },
+  { metric: "15M+", label: "Sign-ups in 48 hours", context: "HoYoverse", prompt: "How did he handle 15M sign-ups in 48 hours?" },
+  { metric: "8M", label: "Daily active users", context: "HoYoverse", prompt: "What did he build for 8M daily active users?" },
+  { metric: "$1.5M", label: "Annual savings delivered", context: "Bank of Singapore", prompt: "How did he deliver $1.5M in annual savings?" },
+  { metric: "100+", label: "Countries supported", context: "Payment Systems", prompt: "Which countries did his payment systems cover?" },
+  { metric: "50+", label: "Payment methods integrated", context: "HoYoverse", prompt: "Which payment methods did he integrate at HoYoverse?" },
+];
+
+/** The four metrics shown as proof on the home page and the portfolio header */
+export const HEADLINE_HIGHLIGHTS = HIGHLIGHTS.slice(0, 4);
+
+// Prompt cards on the home page — labelled starting questions
+export const PROMPT_CARDS = [
+  { label: "Role", question: "What's his current role?" },
+  { label: "Impact", question: "Why should I hire Jun?" },
+  { label: "AI", question: "What's his experience with AI?" },
+  { label: "Payments", question: "What payment systems did he build?" },
 ];
 
 // Generative UI chips — trigger interactive components
@@ -189,6 +258,3 @@ export const GENERATIVE_CHIPS = [
   "✦ Key metrics",
   "✦ Education",
 ];
-
-// Combined for backward compatibility
-export const CHAT_SUGGESTIONS = [...QUICK_CHIPS, ...GENERATIVE_CHIPS];

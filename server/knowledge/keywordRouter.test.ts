@@ -39,4 +39,21 @@ describe("keywordRouter", () => {
     const result = keywordRoute("Tell me about his work at the gaming company");
     expect(result).toBeNull();
   });
+
+  it("does not treat the employer Bank of Singapore as a location question", () => {
+    expect(keywordRoute("What did he do at Bank of Singapore?")).toBeNull();
+  });
+
+  it("still routes real location questions", () => {
+    const result = keywordRoute("Is he based in Singapore?");
+    expect(result).not.toBeNull();
+    expect(result!.category).toBe("location");
+  });
+
+  it("does not name the underlying model when asked what askJun is", () => {
+    const result = keywordRoute("What are you?");
+    expect(result).not.toBeNull();
+    expect(result!.category).toBe("self_identification");
+    expect(result!.response).not.toMatch(/gpt|gemini|openai|deepseek/i);
+  });
 });

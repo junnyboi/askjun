@@ -1,33 +1,30 @@
 /*
  * ============================================================================
- * askJun Home — Chat-First + Hybrid Navigation
- * UX-optimized: auto-focus, keyboard shortcuts, persistent contact,
- * browse-traditionally section, typing variation, share button, micro-interactions.
+ * askJun Home — Split Dossier (Direction B)
+ * Left (1024px and up): a permanent dossier with proof and the CV button.
+ * Right: the chat. Below 1024px the dossier folds into the chat's first screen.
+ * This file owns layout, scrolling and keyboard shortcuts; chat state lives in
+ * useChatEngine.
  * ============================================================================
  */
 
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Streamdown } from "streamdown";
-import { QUICK_CHIPS, GENERATIVE_CHIPS, PROFILE } from "@/data/portfolio";
-import ThemeToggle from "@/components/ThemeToggle";
-import FontScaleToggle from "@/components/FontScaleToggle";
-import { getFollowUps } from "@/data/followUps";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Link } from "wouter";
+import { ArrowDown } from "lucide-react";
 import { analytics } from "@/lib/analytics";
-import { downloadCV } from "@/lib/downloadCV";
 import { useChatEngine } from "@/hooks/useChatEngine";
-import { useSpeechToText } from "@/hooks/useSpeechToText";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { ChatTimeline, ChatSkillsChart, ChatMetricsCard, ChatEducationTimeline } from "@/components/generative";
+import { AskInput } from "@/components/AskInput";
+import { DossierPane } from "@/components/DossierPane";
+import { DownloadCVLink } from "@/components/DownloadCVLink";
+import { NewChatDialog } from "@/components/NewChatDialog";
+import { ChatEmptyState } from "@/components/chat/ChatEmptyState";
+import { ChatFollowUps } from "@/components/chat/ChatFollowUps";
+import { ChatMessage } from "@/components/chat/ChatMessage";
+import { ChatTopBar } from "@/components/chat/ChatTopBar";
 
-// Module-level constant — no re-creation on render
-const PLACEHOLDERS = [
-  "Ask about Jun...",
-  "What's his experience with AI?",
-  "Tell me about his tech stack",
-  "What payment systems did he build?",
-  "Why is he looking for new roles?",
-];
+const GRAIN_TEXTURE = `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`;
+const DESKTOP_MIN_WIDTH = 1024;
 
 export default function Home() {
   const {
@@ -37,31 +34,32 @@ export default function Home() {
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const [showBackToTop, setShowBackToTop] = useState(false);
   const [showProfileZoom, setShowProfileZoom] = useState(false);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
-  const [copiedMsgId, setCopiedMsgId] = useState<string | null>(null);
+  const [isNewChatDialogOpen, setIsNewChatDialogOpen] = useState(false);
 
-  // Rotating placeholder text
-  const [placeholderIdx, setPlaceholderIdx] = useState(0);
-  useEffect(() => {
-    if (hasMessages) return;
-    const timer = setInterval(() => {
-      setPlaceholderIdx((prev) => (prev + 1) % PLACEHOLDERS.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [hasMessages]);
+  // Read inside the window key handler, which is registered once
+  const keyStateRef = useRef({ hasMessages, showProfileZoom, isNewChatDialogOpen });
+  keyStateRef.current = { hasMessages, showProfileZoom, isNewChatDialogOpen };
 
-  // Track scroll position for back-to-top button
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 400);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const lastMessage = messages[messages.length - 1];
+  const canShowFollowUps =
+    !isTyping && messages.length >= 2 && lastMessage?.role === "assistant" && lastMessage.content.length > 0;
 
-  // Track if user is NOT at the bottom of the chat scroll container
+  const ask = (prompt: string) => {
+    analytics.chipClick(prompt);
+    handleSend(prompt);
+  };
+
+  const confirmNewChat = () => {
+    // Stop first: an answer that is still streaming would otherwise leave the input busy
+    handleStopGenerating();
+    resetConversation();
+    setInput("");
+    setIsNewChatDialogOpen(false);
+  };
+
+  // Track whether the reader is away from the bottom of the conversation
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
@@ -74,7 +72,7 @@ export default function Home() {
     return () => container.removeEventListener("scroll", handleContainerScroll);
   }, [hasMessages]);
 
-  // Also re-check scroll-to-bottom visibility when content grows during streaming
+  // Re-check when content grows during streaming
   useEffect(() => {
     if (!scrollRef.current || !hasMessages) return;
     const { scrollHeight, scrollTop, clientHeight } = scrollRef.current;
@@ -82,36 +80,47 @@ export default function Home() {
     setShowScrollToBottom(!isAtBottom);
   }, [messages, hasMessages]);
 
-  // Auto-focus input on desktop
+  // Focus the input on desktop, on load and whenever the hero and docked inputs swap.
+  // Skipped on small screens so the on-screen keyboard doesn't open unasked.
   useEffect(() => {
-    if (window.innerWidth >= 768 && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
+    if (window.innerWidth >= DESKTOP_MIN_WIDTH) inputRef.current?.focus();
+  }, [hasMessages]);
 
   // Keyboard shortcuts
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      const state = keyStateRef.current;
+      const activeTag = document.activeElement?.tagName;
+
       // Cmd/Ctrl+K → focus input
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         inputRef.current?.focus();
+        return;
       }
-      // Escape → reset conversation
-      if (e.key === "Escape" && messages.length > 0) {
-        resetConversation();
-      }
-      // "/" → focus input (only if not already in an input)
-      if (e.key === "/" && document.activeElement?.tagName !== "TEXTAREA" && document.activeElement?.tagName !== "INPUT") {
+      // "/" → focus input (only if not already typing somewhere)
+      if (e.key === "/" && activeTag !== "TEXTAREA" && activeTag !== "INPUT") {
         e.preventDefault();
         inputRef.current?.focus();
+        return;
+      }
+      // Escape → close the portrait first; otherwise ask before clearing the chat.
+      // An open dialog or tooltip handles Escape itself and marks the event as
+      // handled; skipping those keeps this from reopening the dialog it just closed.
+      if (e.key === "Escape") {
+        if (e.defaultPrevented) return;
+        if (state.showProfileZoom) {
+          setShowProfileZoom(false);
+        } else if (!state.isNewChatDialogOpen && state.hasMessages) {
+          setIsNewChatDialogOpen(true);
+        }
       }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [messages]);
+  }, []);
 
-  // Scroll behavior: smooth scroll so the assistant response starts at the TOP of the viewport, then hold
+  // Scroll once so a new answer starts at the top of the pane, then hold while it streams
   const hasScrolledToResponseRef = useRef(false);
   const lastAssistantIdRef = useRef<string | null>(null);
 
@@ -120,584 +129,128 @@ export default function Home() {
     const lastMsg = messages[messages.length - 1];
     if (!lastMsg || lastMsg.role !== "assistant") return;
 
-    // Detect new assistant message
     if (lastMsg.id !== lastAssistantIdRef.current) {
       lastAssistantIdRef.current = lastMsg.id;
       hasScrolledToResponseRef.current = false;
     }
 
-    // Wait until the assistant message has actual content (first token arrived), then scroll once
+    // Wait for the first token, then scroll once
     if (!hasScrolledToResponseRef.current && lastMsg.content.length > 0) {
       hasScrolledToResponseRef.current = true;
-      // Use double-rAF to ensure DOM has painted the content
+      // Double rAF so the content has painted before measuring
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           const responseEl = scrollRef.current?.querySelector(`[data-msg-id="${lastMsg.id}"]`);
           if (responseEl && scrollRef.current) {
             const containerRect = scrollRef.current.getBoundingClientRect();
             const elementRect = responseEl.getBoundingClientRect();
-            // Calculate where the response element is relative to the scroll container
             const scrollOffset = elementRect.top - containerRect.top + scrollRef.current.scrollTop - 16;
             scrollRef.current.scrollTo({ top: scrollOffset, behavior: "smooth" });
           }
         });
       });
     }
-    // No further scrolling during streaming — user reads from the top down
   }, [messages]);
 
-  // Speech-to-text
-  const { isListening, isSupported: isSpeechSupported, toggleListening } = useSpeechToText({
-    onResult: (transcript) => {
-      setInput((prev) => prev ? `${prev} ${transcript}` : transcript);
-    },
-  });
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); }
-  };
-
   return (
-    <div className="h-screen flex flex-col relative overflow-hidden">
+    <div className="relative flex h-dvh overflow-hidden bg-background">
       {/* Subtle background grain texture */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.015] z-0" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-      }} />
+      <div
+        className="pointer-events-none fixed inset-0 z-0 opacity-[0.015]"
+        style={{ backgroundImage: GRAIN_TEXTURE }}
+      />
 
-      {/* Minimal header */}
-      <header className="sticky top-0 shrink-0 border-b border-border px-4 sm:px-6 h-12 flex items-center justify-between z-20 bg-card backdrop-blur-sm">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => resetConversation()}
-            className="font-mono text-sm text-foreground hover:opacity-70 transition-opacity active:scale-95"
-            aria-label="askJun - Reset conversation"
-          >
-            ask<span className="text-accent">Jun</span>
-          </button>
-          <img
-            src="/manus-storage/header-avatar_6006beaa.png"
-            alt="Jun Boh"
-            className="w-7 h-7 rounded-full object-cover border border-border/50"
-          />
-        </div>
-        <div className="flex items-center gap-3">
-          {/* Share button — only visible when there are messages */}
+      <DossierPane onAsk={ask} onZoomPortrait={() => setShowProfileZoom(true)} />
+
+      <div className="relative z-10 flex min-w-0 flex-1 flex-col">
+        <ChatTopBar hasMessages={hasMessages} onNewChat={() => setIsNewChatDialogOpen(true)} />
+
+        <main className="relative flex min-h-0 flex-1 flex-col">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto">
+            {hasMessages ? (
+              <div className="px-4 lg:px-10">
+                <div className="mx-auto w-full max-w-[720px] space-y-8 pb-10 pt-4">
+                  {messages.map((msg, i) => (
+                    <ChatMessage
+                      key={msg.id}
+                      message={msg}
+                      isLast={i === messages.length - 1}
+                      isTyping={isTyping}
+                      onRegenerate={handleRegenerate}
+                      onStop={handleStopGenerating}
+                      onShare={handleShare}
+                    />
+                  ))}
+                  {canShowFollowUps && <ChatFollowUps messages={messages} usedChips={usedChips} onAsk={ask} />}
+                </div>
+              </div>
+            ) : (
+              <ChatEmptyState
+                inputRef={inputRef}
+                input={input}
+                isTyping={isTyping}
+                onInputChange={setInput}
+                onSubmit={() => handleSend()}
+                onAsk={ask}
+                onZoomPortrait={() => setShowProfileZoom(true)}
+              />
+            )}
+          </div>
+
+          {/* Floating scroll-to-bottom button */}
+          <AnimatePresence>
+            {showScrollToBottom && hasMessages && (
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => {
+                  scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+                }}
+                className="absolute bottom-24 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-foreground px-3.5 py-2 font-mono text-xs text-background shadow-lg transition-opacity hover:opacity-80 active:scale-95"
+              >
+                <ArrowDown size={13} aria-hidden />
+                Scroll to bottom
+              </motion.button>
+            )}
+          </AnimatePresence>
+
+          {/* Docked follow-up input */}
           {hasMessages && (
-            <button
-              onClick={handleShare}
-              className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors hidden sm:inline-flex items-center gap-1"
-              aria-label="Share conversation"
+            <div className="shrink-0 px-4 pb-4 pt-2 lg:px-10 lg:pb-6">
+              <div className="mx-auto w-full max-w-[720px]">
+                <AskInput
+                  ref={inputRef}
+                  variant="docked"
+                  value={input}
+                  placeholder="Ask a follow-up..."
+                  isBusy={isTyping}
+                  onChange={setInput}
+                  onSubmit={() => handleSend()}
+                />
+              </div>
+            </div>
+          )}
+        </main>
+
+        {/* Small screens: the CV stays one tap away before a conversation starts */}
+        {!hasMessages && (
+          <div className="flex shrink-0 gap-3 border-t border-border bg-background px-4 py-3 lg:hidden">
+            <DownloadCVLink variant="primary" className="flex-1" />
+            <Link
+              href="/portfolio"
+              className="inline-flex h-11 items-center justify-center rounded-lg border border-foreground px-5 font-mono text-sm text-foreground transition-colors hover:bg-muted active:scale-[0.98]"
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-              Share
-            </button>
-          )}
-          <a
-            href="/assets/JunBoh-CV-2026.pdf"
-            download="JunBoh_CV_2026.pdf"
-            onClick={downloadCV}
-            className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-all active:scale-95"
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download CV
-          </a>
-          <a
-            href="/portfolio"
-            className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all active:scale-95"
-          >
-            Experience & Projects
-          </a>
-          <a
-            href={PROFILE.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors hidden sm:inline"
-          >
-            LinkedIn
-          </a>
-          <a
-            href={PROFILE.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors hidden sm:inline"
-          >
-            GitHub
-          </a>
-          {hasMessages && <FontScaleToggle />}
-          <ThemeToggle />
-        </div>
-      </header>
-
-      {/* Main chat area */}
-      <main className="flex-1 flex flex-col relative z-10 min-h-0">
-        <div ref={scrollRef} className="flex-1 overflow-y-auto">
-          {!hasMessages ? (
-            /* ============ EMPTY STATE ============ */
-            <div className="flex flex-col items-center justify-center px-4 py-6 sm:py-12 min-h-[60vh]">
-              {/* Profile identity */}
-              <div className="mb-4 sm:mb-8 text-center">
-                <button
-                  onClick={() => setShowProfileZoom(true)}
-                  className="w-14 h-14 sm:w-18 sm:h-18 mx-auto mb-3 overflow-hidden border border-border rounded-full cursor-zoom-in hover:ring-2 hover:ring-accent/50 transition-all"
-                >
-                  <img
-                    src="/profile-thumb.webp"
-                    alt="Jun Boh"
-                    className="w-full h-full object-cover"
-                    loading="eager"
-                  />
-                </button>
-                <h1 className="text-xl sm:text-3xl font-bold text-foreground tracking-tight mb-0.5">
-                  {PROFILE.name}
-                </h1>
-                <p className="text-xs sm:text-sm text-muted-foreground">
-                  {PROFILE.title}
-                </p>
-                <div className="flex items-center justify-center gap-1.5 mt-1.5">
-                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                  <span className="text-[10px] font-mono text-muted-foreground">Available for hire</span>
-                </div>
-              </div>
-
-              {/* Prompt text */}
-              <p className="text-base sm:text-xl text-muted-foreground text-center max-w-md mb-2 sm:mb-3">
-                Ask me anything about Jun's experience, skills, or career.
-              </p>
-              <p className="text-xs text-muted-foreground/60 text-center mb-5 sm:mb-8">
-                or view{" "}
-                <a
-                  href="/portfolio"
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-full border border-accent/50 text-accent hover:bg-accent hover:text-white transition-all"
-                >
-                  Portfolio
-                </a>
-              </p>
-
-              {/* Centered input — Manus-style: send button inside, taller box */}
-              <div className="w-full max-w-xl px-2 sm:px-0">
-                <div className="relative border border-border focus-within:border-accent transition-colors rounded-xl">
-                  <textarea
-                    ref={inputRef}
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    placeholder={PLACEHOLDERS[placeholderIdx]}
-                    rows={2}
-                    className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 resize-none outline-none font-mono px-4 pt-3 pb-10 sm:pt-4 sm:pb-12 placeholder:transition-opacity"
-                    style={{ minHeight: "70px" }}
-                  />
-                  {/* Mic + Send buttons inside input — bottom right */}
-                  <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1.5">
-                    {isSpeechSupported && (
-                      <button
-                        onClick={toggleListening}
-                        aria-label={isListening ? "Stop recording" : "Start voice input"}
-                        className={`w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg transition-all active:scale-90 ${
-                          isListening
-                            ? "bg-accent text-white animate-pulse"
-                            : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
-                        }`}
-                      >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-                          <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-                          <line x1="12" x2="12" y1="19" y2="22" />
-                        </svg>
-                      </button>
-                    )}
-                    <button
-                      onClick={() => handleSend()}
-                      disabled={!input.trim() || isTyping}
-                      aria-label="Send message"
-                      className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-all active:scale-90 rounded-lg"
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="m5 12 7-7 7 7" />
-                        <path d="M12 19V5" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Quick answer chips */}
-                <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3 sm:mt-4 justify-center">
-                  {QUICK_CHIPS.filter(s => !usedChips.has(s)).slice(0, 3).map((s, i) => (
-                    <button
-                      key={`q-${i}`}
-                      onClick={() => { analytics.chipClick(s); handleSend(s); }}
-                      className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-border text-muted-foreground rounded-lg transition-all duration-200 ease-out hover:border-accent hover:text-accent hover:bg-accent/5 hover:scale-[1.04] hover:-translate-y-0.5 hover:shadow-sm active:scale-95 active:translate-y-0"
-                    >
-                      {s}
-                    </button>
-                  ))}
-                </div>
-                {/* Generative UI chips — visual distinction with accent border */}
-                <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2 justify-center">
-                  {GENERATIVE_CHIPS.filter(s => !usedChips.has(s)).slice(0, 4).map((s, i) => (
-                    <button
-                      key={`g-${i}`}
-                      onClick={() => { analytics.chipClick(s); handleSend(s); }}
-                      className="text-[11px] sm:text-xs font-mono px-2.5 py-1 sm:px-3 sm:py-1.5 border border-accent/30 text-accent/70 rounded-lg transition-all duration-200 ease-out hover:border-accent hover:text-accent hover:bg-accent/5 hover:scale-[1.04] hover:-translate-y-0.5 hover:shadow-sm active:scale-95 active:translate-y-0"
-                    >
-                      {s}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ) : (
-            /* ============ MESSAGES ============ */
-            <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 py-6 space-y-6">
-              {messages.map((msg) => (
-                <div key={msg.id} data-msg-id={msg.id} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                  <div className={`max-w-[85%] ${msg.role === "assistant" ? "border-l-2 border-accent pl-4" : ""}`}>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[10px] font-mono text-muted-foreground">
-                        {msg.role === "user" ? "you" : "askJun"}
-                      </span>
-                      {/* Copy + Regenerate/Stop buttons for assistant messages */}
-                      {msg.role === "assistant" && msg.content && (
-                        <>
-                          {/* Copy button — only when not streaming */}
-                          {!isTyping && (
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <button
-                                  onClick={() => {
-                                    const text = msg.content;
-                                    if (navigator.clipboard && window.isSecureContext) {
-                                      navigator.clipboard.writeText(text).catch(() => {});
-                                    } else {
-                                      const ta = document.createElement("textarea");
-                                      ta.value = text;
-                                      ta.style.position = "fixed";
-                                      ta.style.opacity = "0";
-                                      document.body.appendChild(ta);
-                                      ta.select();
-                                      try { document.execCommand("copy"); } catch {}
-                                      document.body.removeChild(ta);
-                                    }
-                                    setCopiedMsgId(msg.id);
-                                    setTimeout(() => setCopiedMsgId(null), 2000);
-                                  }}
-                                  className="text-[9px] font-mono px-1.5 py-0.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all"
-                                  aria-label="Copy response"
-                                >
-                                  {copiedMsgId === msg.id ? "✓ copied" : "copy"}
-                                </button>
-                              </TooltipTrigger>
-                              <TooltipContent side="top" className="text-xs font-mono">
-                                Copy response to clipboard
-                              </TooltipContent>
-                            </Tooltip>
-                          )}
-                          {/* Stop generating — shown during streaming on the active message */}
-                          {isTyping && msg === messages[messages.length - 1] && (
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <button
-                                  onClick={handleStopGenerating}
-                                  className="text-[9px] font-mono px-1.5 py-0.5 rounded-full border border-accent/50 text-accent hover:bg-accent hover:text-white transition-all"
-                                  aria-label="Stop generating"
-                                >
-                                  ■ stop
-                                </button>
-                              </TooltipTrigger>
-                              <TooltipContent side="top" className="text-xs font-mono">
-                                Stop generating
-                              </TooltipContent>
-                            </Tooltip>
-                          )}
-                          {/* Regenerate — only when not streaming */}
-                          {!isTyping && (
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <button
-                                  onClick={() => handleRegenerate(msg.id)}
-                                  className="text-[9px] font-mono px-1.5 py-0.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all"
-                                  aria-label="Regenerate response"
-                                >
-                                  ↻
-                                </button>
-                              </TooltipTrigger>
-                              <TooltipContent side="top" className="text-xs font-mono">
-                                Regenerate response
-                              </TooltipContent>
-                            </Tooltip>
-                          )}
-                        </>
-                      )}
-                      {msg.role === "assistant" && msg.retrievalType && msg.content && !isTyping && (
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded-full border cursor-help ${
-                              msg.retrievalType === "keyword"
-                                ? "border-green-500/30 text-green-600 bg-green-50 dark:bg-green-950/30 dark:text-green-400"
-                                : msg.retrievalType === "semantic"
-                                ? "border-blue-500/30 text-blue-600 bg-blue-50 dark:bg-blue-950/30 dark:text-blue-400"
-                                : "border-orange-500/30 text-orange-600 bg-orange-50 dark:bg-orange-950/30 dark:text-orange-400"
-                            }`}>
-                              {msg.retrievalType === "keyword" ? "⚡ instant" : msg.retrievalType === "semantic" ? "🧠 AI" : "💾 cached"}
-                            </span>
-                          </TooltipTrigger>
-                          <TooltipContent side="top" className="text-xs font-mono max-w-[240px]">
-                            {msg.retrievalType === "keyword"
-                              ? "Retrieved instantly from structured lookup — no AI generation needed"
-                              : msg.retrievalType === "semantic"
-                              ? "Generated by GPT-4.1-mini using semantic context retrieval via LangGraph"
-                              : "Served from client-side cache — AI backend was unavailable"}
-                          </TooltipContent>
-                        </Tooltip>
-                      )}
-                    </div>
-
-                    {msg.toolUse && msg.toolUse.status && (
-                      <>
-                        <div className="text-xs font-mono text-accent mb-2">✓ {msg.toolUse.status}</div>
-                        {/* Inline Download CV button for resume requests */}
-                        <a
-                          href="/assets/JunBoh-CV-2026.pdf"
-                          download="JunBoh_CV_2026.pdf"
-                          onClick={downloadCV}
-                          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-all active:scale-95 mb-3"
-                        >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                          Download CV
-                        </a>
-                      </>
-                    )}
-                    {msg.toolUse && !msg.toolUse.status && (
-                      <div className="text-xs font-mono text-muted-foreground mb-2 flex items-center gap-2">
-                        <span className="w-2 h-2 border border-accent border-t-transparent rounded-full animate-spin" />
-                        {msg.toolUse.action}
-                      </div>
-                    )}
-
-                    <div className="chat-text text-foreground [&_strong]:text-accent [&_strong]:font-semibold [&_li]:ml-4 [&_li]:list-disc [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-xs [&_code]:font-mono [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a]:hover:opacity-70 [&_a]:transition-opacity">
-                      {msg.content ? (
-                        <>
-                          {/* Fade-in animation on streamed content */}
-                          <div className="animate-in fade-in duration-150">
-                            <Streamdown>{msg.content}</Streamdown>
-                          </div>
-                          {isTyping && msg === messages[messages.length - 1] && msg.role === "assistant" && msg.content.length > 0 && (
-                            <span className="inline-block w-0.5 h-3.5 bg-accent ml-0.5 animate-blink align-middle" />
-                          )}
-                          {/* Profile image for handsome Easter egg */}
-                          {msg.showProfileImage && !isTyping && (
-                            <div className="mt-3 rounded-lg overflow-hidden border border-border max-w-[280px]">
-                              <img
-                                src="/profile-full.webp"
-                                alt="Jun Boh at Meta"
-                                className="w-full h-auto"
-                              />
-                            </div>
-                          )}
-                          {/* Generative UI components */}
-                          {msg.generativeUI && !isTyping && (
-                            <div className="mt-2">
-                              {msg.generativeUI === "timeline" && <ChatTimeline />}
-                              {msg.generativeUI === "skills" && <ChatSkillsChart />}
-                              {msg.generativeUI === "metrics" && <ChatMetricsCard />}
-                              {msg.generativeUI === "education" && <ChatEducationTimeline />}
-                            </div>
-                          )}
-                          {/* Inline action buttons — Download CV and/or View Portfolio */}
-                          {!isTyping && (msg.showDownloadCV || msg.showPortfolioLink) && (
-                            <div className="flex flex-wrap gap-2 mt-3">
-                              {msg.showDownloadCV && (
-                                <a
-                                  href="/assets/JunBoh-CV-2026.pdf"
-                                  download="JunBoh_CV_2026.pdf"
-                                  onClick={downloadCV}
-                                  className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-all active:scale-95"
-                                >
-                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                  Download CV
-                                </a>
-                              )}
-                              {msg.showPortfolioLink && (
-                                <a
-                                  href="/portfolio"
-                                  className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-all active:scale-95"
-                                >
-                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                                  Experience & Projects
-                                </a>
-                              )}
-                            </div>
-                          )}
-                        </>
-                      ) : (
-                        isTyping && msg.role === "assistant" && !msg.toolUse && (
-                          <div className="flex items-center gap-3 py-3">
-                            {/* Nothing-style sequential bars */}
-                            <div className="flex items-end gap-[3px] h-4">
-                              <span className="w-[3px] h-full bg-accent/70 rounded-sm typing-bar" style={{ animationDelay: "0ms" }} />
-                              <span className="w-[3px] h-full bg-accent/70 rounded-sm typing-bar" style={{ animationDelay: "150ms" }} />
-                              <span className="w-[3px] h-full bg-accent/70 rounded-sm typing-bar" style={{ animationDelay: "300ms" }} />
-                              <span className="w-[3px] h-full bg-accent/70 rounded-sm typing-bar" style={{ animationDelay: "450ms" }} />
-                            </div>
-                            <span className="text-[10px] font-mono animate-shimmer">thinking...</span>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-
-              {/* Suggested follow-ups — shown after last assistant message when not typing */}
-              {!isTyping && messages.length >= 2 && messages[messages.length - 1]?.role === "assistant" && messages[messages.length - 1]?.content && (() => {
-                const EASTER_EGG_CHIP = "What does he look like?";
-                const userMsgCount = messages.filter(m => m.role === "user").length;
-                const hasAskedAppearance = usedChips.has(EASTER_EGG_CHIP) || messages.some(m => m.role === "user" && ["handsome", "attractive", "look like", "looks like", "gorgeous", "appearance"].some(kw => m.content.toLowerCase().includes(kw)));
-                const baseChips = getFollowUps(
-                  messages.filter(m => m.role === "user").slice(-1)[0]?.content || ""
-                ).filter(s => !usedChips.has(s));
-                // Inject Easter egg chip at 3rd message if not already asked
-                const chips = (!hasAskedAppearance && userMsgCount >= 3 && !baseChips.includes(EASTER_EGG_CHIP))
-                  ? [...baseChips.slice(0, 2), EASTER_EGG_CHIP]
-                  : baseChips;
-                return chips.length > 0 ? (
-                  <div className="mt-4 pt-4 border-t border-border/50">
-                    <span className="text-[10px] font-mono text-muted-foreground/50 block mb-2">Suggested follow-ups</span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {chips.map((s, i) => (
-                        <button
-                          key={i}
-                          onClick={() => { analytics.chipClick(s); handleSend(s); }}
-                          className="text-[11px] font-mono px-2.5 py-1 border border-border text-muted-foreground hover:border-accent hover:text-accent hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200 rounded-lg"
-                        >
-                          {s}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ) : null;
-              })()}
-            </div>
-          )}
-        </div>
-
-        {/* Floating scroll-to-bottom button */}
-        <AnimatePresence>
-          {showScrollToBottom && hasMessages && (
-            <motion.button
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => {
-                if (scrollRef.current) {
-                  scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-                }
-              }}
-              aria-label="Scroll to bottom"
-              className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1.5 bg-foreground text-background text-[10px] font-mono rounded-full shadow-lg hover:opacity-80 transition-opacity active:scale-95"
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="m5 12 7 7 7-7" />
-                <path d="M12 5v14" />
-              </svg>
-              scroll to bottom
-            </motion.button>
-          )}
-        </AnimatePresence>
-
-        {/* Bottom-docked input when in conversation */}
-        {hasMessages && (
-          <div className="shrink-0 border-t border-border bg-card">
-            <div className="max-w-3xl mx-auto w-full px-4 sm:px-6 py-3">
-              <div className="flex items-end gap-3">
-                <div className="flex-1 border border-border focus-within:border-accent transition-colors px-4 py-2.5 rounded-xl">
-                  <textarea
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    placeholder="Ask a follow-up..."
-                    rows={1}
-                    className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 resize-none outline-none max-h-32 font-mono"
-                    style={{ minHeight: "20px" }}
-                  />
-                </div>
-                <div className="flex items-center gap-1.5">
-                  {isSpeechSupported && (
-                    <button
-                      onClick={toggleListening}
-                      aria-label={isListening ? "Stop recording" : "Start voice input"}
-                      className={`shrink-0 w-10 h-10 flex items-center justify-center rounded-lg transition-all active:scale-90 ${
-                        isListening
-                          ? "bg-accent text-white animate-pulse"
-                          : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
-                      }`}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-                        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-                        <line x1="12" x2="12" y1="19" y2="22" />
-                      </svg>
-                    </button>
-                  )}
-                  <button
-                    onClick={() => handleSend()}
-                    disabled={!input.trim() || isTyping}
-                    aria-label="Send message"
-                    className="shrink-0 w-10 h-10 flex items-center justify-center bg-foreground text-background disabled:opacity-20 hover:opacity-80 transition-all active:scale-90 rounded-lg"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="m5 12 7-7 7 7" />
-                      <path d="M12 19V5" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div className="flex items-center justify-between mt-2">
-                <span className="text-[10px] font-mono text-muted-foreground/40">
-                  built with react, typescript & gpt-4
-                </span>
-                <button
-                  onClick={handleShare}
-                  className="text-[10px] font-mono text-muted-foreground/40 hover:text-muted-foreground transition-colors sm:hidden"
-                >
-                  share ↑
-                </button>
-              </div>
-            </div>
+              Portfolio
+            </Link>
           </div>
         )}
-      </main>
+      </div>
 
-      {/* Mobile persistent contact bar */}
-      {!hasMessages && (
-        <div className="sm:hidden shrink-0 border-t border-border bg-card px-4 py-2.5 flex items-center justify-between relative z-10">
-          <a href="/portfolio" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Portfolio</a>
-          <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">LinkedIn</a>
-          <a href="/assets/JunBoh-CV-2026.pdf" download="JunBoh_CV_2026.pdf" onClick={downloadCV} className="text-[11px] font-mono text-muted-foreground hover:text-accent transition-colors">Download CV</a>
-        </div>
-      )}
+      <NewChatDialog open={isNewChatDialogOpen} onOpenChange={setIsNewChatDialogOpen} onConfirm={confirmNewChat} />
 
-      {/* Floating back-to-top button */}
-      <AnimatePresence>
-        {showBackToTop && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            aria-label="Back to top"
-            className="fixed bottom-6 right-6 z-30 w-10 h-10 flex items-center justify-center bg-foreground text-background rounded-full shadow-lg hover:opacity-80 transition-opacity active:scale-90"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="m5 12 7-7 7 7" />
-              <path d="M12 19V5" />
-            </svg>
-          </motion.button>
-        )}
-      </AnimatePresence>
-
-      {/* Profile zoom dialog */}
+      {/* Portrait zoom */}
       <AnimatePresence>
         {showProfileZoom && (
           <motion.div
@@ -706,16 +259,16 @@ export default function Home() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setShowProfileZoom(false)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm cursor-zoom-out"
+            className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm"
           >
             <motion.img
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.2, ease: "easeOut" as const }}
-              src="/profile-full.webp"
+              src="/avatar/jun-960.webp"
               alt="Jun Boh"
-              className="max-w-[80vw] max-h-[80vh] rounded-xl shadow-2xl object-cover"
+              className="max-h-[80vh] max-w-[80vw] rounded-xl object-cover shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             />
           </motion.div>

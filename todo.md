@@ -253,7 +253,7 @@
 - [x] Add clipboard fallback in useChatEngine handleShare (C1)
 - [x] Add meta theme-color tag (C17)
 - [x] Fix label-content-name-mismatch accessibility issue (askJun logo button)
-- [ ] Fix color contrast issue on accent text (Lighthouse a11y) — deferred: requires Nothing Red (#E60000) design decision
+- [x] Fix color contrast issue on accent text (Lighthouse a11y) — Nov 2026: #E60000 kept in light, #FF4D4D in dark, opacity variants removed (Direction B build below)
 
 ## Performance: Self-Host Google Fonts
 - [x] Download Space Grotesk (400,500,600,700), Inter (300,400,500,600,700), Space Mono (400,700) as WOFF2
@@ -294,13 +294,26 @@
 - [x] Audit current Home, conversation and Portfolio UI (desktop + mobile) against checkpoint 0e73a474
 - [x] Write proposal doc with four directions, shared conversation/mobile views and phased plan (docs/REDESIGN_PROPOSALS.md)
 - [x] Generate proposal mockups with gpt-image-2.5 (docs/redesign/)
-- [ ] DECISION: choose direction (A Signal / B Split Dossier / C Bento Ask / D Editorial / blend)
-- [ ] DECISION: point GitHub link at profile instead of askjun repo?
-- [ ] DECISION: source chips under answers (needs backend change)?
-- [ ] DECISION: lighter accent red in dark mode?
-- [ ] Phase 0 quick fixes: resize/re-encode 3.85 MB header avatar; contrast token fixes; minimum text size; single name for portfolio link; confirm before Escape clears chat; remove model names from public UI
-- [ ] Phase 1 foundations: type scale + spacing tokens; shared AskInput, Chip, MetricTile components
-- [ ] Phase 2 home in chosen direction
-- [ ] Phase 3 conversation view: reading column, action row, New chat button
-- [ ] Phase 4 portfolio page rework
-- [ ] Phase 5 mobile, dark mode check, Lighthouse, tests, checkpoint, GitHub push
+- [x] DECISION: direction B (Split Dossier) chosen, with the shared conversation and mobile views
+- [x] DECISION: lighter accent red in dark mode approved
+- [ ] DECISION (open): point GitHub link at profile instead of askjun repo? Link left unchanged until answered
+- [ ] DECISION (open): source chips under answers (needs backend change)? Not built until answered
+## UI Overhaul: Direction B build (Nov 2026) — plan in plan.md
+- [x] Avatar: the 3.85 MB header PNG is no longer requested; one studio portrait is used on the first screen, served as image/webp from client/public/avatar in 96/320/640/960 px sizes (1.5 / 8 / 20 / 33 KB)
+- [x] Contrast: dark mode accent is #FF4D4D with near-black text on it; light card grey is #F9F9F7 so red passes AA on it; no opacity modifiers on text colours; no text-white on the accent
+- [x] Text size: no text below 12 px on Home, Portfolio and the in-chat cards; chat body 16 px; portfolio body matches chat body and still follows the font size toggle (16 px → 18.4 px at Large)
+- [x] Naming: the link to /portfolio is called "Portfolio" everywhere (no "Experience & Projects")
+- [x] Clearing the chat: Escape, and a visible "New chat" button, ask for confirmation first; the logo no longer clears the chat; confirming while an answer is streaming stops it first
+- [x] Model names: no model names or retrieval badges in the public UI (badges, tooltip, footer, portfolio project card, "what is askJun" answer)
+- [x] Shared components: AskInput, PromptChip, MetricTile, EmployerTimeline, DownloadCVLink, Wordmark
+- [x] Home, 1024 px and up: left dossier (portrait, name, title, availability, four metrics, six-employer timeline, Download CV, Email/LinkedIn/GitHub) stays visible during the conversation; right pane has the headline, input, four prompt cards and the ✦ chips
+- [x] Dossier prompts: each metric tile and employer row asks its question when clicked; "Bank of Singapore" questions no longer return the location answer (test added)
+- [x] Conversation: 720 px reading column; user bubble; red-square askJun label; one labelled row with Copy, Regenerate, Share and Stop (tooltips kept); follow-up chips; docked input; inline Download CV / Portfolio buttons, generative cards and the profile-image easter egg still work
+- [x] Portfolio page: studio avatar, four large metric tiles, roles show two bullets with "Show all", skills grouped by category, Game Dev and Side Projects collapsed by default, all existing content kept
+- [x] Below 1024 px: identity row, input, one scrolling chip row, 2 x 2 metrics, employer list, bottom bar with a real Download CV button and Portfolio; conversation header shows avatar, New chat and a CV button (plus Portfolio from 640 px)
+- [x] Checks: pnpm check and pnpm test (11 tests) pass; production build succeeds; light and dark checked in the browser at 375, 800, 1024 and 1280 px
+## Follow-ups noticed during the Direction B build (not done)
+- [ ] Eight GitHub links on the Portfolio page return 404 to visitors who are not signed in as Jun (Swipe, Trident, Trident Mobile, Mijun, Housewarmer, IsleProject, Booking Bot, Polygen); Swipe is also labelled public in the data. Decide: hide the GitHub link for private projects, or make the repositories public
+- [ ] Bundle: the main JS chunk is 1.95 MB (586 KB gzipped); route-level code splitting for /portfolio and /admin would cut the first load
+- [ ] 404 page still uses the template's blue/slate styling rather than the askJun design system
+- [ ] In-chat Tech Stack card uses four category dot colours outside the palette

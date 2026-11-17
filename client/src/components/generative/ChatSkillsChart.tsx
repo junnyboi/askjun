@@ -43,7 +43,7 @@ export function ChatSkillsChart() {
                 className="w-2 h-2 rounded-full"
                 style={{ backgroundColor: CATEGORY_COLORS[category] }}
               />
-              <span className="text-[10px] font-mono text-muted-foreground uppercase">
+              <span className="text-xs font-mono text-muted-foreground uppercase">
                 {CATEGORY_LABELS[category] || category}
               </span>
             </div>
@@ -54,7 +54,7 @@ export function ChatSkillsChart() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: catIndex * 0.1 + i * 0.03, duration: 0.2 }}
-                  className="text-[11px] font-mono px-2 py-0.5 rounded border border-border text-foreground/80 hover:border-accent/50 hover:text-accent transition-colors"
+                  className="text-xs font-mono px-2 py-0.5 rounded border border-border text-foreground hover:border-accent/50 hover:text-accent transition-colors"
                 >
                   {skill}
                 </motion.span>

@@ -6,8 +6,8 @@
 import { toast } from "sonner";
 import { analytics } from "./analytics";
 
-const CV_URL = "/assets/JunBoh-CV-2026.pdf";
-const CV_FILENAME = "JunBoh_CV_2026.pdf";
+export const CV_URL = "/assets/JunBoh-CV-2026.pdf";
+export const CV_FILENAME = "JunBoh_CV_2026.pdf";
 
 export async function downloadCV(e?: React.MouseEvent) {
   // Prevent the default <a> download behavior — we'll handle it manually

@@ -1,6 +1,6 @@
 # askJun Redesign Proposals
 
-Date: 17 Nov 2026. Baseline: checkpoint `0e73a474`. Status: **proposal only, no site code changed.**
+Date: 17 Nov 2026. Baseline: checkpoint `0e73a474`. Status: **Direction B chosen and built** (see section 6). The detailed build plan is in `plan.md`.
 
 Mockups were generated with `gpt-image-2.5` at high quality (the requested "Fable 5.2" is not offered in this environment, and gpt-image-2.5 was chosen instead). They show layout and tone, not a pixel specification. One mis-rendered letter in the Editorial headline was corrected after generation. The portrait in each is an AI rendering based on the existing header avatar. All copy and numbers in the mockups come from `client/src/data/portfolio.ts`.
 
@@ -127,20 +127,20 @@ C and D are better treated as sources of ideas (clickable fact tiles from C, the
 
 ## 6. Phased plan
 
-A detailed plan will be written for each phase before it starts, and this section updated after each phase.
+Direction B was built on 17 Nov 2026 following `plan.md`. Status of each phase:
 
-| Phase | Scope | Depends on direction? |
-|-------|-------|-----------------------|
-| 0. Quick fixes | Resize and re-encode the header avatar; contrast token fixes including a dark-mode red; raise the minimum text size; one name for the portfolio link; confirm before Escape clears the chat; remove model names from the public UI | No, can start now |
-| 1. Foundations | Type scale and spacing tokens; shared components for the ask input, chips and metric tiles | No |
-| 2. Home | The first screen in the chosen direction | Yes |
-| 3. Conversation | Reading column, action row, "New chat", inline answer cards; optional source chips (backend) | Mostly no |
-| 4. Portfolio page | Larger metrics, shorter scannable roles, same components as the home page | Light |
-| 5. Mobile and release | Mobile layout, light and dark checks, Lighthouse, tests, checkpoint, GitHub push | No |
+| Phase | Scope | Status |
+|-------|-------|--------|
+| 0. Quick fixes | Resize and re-encode the header avatar; contrast token fixes including a dark-mode red; raise the minimum text size; one name for the portfolio link; confirm before Escape clears the chat; remove model names from the public UI | Done |
+| 1. Foundations | Type scale and spacing tokens; shared components for the ask input, chips and metric tiles | Done |
+| 2. Home | The first screen in the chosen direction | Done (Split Dossier) |
+| 3. Conversation | Reading column, action row, "New chat", inline answer cards; optional source chips (backend) | Done, without source chips (decision 3 still open) |
+| 4. Portfolio page | Larger metrics, shorter scannable roles, same components as the home page | Done |
+| 5. Mobile and release | Mobile layout, light and dark checks, Lighthouse, tests, checkpoint, GitHub push | Done, except Lighthouse, which was not re-run |
 
 ## 7. Decisions needed
 
-1. Which direction: A, B, C, D, or a blend?
-2. Should the "GitHub" link point to the profile (`github.com/junnyboi`) instead of the `askjun` repository?
-3. Are source chips under answers wanted (extra backend work), or should they be left out?
-4. Keep dark mode with a lighter red, or keep the single brand red and accept the dark-mode contrast shortfall?
+1. Which direction: A, B, C, D, or a blend? **Decided: B.**
+2. Should the "GitHub" link point to the profile (`github.com/junnyboi`) instead of the `askjun` repository? **Open; link unchanged.**
+3. Are source chips under answers wanted (extra backend work), or should they be left out? **Open; not built.**
+4. Keep dark mode with a lighter red, or keep the single brand red and accept the dark-mode contrast shortfall? **Decided: lighter red (`#FF4D4D`) in dark mode.**

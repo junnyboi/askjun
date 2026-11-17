@@ -22,7 +22,7 @@ export default function FontScaleToggle() {
         <button
           onClick={cycleScale}
           aria-label={`${tooltipText} — click to change`}
-          className={`px-2 py-1 text-[11px] font-mono border rounded-md transition-all active:scale-90 ${
+          className={`h-9 px-2.5 text-xs font-mono border rounded-md transition-all active:scale-90 ${
             scale === "default"
               ? "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
               : "border-accent text-accent"

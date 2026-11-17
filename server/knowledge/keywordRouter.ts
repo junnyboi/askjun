@@ -30,7 +30,7 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
     keywords: ["resume", "cv", "download cv", "pdf", "download his"],
     match: {
       category: "resume",
-      response: "You can download Jun's CV directly from the **Download CV** button in the header or the one above. It's a comprehensive 2-page PDF covering his 7+ years of experience across Meta, HoYoverse, TikTok, and Bank of Singapore.",
+      response: "You can download Jun's CV with the **Download CV** button below. It's a comprehensive 2-page PDF covering his 7+ years of experience across Meta, HoYoverse, TikTok, and Bank of Singapore.",
     },
   },
   {
@@ -149,7 +149,7 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
     ],
     match: {
       category: "self_identification",
-      response: "**askjun.org** is Jun Boh's AI-powered portfolio website. It's a chat-first interface where recruiters, hiring managers, and anyone curious can ask questions about Jun's professional experience, skills, and career.\n\nThe site is built by Jun himself as a showcase of his frontend engineering and AI skills — it uses React, TypeScript, GPT-4.1-mini, and a hybrid RAG system with real-time SSE streaming. Think of it as a conversational resume.\n\nYou're talking to me right now! I'm the AI assistant trained specifically on Jun's career data. I can tell you about his work at Meta, HoYoverse, TikTok, and more.",
+      response: "**askjun.org** is Jun Boh's AI-powered portfolio website. It's a chat-first interface where recruiters, hiring managers, and anyone curious can ask questions about Jun's professional experience, skills, and career.\n\nThe site is built by Jun himself as a showcase of his frontend engineering and AI skills — it uses React, TypeScript, and a hybrid RAG system with real-time SSE streaming. Think of it as a conversational resume.\n\nYou're talking to me right now! I'm the AI assistant trained specifically on Jun's career data. I can tell you about his work at Meta, HoYoverse, TikTok, and more.",
     },
   },
   // ✦ Generative UI chip routes — return Jun-specific summaries alongside the interactive components
@@ -188,7 +188,9 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
  * Returns the pre-formatted response or null (fall through to semantic).
  */
 export function keywordRoute(query: string): StructuredMatch | null {
-  const lower = query.toLowerCase();
+  // "Bank of Singapore" is an employer, not a location question: keep its
+  // "singapore" from triggering the location route.
+  const lower = query.toLowerCase().replace(/bank of singapore/g, "bos");
   for (const { keywords, match } of TOOL_MAP) {
     if (keywords.some(kw => lower.includes(kw))) {
       return match;
