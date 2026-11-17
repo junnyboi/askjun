@@ -311,7 +311,9 @@
 - [x] Conversation: 720 px reading column; user bubble; red-square askJun label; one labelled row with Copy, Regenerate, Share and Stop (tooltips kept); follow-up chips; docked input; inline Download CV / Portfolio buttons, generative cards and the profile-image easter egg still work
 - [x] Portfolio page: studio avatar, four large metric tiles, roles show two bullets with "Show all", skills grouped by category, Game Dev and Side Projects collapsed by default, all existing content kept
 - [x] Below 1024 px: identity row, input, one scrolling chip row, 2 x 2 metrics, employer list, bottom bar with a real Download CV button and Portfolio; conversation header shows avatar, New chat and a CV button (plus Portfolio from 640 px)
-- [x] Checks: pnpm check and pnpm test (11 tests) pass; production build succeeds; light and dark checked in the browser at 375, 800, 1024 and 1280 px
+- [x] Checks: pnpm check and pnpm test (11 tests) pass; production build succeeds; light mode viewed at 375, 1024 and desktop widths; dark mode viewed at desktop width only
+- [ ] Not checked: dark mode at phone width, voice input, Share, the Cmd/Ctrl+K and "/" shortcuts, the "What does he look like?" easter egg, Lighthouse
+- [ ] Known gap: below 640 px there is no Portfolio link in the header during a conversation (no room beside New chat, CV, Aa and theme)
 ## Follow-ups noticed during the Direction B build (not done)
 - [ ] Eight GitHub links on the Portfolio page return 404 to visitors who are not signed in as Jun (Swipe, Trident, Trident Mobile, Mijun, Housewarmer, IsleProject, Booking Bot, Polygen); Swipe is also labelled public in the data. Decide: hide the GitHub link for private projects, or make the repositories public
 - [ ] Bundle: the main JS chunk is 1.95 MB (586 KB gzipped); route-level code splitting for /portfolio and /admin would cut the first load
