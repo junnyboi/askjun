@@ -14,6 +14,8 @@ import matter from "gray-matter";
 import crypto from "crypto";
 import { runHybridAgent } from "./agent";
 import { keywordRoute } from "./keywordRouter";
+import { resolveKnowledgeDir } from "./knowledgeDir";
+import { getSystemPrompt } from "./vectorStore";
 
 // ============================================================================
 // FALLBACK: Keyword-only router (used when vector store is unavailable)
@@ -36,7 +38,7 @@ let fallbackLoaded = false;
 
 function loadFallbackKnowledge(): void {
   if (fallbackLoaded) return;
-  const dir = path.resolve(import.meta.dirname);
+  const dir = resolveKnowledgeDir();
   const files = fs.readdirSync(dir).filter(f => f.endsWith(".md"));
 
   for (const file of files) {
@@ -98,6 +100,21 @@ export interface RetrievalResult {
   content: string;  // Either the final response (structured) or context for LLM (semantic)
 }
 
+const KNOWLEDGE_UNAVAILABLE_RESPONSE =
+  "I can't look that up right now. Please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or on [LinkedIn](https://linkedin.com/in/junboh).";
+
+/**
+ * The system prompt carries askJun's identity and guardrails. Without it the model
+ * would answer as a general assistant, so the question is not sent to the model at all.
+ */
+export function semanticResult(context: string, prompt: string): RetrievalResult {
+  if (!prompt.trim()) {
+    console.error("[Router] System prompt not loaded; not calling the model");
+    return { type: "structured", content: KNOWLEDGE_UNAVAILABLE_RESPONSE };
+  }
+  return { type: "semantic", content: context };
+}
+
 /**
  * Get relevant context for a user query using the hybrid agent.
  * Returns a RetrievalResult indicating whether the response is final (structured)
@@ -116,10 +133,10 @@ export async function getRelevantContext(query: string): Promise<RetrievalResult
     if (!result.context || result.context.length < 100) {
       const fallback = keywordFallback(query);
       console.log(`[Router] Vector store empty, using keyword fallback. Fallback length: ${fallback.length}`);
-      return { type: "semantic", content: fallback };
+      return semanticResult(fallback, systemPrompt);
     }
 
-    return { type: "semantic", content: result.context };
+    return semanticResult(result.context, getSystemPrompt());
   } catch (err) {
     console.warn("[Router] Hybrid agent failed, using keyword fallback:", err);
     // Check keyword router first even in fallback
@@ -129,6 +146,6 @@ export async function getRelevantContext(query: string): Promise<RetrievalResult
     }
     const fallback = keywordFallback(query);
     console.log(`[Router] Exception fallback length: ${fallback.length}`);
-    return { type: "semantic", content: fallback };
+    return semanticResult(fallback, systemPrompt);
   }
 }

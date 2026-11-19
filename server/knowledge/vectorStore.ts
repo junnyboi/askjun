@@ -10,6 +10,7 @@ import path from "path";
 import matter from "gray-matter";
 import crypto from "crypto";
 import { ENV } from "../_core/env";
+import { resolveKnowledgeDir } from "./knowledgeDir";
 
 interface KnowledgeChunk {
   id: string;
@@ -100,7 +101,7 @@ function cosineSimilarity(a: number[], b: number[]): number {
 export async function initVectorStore(): Promise<void> {
   if (initialized) return;
 
-  const dir = path.resolve(import.meta.dirname);
+  const dir = resolveKnowledgeDir();
   const files = fs.readdirSync(dir).filter(f => f.endsWith(".md"));
   const cache = loadCache();
   const newCache: EmbeddingCache = { model: EMBEDDING_MODEL, chunks: {} };
