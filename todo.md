@@ -296,8 +296,8 @@
 - [x] Generate proposal mockups with gpt-image-2.5 (docs/redesign/)
 - [x] DECISION: direction B (Split Dossier) chosen, with the shared conversation and mobile views
 - [x] DECISION: lighter accent red in dark mode approved
-- [ ] DECISION (open): point GitHub link at profile instead of askjun repo? Link left unchanged until answered
-- [ ] DECISION (open): source chips under answers (needs backend change)? Not built until answered
+- [x] DECISION (19 Nov 2026): GitHub link points at the profile, github.com/junnyboi (dossier, mobile first screen, Portfolio contact). The askJun project card keeps its own repo link
+- [x] DECISION (19 Nov 2026): source chips under answers were not selected; not built
 ## UI Overhaul: Direction B build (Nov 2026) — plan in plan.md
 - [x] Avatar: the 3.85 MB header PNG is no longer requested; one studio portrait is used on the first screen, served as image/webp from client/public/avatar in 96/320/640/960 px sizes (1.5 / 8 / 20 / 33 KB)
 - [x] Contrast: dark mode accent is #FF4D4D with near-black text on it; light card grey is #F9F9F7 so red passes AA on it; no opacity modifiers on text colours; no text-white on the accent
@@ -319,3 +319,4 @@
 - [ ] Bundle: the main JS chunk is 1.95 MB (586 KB gzipped); route-level code splitting for /portfolio and /admin would cut the first load
 - [ ] 404 page still uses the template's blue/slate styling rather than the askJun design system
 - [ ] In-chat Tech Stack card uses four category dot colours outside the palette
+- [ ] Semantic retrieval is not running in the dev sandbox: the embeddings call returns 404, so the vector store stays empty and answers use the keyword-fallback context (seen in dev logs on 17 and 19 Nov). Check whether the published site is affected, then fix the embeddings endpoint or model

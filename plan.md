@@ -11,6 +11,8 @@ Two proposal decisions are still unanswered, so they are **not** part of this bu
 - GitHub link target (`PROFILE.github` stays as it is).
 - Source chips under answers (no backend change, no chip in the UI).
 
+Update, 19 Nov 2026: Jun chose the profile for the GitHub link, so `PROFILE.github` is now `https://github.com/junnyboi`. Source chips were not selected and stay out.
+
 Non-goals: no change to chat safety guards, retrieval, the model chain, the CV file, the admin page, or the OG image. No new fonts. No publishing; the checkpoint is saved and Jun publishes when he has seen it.
 
 ## Design

@@ -134,13 +134,13 @@ Direction B was built on 17 Nov 2026 following `plan.md`. Status of each phase:
 | 0. Quick fixes | Resize and re-encode the header avatar; contrast token fixes including a dark-mode red; raise the minimum text size; one name for the portfolio link; confirm before Escape clears the chat; remove model names from the public UI | Done |
 | 1. Foundations | Type scale and spacing tokens; shared components for the ask input, chips and metric tiles | Done |
 | 2. Home | The first screen in the chosen direction | Done (Split Dossier) |
-| 3. Conversation | Reading column, action row, "New chat", inline answer cards; optional source chips (backend) | Done, without source chips (decision 3 still open) |
+| 3. Conversation | Reading column, action row, "New chat", inline answer cards; optional source chips (backend) | Done, without source chips (not selected) |
 | 4. Portfolio page | Larger metrics, shorter scannable roles, same components as the home page | Done |
 | 5. Mobile and release | Mobile layout, light and dark checks, Lighthouse, tests, checkpoint, GitHub push | Done, except Lighthouse (not re-run) and dark mode at phone width (not viewed) |
 
 ## 7. Decisions needed
 
 1. Which direction: A, B, C, D, or a blend? **Decided: B.**
-2. Should the "GitHub" link point to the profile (`github.com/junnyboi`) instead of the `askjun` repository? **Open; link unchanged.**
-3. Are source chips under answers wanted (extra backend work), or should they be left out? **Open; not built.**
+2. Should the "GitHub" link point to the profile (`github.com/junnyboi`) instead of the `askjun` repository? **Decided 19 Nov: yes, the profile.**
+3. Are source chips under answers wanted (extra backend work), or should they be left out? **Not selected on 19 Nov; left out.**
 4. Keep dark mode with a lighter red, or keep the single brand red and accept the dark-mode contrast shortfall? **Decided: lighter red (`#FF4D4D`) in dark mode.**
