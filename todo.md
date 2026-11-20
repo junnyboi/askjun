@@ -325,3 +325,9 @@ Found on askjun.org while checking the GitHub link change: "What did he build at
 - [x] Production build ships the knowledge files and the server finds them: a local production build logs 20 chunks and answers the Instawork question about Jun (build copies server/knowledge/*.md to dist/knowledge; 21 files)
 - [x] Fail safe: if the system prompt cannot be loaded, the server does not call the model; it replies with a message pointing to Jun's email and LinkedIn, and logs an error (run against a bundle with no knowledge files; canned answers still work)
 - [ ] askjun.org answers LLM-path questions about Jun after publishing (checked against the live site and its logs). NOT PUBLISHED: the fix is committed on local branch fix/knowledge-in-production-build and waits for Jun's go-ahead, because auto-publish is on
+## E2E testing of the revamped site (20 Nov 2026)
+Request: "conduct E2E testing of the revamped site and fix all bugs discovered." Plan and results: docs/E2E_TEST_REPORT.md. Suite: tests/e2e/.
+- [ ] E2E suite covers Home (empty state, dossier, small screens), conversation (streaming, Stop, Regenerate, Copy, Share, New chat, Escape, follow-ups, answer cards, guard replacement, errors, offline fallback), CV download (success and failure toast), Portfolio (sections, contents list, Show all, links), navigation and 404, admin gate, analytics events, accessibility (axe, keyboard), and the chat API guards
+- [ ] Suite runs against a production build of the live commit (baseline), in Chromium, WebKit and Firefox, at desktop and phone widths, light and dark; test traffic does not write analytics rows
+- [ ] Every confirmed bug is fixed or, where the fix is Jun's decision, listed with evidence; the suite is re-run after the fixes
+- [ ] Fixes saved as a checkpoint, pushed to GitHub, and the live site re-checked
