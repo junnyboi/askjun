@@ -315,9 +315,9 @@
 - [ ] Not checked: dark mode at phone width, voice input, Share, the Cmd/Ctrl+K and "/" shortcuts, the "What does he look like?" easter egg, Lighthouse
 - [ ] Known gap: below 640 px there is no Portfolio link in the header during a conversation (no room beside New chat, CV, Aa and theme)
 ## Follow-ups noticed during the Direction B build (not done)
-- [ ] Eight GitHub links on the Portfolio page return 404 to visitors who are not signed in as Jun (Swipe, Trident, Trident Mobile, Mijun, Housewarmer, IsleProject, Booking Bot, Polygen); Swipe is also labelled public in the data. Decide: hide the GitHub link for private projects, or make the repositories public
+- [x] Eight GitHub links on the Portfolio page return 404 to visitors who are not signed in as Jun (Swipe, Trident, Trident Mobile, Mijun, Housewarmer, IsleProject, Booking Bot, Polygen); Swipe is also labelled public in the data. Done 21 Nov: links removed, projects labelled "Private repo" (E2E P04). Making the repositories public remains Jun's choice
 - [ ] Bundle: the main JS chunk is 1.95 MB (586 KB gzipped); route-level code splitting for /portfolio and /admin would cut the first load
-- [ ] 404 page still uses the template's blue/slate styling rather than the askJun design system
+- [x] 404 page still uses the template's blue/slate styling rather than the askJun design system (done 21 Nov, E2E N01)
 - [ ] In-chat Tech Stack card uses four category dot colours outside the palette
 - [ ] Semantic retrieval is not running in the dev sandbox: the embeddings call returns 404, so the vector store stays empty and answers use the keyword-fallback context (seen in dev logs on 17 and 19 Nov). Check whether the published site is affected, then fix the embeddings endpoint or model
 ## Bug Fix: Published chat answers without the knowledge base (19 Nov 2026)
@@ -327,7 +327,9 @@ Found on askjun.org while checking the GitHub link change: "What did he build at
 - [ ] askjun.org answers LLM-path questions about Jun after publishing (checked against the live site and its logs). NOT PUBLISHED: the fix is committed on local branch fix/knowledge-in-production-build and waits for Jun's go-ahead, because auto-publish is on
 ## E2E testing of the revamped site (20 Nov 2026)
 Request: "conduct E2E testing of the revamped site and fix all bugs discovered." Plan and results: docs/E2E_TEST_REPORT.md. Suite: tests/e2e/.
-- [ ] E2E suite covers Home (empty state, dossier, small screens), conversation (streaming, Stop, Regenerate, Copy, Share, New chat, Escape, follow-ups, answer cards, guard replacement, errors, offline fallback), CV download (success and failure toast), Portfolio (sections, contents list, Show all, links), navigation and 404, admin gate, analytics events, accessibility (axe, keyboard), and the chat API guards
-- [ ] Suite runs against a production build of the live commit (baseline), in Chromium, WebKit and Firefox, at desktop and phone widths, light and dark; test traffic does not write analytics rows
-- [ ] Every confirmed bug is fixed or, where the fix is Jun's decision, listed with evidence; the suite is re-run after the fixes
+- [x] E2E suite covers Home (empty state, dossier, small screens), conversation (streaming, Stop, Regenerate, Copy, Share, New chat, Escape, follow-ups, answer cards, guard replacement, errors, offline fallback), CV download (success and failure toast), Portfolio (sections, contents list, Show all, links), navigation and 404, admin gate, analytics events, accessibility (axe, keyboard), and the chat API guards
+- [x] Suite runs against a production build of the live commit (baseline), in Chromium, WebKit and Firefox, at desktop and phone widths, light and dark; test traffic does not write analytics rows (baseline e3b5bcd in Chromium: 54 passed, 24 failed of 78; the test server runs with no database and analytics calls are intercepted in the page; WebKit and Firefox ran on the fixed build only)
+- [x] Every confirmed bug is fixed or, where the fix is Jun's decision, listed with evidence; the suite is re-run after the fixes (20 bugs fixed, 8 decisions listed in docs/E2E_TEST_REPORT.md; after: Chromium 78/78, WebKit + Firefox 114/114, real backend 3/3, unit tests 30)
 - [ ] Fixes saved as a checkpoint, pushed to GitHub, and the live site re-checked
+- [ ] Jun sets ADMIN_PASSWORD (project secret); until then /admin is locked. The old default is in the public repository's history and must not be reused
+- [ ] Decisions for Jun from the E2E report: visitor analytics records proxy addresses, not visitors; the model served is gemini-3.5-flash-lite, not gpt-4.1-mini; no embeddings model on the platform; claims not on the CV in the offline answers; Google's font stylesheet loads on every visit

@@ -5,18 +5,21 @@
  */
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
-import { Streamdown } from "streamdown";
 import { BookOpen, Check, Copy, RotateCw, Share, Square } from "lucide-react";
 import type { Message } from "@/hooks/useChatEngine";
 import { copyText } from "@/lib/clipboard";
 import { ChatActionButton } from "@/components/chat/ChatActionButton";
+import { ChatMarkdown } from "@/components/chat/ChatMarkdown";
 import { DownloadCVLink } from "@/components/DownloadCVLink";
 import { ChatEducationTimeline, ChatMetricsCard, ChatSkillsChart, ChatTimeline } from "@/components/generative";
 
 interface ChatMessageProps {
   message: Message;
-  /** True for the newest message, the one that may still be streaming */
+  /** True for the newest message; Share sits under it */
   isLast: boolean;
+  /** True while this answer is being written */
+  isStreaming: boolean;
+  /** True while any answer is being written; other answers can't be regenerated meanwhile */
   isTyping: boolean;
   onRegenerate: (messageId: string) => void;
   onStop: () => void;
@@ -26,7 +29,7 @@ interface ChatMessageProps {
 const ANSWER_TEXT_CLASSES =
   "chat-text text-foreground [&_strong]:font-semibold [&_strong]:text-accent [&_li]:ml-4 [&_li]:list-disc [&_code]:rounded [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-sm [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-opacity [&_a]:hover:opacity-70";
 
-export function ChatMessage({ message, isLast, isTyping, onRegenerate, onStop, onShare }: ChatMessageProps) {
+export function ChatMessage({ message, isLast, isStreaming, isTyping, onRegenerate, onStop, onShare }: ChatMessageProps) {
   const [copied, setCopied] = useState(false);
   const copiedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -46,8 +49,8 @@ export function ChatMessage({ message, isLast, isTyping, onRegenerate, onStop, o
     );
   }
 
-  const isStreaming = isTyping && isLast;
-  const hasContent = message.content.length > 0;
+  const hasContent = message.content.trim().length > 0;
+  const isFinished = hasContent && !isStreaming;
 
   const handleCopy = () => {
     copyText(message.content);
@@ -79,13 +82,13 @@ export function ChatMessage({ message, isLast, isTyping, onRegenerate, onStop, o
       {hasContent && (
         <div className={ANSWER_TEXT_CLASSES}>
           <div className="animate-in fade-in duration-150">
-            <Streamdown>{message.content}</Streamdown>
+            <ChatMarkdown content={message.content} />
           </div>
           {isStreaming && <span className="ml-0.5 inline-block h-4 w-0.5 animate-blink bg-accent align-middle" />}
         </div>
       )}
 
-      {!hasContent && isStreaming && !message.toolUse && (
+      {!hasContent && isStreaming && (
         <div className="flex items-center gap-3 py-2">
           <div className="flex h-4 items-end gap-[3px]" aria-hidden>
             {[0, 150, 300, 450].map((delay) => (
@@ -100,8 +103,17 @@ export function ChatMessage({ message, isLast, isTyping, onRegenerate, onStop, o
         </div>
       )}
 
+      {message.wasCutOff && !isStreaming && (
+        <p className="mt-3 font-mono text-[13px] text-muted-foreground">This answer was cut off. Regenerate to try again.</p>
+      )}
+
+      {/* Stopped before the first word: say so rather than leave a gap */}
+      {!hasContent && !isStreaming && (
+        <p className="chat-text text-muted-foreground">Stopped before an answer was written.</p>
+      )}
+
       {/* Answer cards and inline actions appear once the answer has finished */}
-      {hasContent && !isTyping && (
+      {isFinished && (
         <>
           {message.showProfileImage && (
             <div className="mt-3 max-w-[280px] overflow-hidden rounded-lg border border-border">
@@ -139,7 +151,7 @@ export function ChatMessage({ message, isLast, isTyping, onRegenerate, onStop, o
             onClick={onStop}
           />
         )}
-        {!isTyping && hasContent && (
+        {isFinished && (
           <ChatActionButton
             icon={copied ? <Check size={15} aria-hidden /> : <Copy size={15} aria-hidden />}
             label={copied ? "Copied" : "Copy"}

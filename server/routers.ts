@@ -3,40 +3,16 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { ENV } from "./_core/env";
+import { getClientIp } from "./_core/clientIp";
+import { parseChatMessages } from "./chatMessages";
+import { allowModelCall, allowVisitorQuestion, RATE_LIMIT_MESSAGE } from "./chatRateLimit";
 import { getRelevantContext, type RetrievalResult } from "./knowledge/router";
 import { getDb } from "./db";
 import { analyticsEvents, visitors } from "../drizzle/schema";
 import { eq, desc, sql, count, and, gte, lte } from "drizzle-orm";
 
-// In-memory rate limiter
-const rateLimits = new Map<string, { count: number; resetAt: number }>();
-
-// Periodic eviction — prevent unbounded memory growth
-setInterval(() => {
-  const now = Date.now();
-  rateLimits.forEach((limit, ip) => {
-    if (limit.resetAt <= now) rateLimits.delete(ip);
-  });
-}, 600000); // Every 10 minutes
-
 // Simple chat counter (resets on server restart, but gives a live feel)
 let chatCounter = 0;
-const RATE_LIMIT_MAX = 30; // messages per window
-const RATE_LIMIT_WINDOW = 3600000; // 1 hour in ms
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const limit = rateLimits.get(ip);
-  if (!limit || limit.resetAt <= now) {
-    rateLimits.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
-    return true;
-  }
-  if (limit.count >= RATE_LIMIT_MAX) {
-    return false;
-  }
-  limit.count++;
-  return true;
-}
 
 // Off-topic detection — prevent users from using askJun as a personal GPT
 const OFF_TOPIC_PATTERNS = [
@@ -83,10 +59,15 @@ function isOffTopicQuery(lowerInput: string): boolean {
   return false;
 }
 
+// The dashboard has no built-in password: until ADMIN_PASSWORD is set, nothing unlocks it.
+function isAdminPassword(candidate: string | undefined): boolean {
+  return ENV.adminPassword.length > 0 && candidate === ENV.adminPassword;
+}
+
 // Server-side admin gate middleware
 const adminGatedProcedure = publicProcedure.use(({ ctx, next }) => {
   const password = ctx.req.headers["x-admin-password"] as string | undefined;
-  if (password !== ENV.adminPassword) {
+  if (!isAdminPassword(password)) {
     throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid admin password" });
   }
   return next({ ctx });
@@ -119,18 +100,19 @@ export const appRouter = router({
       )
       .mutation(async ({ input, ctx }) => {
         chatCounter++;
-        // Rate limit by IP
-        const ip = ctx.req.ip || ctx.req.socket?.remoteAddress || "unknown";
-        if (!checkRateLimit(ip)) {
-          return {
-            content:
-              "I've reached the message limit for this session. Please try again in an hour, or reach Jun directly at **boh.ze.jun@gmail.com**.",
-            rateLimited: true,
-          };
+        // Same request rules as the streaming endpoint
+        const messages = parseChatMessages(input.messages);
+        if (!messages) {
+          throw new TRPCError({ code: "BAD_REQUEST", message: "Messages must end with a question and contain text." });
+        }
+
+        // Rate limit, per visitor (shared with the streaming endpoint)
+        if (!allowVisitorQuestion(getClientIp(ctx.req))) {
+          return { content: RATE_LIMIT_MESSAGE, rateLimited: true };
         }
 
         // === PROMPT INJECTION HARDENING ===
-        const lastUserMessage = input.messages[input.messages.length - 1]?.content || "";
+        const lastUserMessage = messages[messages.length - 1]?.content || "";
 
         // 1. Max input length enforcement (500 chars per message)
         if (lastUserMessage.length > 500) {
@@ -172,7 +154,7 @@ export const appRouter = router({
         }
 
         // 3. Session token budget (max total input chars across all messages: 10000)
-        const totalInputChars = input.messages.reduce((sum, m) => sum + m.content.length, 0);
+        const totalInputChars = messages.reduce((sum, m) => sum + m.content.length, 0);
         if (totalInputChars > 10000) {
           return {
             content: "This conversation is getting quite long! For more detailed discussions, please reach Jun directly at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com).",
@@ -203,10 +185,15 @@ export const appRouter = router({
             return { content: retrieval.content, rateLimited: false, retrievalType: "keyword" as const };
           }
 
+          // Model calls are also capped site-wide
+          if (!allowModelCall()) {
+            return { content: RATE_LIMIT_MESSAGE, rateLimited: true };
+          }
+
           // Semantic path: use retrieved context as system prompt for LLM
           const chatMessages = [
             { role: "system" as const, content: retrieval.content },
-            ...input.messages.slice(-5),
+            ...messages.slice(-5),
           ];
 
           // Model fallback chain: gpt-4.1-mini → gpt-4o-mini → deepseek-chat
@@ -364,7 +351,7 @@ export const appRouter = router({
     verify: publicProcedure
       .input(z.object({ password: z.string() }))
       .mutation(({ input }) => {
-        return { valid: input.password === ENV.adminPassword };
+        return { valid: isAdminPassword(input.password) };
       }),
     stats: adminGatedProcedure
       .input(z.object({ from: z.string().optional(), to: z.string().optional() }).optional())

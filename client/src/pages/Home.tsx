@@ -14,6 +14,7 @@ import { Link } from "wouter";
 import { ArrowDown } from "lucide-react";
 import { analytics } from "@/lib/analytics";
 import { useChatEngine } from "@/hooks/useChatEngine";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { AskInput } from "@/components/AskInput";
 import { DossierPane } from "@/components/DossierPane";
 import { DownloadCVLink } from "@/components/DownloadCVLink";
@@ -25,18 +26,23 @@ import { ChatTopBar } from "@/components/chat/ChatTopBar";
 
 const GRAIN_TEXTURE = `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`;
 const DESKTOP_MIN_WIDTH = 1024;
+// Gap kept above an answer when it is scrolled to the top of the pane, and the column's bottom padding
+const ANSWER_TOP_GAP = 16;
+const COLUMN_BOTTOM_PADDING = 40;
 
 export default function Home() {
   const {
-    messages, input, setInput, isTyping, usedChips,
+    messages, input, setInput, isTyping, streamingId, latestAnswerId, usedChips,
     hasMessages, handleSend, handleStopGenerating, handleRegenerate, handleShare, resetConversation,
   } = useChatEngine();
+  usePageTitle("askJun — AI Portfolio");
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [showProfileZoom, setShowProfileZoom] = useState(false);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
   const [isNewChatDialogOpen, setIsNewChatDialogOpen] = useState(false);
+  const [paneHeight, setPaneHeight] = useState(0);
 
   // Read inside the window key handler, which is registered once
   const keyStateRef = useRef({ hasMessages, showProfileZoom, isNewChatDialogOpen });
@@ -46,18 +52,31 @@ export default function Home() {
   const canShowFollowUps =
     !isTyping && messages.length >= 2 && lastMessage?.role === "assistant" && lastMessage.content.length > 0;
 
+  // From the second exchange on, the newest answer is given enough room below it to be
+  // scrolled to the top of the pane even while it is still short.
+  const latestMinHeight =
+    messages.length > 2 ? Math.max(0, paneHeight - ANSWER_TOP_GAP - COLUMN_BOTTOM_PADDING) : undefined;
+
   const ask = (prompt: string) => {
+    if (isTyping) return; // one answer at a time; an ignored click is not a question asked
     analytics.chipClick(prompt);
     handleSend(prompt);
   };
 
   const confirmNewChat = () => {
-    // Stop first: an answer that is still streaming would otherwise leave the input busy
-    handleStopGenerating();
     resetConversation();
     setInput("");
     setIsNewChatDialogOpen(false);
   };
+
+  // Track the height of the conversation pane
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const observer = new ResizeObserver(() => setPaneHeight(container.clientHeight));
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   // Track whether the reader is away from the bottom of the conversation
   useEffect(() => {
@@ -120,37 +139,26 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
-  // Scroll once so a new answer starts at the top of the pane, then hold while it streams
-  const hasScrolledToResponseRef = useRef(false);
-  const lastAssistantIdRef = useRef<string | null>(null);
+  // Scroll once so the newest answer starts at the top of the pane, then hold while it streams
+  const scrolledAnswerIdRef = useRef<string | null>(null);
 
   useEffect(() => {
-    if (!scrollRef.current) return;
-    const lastMsg = messages[messages.length - 1];
-    if (!lastMsg || lastMsg.role !== "assistant") return;
+    const container = scrollRef.current;
+    const answer = messages.find(m => m.id === latestAnswerId);
+    // Wait for the first word
+    if (!container || !answer || !answer.content || scrolledAnswerIdRef.current === answer.id) return;
+    scrolledAnswerIdRef.current = answer.id;
 
-    if (lastMsg.id !== lastAssistantIdRef.current) {
-      lastAssistantIdRef.current = lastMsg.id;
-      hasScrolledToResponseRef.current = false;
-    }
-
-    // Wait for the first token, then scroll once
-    if (!hasScrolledToResponseRef.current && lastMsg.content.length > 0) {
-      hasScrolledToResponseRef.current = true;
-      // Double rAF so the content has painted before measuring
+    // Double rAF so the content has painted before measuring
+    requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          const responseEl = scrollRef.current?.querySelector(`[data-msg-id="${lastMsg.id}"]`);
-          if (responseEl && scrollRef.current) {
-            const containerRect = scrollRef.current.getBoundingClientRect();
-            const elementRect = responseEl.getBoundingClientRect();
-            const scrollOffset = elementRect.top - containerRect.top + scrollRef.current.scrollTop - 16;
-            scrollRef.current.scrollTo({ top: scrollOffset, behavior: "smooth" });
-          }
-        });
+        const answerEl = container.querySelector(`[data-msg-id="${answer.id}"]`);
+        if (!answerEl) return;
+        const offset = answerEl.getBoundingClientRect().top - container.getBoundingClientRect().top;
+        container.scrollTo({ top: container.scrollTop + offset - ANSWER_TOP_GAP, behavior: "smooth" });
       });
-    }
-  }, [messages]);
+    });
+  }, [messages, latestAnswerId]);
 
   return (
     <div className="relative flex h-dvh overflow-hidden bg-background">
@@ -170,18 +178,25 @@ export default function Home() {
             {hasMessages ? (
               <div className="px-4 lg:px-10">
                 <div className="mx-auto w-full max-w-[720px] space-y-8 pb-10 pt-4">
-                  {messages.map((msg, i) => (
-                    <ChatMessage
-                      key={msg.id}
-                      message={msg}
-                      isLast={i === messages.length - 1}
-                      isTyping={isTyping}
-                      onRegenerate={handleRegenerate}
-                      onStop={handleStopGenerating}
-                      onShare={handleShare}
-                    />
-                  ))}
-                  {canShowFollowUps && <ChatFollowUps messages={messages} usedChips={usedChips} onAsk={ask} />}
+                  {messages.map((msg) => {
+                    const isLatestAnswer = msg === lastMessage && msg.role === "assistant";
+                    return (
+                      <div key={msg.id} className="space-y-8" style={isLatestAnswer ? { minHeight: latestMinHeight } : undefined}>
+                        <ChatMessage
+                          message={msg}
+                          isLast={msg === lastMessage}
+                          isStreaming={msg.id === streamingId}
+                          isTyping={isTyping}
+                          onRegenerate={handleRegenerate}
+                          onStop={handleStopGenerating}
+                          onShare={handleShare}
+                        />
+                        {isLatestAnswer && canShowFollowUps && (
+                          <ChatFollowUps messages={messages} usedChips={usedChips} onAsk={ask} />
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             ) : (

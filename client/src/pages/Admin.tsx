@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 // Store the admin password globally so the tRPC fetch wrapper can access it
@@ -14,6 +15,7 @@ let _adminPassword = "";
 export function getAdminPassword() { return _adminPassword; }
 
 export default function Admin() {
+  usePageTitle("Admin — askJun");
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [error, setError] = useState("");

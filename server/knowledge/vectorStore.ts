@@ -191,6 +191,9 @@ export async function initVectorStore(): Promise<void> {
 export async function similaritySearch(query: string, topK: number = 3): Promise<KnowledgeChunk[]> {
   await initVectorStore();
 
+  // Nothing to compare against (embeddings unavailable): skip the query embedding call
+  if (!chunks.some(c => c.embedding)) return [];
+
   // Embed the query
   let queryEmbedding: number[];
   try {

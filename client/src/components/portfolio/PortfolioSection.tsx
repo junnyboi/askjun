@@ -12,10 +12,15 @@ interface PortfolioSectionProps {
   title: string;
   isOpen: boolean;
   onToggle: () => void;
+  /** Called once the section has finished opening */
+  onOpened: (id: string) => void;
   children: ReactNode;
 }
 
-export function PortfolioSection({ id, title, isOpen, onToggle, children }: PortfolioSectionProps) {
+const OPEN = { height: "auto", opacity: 1 };
+const CLOSED = { height: 0, opacity: 0 };
+
+export function PortfolioSection({ id, title, isOpen, onToggle, onOpened, children }: PortfolioSectionProps) {
   return (
     <section id={id} className="scroll-mt-20 border-t border-border py-6">
       <button
@@ -40,10 +45,13 @@ export function PortfolioSection({ id, title, isOpen, onToggle, children }: Port
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={CLOSED}
+            animate={OPEN}
+            exit={CLOSED}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+            onAnimationComplete={(definition) => {
+              if (definition === OPEN) onOpened(id);
+            }}
             className="overflow-hidden"
           >
             <div className="pt-5">{children}</div>

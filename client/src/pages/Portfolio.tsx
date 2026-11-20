@@ -6,7 +6,7 @@
  * ============================================================================
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowUp, Github, Linkedin, Mail, Menu, MessageCircle, Phone } from "lucide-react";
@@ -18,6 +18,7 @@ import { JunAvatar } from "@/components/JunAvatar";
 import { MetricTile } from "@/components/MetricTile";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Wordmark } from "@/components/Wordmark";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { ExperienceItem } from "@/components/portfolio/ExperienceItem";
 import { FeaturedProjectCard } from "@/components/portfolio/FeaturedProjectCard";
 import { LinkedProjectCard } from "@/components/portfolio/LinkedProjectCard";
@@ -62,15 +63,36 @@ export default function Portfolio() {
     Object.fromEntries(SECTIONS.map(({ id }) => [id, !INITIALLY_CLOSED.includes(id)]))
   );
 
-  const toggleSection = (id: string) => setOpenSections((prev) => ({ ...prev, [id]: !prev[id] }));
+  // A closed section that the reader asked to jump to; scrolled to once it has opened
+  const pendingJumpRef = useRef<string | null>(null);
+  usePageTitle("Portfolio — askJun");
 
-  // Jumping to a section opens it first, so the reader never lands on a closed heading
+  const toggleSection = (id: string) => {
+    pendingJumpRef.current = null;
+    setOpenSections((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // Jumping to a closed section opens it first, so the reader never lands on a closed heading.
+  // The scroll waits for the section to finish opening: scrolling while it grows gets cancelled.
   const jumpToSection = (id: string) => {
-    setOpenSections((prev) => ({ ...prev, [id]: true }));
     setShowMobileNav(false);
-    requestAnimationFrame(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
+    if (openSections[id]) {
+      pendingJumpRef.current = null;
+      scrollToSection(id);
+      return;
+    }
+    pendingJumpRef.current = id;
+    setOpenSections((prev) => ({ ...prev, [id]: true }));
+  };
+
+  const handleSectionOpened = (id: string) => {
+    if (pendingJumpRef.current !== id) return;
+    pendingJumpRef.current = null;
+    scrollToSection(id);
   };
 
   // Track scroll position for back-to-top button
@@ -165,13 +187,13 @@ export default function Portfolio() {
               ))}
             </div>
 
-            <PortfolioSection id="experience" title="Experience" isOpen={openSections.experience} onToggle={() => toggleSection("experience")}>
+            <PortfolioSection id="experience" title="Experience" isOpen={openSections.experience} onToggle={() => toggleSection("experience")} onOpened={handleSectionOpened}>
               {EXPERIENCES.map((exp) => (
                 <ExperienceItem key={exp.company} experience={exp} />
               ))}
             </PortfolioSection>
 
-            <PortfolioSection id="skills" title="Skills" isOpen={openSections.skills} onToggle={() => toggleSection("skills")}>
+            <PortfolioSection id="skills" title="Skills" isOpen={openSections.skills} onToggle={() => toggleSection("skills")} onOpened={handleSectionOpened}>
               <div className="space-y-4">
                 {SKILL_GROUPS.map(({ category, label }) => (
                   <div key={category}>
@@ -188,7 +210,7 @@ export default function Portfolio() {
               </div>
             </PortfolioSection>
 
-            <PortfolioSection id="projects" title="Featured Projects" isOpen={openSections.projects} onToggle={() => toggleSection("projects")}>
+            <PortfolioSection id="projects" title="Featured Projects" isOpen={openSections.projects} onToggle={() => toggleSection("projects")} onOpened={handleSectionOpened}>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {FEATURED_PROJECTS.map((project) => (
                   <FeaturedProjectCard key={project.title} project={project} />
@@ -196,7 +218,7 @@ export default function Portfolio() {
               </div>
             </PortfolioSection>
 
-            <PortfolioSection id="gamedev" title="Game Dev" isOpen={openSections.gamedev} onToggle={() => toggleSection("gamedev")}>
+            <PortfolioSection id="gamedev" title="Game Dev" isOpen={openSections.gamedev} onToggle={() => toggleSection("gamedev")} onOpened={handleSectionOpened}>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {GAME_PROJECTS.map((project) => (
                   <LinkedProjectCard key={project.title} project={project} />
@@ -204,7 +226,7 @@ export default function Portfolio() {
               </div>
             </PortfolioSection>
 
-            <PortfolioSection id="side-projects" title="Side Projects" isOpen={openSections["side-projects"]} onToggle={() => toggleSection("side-projects")}>
+            <PortfolioSection id="side-projects" title="Side Projects" isOpen={openSections["side-projects"]} onToggle={() => toggleSection("side-projects")} onOpened={handleSectionOpened}>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {SIDE_PROJECTS.map((project) => (
                   <LinkedProjectCard key={project.title} project={project} />
@@ -212,7 +234,7 @@ export default function Portfolio() {
               </div>
             </PortfolioSection>
 
-            <PortfolioSection id="education" title="Education" isOpen={openSections.education} onToggle={() => toggleSection("education")}>
+            <PortfolioSection id="education" title="Education" isOpen={openSections.education} onToggle={() => toggleSection("education")} onOpened={handleSectionOpened}>
               {EDUCATION.map((edu) => (
                 <div key={edu.school} className={ENTRY_CLASSES}>
                   <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -224,7 +246,7 @@ export default function Portfolio() {
               ))}
             </PortfolioSection>
 
-            <PortfolioSection id="awards" title="Awards & Recognition" isOpen={openSections.awards} onToggle={() => toggleSection("awards")}>
+            <PortfolioSection id="awards" title="Awards & Recognition" isOpen={openSections.awards} onToggle={() => toggleSection("awards")} onOpened={handleSectionOpened}>
               {AWARDS.map((award) => (
                 <div key={award.title} className={ENTRY_CLASSES}>
                   <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -237,7 +259,7 @@ export default function Portfolio() {
               ))}
             </PortfolioSection>
 
-            <PortfolioSection id="speaking" title="Speaking" isOpen={openSections.speaking} onToggle={() => toggleSection("speaking")}>
+            <PortfolioSection id="speaking" title="Speaking" isOpen={openSections.speaking} onToggle={() => toggleSection("speaking")} onOpened={handleSectionOpened}>
               {TALKS.map((talk) => (
                 <div key={talk.title} className={ENTRY_CLASSES}>
                   <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -250,7 +272,7 @@ export default function Portfolio() {
               ))}
             </PortfolioSection>
 
-            <PortfolioSection id="contact" title="Contact" isOpen={openSections.contact} onToggle={() => toggleSection("contact")}>
+            <PortfolioSection id="contact" title="Contact" isOpen={openSections.contact} onToggle={() => toggleSection("contact")} onOpened={handleSectionOpened}>
               <div className="flex flex-wrap gap-2">
                 <a href={`mailto:${PROFILE.email}`} className={CONTACT_LINK_CLASSES}>
                   <Mail size={15} aria-hidden />

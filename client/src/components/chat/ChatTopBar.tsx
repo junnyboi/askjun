@@ -24,10 +24,9 @@ export function ChatTopBar({ hasMessages, onNewChat }: ChatTopBarProps) {
         {hasMessages ? (
           <div className="flex min-w-0 items-center gap-2.5 lg:hidden">
             <JunAvatar size={32} className="rounded-full border border-border" />
-            {/* The narrowest phones have room for the avatar only */}
-            <span className="hidden truncate font-display text-base font-bold text-foreground min-[420px]:inline">
-              {PROFILE.name}
-            </span>
+            {/* The page heading on small screens. The narrowest phones have room for the avatar
+                only, so there it is kept for screen readers and hidden from view. */}
+            <h1 className="sr-only truncate text-base text-foreground min-[420px]:not-sr-only">{PROFILE.name}</h1>
           </div>
         ) : (
           <Wordmark className="text-xl lg:hidden" />

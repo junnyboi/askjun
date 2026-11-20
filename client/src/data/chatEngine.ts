@@ -136,23 +136,13 @@ Key achievements:
 Before that, he was a **Data Scientist at DBS Bank** (2018), where he analyzed ~6M client relationships using graph theory, driving sales by at least 150%.`,
   },
 
-  // Tech stack
+  // Tech stack — the same list the server gives (from the CV)
   stack: {
-    text: `Jun's technical toolkit is broad and battle-tested:
+    text: `**Languages:** JavaScript, React, Vue, TypeScript, Python, Django, SQL
 
-**Frontend (Primary):**
-React, TypeScript, Vue.js, Tailwind CSS, Framer Motion
+**Tools:** Git, Docker, Shell, Browser Dev Tools, Postman, Fiddler, CI/CD pipelines
 
-**Backend:**
-Node.js, Python/Django, Java/Spring Boot, Golang
-
-**Infrastructure:**
-Git, Docker, CI/CD pipelines, Webpack/Vite, Kafka
-
-**Domain Expertise:**
-AI Agent Interfaces, Payment Systems (50+ methods, 100+ countries), High-Traffic Architecture (8M DAU), GDPR Compliance, Real-time Collaboration
-
-He's not a "React developer" — he's a **systems thinker** who happens to be exceptionally good at React. The distinction matters.`,
+**Domains:** AI Agent Interfaces, Payment Systems (50+ methods, 100+ countries), High-Traffic Architecture (8M DAU), GDPR Compliance`,
   },
 
   react: {
@@ -186,7 +176,7 @@ His TypeScript usage isn't just "adding types to JavaScript" — it's leveraging
 
 **Impact:** At TikTok (1B MAU, $58B revenue), his GDPR compliance work protected the company from multi-million-euro fines. At Bank of Singapore ($120B AUM), his innovation projects saved **$1.5M annually**.
 
-**Range:** React, TypeScript, Vue, Python, Golang, Java — he's shipped production code in all of them. Frontend specialist who can go full-stack when the mission demands it.
+**Range:** React, TypeScript, Vue, Python, Django, SQL — frontend specialist who goes full-stack when needed.
 
 **Proof:** You're chatting with it. This site — **askJun** — is a production AI agent he designed and shipped from scratch. The portfolio *is* the portfolio piece.`,
   },
@@ -199,15 +189,13 @@ His TypeScript usage isn't just "adding types to JavaScript" — it's leveraging
 2. **Work at scale** — He thrives in environments with millions of users (8M DAU at HoYoverse, TikTok's global platform)
 3. **Drive technical innovation** — From genetic algorithms at Bank of Singapore to real-time collaboration at Manus
 
-He's looking for **Senior Frontend** or **Full Stack** roles at companies that are pushing the boundaries of what software can do. Singapore-based preferred, but open to compelling opportunities.
+He's looking for **Forward Deployed Engineer or Senior Software Engineer roles** at companies building AI-native products. Singapore-based preferred, but open to compelling opportunities.
 
 *Note: For specific compensation discussions, please reach out directly via email or LinkedIn.*`,
   },
 
   salary: {
-    text: `That's a great question! You should reach Jun directly at **[boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com)** or connect with him on **[LinkedIn](https://linkedin.com/in/junboh)** to discuss compensation expectations.
-
-What I *can* tell you is that Jun is currently at a senior IC level at a FAANG company, so his expectations are calibrated accordingly. He values the total package — base, equity, bonus, and the opportunity to work on meaningful problems.`,
+    text: `That's a great question! Compensation is best discussed directly. You should reach Jun at [boh.ze.jun@gmail.com](mailto:boh.ze.jun@gmail.com) or connect with him on [LinkedIn](https://linkedin.com/in/junboh) to discuss compensation expectations for the specific role.`,
   },
 
   // Challenge / achievement

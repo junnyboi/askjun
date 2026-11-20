@@ -8,6 +8,6 @@ export const ENV = {
   // Forge API (storage proxy, etc.)
   forgeApiUrl: process.env.BUILT_IN_FORGE_API_URL ?? "",
   forgeApiKey: process.env.BUILT_IN_FORGE_API_KEY ?? "",
-  // Admin dashboard password
-  adminPassword: process.env.ADMIN_PASSWORD ?? "mijun",
+  // Admin dashboard password. No default: the dashboard stays locked until one is set.
+  adminPassword: process.env.ADMIN_PASSWORD ?? "",
 };

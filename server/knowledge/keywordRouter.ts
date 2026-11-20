@@ -23,7 +23,7 @@ const TOOL_MAP: Array<{ keywords: string[]; match: StructuredMatch }> = [
     keywords: ["github", "repo", "source code", "open source"],
     match: {
       category: "github",
-      response: "Jun's GitHub is [github.com/junnyboi](https://github.com/junnyboi). Notable repos include [askJun](https://github.com/junnyboi/askjun) (this AI portfolio), [Swipe](https://github.com/junnyboi/swipe) (image pinboard), and [Trident](https://github.com/junnyboi/trident) (macOS productivity app).",
+      response: "Jun's GitHub is [github.com/junnyboi](https://github.com/junnyboi). Public repos include [askJun](https://github.com/junnyboi/askjun) (this AI portfolio), [Gobbo-2D](https://github.com/junnyboi/Gobbo-2D) (Unity game) and [tony-stocks](https://github.com/junnyboi/tony-stocks) (finance tracker). Other projects, such as Swipe and Trident, are in private repositories.",
     },
   },
   {

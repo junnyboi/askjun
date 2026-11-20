@@ -4,13 +4,13 @@ title: App & Web Projects
 keywords: [trident, swipe, mijun, housewarmer, project, side project, app, macos, android, kotlin, swift, ecommerce, tea]
 priority: medium
 tokens: 400
-content_hash: "a3b4c5d6"
+content_hash: "a3b4c5d7"
 version: 1
 ---
 
 ## Personal Projects & Side Ventures
 
-### Swipe (Live: swipe.manus.space)
+### Swipe
 An image aggregation pinboard web app — save, organize, and discover visual inspiration. Built with TypeScript, React, and Node.js. Full-stack application with user accounts, image uploads, and board organization.
 
 ### Trident (macOS) + Trident Mobile (Android)

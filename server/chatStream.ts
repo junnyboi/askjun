@@ -7,31 +7,11 @@
 import { Request, Response } from "express";
 import { ENV } from "./_core/env";
 import { getRelevantContext } from "./knowledge/router";
+import { getClientIp } from "./_core/clientIp";
+import { parseChatMessages } from "./chatMessages";
+import { allowModelCall, allowVisitorQuestion, RATE_LIMIT_MESSAGE } from "./chatRateLimit";
 
-// Rate limiting (shared with tRPC endpoint)
-const streamRateLimits = new Map<string, { count: number; resetAt: number }>();
-const RATE_LIMIT_MAX = 30;
-const RATE_LIMIT_WINDOW = 3600000;
-
-// Periodic eviction — prevent unbounded memory growth
-setInterval(() => {
-  const now = Date.now();
-  streamRateLimits.forEach((limit, ip) => {
-    if (limit.resetAt <= now) streamRateLimits.delete(ip);
-  });
-}, 600000); // Every 10 minutes
-
-function checkStreamRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const limit = streamRateLimits.get(ip);
-  if (!limit || limit.resetAt <= now) {
-    streamRateLimits.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
-    return true;
-  }
-  if (limit.count >= RATE_LIMIT_MAX) return false;
-  limit.count++;
-  return true;
-}
+const GENERIC_ERROR_MESSAGE = "Something went wrong. Please try again.";
 
 // Injection patterns (shared with tRPC endpoint)
 const INJECTION_PATTERNS = [
@@ -115,22 +95,40 @@ function isOffTopic(lowerInput: string): boolean {
   return false;
 }
 
-export async function chatStreamHandler(req: Request, res: Response) {
-  const ip = req.ip || req.socket?.remoteAddress || "unknown";
+/**
+ * Express does not catch errors thrown by async handlers; an uncaught one ends
+ * the server process. Every failure is answered here instead.
+ */
+export function chatStreamHandler(req: Request, res: Response) {
+  handleChatStream(req, res).catch(error => {
+    console.error("[ChatStream] Unhandled error:", error);
+    if (res.headersSent) {
+      res.end();
+    } else {
+      res.status(500).json({ type: "error", content: GENERIC_ERROR_MESSAGE });
+    }
+  });
+}
 
-  // Rate limit
-  if (!checkStreamRateLimit(ip)) {
-    res.status(429).json({ error: "Rate limited. Try again in an hour." });
+async function handleChatStream(req: Request, res: Response) {
+  const messages = parseChatMessages((req.body as { messages?: unknown } | undefined)?.messages);
+  if (!messages) {
+    res.status(400).json({
+      type: "error",
+      error: "Messages must be a list of user and assistant turns with text content, ending with a question.",
+    });
     return;
   }
 
-  const { messages } = req.body as { messages: Array<{ role: string; content: string }> };
-  if (!messages || !Array.isArray(messages) || messages.length === 0) {
-    res.status(400).json({ error: "Messages array required" });
+  // Rate limit, per visitor
+  const rateLimited = () =>
+    res.status(429).json({ type: "error", error: "Rate limited. Try again in an hour.", content: RATE_LIMIT_MESSAGE });
+  if (!allowVisitorQuestion(getClientIp(req))) {
+    rateLimited();
     return;
   }
 
-  const lastUserMessage = messages[messages.length - 1]?.content || "";
+  const lastUserMessage = messages[messages.length - 1].content;
 
   // Input validation
   if (lastUserMessage.length > 500) {
@@ -169,7 +167,11 @@ export async function chatStreamHandler(req: Request, res: Response) {
     return;
   }
 
-  // Semantic path — stream from LLM via SSE
+  // Semantic path — stream from LLM via SSE. Model calls are also capped site-wide.
+  if (!allowModelCall()) {
+    rateLimited();
+    return;
+  }
   const llmUrl = ENV.llmApiUrl
     ? `${ENV.llmApiUrl.replace(/\/$/, "")}/v1/chat/completions`
     : "https://api.openai.com/v1/chat/completions";
